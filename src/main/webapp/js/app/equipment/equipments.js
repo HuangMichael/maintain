@@ -47,7 +47,7 @@ $(function () {
     }).on("selected.rs.jquery.bootgrid", function (e, rows) {
         for (var x in rows) {
             if (!isNaN(rows[x]["index"])) {
-                selectedId.push(rows[x]["index"]);
+                selectedId.push(rows[x]["index"] - 1);
                 selectedId = selectedId.sort();
             }
         }
@@ -55,14 +55,15 @@ $(function () {
         var vdm = new Vue({
             el: "#detailForm",
             data: {
-                equipments: eqs[0],
+                equipments: eqs[selectedId[0]],
                 locs: locs,
                 eqClasses: eqClasses,
             },
             methods: {
                 previous: function (event) {
-                    if (--pointer > -1) {
+                    if (pointer > 0) {
                         vdm.$set("equipments", eqs[selectedId[pointer]]);
+                        pointer--;
                     } else {
                         showMessageBox("info", "已经是第一条");
                         return;
@@ -71,8 +72,9 @@ $(function () {
 
                 },
                 next: function (event) {
-                    if (++pointer < selectedId.length) {
+                    if (pointer < selectedId.length) {
                         vdm.$set("equipments", eqs[selectedId[pointer]]);
+                        pointer++;
                     } else {
                         showMessageBox("info", "已经是最后一条");
                         return;

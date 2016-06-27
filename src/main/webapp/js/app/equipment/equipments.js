@@ -80,9 +80,6 @@ $(function () {
                         return;
                     }
 
-                },
-                loadEqClass: function () {
-                    vdm.$set("eqClasses", eqClasses);
                 }
             }
         });
@@ -94,7 +91,6 @@ $(function () {
             selectedId.remove(rows[x]["index"]);
             selectedId = selectedId.sort();
         }
-        console.log("selectedId-----------" + selectedId);
     });
 });
 
@@ -144,54 +140,6 @@ function equipReport(id) {
     })
 }
 
-/**
- * 根据对应的设备id获取设备的信息  并且填充所有的设备明细信息
- * @param id  设备id
- * @param formId form detail
- */
-function fillDetailByEqId(id, formId) {
-    var url = "/equipment/findById/" + id;
-    $.getJSON(url, function (data) {
-
-        fillForm(data, formId);
-        console.log("assetNo----" + data.assetNo);
-        $("#eqCode").val(data.eqCode);
-        $("#description").val(data.description);
-        $("#maintainer").val(data.maintainer);
-        $("#eqModel").val(data.eqModel);
-
-
-        $("#locations_id").val(data.locations.id);
-        $("#unit_id").val(data.unit.id);
-        $("#manageLevel").val(data.manageLevel);
-        $("#assetNo").val(data.assetNo);
-        $("#productFactory").val(data.productFactory);
-        $("#equipmentsClassification_id").val(data.equipmentsClassification.id);
-        $("#status").val(data.status);
-        $("#running").val(data.running);
-    });
-}
-
-function fillDetail(id, formId) {
-    var url = "/equipment/findEquipment/" + id;
-    $.getJSON(url, function (data) {
-        $("#eqCode").val(data.eqCode);
-        $("#description").val(data.description);
-        $("#maintainer").val(data.maintainer);
-        $("#eqModel").val(data.eqModel);
-
-        // description
-
-        $("#locations_id").val(data.locations.id);
-        $("#unit_id").val(data.unit.id);
-        $("#manageLevel").val(data.manageLevel);
-        $("#assetNo").val(data.assetNo);
-        $("#productFactory").val(data.productFactory);
-        $("#equipmentsClassification_id").val(data.equipmentsClassification.id);
-        $("#status").val(data.status);
-        $("#running").val(data.running);
-    });
-}
 
 //跟踪设备维修进度
 function track(eid) {
@@ -253,7 +201,6 @@ function getCurrentStep(steps) {
 function createEquipment() {
     var objStr = getFormJsonData("eqForm");
     var equipments = JSON.parse(objStr);
-    console.log("equipments---------------------" + JSON.stringify(equipments));
     var eqCode = equipments.eqCode;
     var description = equipments.description;
     var manager = equipments.manager;
@@ -372,28 +319,4 @@ function saveEquipment() {
             }
         }
     })
-}
-
-
-function saveDateTest() {
-    var dateTest = {
-        beginDate: $("#beginDate").val(),
-        endDate: $("#endDate").val()
-    }
-    console.log("-----------------" + JSON.stringify(dateTest));
-    var url = "/equipment/saved";
-
-    $.ajax({
-        type: "POST", url: url, data: {
-            dateTest: dateTest
-        }, dataType: "JSON", success: function (msg) {
-            showMessageBox("info", "设备信息更新成功")
-            $("#eq_modal").modal("hide")
-        }, error: function (msg) {
-            showMessageBox("danger", "设备信息添加失败")
-
-        }
-    })
-
-
 }

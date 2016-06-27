@@ -5,6 +5,7 @@ var eqClasses = [];
 var selectctIds = []; //获取被选择记录集合
 
 var vdm = null; //明细页面的模型
+var vm = null; //明细页面的模型
 
 $(function () {
     var url = "/equipment/findMyEqs";
@@ -22,7 +23,7 @@ $(function () {
     });
 
 
-    var vm = new Vue({
+    vm = new Vue({
         el: dataTableName,
         data: {
             eqs: eqs
@@ -94,6 +95,9 @@ $(function () {
 
     $('#myTab li:eq(0) a').on('click', function () {
         console.log("重新载入页面的list-------------");
+        $.getJSON("/equipments/findAll", function (data) {
+            vm.$data.eqs = data;
+        })
     });
 
 

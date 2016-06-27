@@ -31,7 +31,6 @@ $(function () {
 
 
     var selectedId = [];
-
     var pointer = 0;
     //ajax载入设备信息
     $(dataTableName).bootgrid({
@@ -85,14 +84,16 @@ $(function () {
                 }
             }
         });
-        /*        var histories = [];
-         var url = "/equipment/loadHistory/" + eqs[selectedId[pointer]]["id"];
-         $("#tab_1_3").load(url);*/
     }).on("deselected.rs.jquery.bootgrid", function (e, rows) {
         for (var x in rows) {
             selectedId.remove(rows[x]["index"]);
             selectedId = selectedId.sort();
         }
+    });
+
+
+    $('#myTab li:eq(0) a').on('click', function () {
+        console.log("重新载入页面的list-------------");
     });
 
 
@@ -103,7 +104,7 @@ $(function () {
     });
 
 
-    $('select').select2();
+    $('select').select2({theme: "bootstrap"});
 
     // 表单ajax提交
     $('#detailForm')
@@ -451,4 +452,10 @@ function getEquipmentById(eid) {
         equipment = data;
     });
     return equipment;
+}
+
+
+function reloadList() {
+
+
 }

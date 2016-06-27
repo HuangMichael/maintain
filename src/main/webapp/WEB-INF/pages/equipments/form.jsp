@@ -168,7 +168,7 @@
             <div class="col-md-3">
                 <input class="Wdate form-control" id="purchaseDate" onClick="WdatePicker({skin:'whyGreen'})"
                        name="purchaseDate"
-                       v-model="equipments.purchaseDate" style="height:34px"/>
+                       v-model="equipments.purchaseDate" style="height:34px;border:1px solid #cccccc"/>
             </div>
 
 
@@ -177,7 +177,7 @@
             <div class="col-md-3">
                 <input class="Wdate form-control" type="text" onClick="WdatePicker({skin:'whyGreen'})"
                        id="warrantyPeriod" name="warrantyPeriod"
-                       v-model="equipments.warrantyPeriod" style="height:34px"/>
+                       v-model="equipments.warrantyPeriod" style="height:34px;border:1px solid #cccccc"/>
             </div>
             <label class="col-md-1 control-label" for="setupDate">安装日期</label>
 
@@ -185,7 +185,7 @@
 
                 <input class="Wdate form-control" type="text" onClick="WdatePicker({skin:'whyGreen'})" id="setupDate"
                        name="setupDate"
-                       v-model="equipments.setupDate" style="height:34px"/>
+                       v-model="equipments.setupDate" style="height:34px;border:1px solid #cccccc"/>
 
             </div>
         </div>
@@ -197,21 +197,21 @@
 
                 <input class="Wdate form-control" type="text" onClick="WdatePicker({skin:'whyGreen'})" id="productDate"
                        name="productDate"
-                       v-model="equipments.productDate" style="height:34px"/>
+                       v-model="equipments.productDate" style="height:34px;border:1px solid #cccccc"/>
             </div>
             <label class="col-md-1 control-label" for="runDate">运行日期</label>
 
             <div class="col-md-3">
                 <input class="Wdate form-control" type="text" onClick="WdatePicker({skin:'whyGreen'})" id="runDate"
                        name="runDate"
-                       v-model="equipments.runDate" style="height:34px"/>
+                       v-model="equipments.runDate" style="height:34px;border:1px solid #cccccc"/>
             </div>
             <label class="col-md-1 control-label" for="expectedYear">预计年限</label>
 
             <div class="col-md-3">
                 <input class="Wdate form-control" type="text" onClick="WdatePicker({skin:'whyGreen'})" id="expectedYear"
                        name="expectedYear"
-                       v-model="equipments.expectedYear" style="height:34px"/>
+                       v-model="equipments.expectedYear" style="height:34px;border:1px solid #cccccc"/>
             </div>
         </div>
     </fieldset>

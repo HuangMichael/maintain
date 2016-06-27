@@ -94,7 +94,7 @@ $(function () {
 
 
     $('#myTab li:eq(0) a').on('click', function () {
-        console.log("重新载入页面的list-------------");
+      
         $.getJSON("/equipments/findAll", function (data) {
             vm.$data.eqs = data;
         })

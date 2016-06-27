@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="js/zTree_v3-master/css/metroStyle/metroStyle.css">
     <link rel="stylesheet" type="text/css" href="js/bootstrap-wizard/wizard.css"/>
     <link rel="stylesheet" type="text/css" href="js/ystep/css/ystep.css">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="/js/bootstrapvalidator/dist/css/bootstrapValidator.css"/>
 

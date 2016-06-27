@@ -98,18 +98,17 @@ $(function () {
 
     $('#myTab li:eq(1) a').on('click', function () {
         selectctIds = $(dataTableName).bootgrid("getSelectedRows");
-        vdm.$set("equipments", getEquipmentById(selectctIds[0]));
+        var eid = (selectctIds.length > 0) ? selectctIds[0] : eqs[0];
+        vdm.$set("equipments", getEquipmentById(eid));
     });
+
+
+    $('select').select2();
 
     // 表单ajax提交
     $('#detailForm')
         .bootstrapValidator({
-            message: 'This value is not valid',
-            /* feedbackIcons: {
-             valid: 'glyphicon glyphicon-ok',
-             invalid: 'glyphicon glyphicon-remove',
-             validating: 'glyphicon glyphicon-refresh'
-             },*/
+            message: '该值无效 ',
             fields: {
                 eqCode: {
                     message: '设备编号无效',
@@ -167,6 +166,15 @@ $(function () {
                     validators: {
                         notEmpty: {
                             message: '设备状态不能为空!'
+                        }
+                    }
+                }
+                ,
+                "running": {
+                    message: '运行状态无效',
+                    validators: {
+                        notEmpty: {
+                            message: '运行状态不能为空!'
                         }
                     }
                 }

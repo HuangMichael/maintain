@@ -25,6 +25,7 @@
 
 
 <script language="javascript" type="text/javascript" src="/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="/js/bootstrapvalidator/dist/js/bootstrapValidator.js"></script>
 
 
 

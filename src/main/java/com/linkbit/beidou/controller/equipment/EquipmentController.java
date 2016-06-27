@@ -310,8 +310,6 @@ public class EquipmentController extends BaseController {
     @RequestMapping(value = "/saved", method = RequestMethod.POST)
     @ResponseBody
     public DateTest save(@RequestParam("beginDate") String beginDate, @RequestParam("endDate") String endDate) {
-        System.out.println("--------------------" + beginDate);
-        System.out.println("--------------------" + endDate);
         DateTest dateTest = new DateTest();
         try {
             dateTest.setBeginDate(DateUtils.convertStr2Date(beginDate, "yyyy-MM-dd"));

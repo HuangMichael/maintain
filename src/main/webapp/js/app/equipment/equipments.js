@@ -98,9 +98,98 @@ $(function () {
 
     $('#myTab li:eq(1) a').on('click', function () {
         selectctIds = $(dataTableName).bootgrid("getSelectedRows");
-        console.log("第一个eid--------------" + selectctIds[0]);
         vdm.$set("equipments", getEquipmentById(selectctIds[0]));
     });
+
+    // 表单ajax提交
+    $('#detailForm')
+        .bootstrapValidator({
+            message: 'This value is not valid',
+            /* feedbackIcons: {
+             valid: 'glyphicon glyphicon-ok',
+             invalid: 'glyphicon glyphicon-remove',
+             validating: 'glyphicon glyphicon-refresh'
+             },*/
+            fields: {
+                eqCode: {
+                    message: '设备编号无效',
+                    validators: {
+                        notEmpty: {
+                            message: '设备编号不能为空!'
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 20,
+                            message: '设备编号长度为6到20个字符'
+                        }
+                    }
+                },
+                description: {
+                    message: '设备描述无效',
+                    validators: {
+                        notEmpty: {
+                            message: '设备描述不能为空!'
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 20,
+                            message: '设备描述长度为6到20个字符'
+                        }
+                    }
+                },
+                "locations.id": {
+                    message: '设备位置无效',
+                    validators: {
+                        notEmpty: {
+                            message: '设备位置不能为空!'
+                        }
+                    }
+                },
+                "equipmentsClassification.id": {
+                    message: '设备分类无效',
+                    validators: {
+                        notEmpty: {
+                            message: '设备分类不能为空!'
+                        }
+                    }
+                },
+                "manageLevel": {
+                    message: '管理等级无效',
+                    validators: {
+                        notEmpty: {
+                            message: '管理等级不能为空!'
+                        }
+                    }
+                }
+                ,
+                "status": {
+                    message: '设备状态无效',
+                    validators: {
+                        notEmpty: {
+                            message: '设备状态不能为空!'
+                        }
+                    }
+                }
+            }
+        })
+        .on('success.form.bv', function (e) {
+            // Prevent form submission
+            e.preventDefault();
+
+            // Get the form instance
+            var $form = $(e.target);
+
+            // Get the BootstrapValidator instance
+            var bv = $form.data('bootstrapValidator');
+
+            /*    // Use Ajax to submit form data
+             var url = "/equipment/save";
+             $.post(url, $form.serialize(), function (result) {
+             console.log(result);
+             }, 'json');*/
+
+            saveEquipment();
+        });
 
 
 });

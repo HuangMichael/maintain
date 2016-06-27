@@ -12,9 +12,8 @@
             <label class="col-md-1 control-label" for="eqCode">设备编号</label>
 
             <div class="col-md-3">
-                <input class="form-control" id="eqCode" type="text" name="eqCode" v-model="equipments.eqCode"
-                       style="border:1px solid green"/>
-                <input class="form-control" id="id" type="hidden" name="id" v-model="equipments.id"/>
+                <input class="form-control" id="eqCode" type="text" name="eqCode" v-model="equipments.eqCode" required/>
+                <input class="form-control" id="id" type="hidden" name="id" v-model="equipments.id" />
             </div>
             <label for="description" class="col-md-1 control-label">设备名称</label>
 
@@ -36,8 +35,6 @@
                         </option>
                     </template>
                 </select>
-                <input class="form-control" id="location" type="hidden" name="location"
-                       value="${equipments.locations.location}" required/>
             </div>
         </div>
 
@@ -76,7 +73,7 @@
             <label class="col-md-1 control-label" for="manageLevel">管理等级</label>
 
             <div class="col-md-3">
-                <select class="form-control" id="manageLevel" name="manageLevel" required
+                <select class="form-control" id="manageLevel" name="manageLevel"
                         v-model="equipments.manageLevel">
                     <option value="1">1级设备</option>
                     <option value="2">2级设备</option>
@@ -208,7 +205,7 @@
     <div class="modal-footer">
         <button type="button" class="btn btn-default" v-on:click="previous">上一条</button>
         <button type="button" class="btn btn-default" v-on:click="next">下一条</button>
-        <button type="button" id="saveBtn" name="saveBtn" class="btn btn-primary" onclick="saveEquipment()">保存
+        <button type="submit" id="saveBtn" name="saveBtn" class="btn btn-primary">保存
         </button>
     </div>
 </form>

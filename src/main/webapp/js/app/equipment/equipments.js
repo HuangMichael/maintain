@@ -48,43 +48,8 @@ $(function () {
             }
         }
     }).on("selected.rs.jquery.bootgrid", function (e, rows) {
-
-        var pointer = 0;
-
-        vdm = new Vue({
-            el: "#detailForm",
-            data: {
-                equipments: eqs[selectedId[0]],
-                locs: locs,
-                eqClasses: eqClasses,
-            },
-            methods: {
-                previous: function (event) {
-                    selectctIds = $(dataTableName).bootgrid("getSelectedRows");
-                    if (pointer > 0) {
-                        console.log("selectctIds----------------" + selectctIds);
-                        vdm.$set("equipments", getEquipmentById(selectctIds[pointer--]));
-                        console.log("上一条显示第" + pointer + "/" + selectctIds.length + "条");
-                    } else {
-                        pointer = 0;
-                        showMessageBox("info", "当前已经是第一条记录了");
-                        return;
-                    }
-                },
-                next: function (event) {
-                    if (pointer < selectctIds.length) {
-                        selectctIds = $(dataTableName).bootgrid("getSelectedRows");
-                        console.log("selectctIds----------------" + selectctIds);
-                        vdm.$set("equipments", getEquipmentById(selectctIds[pointer++]));
-                        console.log("下一条显示第" + pointer + "/" + selectctIds.length + "条");
-                    } else {
-                        pointer = selectctIds.length;
-                        showMessageBox("info", "当前已经是最后一条记录了");
-                        return;
-                    }
-                }
-            }
-        });
+        selectctIds = $(dataTableName).bootgrid("getSelectedRows").sort();
+        console.log("selectctIds----------------" + selectctIds);
     }).on("deselected.rs.jquery.bootgrid", function (e, rows) {
         for (var x in rows) {
             selectedId.remove(rows[x]["index"]);
@@ -93,18 +58,48 @@ $(function () {
     });
 
 
+    vdm = new Vue({
+        el: "#detailForm",
+        data: {
+            equipments: getEquipmentByIdInEqs(selectctIds[pointer]),
+            locs: locs,
+            eqClasses: eqClasses,
+        },
+        methods: {
+            previous: function (event) {
+                if (pointer > 0) {
+                    pointer = pointer - 1;
+                    vdm.equipments = getEquipmentByIdInEqs(selectctIds[pointer]);
+                } else {
+                    pointer = 0;
+                    showMessageBox("info", "当前已经是第一条记录了");
+                    return;
+                }
+            },
+            next: function (event) {
+                if (pointer < selectctIds.length-1) {
+                    pointer = pointer + 1;
+                    vdm.equipments = getEquipmentByIdInEqs(selectctIds[pointer]);
+                } else {
+                    pointer = selectctIds.length;
+                    showMessageBox("info", "当前已经是最后一条记录了");
+                    return;
+                }
+            }
+        }
+    });
+
+
     $('#myTab li:eq(0) a').on('click', function () {
-      
-        $.getJSON("/equipments/findAll", function (data) {
-            vm.$data.eqs = data;
+        $.getJSON("/equipment/findMyEqs", function (data) {
+            vm.eqs = data;
         })
     });
 
 
     $('#myTab li:eq(1) a').on('click', function () {
-        selectctIds = $(dataTableName).bootgrid("getSelectedRows");
         var eid = (selectctIds.length > 0) ? selectctIds[0] : eqs[0];
-        vdm.$set("equipments", getEquipmentById(eid));
+        vdm.equipments = getEquipmentByIdInEqs(eid);
     });
 
 
@@ -188,19 +183,6 @@ $(function () {
         .on('success.form.bv', function (e) {
             // Prevent form submission
             e.preventDefault();
-
-            // Get the form instance
-            var $form = $(e.target);
-
-            // Get the BootstrapValidator instance
-            var bv = $form.data('bootstrapValidator');
-
-            /*    // Use Ajax to submit form data
-             var url = "/equipment/save";
-             $.post(url, $form.serialize(), function (result) {
-             console.log(result);
-             }, 'json');*/
-
             saveEquipment();
         });
 
@@ -448,13 +430,29 @@ function saveEquipment() {
  * @param eqs 设备信息集合
  * @param eid 设备ID
  */
-function getEquipmentById(eid) {
+function getEquipmentByIdInEqs(eid) {
     var equipment = null;
     var url = "/equipment/findById/" + eid;
     console.log("url-----------------" + url);
     $.getJSON(url, function (data) {
         equipment = data;
     });
+    return equipment;
+}
+
+/**
+ * 根据ID获取设备信息
+ * @param eqs 设备信息集合
+ * @param eid 设备ID
+ */
+function getEquipmentByIdInEqs(eid) {
+    var equipment = null;
+    for (var i in eqs) {
+        if (eqs[i].id == eid) {
+            equipment = eqs[i];
+            break;
+        }
+    }
     return equipment;
 }
 

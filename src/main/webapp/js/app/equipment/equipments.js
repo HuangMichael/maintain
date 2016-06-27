@@ -2,6 +2,9 @@ var dataTableName = '#equipmentsDataTable';
 var eqs = [];
 var locs = [];
 var eqClasses = [];
+var selectctIds = []; //获取被选择记录集合
+
+var vdm = null; //明细页面的模型
 
 $(function () {
     var url = "/equipment/findMyEqs";
@@ -45,14 +48,10 @@ $(function () {
             }
         }
     }).on("selected.rs.jquery.bootgrid", function (e, rows) {
-        for (var x in rows) {
-            if (!isNaN(rows[x]["index"])) {
-                selectedId.push(rows[x]["index"] - 1);
-                selectedId = selectedId.sort();
-            }
-        }
-        console.log("selectedId-----------" + selectedId);
-        var vdm = new Vue({
+
+        var pointer = 0;
+
+        vdm = new Vue({
             el: "#detailForm",
             data: {
                 equipments: eqs[selectedId[0]],
@@ -61,43 +60,63 @@ $(function () {
             },
             methods: {
                 previous: function (event) {
+                    selectctIds = $(dataTableName).bootgrid("getSelectedRows");
                     if (pointer > 0) {
-                        vdm.$set("equipments", eqs[selectedId[pointer]]);
-                        pointer--;
+                        console.log("selectctIds----------------" + selectctIds);
+                        vdm.$set("equipments", getEquipmentById(selectctIds[pointer--]));
+                        console.log("上一条显示第" + pointer + "/" + selectctIds.length + "条");
                     } else {
-                        showMessageBox("info", "已经是第一条");
+                        pointer = 0;
+                        showMessageBox("info", "当前已经是第一条记录了");
                         return;
                     }
-
-
                 },
                 next: function (event) {
-                    if (pointer < selectedId.length) {
-                        vdm.$set("equipments", eqs[selectedId[pointer]]);
-                        pointer++;
+                    if (pointer < selectctIds.length) {
+                        selectctIds = $(dataTableName).bootgrid("getSelectedRows");
+                        console.log("selectctIds----------------" + selectctIds);
+                        vdm.$set("equipments", getEquipmentById(selectctIds[pointer++]));
+                        console.log("下一条显示第" + pointer + "/" + selectctIds.length + "条");
                     } else {
-                        showMessageBox("info", "已经是最后一条");
+                        pointer = selectctIds.length;
+                        showMessageBox("info", "当前已经是最后一条记录了");
                         return;
                     }
-
                 }
             }
         });
-        var histories = [];
-        var url = "/equipment/loadHistory/" + eqs[selectedId[pointer]]["id"];
-        $("#tab_1_3").load(url);
+        /*        var histories = [];
+         var url = "/equipment/loadHistory/" + eqs[selectedId[pointer]]["id"];
+         $("#tab_1_3").load(url);*/
     }).on("deselected.rs.jquery.bootgrid", function (e, rows) {
         for (var x in rows) {
             selectedId.remove(rows[x]["index"]);
             selectedId = selectedId.sort();
         }
     });
+
+
+    $('#myTab li:eq(1) a').on('click', function () {
+        selectctIds = $(dataTableName).bootgrid("getSelectedRows");
+        console.log("第一个eid--------------" + selectctIds[0]);
+        vdm.$set("equipments", getEquipmentById(selectctIds[0]));
+    });
+
+
 });
 
 
 function loadCreateForm() {
-    clearForm();
-    $("#eq_modal").modal("show")
+    var createModel = new Vue({
+        el: "#detailForm",
+        data: {
+            equipments: null,
+            locs: locs,
+            eqClasses: eqClasses
+        }
+    });
+
+    $('#myTab li:eq(1) a').tab('show');
 }
 
 
@@ -303,7 +322,7 @@ function saveEquipment() {
             if (equipments.id) {
                 showMessageBox("info", "设备信息更新成功")
             } else {
-                loadList("#" + dataTableName);
+                //loadList("#" + dataTableName);
                 showMessageBox("info", "设备信息添加成功")
                 vm.$set("eqs", eqs.push(msg));
             }
@@ -319,4 +338,20 @@ function saveEquipment() {
             }
         }
     })
+}
+
+
+/**
+ * 根据ID获取设备信息
+ * @param eqs 设备信息集合
+ * @param eid 设备ID
+ */
+function getEquipmentById(eid) {
+    var equipment = null;
+    var url = "/equipment/findById/" + eid;
+    console.log("url-----------------" + url);
+    $.getJSON(url, function (data) {
+        equipment = data;
+    });
+    return equipment;
 }

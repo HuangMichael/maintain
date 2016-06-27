@@ -17,10 +17,10 @@
                         <div class="divider"></div>
                         <a type="button" class="btn  btn-default btn-xs " id="createBtn"
                            onclick="loadCreateForm()"><i class="glyphicon glyphicon-plus">新建记录</i></a>
-                        <a type="button" class="btn  btn-default btn-xs " id="previousBtn" onclick="toPrevious()"
+                        <%--<a type="button" class="btn  btn-default btn-xs " id="previousBtn" onclick="toPrevious()"
                         ><i class="glyphicon glyphicon-arrow-left">上一条</i></a>
                         <a type="button" class="btn  btn-default btn-xs " id="nextBtn" onclick="toNext()"
-                        ><i class="glyphicon glyphicon-arrow-right">下一条</i></a>
+                        ><i class="glyphicon glyphicon-arrow-right">下一条</i></a>--%>
 
                         <div class="box-body">
                             <div id="contentDiv">

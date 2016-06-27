@@ -12,7 +12,8 @@
             <label class="col-md-1 control-label" for="eqCode">设备编号</label>
 
             <div class="col-md-3">
-                <input class="form-control" id="eqCode" type="text" name="eqCode" v-model="equipments.eqCode"/>
+                <input class="form-control" id="eqCode" type="text" name="eqCode" v-model="equipments.eqCode"
+                       style="border:1px solid green"/>
                 <input class="form-control" id="id" type="hidden" name="id" v-model="equipments.id"/>
             </div>
             <label for="description" class="col-md-1 control-label">设备名称</label>
@@ -77,11 +78,10 @@
             <div class="col-md-3">
                 <select class="form-control" id="manageLevel" name="manageLevel" required
                         v-model="equipments.manageLevel">
-                    <template v-for="m in [1,2,3,4]">
-                        <option :value="m" v-if="m == equipments.manageLevel" selected>
-                            {{m}}级设备
-                        </option>
-                    </template>
+                    <option value="1">1级设备</option>
+                    <option value="2">2级设备</option>
+                    <option value="3">3级设备</option>
+                    <option value="3">4级设备</option>
                 </select>
             </div>
             <label class="col-md-1 control-label" for="assetNo">资产编号</label>
@@ -93,7 +93,7 @@
 
             <div class="col-md-3">
                 <input class="form-control" id="productFactory" type="text" name="productFactory"
-                       v-model="equipments.productFactory" />
+                       v-model="equipments.productFactory"/>
             </div>
         </div>
         <div class="form-group">
@@ -121,28 +121,17 @@
 
             <div class="col-md-3">
                 <select class="form-control" id="status" name="status" required v-model="equipments.status">
-                    <template v-for="m in [0,1]">
-                        <option :value="m" v-if="m == equipments.status" selected>
-                            启用
-                        </option>
-                        <option :value="m" v-else>
-                            禁用
-                        </option>
-                    </template>
+                    <option value="0">停用</option>
+                    <option value="1">投用</option>
+                    <option value="2">报废</option>
                 </select>
             </div>
             <label class="col-md-1 control-label" for="running">是否运行</label>
 
             <div class="col-md-3">
                 <select class="form-control" id="running" name="running" required v-model="equipments.running">
-                    <template v-for="m in [0,1]">
-                        <option :value="m" v-if="m == equipments.running" selected>
-                            运行
-                        </option>
-                        <option :value="m" v-else>
-                            停用
-                        </option>
-                    </template>
+                    <option value="0">运行</option>
+                    <option value="1">停用</option>
                 </select>
             </div>
 

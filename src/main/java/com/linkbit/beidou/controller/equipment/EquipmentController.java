@@ -137,15 +137,18 @@ public class EquipmentController extends BaseController {
             @RequestParam(value = "assetNo", required = false) String assetNo,
             @RequestParam(value = "manageLevel", required = false) Long manageLevel,
             @RequestParam(value = "running", required = false) String running,
-            @RequestParam(value = "warrantyPeriod",required = false) String warrantyPeriod,
-            @RequestParam(value = "setupDate",required = false) String setupDate,
-            @RequestParam(value = "productDate",required = false) String productDate,
-            @RequestParam(value = "runDate",required = false) String runDate,
-            @RequestParam(value = "expectedYear",required = false) String expectedYear
+            @RequestParam(value = "warrantyPeriod", required = false) String warrantyPeriod,
+            @RequestParam(value = "setupDate", required = false) String setupDate,
+            @RequestParam(value = "productDate", required = false) String productDate,
+            @RequestParam(value = "runDate", required = false) String runDate,
+            @RequestParam(value = "expectedYear", required = false) String expectedYear
     ) {
         Equipments equipments = new Equipments();
         try {
-            equipments.setId(id);
+
+            if (id != null) {
+                equipments.setId(id);
+            }
             equipments.setEqCode(eqCode);
             equipments.setDescription(description);
             equipments.setManager(manager);
@@ -321,7 +324,6 @@ public class EquipmentController extends BaseController {
     }
 
 
-
     /**
      * 查询根节点
      */
@@ -345,7 +347,7 @@ public class EquipmentController extends BaseController {
             equipments.setManager(manager);
             equipments.setMaintainer(maintainer);
             equipments.setProductFactory(productFactory);
-            System.out.println("locations_id-------------------"+locations_id);
+            System.out.println("locations_id-------------------" + locations_id);
             equipments.setLocations(locationsService.findById(locations_id));
             equipments.setEquipmentsClassification(equipmentsClassificationRepository.findById(equipmentsClassification_id));
             equipments.setStatus(status);
@@ -357,8 +359,6 @@ public class EquipmentController extends BaseController {
         return equipmentAccountService.save(equipments);
 
     }
-
-
 
 
 }

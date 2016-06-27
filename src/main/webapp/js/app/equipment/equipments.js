@@ -35,6 +35,10 @@ $(function () {
     var pointer = 0;
     //ajax载入设备信息
     $(dataTableName).bootgrid({
+        ajaxSettings: {
+            method: "GET",
+            cache: false
+        },
         selection: true,
         multiSelect: true,
         rowSelect: true,
@@ -64,10 +68,12 @@ $(function () {
         console.log("selectctIds----------------" + selectctIds);
     });
 
+
+    var initId = 57;
     vdm = new Vue({
         el: "#detailForm",
         data: {
-            equipments: getEquipmentByIdInEqs(selectctIds[pointer]),
+            equipments: getEquipmentByIdInEqs(57),
             locs: locs,
             eqClasses: eqClasses,
         },
@@ -104,13 +110,20 @@ $(function () {
 
 
     $('#myTab li:eq(1) a').on('click', function () {
-        var eid = (selectctIds.length > 0) ? selectctIds[0] : eqs[0];
-        vdm.equipments = getEquipmentByIdInEqs(eid);
+        vdm.equipments = null;
+        var eid = null;
+        //分选择和不选择进行分类处理  todo
+        if (selectctIds.length > 0) {
+            eid = selectctIds[0];
+            vdm.equipments = getEquipmentByIdInEqs(eid);
+        }
+        var tableIds = getCheckValues(dataTableName);
+        if (tableIds.length > 0) {
+            eid = tableIds[0];
+            vdm.equipments = getEquipmentByIdInEqs(eid);
+        }
     });
-
-
     $('select').select2({theme: "bootstrap"});
-
     // 表单ajax提交
     $('#detailForm')
         .bootstrapValidator({
@@ -237,6 +250,7 @@ function report(id) {
         equipReport(id)
     }
 }
+
 function equipReport(id) {
     var url = "/workOrderReportCart/add2Cart";
     $.post(url, {equipmentId: id}, function (data) {
@@ -410,7 +424,8 @@ function saveEquipment() {
         },
         dataType: "JSON", success: function (msg) {
             if (equipments.id) {
-                showMessageBox("info", "设备信息更新成功")
+                showMessageBox("info", "设备信息更新成功");
+                $(dataTableName).bootgrid("reload");
             } else {
                 //loadList("#" + dataTableName);
                 showMessageBox("info", "设备信息添加成功")
@@ -459,11 +474,21 @@ function getEquipmentByIdInEqs(eid) {
             break;
         }
     }
+
+    console.log("equipment---------" + JSON.stringify(equipment));
     return equipment;
 }
 
 
-function reloadList() {
+function getCheckValues(dataTableName) {
+    var tableIds = [];
+    $(dataTableName + " input[type='checkbox']").each(function (i) {
+        if (!isNaN($(this).val())) {
+            console.log("$(this).val()----------" + $(this).val());
+            tableIds.push($(this).val());
+        }
 
-
+    })
+    console.log(tableIds);
+    return tableIds;
 }

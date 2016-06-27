@@ -14,9 +14,17 @@
                         <div class="box-title">
                             <h4><i class="fa fa-sitemap"></i>设备信息</h4>
                         </div>
-                        <div class="divider"></div>
-                        <a type="button" class="btn  btn-default btn-xs " id="createBtn"
-                           onclick="loadCreateForm()"><i class="glyphicon glyphicon-plus">新建记录</i></a>
+
+                        <div class="box-body" style="padding: 5px 20px 0px 20px">
+                            <!-- Split button -->
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default " onclick="loadCreateForm()"><i
+                                        class="glyphicon glyphicon-plus"></i>新建记录
+                                </button>
+                            </div>
+                        </div>
+                        <%--  <a type="button" class="btn  btn-default btn-xs " id="createBtn"
+                             onclick="loadCreateForm()"><i class="glyphicon glyphicon-plus">新建记录</i></a>--%>
                         <div class="box-body">
                             <div id="contentDiv">
                                 <div class="box-body">
@@ -34,7 +42,8 @@
                                             </li>
                                         </ul>
                                         <div class="tab-content">
-                                            <div class="tab-pane fade in active" id="tab_1_0" style="color: #111;background-color: #fff;border-color: #d26911 #e5e5e5 ">
+                                            <div class="tab-pane fade in active" id="tab_1_0"
+                                                 style="color: #111;background-color: #fff;border-color: #d26911 #e5e5e5 ">
                                                 <%@include file="table_1_0.jsp" %>
                                             </div>
                                             <div class="tab-pane fade" id="tab_1_1">

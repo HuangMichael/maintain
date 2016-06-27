@@ -17,11 +17,6 @@
                         <div class="divider"></div>
                         <a type="button" class="btn  btn-default btn-xs " id="createBtn"
                            onclick="loadCreateForm()"><i class="glyphicon glyphicon-plus">新建记录</i></a>
-                        <%--<a type="button" class="btn  btn-default btn-xs " id="previousBtn" onclick="toPrevious()"
-                        ><i class="glyphicon glyphicon-arrow-left">上一条</i></a>
-                        <a type="button" class="btn  btn-default btn-xs " id="nextBtn" onclick="toNext()"
-                        ><i class="glyphicon glyphicon-arrow-right">下一条</i></a>--%>
-
                         <div class="box-body">
                             <div id="contentDiv">
                                 <div class="box-body">
@@ -39,7 +34,7 @@
                                             </li>
                                         </ul>
                                         <div class="tab-content">
-                                            <div class="tab-pane fade in active" id="tab_1_0">
+                                            <div class="tab-pane fade in active" id="tab_1_0" style="color: #111;background-color: #fff;border-color: #d26911 #e5e5e5 ">
                                                 <%@include file="table_1_0.jsp" %>
                                             </div>
                                             <div class="tab-pane fade" id="tab_1_1">

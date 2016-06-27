@@ -48,15 +48,21 @@ $(function () {
             }
         }
     }).on("selected.rs.jquery.bootgrid", function (e, rows) {
-        selectctIds = $(dataTableName).bootgrid("getSelectedRows").sort();
+        for (var x in rows) {
+            if (rows[x]["id"]) {
+                selectedId.push(rows[x]["id"]);
+            }
+        }
+        selectctIds = selectedId.sort();
+        pointer = 0;
         console.log("selectctIds----------------" + selectctIds);
     }).on("deselected.rs.jquery.bootgrid", function (e, rows) {
         for (var x in rows) {
-            selectedId.remove(rows[x]["index"]);
-            selectedId = selectedId.sort();
+            selectedId.remove(rows[x]["id"]);
         }
+        selectedId = selectedId.sort();
+        console.log("selectctIds----------------" + selectctIds);
     });
-
 
     vdm = new Vue({
         el: "#detailForm",
@@ -77,7 +83,7 @@ $(function () {
                 }
             },
             next: function (event) {
-                if (pointer < selectctIds.length-1) {
+                if (pointer < selectctIds.length - 1) {
                     pointer = pointer + 1;
                     vdm.equipments = getEquipmentByIdInEqs(selectctIds[pointer]);
                 } else {

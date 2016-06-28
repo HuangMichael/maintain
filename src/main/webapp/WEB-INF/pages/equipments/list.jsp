@@ -22,8 +22,12 @@
                                 <button type="button" class="btn btn-default " onclick="loadCreateForm()">
                                     <i class="glyphicon glyphicon-plus"></i>新建记录
                                 </button>
-                                <button type="button" class="btn btn-default" v-on:click="previous"><i class="glyphicon glyphicon-glyphicon glyphicon-backward"></i>上一条</button>
-                                <button type="button" class="btn btn-default" v-on:click="next"><i class="glyphicon glyphicon-glyphicon glyphicon-forward"></i>下一条</button>
+                                <button type="button" class="btn btn-default" onclick="backwards()"><i
+                                        class="glyphicon glyphicon-glyphicon glyphicon-backward"></i>上一条
+                                </button>
+                                <button type="button" class="btn btn-default" onclick="forwards()"><i
+                                        class="glyphicon glyphicon-glyphicon glyphicon-forward"></i>下一条
+                                </button>
                             </div>
                         </div>
                         <%--  <a type="button" class="btn  btn-default btn-xs " id="createBtn"
@@ -40,9 +44,7 @@
                                             <li><a href="#tab_1_1" data-toggle="tab">
                                                 <i class="fa fa-flag" id="eqDetail"></i>设备详细信息</a>
                                             </li>
-                                            <li><a href="#tab_1_3" data-toggle="tab"><i class="fa fa-lock" id="history"></i>报修历史信息<span
-                                                    class="badge badge-green"
-                                                    id="historySize">9</span></a>
+                                            <li><a href="#tab_1_3" data-toggle="tab"><i class="fa fa-lock" id="history"></i>报修历史信息</a>
                                             </li>
                                         </ul>
                                         <div class="tab-content">

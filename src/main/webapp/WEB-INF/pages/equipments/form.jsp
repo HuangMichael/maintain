@@ -205,10 +205,7 @@
             </div>
         </div>
     </fieldset>
-
     <div class="modal-footer">
-        <button type="button" class="btn btn-default" v-on:click="previous">上一条</button>
-        <button type="button" class="btn btn-default" v-on:click="next">下一条</button>
         <button type="submit" id="saveBtn" name="saveBtn" class="btn btn-primary btn-danger">保存记录
         </button>
     </div>

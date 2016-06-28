@@ -54,8 +54,10 @@
             <label for="equipmentsClassification_id" class="col-md-1 control-label">设备类型</label>
 
             <div class="col-md-3">
-                <select class="form-control" id="equipmentsClassification_id" name="equipmentsClassification.id" required v-model="equipments.equipmentsClassification.id"
-                        style="width:100%" >
+                <select class="form-control" id="equipmentsClassification_id" name="equipmentsClassification.id"
+                        required v-model="equipments.equipmentsClassification.id"
+                        style="width:100%">
+                    <option>请选择设备类型</option>
                     <option v-for="c in eqClasses" v-bind:value="c.id">
                         {{ c.description }}
                     </option>
@@ -67,7 +69,9 @@
             <label class="col-md-1 control-label" for="manageLevel">管理等级</label>
 
             <div class="col-md-3">
-                <select class="form-control" id="manageLevel" name="manageLevel" v-model="equipments.manageLevel" style="width:100%">
+                <select class="form-control" id="manageLevel" name="manageLevel" v-model="equipments.manageLevel"
+                        style="width:100%">
+                    <option>请选择设备管理等级</option>
                     <option value="1">1级设备</option>
                     <option value="2">2级设备</option>
                     <option value="3">3级设备</option>
@@ -112,6 +116,7 @@
             <div class="col-md-3">
                 <select class="form-control" id="status" name="status" required v-model="equipments.status"
                         style="width:100%">
+                    <option>请选择设备状态</option>
                     <option value="0">停用</option>
                     <option value="1">投用</option>
                     <option value="2">报废</option>
@@ -122,6 +127,7 @@
             <div class="col-md-3">
                 <select class="form-control" id="running" name="running" required v-model="equipments.running"
                         style="width:100%">
+                    <option>请选择设备运行状态</option>
                     <option value="0">运行</option>
                     <option value="1">停用</option>
                 </select>

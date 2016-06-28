@@ -3,7 +3,7 @@
 <table id="reportHistory" class=" table table-striped table-bordered table-hover">
     <thead>
     <tr>
-
+        <th>序号</th>
         <th>报修行号</th>
         <th>报修描述</th>
         <th>报修时间</th>
@@ -12,21 +12,16 @@
     </tr>
     </thead>
     <tbody id="reportHistory_list" style="height: 100px;overflow: scroll">
-    <c:forEach var="h" items="${historyList}">
-        <tr>
-            <td>${h[0]}</td>
-            <td>${h[2]}</td>
-            <td>${h[3]}</td>
-            <td>
-                <c:if test="${h[4]==0}">
-                    未完成
-                </c:if>
-                <c:if test="${h[4]==1}">
-                    已完成
-                </c:if>
-            </td>
-            <td>${h[5]}</td>
-        </tr>
-    </c:forEach>
+
+    <tr v-for="h in historyList">
+        <td>{{ $index+1 }}</td>
+        <td>{{h.orderLineNo}}</td>
+        <td>{{h.orderDesc}}</td>
+        <td>{{h.reportTime}}</td>
+        <td>
+            {{h.status}}
+        </td>
+        <td></td>
+    </tr>
     </tbody>
 </table>

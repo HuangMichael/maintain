@@ -8,6 +8,8 @@ var allIds = [];
 var vdm = null; //明细页面的模型
 var vm = null; //明细页面的模型
 
+var historyModel = null;
+
 var pointer = 0;
 $.ajaxSettings.async = false;
 $(function () {
@@ -32,32 +34,55 @@ $(function () {
         methods: {
             previous: function (event) {
                 if (pointer <= 0) {
-                    showMessageBox("info", "没有下一个了");
+                    showMessageBox("danger", "对不起，当前记录是第一条");
                     return;
                 } else {
                     pointer = pointer - 1;
                     //判断当前指针位置
                     vdm.$set("equipments", getEquipmentByIdInEqs(selectedIds[pointer]));
                 }
-                console.log("当前指针位置----------" + pointer);
             },
             next: function (event) {
                 if (pointer >= selectedIds.length - 1) {
-                    showMessageBox("info", "没有下一个了");
+                    showMessageBox("danger", "对不起，当前记录是最后一条");
                     return;
                 } else {
                     pointer = pointer + 1;
                     vdm.$set("equipments", getEquipmentByIdInEqs(selectedIds[pointer]));
                 }
-
-                console.log("当前指针位置----------" + pointer);
             }
         }
     });
 
+    historyModel = new Vue({
+        el: "#reportHistory_list",
+        data: {
+            historyList: loadFixHistoryByEid(90)
+        },
+        methods: {
+            previous: function (event) {
+                if (pointer <= 0) {
+                    showMessageBox("danger", "对不起，当前记录是第一条");
+                    return;
+                } else {
+                    pointer = pointer - 1;
+                    //判断当前指针位置
+                    vdm.$set("equipments", getEquipmentByIdInEqs(selectedIds[pointer]));
+                }
+            },
+            next: function (event) {
+                if (pointer >= selectedIds.length - 1) {
+                    showMessageBox("danger", "对不起，当前记录是最后一条");
+                    return;
+                } else {
+                    pointer = pointer + 1;
+                    vdm.$set("equipments", getEquipmentByIdInEqs(selectedIds[pointer]));
+                }
+            }
+        }
+    });
 
     $('#myTab li:eq(1) a').on('click', function () {
-        console.log("selectedIds----------------------" + selectedIds);
         //首先判断是否有选中的
         var eq = null;
         if (selectedIds.length > 0) {
@@ -66,12 +91,29 @@ $(function () {
             console.log("设备名称----" + eq.description);
         } else {
             //没有选中的 默认显示整个列表的第一条
-            console.log("无选中的----------------------" + selectedIds);
             eq = eqs[0];
             //所有的都在选中列表中
             selectedIds = setAllInSelectedList(eqs);
+        }
+        vdm.$set("equipments", eq);
+    });
 
-            console.log("selectedIds-----------" + selectedIds);
+
+    $('#myTab li:eq(2) a').on('click', function () {
+        //首先判断是否有选中的
+        var eq = null;
+        if (selectedIds.length > 0) {
+            //切换tab时默认给detail中第一个的历史信息
+            eq = findEquipmentByIdInEqs(selectedIds[0]);
+
+            reportHistory
+
+            initLoadData(url, "#reportHistory");
+        } else {
+            //没有选中的 默认显示整个列表的第一条
+            eq = eqs[0];
+            //所有的都在选中列表中第一条记录的历史信息
+            selectedIds = setAllInSelectedList(eqs);
         }
         vdm.$set("equipments", eq);
     });
@@ -164,27 +206,8 @@ $(function () {
 
 
 function loadCreateForm() {
-    var createModel = new Vue({
-        el: "#detailForm",
-        data: {
-            equipments: null,
-            locs: locs,
-            eqClasses: eqClasses
-        }
-    });
-
+    vdm.$set("equipments", null);
     $('#myTab li:eq(1) a').tab('show');
-}
-
-
-function clearForm() {
-    $("#id").val("");
-    $("#eqCode").val("");
-    $("#description").val("");
-    $("#maintainer").val("");
-    $("#manager").val("");
-    $("#equipmentsClassification_id").val("");
-    $("#locations_id").val("")
 }
 
 
@@ -497,5 +520,18 @@ function setAllInSelectedList(eqs) {
         }
     }
     return selecteds;
+
+}
+
+
+/**
+ * 根据设备ID载入维修历史信息
+ */
+function loadFixHistoryByEid(eid) {
+    var url = "/equipment/findFixHisory/" + eid;
+    $.getJSON(url, function (data) {
+        historyList = data;
+    })
+
 
 }

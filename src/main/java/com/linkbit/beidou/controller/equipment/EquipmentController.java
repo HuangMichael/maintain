@@ -307,21 +307,6 @@ public class EquipmentController extends BaseController {
     }
 
 
-    @RequestMapping(value = "/saved", method = RequestMethod.POST)
-    @ResponseBody
-    public DateTest save(@RequestParam("beginDate") String beginDate, @RequestParam("endDate") String endDate) {
-        DateTest dateTest = new DateTest();
-        try {
-            dateTest.setBeginDate(DateUtils.convertStr2Date(beginDate, "yyyy-MM-dd"));
-            dateTest.setEndDate(DateUtils.convertStr2Date(endDate, "yyyy-MM-dd"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return dateTestRepository.save(dateTest);
-    }
-
-
     /**
      * 查询根节点
      */
@@ -358,5 +343,13 @@ public class EquipmentController extends BaseController {
 
     }
 
-
+    /**
+     * @param eqCode 设备编号
+     * @return 查询设备编号是否存在
+     */
+    @RequestMapping(value = "/checkEqCodeExists/{eqCode}", method = RequestMethod.GET)
+    @ResponseBody
+    public Boolean checkEqCodeExists(@PathVariable("eqCode") String eqCode) {
+        return equipmentAccountService.eqCodeExists(eqCode);
+    }
 }

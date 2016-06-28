@@ -197,4 +197,17 @@ public class EquipmentAccountService extends BaseService {
         }
         return vworkOrderStepList;
     }
+
+
+    /**
+     * @param eqCode
+     * @return 查询维修历史信息
+     */
+    public Boolean eqCodeExists(String eqCode) {
+        List<Equipments> equipmentsList = new ArrayList<Equipments>();
+        if (eqCode != null && !eqCode.equals("")) {
+            equipmentsList = equipmentsRepository.findByEqCode(eqCode);
+        }
+        return !equipmentsList.isEmpty();
+    }
 }

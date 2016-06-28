@@ -37,8 +37,9 @@
                                             <li><a href="#tab_1_1" data-toggle="tab">
                                                 <i class="fa fa-flag" id="eqDetail"></i>设备详细信息</a>
                                             </li>
-                                            <li><a href="#tab_1_3" data-toggle="tab"><i
-                                                    class="fa fa-lock" id="history"></i>报修历史信息</a>
+                                            <li><a href="#tab_1_3" data-toggle="tab"><i class="fa fa-lock" id="history"></i>报修历史信息<span
+                                                    class="badge badge-green"
+                                                    id="historySize">9</span></a>
                                             </li>
                                         </ul>
                                         <div class="tab-content">

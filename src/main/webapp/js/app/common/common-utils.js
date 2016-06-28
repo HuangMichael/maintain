@@ -140,7 +140,7 @@ function showMessageBoxCenter(type, position, message) {
 };
 
 
-Array.prototype.indexOf = function(val) {
+Array.prototype.indexOf = function (val) {
     for (var i = 0; i < this.length; i++) {
         if (this[i] == val) return i;
     }
@@ -157,6 +157,27 @@ Array.prototype.remove = function (val) {
         this.splice(index, 1);
     }
 };
+
+
+/**
+ * 移除指定的元素
+ * */
+Array.prototype.removeButThis = function (val) {
+    for (var x in this) {
+        //如果值有重复
+        if (this[x] == val) {
+            this.clear();
+            this.push(val);
+        }
+
+    }
+}
+
+Array.prototype.clear = function () {
+    this.splice(0, this.length);
+    console.log(this); // 输出 []，空数组，即被清空了
+}
+
 
 var replaceNull = function (obj) {
 

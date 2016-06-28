@@ -38,6 +38,13 @@ public interface EquipmentsRepository extends CrudRepository<Equipments, Long> {
      */
     Equipments findById(long id);
 
+
+    /**
+     * @param eqCode
+     * @return 根据设备编号查询设备信息
+     */
+    List<Equipments> findByEqCode(String eqCode);
+
     /**
      * 根据位置信息查询设备
      */
@@ -56,8 +63,6 @@ public interface EquipmentsRepository extends CrudRepository<Equipments, Long> {
      * @return 按照位置模糊查询资产信息
      */
     List<Equipments> findByLocationStartingWith(String location);
-
-
 
 
     /**

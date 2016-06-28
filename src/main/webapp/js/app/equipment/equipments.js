@@ -35,12 +35,11 @@ $(function () {
                 {value: 0, text: "运行"},
                 {value: 1, text: "停止"}
             ]
-            // locations_id: eqs[0]["locations"]["id"]
         },
         methods: {
             previous: function (event) {
                 if (pointer <= 0) {
-                    showMessageBox("danger", "对不起，当前记录是第一条");
+                    showMessageBoxCenter("center", "danger", "当前记录是第一条");
                     return;
                 } else {
                     pointer = pointer - 1;
@@ -48,23 +47,25 @@ $(function () {
 
                     var e = getEquipmentByIdInEqs(selectedIds[pointer])
                     vdm.$set("equipments", e);
-                    //vdm.$set("locations_id", e["locations"]["id"]);
-                    //  $("#locations_id").find("option[value='" + e["locations"]["id"] + "']");
-                    //setFormSelect(e);
                     loadFixHistoryByEid(selectedIds[pointer]);
                 }
             },
             next: function (event) {
                 if (pointer >= selectedIds.length - 1) {
-                    showMessageBox("danger", "对不起，当前记录是最后一条");
+                    showMessageBoxCenter("center", "danger", "当前记录是最后一条");
                     return;
                 } else {
                     pointer = pointer + 1;
                     var e = getEquipmentByIdInEqs(selectedIds[pointer])
                     vdm.$set("equipments", e);
-                    // vdm.$set("locations_id", e["locations"]["id"]);
-                    // $("#locations_id").find("option[value='" + e["locations"]["id"] + "']")
                     loadFixHistoryByEid(selectedIds[pointer]);
+                }
+            },
+            checkEqCode: function () {
+                var eqCode = vdm.$get("equipments.eqCode");
+                if (checkEqCode(eqCode)) {
+                    showMessageBoxCenter("center", "danger", "设备编号不能重复");
+                    return;
                 }
             }
         }
@@ -85,6 +86,23 @@ $(function () {
             selectedIds = setAllInSelectedList(eqs);
         }
         vdm.$set("equipments", eq);
+
+    });
+
+
+    $('#myTab li:eq(2) a').on('click', function () {
+        //首先判断是否有选中的
+
+
+        var equipments = vdm.$get("equipments");
+        var historyModel = new Vue({
+            el: "#historyForm",
+            data: {
+                e: equipments
+            }
+        });
+        console.log("history--------" + vdm.equipments.description);
+
 
     });
 
@@ -237,7 +255,7 @@ function track(eid) {
                 $(".ystep1").setStep(getCurrentStep(steps));
                 $("#track_eq_modal").modal("show");
             } else {
-                var m = showMessageBox("danger", "当前设备不在维修流程中");
+                var m = showMessageBoxCenter("center", "danger", "当前设备不在维修流程中");
                 if (m) {
                     return;
                 }
@@ -427,9 +445,10 @@ function initLoadData(url, elementName) {
                     }
                 }
             }).on("selected.rs.jquery.bootgrid", function (e, rows) {
-
-                console.log("rows.length--" + rows.length);
-                console.log("eqs.length--" + eqs.length);
+                //如果默认全部选中
+                if (selectedIds.length === eqs.length) {
+                    selectedIds.clear();
+                }
                 for (var x in rows) {
                     if (rows[x]["id"]) {
                         selectedIds.push(rows[x]["id"]);
@@ -508,4 +527,19 @@ function setFormSelect(eq) {
     $("#equipmentsClassification_id").val(eq.id);
     $("#locations_id").val(eq.id);
 
+}
+
+
+/**
+ *
+ * @param eqCode 设备编号
+ * @returns {boolean} 检查设备编号是否唯一
+ */
+function checkEqCode(eqCode) {
+    var exists = false;
+    var url = "/equipment/checkEqCodeExists/" + eqCode;
+    $.getJSON(url, function (data) {
+        exists = data
+    });
+    return exists;
 }

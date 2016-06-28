@@ -2,17 +2,17 @@ var dataTableName = '#equipmentsDataTable';
 var eqs = [];
 var locs = [];
 var eqClasses = [];
-var selectctIds = []; //获取被选择记录集合
-
+var selectedIds = []; //获取被选择记录集合
+var allSize = 0;
+var allIds = [];
 var vdm = null; //明细页面的模型
 var vm = null; //明细页面的模型
 
+var pointer = 0;
+$.ajaxSettings.async = false;
 $(function () {
-    var url = "/equipment/findMyEqs";
-    $.getJSON(url, function (data) {
-        eqs = data;
-    });
-
+    //初始化从数据库获取列表数据
+    initLoadData("/equipment/findMyEqs", dataTableName);
     var url_location = "/commonData/findMyLocation";
     $.getJSON(url_location, function (data) {
         locs = data;
@@ -22,107 +22,61 @@ $(function () {
         eqClasses = data;
     });
 
-
-    vm = new Vue({
-        el: dataTableName,
-        data: {
-            eqs: eqs
-        }
-    })
-
-
-    var selectedId = [];
-    var pointer = 0;
-    //ajax载入设备信息
-    $(dataTableName).bootgrid({
-        ajaxSettings: {
-            method: "GET",
-            cache: false
-        },
-        selection: true,
-        multiSelect: true,
-        rowSelect: true,
-        keepSelection: true,
-        formatters: {
-            "report": function (column, row) {
-                return '<a class="btn btn-default btn-xs"  onclick="report(' + row.id + ')" title="报修"><i class="glyphicon glyphicon-wrench"></i></a>'
-            },
-            "track": function (column, row) {
-                return '<a class="btn btn-default btn-xs"  onclick="track(' + row.id + ')" title="追踪"><i class="glyphicon glyphicon-map-marker"></i></a>'
-            }
-        }
-    }).on("selected.rs.jquery.bootgrid", function (e, rows) {
-        for (var x in rows) {
-            if (rows[x]["id"]) {
-                selectedId.push(rows[x]["id"]);
-            }
-        }
-        selectctIds = selectedId.sort();
-        pointer = 0;
-        console.log("selectctIds----------------" + selectctIds);
-    }).on("deselected.rs.jquery.bootgrid", function (e, rows) {
-        for (var x in rows) {
-            selectedId.remove(rows[x]["id"]);
-        }
-        selectedId = selectedId.sort();
-        console.log("selectctIds----------------" + selectctIds);
-    });
-
-
-    var initId = 57;
     vdm = new Vue({
         el: "#detailForm",
         data: {
-            equipments: getEquipmentByIdInEqs(57),
+            equipments: eqs[0],
             locs: locs,
-            eqClasses: eqClasses,
+            eqClasses: eqClasses
         },
         methods: {
             previous: function (event) {
-                if (pointer > 0) {
-                    pointer = pointer - 1;
-                    vdm.equipments = getEquipmentByIdInEqs(selectctIds[pointer]);
-                } else {
-                    pointer = 0;
-                    showMessageBox("info", "当前已经是第一条记录了");
+                if (pointer <= 0) {
+                    showMessageBox("info", "没有下一个了");
                     return;
+                } else {
+                    pointer = pointer - 1;
+                    //判断当前指针位置
+                    vdm.$set("equipments", getEquipmentByIdInEqs(selectedIds[pointer]));
                 }
+                console.log("当前指针位置----------" + pointer);
             },
             next: function (event) {
-                if (pointer < selectctIds.length - 1) {
-                    pointer = pointer + 1;
-                    vdm.equipments = getEquipmentByIdInEqs(selectctIds[pointer]);
-                } else {
-                    pointer = selectctIds.length;
-                    showMessageBox("info", "当前已经是最后一条记录了");
+                if (pointer >= selectedIds.length - 1) {
+                    showMessageBox("info", "没有下一个了");
                     return;
+                } else {
+                    pointer = pointer + 1;
+                    vdm.$set("equipments", getEquipmentByIdInEqs(selectedIds[pointer]));
                 }
+
+                console.log("当前指针位置----------" + pointer);
             }
         }
-    });
-
-
-    $('#myTab li:eq(0) a').on('click', function () {
-        $.getJSON("/equipment/findMyEqs", function (data) {
-            vm.eqs = data;
-        })
     });
 
 
     $('#myTab li:eq(1) a').on('click', function () {
-        vdm.equipments = null;
-        var eid = null;
-        //分选择和不选择进行分类处理  todo
-        if (selectctIds.length > 0) {
-            eid = selectctIds[0];
-            vdm.equipments = getEquipmentByIdInEqs(eid);
+        console.log("selectedIds----------------------" + selectedIds);
+        //首先判断是否有选中的
+        var eq = null;
+        if (selectedIds.length > 0) {
+            //切换tab时默认给detail中第一个数据
+            eq = findEquipmentByIdInEqs(selectedIds[0]);
+            console.log("设备名称----" + eq.description);
+        } else {
+            //没有选中的 默认显示整个列表的第一条
+            console.log("无选中的----------------------" + selectedIds);
+            eq = eqs[0];
+            //所有的都在选中列表中
+            selectedIds = setAllInSelectedList(eqs);
+
+            console.log("selectedIds-----------" + selectedIds);
         }
-        var tableIds = getCheckValues(dataTableName);
-        if (tableIds.length > 0) {
-            eid = tableIds[0];
-            vdm.equipments = getEquipmentByIdInEqs(eid);
-        }
+        vdm.$set("equipments", eq);
     });
+
+
     $('select').select2({theme: "bootstrap"});
     // 表单ajax提交
     $('#detailForm')
@@ -444,8 +398,60 @@ function saveEquipment() {
         }
     })
 }
+/**
+ *
+ * @param url 数据接口路径
+ * @param elementName 渲染元素名称
+ */
+function initLoadData(url, elementName) {
+    console.log("初始化载入列表数据---" + url);
+    $.getJSON(url, function (data) {
+        eqs = data;
+        allSize = data.length; //计算所有记录的个数
+        if (dataTableName) {
+            vm = new Vue({
+                el: elementName,
+                data: {
+                    eqs: eqs
+                }
+            });
+            //ajax载入设备信息  并且监听选择事件
+            $(dataTableName).bootgrid({
+                ajaxSettings: {
+                    method: "GET",
+                    cache: false
+                },
+                selection: true,
+                multiSelect: true,
+                rowSelect: true,
+                keepSelection: true,
+                formatters: {
+                    "report": function (column, row) {
+                        return '<a class="btn btn-default btn-xs"  onclick="report(' + row.id + ')" title="报修"><i class="glyphicon glyphicon-wrench"></i></a>'
+                    },
+                    "track": function (column, row) {
+                        return '<a class="btn btn-default btn-xs"  onclick="track(' + row.id + ')" title="追踪"><i class="glyphicon glyphicon-map-marker"></i></a>'
+                    }
+                }
+            }).on("selected.rs.jquery.bootgrid", function (e, rows) {
 
-
+                console.log("rows.length--" + rows.length);
+                console.log("eqs.length--" + eqs.length);
+                for (var x in rows) {
+                    if (rows[x]["id"]) {
+                        selectedIds.push(rows[x]["id"]);
+                    }
+                }
+                console.log("选择后的ID列表----------------" + selectedIds);
+            }).on("deselected.rs.jquery.bootgrid", function (e, rows) {
+                for (var x in rows) {
+                    selectedIds.remove(rows[x]["id"]);
+                }
+                console.log("取消选中后的ID列表----------------" + selectedIds);
+            });
+        }
+    });
+}
 /**
  * 根据ID获取设备信息
  * @param eqs 设备信息集合
@@ -466,7 +472,7 @@ function getEquipmentByIdInEqs(eid) {
  * @param eqs 设备信息集合
  * @param eid 设备ID
  */
-function getEquipmentByIdInEqs(eid) {
+function findEquipmentByIdInEqs(eid) {
     var equipment = null;
     for (var i in eqs) {
         if (eqs[i].id == eid) {
@@ -474,21 +480,22 @@ function getEquipmentByIdInEqs(eid) {
             break;
         }
     }
-
-    console.log("equipment---------" + JSON.stringify(equipment));
     return equipment;
 }
 
 
-function getCheckValues(dataTableName) {
-    var tableIds = [];
-    $(dataTableName + " input[type='checkbox']").each(function (i) {
-        if (!isNaN($(this).val())) {
-            console.log("$(this).val()----------" + $(this).val());
-            tableIds.push($(this).val());
+/**
+ *
+ * @param eqs 所有的记录
+ * @returns {Array}将所有的放入选中集合
+ */
+function setAllInSelectedList(eqs) {
+    var selecteds = [];
+    for (var x in eqs) {
+        if (!isNaN(eqs[x]["id"])) {
+            selecteds.push(eqs[x]["id"]);
         }
+    }
+    return selecteds;
 
-    })
-    console.log(tableIds);
-    return tableIds;
 }

@@ -12,16 +12,22 @@
     </tr>
     </thead>
     <tbody id="reportHistory_list" style="height: 100px;overflow: scroll">
-
-    <tr v-for="h in historyList">
-        <td>{{ $index+1 }}</td>
-        <td>{{h.orderLineNo}}</td>
-        <td>{{h.orderDesc}}</td>
-        <td>{{h.reportTime}}</td>
-        <td>
-            {{h.status}}
-        </td>
-        <td></td>
-    </tr>
+    <c:forEach var="h" items="${historyList}" varStatus="s">
+        <tr>
+            <td>${s.index+1}</td>
+            <td>${h[0]}</td>
+            <td>${h[2]}</td>
+            <td>${h[3]}</td>
+            <td>
+                <c:if test="${h[4]==0}">
+                    未完成
+                </c:if>
+                <c:if test="${h[4]==1}">
+                    已完成
+                </c:if>
+            </td>
+            <td>${h[5]}</td>
+        </tr>
+    </c:forEach>
     </tbody>
 </table>

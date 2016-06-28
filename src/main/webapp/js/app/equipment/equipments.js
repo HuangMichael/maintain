@@ -4,11 +4,9 @@ var locs = [];
 var eqClasses = [];
 var selectedIds = []; //获取被选择记录集合
 var allSize = 0;
-var allIds = [];
 var vdm = null; //明细页面的模型
 var vm = null; //明细页面的模型
 
-var historyModel = null;
 
 var pointer = 0;
 $.ajaxSettings.async = false;
@@ -29,7 +27,15 @@ $(function () {
         data: {
             equipments: eqs[0],
             locs: locs,
-            eqClasses: eqClasses
+            eqClasses: eqClasses,
+            status: [{value: 0, text: "停用"},
+                {value: 1, text: "投用"},
+                {value: 2, text: "报废"}],
+            running: [
+                {value: 0, text: "运行"},
+                {value: 1, text: "停止"}
+            ]
+            // locations_id: eqs[0]["locations"]["id"]
         },
         methods: {
             previous: function (event) {
@@ -39,7 +45,13 @@ $(function () {
                 } else {
                     pointer = pointer - 1;
                     //判断当前指针位置
-                    vdm.$set("equipments", getEquipmentByIdInEqs(selectedIds[pointer]));
+
+                    var e = getEquipmentByIdInEqs(selectedIds[pointer])
+                    vdm.$set("equipments", e);
+                    //vdm.$set("locations_id", e["locations"]["id"]);
+                    //  $("#locations_id").find("option[value='" + e["locations"]["id"] + "']");
+                    //setFormSelect(e);
+                    loadFixHistoryByEid(selectedIds[pointer]);
                 }
             },
             next: function (event) {
@@ -48,39 +60,16 @@ $(function () {
                     return;
                 } else {
                     pointer = pointer + 1;
-                    vdm.$set("equipments", getEquipmentByIdInEqs(selectedIds[pointer]));
+                    var e = getEquipmentByIdInEqs(selectedIds[pointer])
+                    vdm.$set("equipments", e);
+                    // vdm.$set("locations_id", e["locations"]["id"]);
+                    // $("#locations_id").find("option[value='" + e["locations"]["id"] + "']")
+                    loadFixHistoryByEid(selectedIds[pointer]);
                 }
             }
         }
     });
 
-    historyModel = new Vue({
-        el: "#reportHistory_list",
-        data: {
-            historyList: loadFixHistoryByEid(90)
-        },
-        methods: {
-            previous: function (event) {
-                if (pointer <= 0) {
-                    showMessageBox("danger", "对不起，当前记录是第一条");
-                    return;
-                } else {
-                    pointer = pointer - 1;
-                    //判断当前指针位置
-                    vdm.$set("equipments", getEquipmentByIdInEqs(selectedIds[pointer]));
-                }
-            },
-            next: function (event) {
-                if (pointer >= selectedIds.length - 1) {
-                    showMessageBox("danger", "对不起，当前记录是最后一条");
-                    return;
-                } else {
-                    pointer = pointer + 1;
-                    vdm.$set("equipments", getEquipmentByIdInEqs(selectedIds[pointer]));
-                }
-            }
-        }
-    });
 
     $('#myTab li:eq(1) a').on('click', function () {
         //首先判断是否有选中的
@@ -96,26 +85,7 @@ $(function () {
             selectedIds = setAllInSelectedList(eqs);
         }
         vdm.$set("equipments", eq);
-    });
 
-
-    $('#myTab li:eq(2) a').on('click', function () {
-        //首先判断是否有选中的
-        var eq = null;
-        if (selectedIds.length > 0) {
-            //切换tab时默认给detail中第一个的历史信息
-            eq = findEquipmentByIdInEqs(selectedIds[0]);
-
-            reportHistory
-
-            initLoadData(url, "#reportHistory");
-        } else {
-            //没有选中的 默认显示整个列表的第一条
-            eq = eqs[0];
-            //所有的都在选中列表中第一条记录的历史信息
-            selectedIds = setAllInSelectedList(eqs);
-        }
-        vdm.$set("equipments", eq);
     });
 
 
@@ -145,9 +115,9 @@ $(function () {
                             message: '设备描述不能为空!'
                         },
                         stringLength: {
-                            min: 6,
+                            min: 2,
                             max: 20,
-                            message: '设备描述长度为6到20个字符'
+                            message: '设备描述长度为2到20个字符'
                         }
                     }
                 },
@@ -528,10 +498,14 @@ function setAllInSelectedList(eqs) {
  * 根据设备ID载入维修历史信息
  */
 function loadFixHistoryByEid(eid) {
-    var url = "/equipment/findFixHisory/" + eid;
-    $.getJSON(url, function (data) {
-        historyList = data;
-    })
+    var url = "/equipment/loadHistory/" + eid;
+    $("#tab_1_3").load(url);
 
+
+}
+
+function setFormSelect(eq) {
+    $("#equipmentsClassification_id").val(eq.id);
+    $("#locations_id").val(eq.id);
 
 }

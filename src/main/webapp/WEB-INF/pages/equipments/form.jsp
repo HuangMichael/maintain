@@ -24,14 +24,12 @@
             <div class="col-md-3">
                 <select v-model="equipments.locations.id" class="form-control" id="locations_id" name="locations.id"
                         required style="width:100%">
-                    <template v-for="c in locs">
-                        <option :value="c.id" v-if="option == c.id" selected>
-                            {{ c.description }}
-                        </option>
-                        <option :value="c.id" v-else>
-                            {{ c.description }}
-                        </option>
-                    </template>
+                    <option v-for="item of locs" v-if="item.id == equipments.locations.id" selected
+                            v-bind:value="item.id">{{ item.description }}
+                    </option>
+                    <option v-for="item of locs" v-if="item.id != equipments.locations.id" v-bind:value="item.id">{{
+                        item.description }}
+                    </option>
                 </select>
             </div>
         </div>
@@ -58,10 +56,12 @@
                         required v-model="equipments.equipmentsClassification.id"
                         style="width:100%">
                     <option>请选择设备类型</option>
-                    <option v-for="c in eqClasses" v-bind:value="c.id">
-                        {{ c.description }}
+                    <option v-for="item of eqClasses" v-if="item.id == equipments.equipmentsClassification.id" selected
+                            v-bind:value="item.id">{{ item.description }}
                     </option>
-
+                    <option v-for="item of eqClasses" v-if="item.id != equipments.equipmentsClassification.id"
+                            v-bind:value="item.id">{{ item.description }}
+                    </option>
                 </select>
             </div>
         </div>
@@ -72,10 +72,10 @@
                 <select class="form-control" id="manageLevel" name="manageLevel" v-model="equipments.manageLevel"
                         style="width:100%">
                     <option>请选择设备管理等级</option>
-                    <option value="1">1级设备</option>
-                    <option value="2">2级设备</option>
-                    <option value="3">3级设备</option>
-                    <option value="3">4级设备</option>
+                    <option v-for="option in [1,2,3,4]" v-bind:value="option">
+                        {{ option }}级设备
+                    </option>
+
                 </select>
             </div>
             <label class="col-md-1 control-label" for="assetNo">资产编号</label>
@@ -117,9 +117,10 @@
                 <select class="form-control" id="status" name="status" required v-model="equipments.status"
                         style="width:100%">
                     <option>请选择设备状态</option>
-                    <option value="0">停用</option>
-                    <option value="1">投用</option>
-                    <option value="2">报废</option>
+                    <option v-for="s in status" v-bind:value="s.value">
+                        {{ s.text }}
+                    </option>
+
                 </select>
             </div>
             <label class="col-md-1 control-label" for="running">是否运行</label>
@@ -128,8 +129,9 @@
                 <select class="form-control" id="running" name="running" required v-model="equipments.running"
                         style="width:100%">
                     <option>请选择设备运行状态</option>
-                    <option value="0">运行</option>
-                    <option value="1">停用</option>
+                    <option v-for="r in running" v-bind:value="r.value">
+                        {{ r.text }}
+                    </option>
                 </select>
             </div>
 

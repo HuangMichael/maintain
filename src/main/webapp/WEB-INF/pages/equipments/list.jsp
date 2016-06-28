@@ -18,9 +18,12 @@
                         <div class="box-body" style="padding: 5px 20px 0px 20px">
                             <!-- Split button -->
                             <div class="btn-group">
-                                <button type="button" class="btn btn-default " onclick="loadCreateForm()"><i
-                                        class="glyphicon glyphicon-plus"></i>新建记录
+
+                                <button type="button" class="btn btn-default " onclick="loadCreateForm()">
+                                    <i class="glyphicon glyphicon-plus"></i>新建记录
                                 </button>
+                                <button type="button" class="btn btn-default" v-on:click="previous"><i class="glyphicon glyphicon-glyphicon glyphicon-backward"></i>上一条</button>
+                                <button type="button" class="btn btn-default" v-on:click="next"><i class="glyphicon glyphicon-glyphicon glyphicon-forward"></i>下一条</button>
                             </div>
                         </div>
                         <%--  <a type="button" class="btn  btn-default btn-xs " id="createBtn"

@@ -39,7 +39,7 @@ $(function () {
         methods: {
             previous: function (event) {
                 if (pointer <= 0) {
-                    showMessageBoxCenter("center", "danger", "当前记录是第一条");
+                    showMessageBoxCenter( "danger","center", "当前记录是第一条");
                     return;
                 } else {
                     pointer = pointer - 1;
@@ -52,7 +52,7 @@ $(function () {
             },
             next: function (event) {
                 if (pointer >= selectedIds.length - 1) {
-                    showMessageBoxCenter("center", "danger", "当前记录是最后一条");
+                    showMessageBoxCenter( "danger","center", "当前记录是最后一条");
                     return;
                 } else {
                     pointer = pointer + 1;
@@ -64,7 +64,7 @@ $(function () {
             checkEqCode: function () {
                 var eqCode = vdm.$get("equipments.eqCode");
                 if (checkEqCode(eqCode)) {
-                    showMessageBoxCenter("center", "danger", "设备编号不能重复");
+                    showMessageBoxCenter( "danger","center", "设备编号不能重复");
                     return;
                 }
             }
@@ -255,7 +255,7 @@ function track(eid) {
                 $(".ystep1").setStep(getCurrentStep(steps));
                 $("#track_eq_modal").modal("show");
             } else {
-                var m = showMessageBoxCenter("center", "danger", "当前设备不在维修流程中");
+                var m = showMessageBoxCenter( "danger","center", "当前设备不在维修流程中");
                 if (m) {
                     return;
                 }

@@ -2,6 +2,7 @@ package com.linkbit.beidou.service.unit;
 
 import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
 import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
+import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import com.linkbit.beidou.service.app.BaseService;
@@ -76,5 +77,19 @@ public class OutsoucingUnitService extends BaseService {
             equipmentsClassification = equipmentsClassificationRepository.save(equipmentsClassification);
         }
         return equipmentsClassification;
+    }
+
+
+
+    /**
+     * @param unitCode
+     * @return 查询维修历史信息
+     */
+    public Boolean unitNoExists(String unitCode) {
+        List<OutsourcingUnit> equipmentsList = new ArrayList<OutsourcingUnit>();
+        if (unitCode != null && !unitCode.equals("")) {
+            equipmentsList = outsourcingUnitRepository.findByUnitNo(unitCode);
+        }
+        return !equipmentsList.isEmpty();
     }
 }

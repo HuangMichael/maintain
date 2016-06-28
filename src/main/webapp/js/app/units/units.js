@@ -25,9 +25,9 @@ $(function () {
                             message: '单位编号不能为空!'
                         },
                         stringLength: {
-                            min: 6,
+                            min: 3,
                             max: 20,
-                            message: '单位编号长度为6到20个字符'
+                            message: '单位编号长度为3到20个字符'
                         }
                     }
                 },
@@ -95,10 +95,10 @@ $(function () {
                     //loadFixHistoryByEid(selectedIds[pointer]);
                 }
             },
-            checkEqCode: function () {
-                var eqCode = unitDetail.$get("equipments.eqCode");
-                if (checkEqCode(eqCode)) {
-                    showMessageBoxCenter("danger", "center", "设备编号不能重复");
+            checkUnitNo: function () {
+                var unitNo = unitDetail.$get("unit.unitNo");
+                if (checkUnitNo(unitNo)) {
+                    showMessageBoxCenter("danger", "center", "单位编号不能重复");
                     return;
                 }
             }
@@ -186,7 +186,7 @@ function loadCreateForm() {
 
 
 function saveUnit() {
-    var objStr = getFormJsonData("detailForm");
+    var objStr = getFormJsonData("unitDetailForm");
     var outsourcingUnit = JSON.parse(objStr);
     console.log(JSON.stringify(outsourcingUnit));
     var url = "/outsourcingUnit/save";
@@ -197,13 +197,13 @@ function saveUnit() {
         dataType: "json",
         success: function (data) {
             $("#unit_modal").modal("hide");
-            if (unit.id) {
+            if (data.id) {
                 showMessageBox("info", "外委单位信息更新成功");
             } else {
                 showMessageBox("info", "外委单位信息添加成功");
             }
         }, error: function (data) {
-            if (unit.id) {
+            if (data.id) {
                 showMessageBox("danger", "外委单位信息更新失败");
             } else {
                 showMessageBox("info", "外委单位信息添加失败");
@@ -268,9 +268,9 @@ function initLoadData(url, elementName) {
  * @param eqCode 设备编号
  * @returns {boolean} 检查设备编号是否唯一
  */
-function checkEqCode(eqCode) {
+function checkUnitNo(unitCode) {
     var exists = false;
-    var url = "/Unit/checkEqCodeExists/" + eqCode;
+    var url = "/outSourcingUnit/unitNoExists/" + unitCode;
     $.getJSON(url, function (data) {
         exists = data
     });

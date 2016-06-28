@@ -12,20 +12,35 @@
                     <!-- BOX -->
                     <div class="box border blue">
                         <div class="box-title">
-                            <h4><i class="fa fa-sitemap"></i>设备信息</h4>
+                            <h4 style="font-family: 微软雅黑"><i class="fa fa-sitemap"></i>设备信息</h4>
                         </div>
 
                         <div class="box-body" style="padding: 5px 20px 0px 20px">
                             <!-- Split button -->
                             <div class="btn-group">
 
-                                <button type="button" class="btn btn-default " onclick="loadCreateForm()">
+                                <button type="button" class="btn btn-default btn-primary btn-sm active"
+                                        style="border:1px solid white;background-color:#60b044;background-color: #569e3d;
+    background-image: -webkit-linear-gradient(#79d858, #569e3d);
+    background-image: linear-gradient(#79d858, #569e3d);
+    border-radius: 6px"
+                                        onclick="loadCreateForm()">
                                     <i class="glyphicon glyphicon-plus"></i>新建记录
                                 </button>
-                                <button type="button" class="btn btn-default" onclick="backwards()"><i
+                                <button type="button" class="btn btn-success btn-sm active"
+                                        style="border:1px solid white;background-color:#60b044;background-color: #569e3d;
+    background-image: -webkit-linear-gradient(#79d858, #569e3d);
+    background-image: linear-gradient(#79d858, #569e3d);
+    border-radius: 6px"
+                                        onclick="backwards()"><i
                                         class="glyphicon glyphicon-glyphicon glyphicon-backward"></i>上一条
                                 </button>
-                                <button type="button" class="btn btn-default" onclick="forwards()"><i
+                                <button type="button" class="btn btn-default btn-primary btn-sm active"
+                                        style="border:1px solid white;background-color:#60b044;background-color: #569e3d;
+    background-image: -webkit-linear-gradient(#79d858, #569e3d);
+    background-image: linear-gradient(#79d858, #569e3d);
+    border-radius: 6px"
+                                        onclick="forwards()"><i
                                         class="glyphicon glyphicon-glyphicon glyphicon-forward"></i>下一条
                                 </button>
                             </div>
@@ -37,14 +52,15 @@
                                 <div class="box-body">
                                     <div class="tabbable">
                                         <ul class="nav nav-tabs" id="myTab">
-                                            <li class="active"><a href="#tab_1_0" data-toggle="tab">
+                                            <li class="active"><a href="#tab_1_0" data-toggle="tab" style="font-family: 微软雅黑;font-weight: bold">
                                                 <i class="fa fa-home" id="eq"></i>设备信息</a>
                                             </li>
 
-                                            <li><a href="#tab_1_1" data-toggle="tab">
+                                            <li><a href="#tab_1_1" data-toggle="tab" style="font-family: 微软雅黑;font-weight: bold">
                                                 <i class="fa fa-flag" id="eqDetail"></i>设备详细信息</a>
                                             </li>
-                                            <li><a href="#tab_1_3" data-toggle="tab"><i class="fa fa-lock" id="history"></i>报修历史信息</a>
+                                            <li><a href="#tab_1_3" data-toggle="tab" style="font-family: 微软雅黑;font-weight: bold"><i class="fa fa-lock"
+                                                                                        id="history"></i>报修历史信息</a>
                                             </li>
                                         </ul>
                                         <div class="tab-content">

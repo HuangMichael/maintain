@@ -41,8 +41,6 @@ public class OutsourcingUnitController {
     public String list(ModelMap modelMap) {
 
         return "/units/list";
-
-
     }
 
     /**
@@ -119,5 +117,17 @@ public class OutsourcingUnitController {
         OutsourcingUnit unit = outsourcingUnitRepository.findById(uid);
         modelMap.put("unit", unit);
         return "/units/" + pageUrl;
+    }
+
+
+
+    /**
+     * @param unitNo 单位编号
+     * @return 查询单位编号是否存在
+     */
+    @RequestMapping(value = "/checkUnitCodeExists/{unitNo}", method = RequestMethod.GET)
+    @ResponseBody
+    public Boolean checkUnitCodeExists(@PathVariable("unitNo") String unitNo) {
+        return outsourcingUnitService.unitNoExists(unitNo);
     }
 }

@@ -18,6 +18,14 @@ public interface OutsourcingUnitRepository extends CrudRepository<OutsourcingUni
      */
     List<OutsourcingUnit> findAll();
 
+
+    /**
+     * @param unitCode
+     * @return 根据单位编号查询
+     */
+    List<OutsourcingUnit> findByUnitNo(String unitCode);
+
+
     /**
      * 根据状态查询外委单位
      */

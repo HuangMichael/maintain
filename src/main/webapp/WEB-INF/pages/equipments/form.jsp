@@ -5,7 +5,7 @@
 <%@ taglib prefix="v-on" uri="http://www.springframework.org/tags/form" %>
 <form class="form-horizontal" role="form" id="detailForm">
     <fieldset class="form-group" id="a">
-        <legend>基本信息</legend>
+        <legend style="font-family:微软雅黑;font-size: small;color: #0b68e3 ;font-weight:bold">基本信息</legend>
         <div class="form-group">
             <label class="col-md-1 control-label" for="eqCode">设备编号</label>
 
@@ -34,8 +34,6 @@
                 </select>
             </div>
         </div>
-
-
         <div class="form-group">
             <label class="col-md-1 control-label" for="maintainer">维护人员</label>
 
@@ -92,26 +90,12 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-1 control-label" for="originalValue">原值(元)</label>
-
-            <div class="col-md-3">
-                <input class="form-control" id="originalValue" type="text" name="originalValue"
-                       v-model="equipments.originalValue"/>
-            </div>
-            <label class="col-md-1 control-label" for="netValue">净值(元)</label>
-
-            <div class="col-md-3">
-                <input class="form-control" id="netValue" type="text" name="netValue" v-model="equipments.netValue"/>
-            </div>
-
             <label class="col-md-1 control-label" for="manager">负责人</label>
 
             <div class="col-md-3">
                 <input class="form-control" id="manager" type="text" name="manager" v-model="equipments.manager"/>
             </div>
-        </div>
 
-        <div class="form-group">
             <label for="status" class="col-md-1 control-label">设备状态</label>
 
             <div class="col-md-3">
@@ -137,6 +121,26 @@
             </div>
 
 
+        </div>
+    </fieldset>
+
+
+    <fieldset class="form-group" id="b">
+        <legend style="font-family: Consolas;font-size: small;color: #0b68e3">价值信息</legend>
+        <div class="form-group">
+
+            <label class="col-md-1 control-label" for="originalValue">原值(元)</label>
+
+            <div class="col-md-3">
+                <input class="form-control" id="originalValue" type="text" name="originalValue"
+                       v-model="equipments.originalValue"/>
+            </div>
+            <label class="col-md-1 control-label" for="netValue">净值(元)</label>
+
+            <div class="col-md-3">
+                <input class="form-control" id="netValue" type="text" name="netValue" v-model="equipments.netValue"/>
+            </div>
+
             <label class="col-md-1 control-label" for="purchasePrice">采购价格</label>
 
             <div class="col-md-3">
@@ -144,15 +148,10 @@
                        v-model="equipments.purchasePrice" number/>
             </div>
         </div>
-
     </fieldset>
-
     <fieldset class="form-group">
-
-        <legend>其他信息</legend>
-
+        <legend style="font-family: Consolas;font-size: small;color: #0b68e3">其他信息</legend>
         <div class="form-group">
-
             <label class="col-md-1 control-label" for="warrantyPeriod">采购日期</label>
 
             <div class="col-md-3">
@@ -160,8 +159,6 @@
                        name="purchaseDate"
                        v-model="equipments.purchaseDate" style="height:34px;border:1px solid #cccccc"/>
             </div>
-
-
             <label class="col-md-1 control-label" for="warrantyPeriod">保修期至</label>
 
             <div class="col-md-3">
@@ -172,14 +169,11 @@
             <label class="col-md-1 control-label" for="setupDate">安装日期</label>
 
             <div class="col-md-3">
-
                 <input class="Wdate form-control" type="text" onClick="WdatePicker()" id="setupDate"
                        name="setupDate"
                        v-model="equipments.setupDate" style="height:34px;border:1px solid #cccccc"/>
-
             </div>
         </div>
-
         <div class="form-group">
             <label class="col-md-1 control-label" for="productDate">出厂日期</label>
 

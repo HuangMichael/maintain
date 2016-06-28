@@ -1,31 +1,192 @@
-/**
- * Created by Administrator on 2016/6/20 0020.
- */
-jQuery(document).ready(function () {
-    $("#datatable1").bootgrid({
-        selection: true,
-        multiSelect: false,
-        rowSelect: true,
-        keepSelection: false
-    }).on("selected.rs.jquery.bootgrid", function (e, rows) {
-        for (var i = 0; i < rows.length; i++) {
-            selectedId.push(rows[i].id);
-        }
-    }).on("deselected.rs.jquery.bootgrid", function (e, rows) {
-        for (var i = 0; i < rows.length; i++) {
-            selectedId.remove(rows[i].id);
+var dataTableName = '#unitsDataTable';
+var units = [];
+var selectedIds = []; //获取被选择记录集合
+var allSize = 0;
+var unitDetail = null; //明细页面的模型
+var vm = null; //明细页面的模型
+var unit = null;
+
+var pointer = 0;
+$.ajaxSettings.async = false;
+$(function () {
+    //初始化从数据库获取列表数据
+    initLoadData("/outsourcingUnit/findAll", dataTableName);
+
+    $('select').select2({theme: "bootstrap"});
+    // 表单ajax提交
+    $('#unitDetailForm')
+        .bootstrapValidator({
+            message: '该值无效 ',
+            fields: {
+                unitNo: {
+                    message: '单位编号无效',
+                    validators: {
+                        notEmpty: {
+                            message: '单位编号不能为空!'
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 20,
+                            message: '单位编号长度为6到20个字符'
+                        }
+                    }
+                },
+                description: {
+                    message: '单位名称无效',
+                    validators: {
+                        notEmpty: {
+                            message: '单位名称不能为空!'
+                        },
+                        stringLength: {
+                            min: 2,
+                            max: 20,
+                            message: '单位名称长度为2到20个字符'
+                        }
+                    }
+                },
+                "status": {
+                    message: '单位状态无效',
+                    validators: {
+                        notEmpty: {
+                            message: '单位状态不能为空!'
+                        }
+                    }
+                }
+            }
+        })
+        .on('success.form.bv', function (e) {
+            // Prevent form submission
+            e.preventDefault();
+            saveUnit();
+        });
+
+
+    console.log("units--------------" + JSON.stringify(units[0]));
+    unitDetail = new Vue({
+        el: "#unitDetailForm",
+        data: {
+            unit: units[0]
+        },
+        methods: {
+            previous: function (event) {
+                if (pointer <= 0) {
+                    showMessageBoxCenter("danger", "center", "当前记录是第一条");
+                    return;
+                } else {
+                    pointer = pointer - 1;
+                    //判断当前指针位置
+
+                    console.log("unit----------------------------" + JSON.stringify(unit));
+                    unit = getUnitByIdRomote(selectedIds[pointer]);
+
+                    console.log("unit---------------" + unit);
+                    this.$set("unit", unit);
+                }
+            },
+            next: function (event) {
+                if (pointer >= selectedIds.length - 1) {
+                    showMessageBoxCenter("danger", "center", "当前记录是最后一条");
+                    return;
+                } else {
+                    pointer = pointer + 1;
+                    console.log("unit----------------------------" + JSON.stringify(unit));
+                    unit = getUnitByIdRomote(selectedIds[pointer])
+                    this.$set("unit", unit);
+                    //loadFixHistoryByEid(selectedIds[pointer]);
+                }
+            },
+            checkEqCode: function () {
+                var eqCode = unitDetail.$get("equipments.eqCode");
+                if (checkEqCode(eqCode)) {
+                    showMessageBoxCenter("danger", "center", "设备编号不能重复");
+                    return;
+                }
+            }
         }
     });
+
+
+    $('#myTab li:eq(1) a').on('click', function () {
+        //首先判断是否有选中的
+        var unit = null;
+        if (selectedIds.length > 0) {
+            //切换tab时默认给detail中第一个数据
+            unit = getUnitByIdRomote(selectedIds[0]);
+            console.log("单位名称----" + unit.description);
+        } else {
+            //没有选中的 默认显示整个列表的第一条
+            unit = units[0];
+            //所有的都在选中列表中
+            selectedIds = setAllInSelectedList(units);
+        }
+        unitDetail.$set("unit", unit);
+
+    });
+
 });
-/**
- * 创建记录  弹出框之前清空内容
+
+
+/*
+ * @param eqs 所有的记录
+ * @returns {Array}将所有的放入选中集合
  */
-function create() {
-    $("#unit_modal input").val("");
-    $("#unit_modal").modal("show");
+function setAllInSelectedList(units) {
+    var selecteds = [];
+    for (var x in units) {
+        if (!isNaN(units[x]["id"])) {
+            selecteds.push(units[x]["id"]);
+        }
+    }
+    return selecteds;
+
 }
+
+/**
+ * 根据ID获取设备信息
+ * @param eqs 设备信息集合
+ * @param eid 设备ID
+ */
+function getUnitByIdRomote(eid) {
+    var unit = null;
+    var url = "/outsourcingUnit/findById/" + eid;
+    console.log("url-----------------" + url);
+    $.getJSON(url, function (data) {
+        unit = data;
+    });
+    return unit;
+}
+
+/**
+ * 根据ID获取设备信息
+ * @param uid
+ * @return {*}
+ */
+function findUnitByIdLocal(uid) {
+    var unit = null;
+    for (var i in units) {
+        if (units[i].id == uid) {
+            unit = units[i];
+            break;
+        }
+    }
+    return unit;
+}
+
+
+function loadCreateForm() {
+    var createModel = new Vue({
+        el: "#detailForm",
+        data: {
+            unit: null,
+        }
+    });
+
+    $('#myTab li:eq(1) a').tab('show');
+}
+
+
 function saveUnit() {
-    var objStr = getFormJsonData("unitForm");
+    var objStr = getFormJsonData("detailForm");
     var outsourcingUnit = JSON.parse(objStr);
     console.log(JSON.stringify(outsourcingUnit));
     var url = "/outsourcingUnit/save";
@@ -51,146 +212,94 @@ function saveUnit() {
     });
 }
 
-var selectedId = [];
-$("#myTab a").on("click", function (e) {
-    e.preventDefault();
-    if (!selectedId) {
-        selectedId = getAllCheckboxID("datatables1")[0];
-    }
-    var tabId = $(this).children(0).attr("id");
-    console.log("selectedId---------"+tabId);
-    if (tabId == ("unitDetail")) {
-        fillDetailByUid(selectedId, "#unitForm");
-    } else if (tabId == ("contract")) {
-        loadPageByUrl("table_1_2", selectedId, "table_1_2");
-    }
-    $(this).tab('show');
-})
 
-
-/**
- * 根据对应的外委单位id查询对应的明细信息
- * @param id  外委单位id
- * @param formId form detail
- */
-function fillDetailByUid(id, formId) {
-    var url = "/outsourcingUnit/findById/" + id;
-    $.getJSON(url, function (data) {
-        fillForm(data, formId);
-        $("#status").find("option[value='" + data.status + "']").attr("selected", true);
-        ;
-    });
-}
-
-/**
- * 根据外委单位id查询对应的合同文本信息
- * @param id  外委单位id
- * @param formId form detail
- */
-function loadPageByUrl(pageUrl, uid, tableId) {
-    var url = "/outsourcingUnit/loadPageByUrl/" + pageUrl + "/" + uid;
-    $("#" + tableId).empty();
-    $("#" + tableId).load(url, function () {
-
-    });
-}
-
-/**
- * 根据外委单位id查询对应的合同文本信息
- * @param id  外委单位id
- * @param formId form detail
- */
-function loadSafety(id, formId) {
-    var url = "/outsourcingUnit/findById/" + id;
-    $.getJSON(url, function (data) {
-        fillForm(data, formId);
-    });
-}
-/**
- * 根据外委单位id查询对应的合同文本信息
- * @param id  外委单位id
- * @param formId form detail
- */
-function loadService(id, formId) {
-    var url = "/outsourcingUnit/findById/" + id;
-    $.getJSON(url, function (data) {
-        fillForm(data, formId);
-    });
-}
-/**
- * 根据外委单位id查询对应的设备信息
- * @param id  外委单位id
- * @param formId form detail
- */
-function loadEquipments(id, formId) {
-    var url = "/outsourcingUnit/findById/" + id;
-    $.getJSON(url, function (data) {
-        fillForm(data, formId);
-    });
-}
 /**
  *
- * @param id 加载明细信息
+ * @param url 数据接口路径
+ * @param elementName 渲染元素名称
  */
-function detail(id) {
+function initLoadData(url, elementName) {
+    console.log("初始化载入列表数据---" + url);
+    $.getJSON(url, function (data) {
+        units = data;
+        allSize = data.length; //计算所有记录的个数
+        if (dataTableName) {
+            vm = new Vue({
+                el: elementName,
+                data: {
+                    units: units
+                }
+            });
+            //ajax载入设备信息  并且监听选择事件
+            $(dataTableName).bootgrid({
+                ajaxSettings: {
+                    method: "GET",
+                    cache: false
+                },
+                selection: true,
+                multiSelect: true,
+                rowSelect: true,
+                keepSelection: true
 
-    $("#detail").load("/outsourcingUnit/detail/" + id);
+            }).on("selected.rs.jquery.bootgrid", function (e, rows) {
+                //如果默认全部选中
+                if (selectedIds.length === units.length) {
+                    selectedIds.clear();
+                }
+                for (var x in rows) {
+                    if (rows[x]["id"]) {
+                        selectedIds.push(rows[x]["id"]);
+                    }
+                }
+                console.log("选择后的ID列表----------------" + selectedIds);
+            }).on("deselected.rs.jquery.bootgrid", function (e, rows) {
+                for (var x in rows) {
+                    selectedIds.remove(rows[x]["id"]);
+                }
+                console.log("取消选中后的ID列表----------------" + selectedIds);
+            });
+        }
+    });
 }
+
+
 /**
  *
- * @param id 编辑信息
+ * @param eqCode 设备编号
+ * @returns {boolean} 检查设备编号是否唯一
  */
-function edit(id) {
-    //根据id查询出外委单位信息
-    var url = "/outsourcingUnit/findById/" + id;
+function checkEqCode(eqCode) {
+    var exists = false;
+    var url = "/Unit/checkEqCodeExists/" + eqCode;
     $.getJSON(url, function (data) {
-        fillForm(data, "#unitForm");
+        exists = data
     });
-    $("#unit_modal").modal("show");
-}
-/**
- * 根据对应的设备id获取设备的信息  并且填充所有的设备明细信息
- * @param id  设备id
- * @param formId form detail
- */
-function fillDetailById(id, formId) {
-    var url = "/outsourcingUnit/findById/" + id;
-    $.getJSON(url, function (data) {
-        $("#unitNo").val(data.unitNo);
-        $("#description").val(data.description);
-        $("#linkman").val(data.linkman);
-        $("#telephone").val(data.telephone);
-        $("#status").val(data.status);
-    });
+    return exists;
 }
 
-
-var currentIndex = 0;//默认当前选中为第1条
-/**
- * 下一条
- */
-function toNext() {
-    var allEqIds = getAllTableIdsByTableId("datatable1");
-    var allIds = $("#datatable1").bootgrid("getTotalRowCount");
-    if (currentIndex == allIds - 1) {
-        showMessageBox("info", "已经是最后一条记录了");
+function backwards() {
+    if (pointer <= 0) {
+        showMessageBoxCenter("danger", "center", "当前记录是第一条");
+        return;
     } else {
-        console.log("当前是第" + (currentIndex + 1) + "/" + allIds + "条记录");
-        currentIndex++;
-        fillDetailById(allEqIds[currentIndex], "editForm");
+        pointer = pointer - 1;
+        //判断当前指针位置
+        var e = getUnitByIdRomote(selectedIds[pointer]);
+        unitDetail.$set("unit", e);
+        //  loadFixHistoryByEid(selectedIds[pointer]);
     }
 
-
 }
-/**
- * 上一条
- */
-function toPrevious() {
-    var allEqIds = getAllTableIdsByTableId("datatable1");
-    if (currentIndex == 0) {
-        showMessageBox("info", "已经是第一条记录了");
+function forwards() {
+    if (pointer >= selectedIds.length - 1) {
+        showMessageBoxCenter("danger", "center", "当前记录是最后一条");
+        return;
     } else {
-        currentIndex--;
-        fillDetailById(allEqIds[currentIndex], "editForm");
+        pointer = pointer + 1;
+        var e = getUnitByIdRomote(selectedIds[pointer])
+        unitDetail.$set("unit", e);
+        //loadFixHistoryByEid(selectedIds[pointer]);
     }
 }
+
+

@@ -8,6 +8,7 @@ import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnitContract;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnitEvaluation;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnitSafeDocs;
+import com.linkbit.beidou.service.unit.OutsoucingUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
@@ -31,14 +32,30 @@ public class OutsourcingUnitController {
 
     @Autowired
     OutsourcingUnitRepository outsourcingUnitRepository;
+
+
+    @Autowired
+    OutsoucingUnitService outsourcingUnitService;
+
     @RequestMapping(value = "/list")
     public String list(ModelMap modelMap) {
-        List<OutsourcingUnit> outsourcingUnitList = outsourcingUnitRepository.findAll();
-        modelMap.put("outsourcingUnitList", outsourcingUnitList);
+
         return "/units/list";
 
 
     }
+
+    /**
+     * @return 查询 所有的外委单位信息
+     */
+    @RequestMapping(value = "/findAll")
+    @ResponseBody
+    public List<OutsourcingUnit> findAll() {
+        List<OutsourcingUnit> outsourcingUnitList = outsourcingUnitService.findAll();
+        return outsourcingUnitList;
+    }
+
+
     /**
      * @param unitId   外委单位信息
      * @param modelMap
@@ -83,7 +100,6 @@ public class OutsourcingUnitController {
     @RequestMapping(value = "/findById/{id}", method = RequestMethod.GET)
     @ResponseBody
     public OutsourcingUnit findById(@PathVariable("id") Long id) {
-
         return outsourcingUnitRepository.findById(id);
     }
 

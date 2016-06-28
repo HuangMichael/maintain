@@ -14,17 +14,25 @@
                         <div class="box-title">
                             <h4><i class="fa fa-sitemap"></i>外委单位信息</h4>
                         </div>
-                        <div class="divider"></div>
-                        <a type="button" class="btn  btn-default btn-xs " id="createBtn"
-                           onclick="create()"><i class="glyphicon glyphicon-plus">新建记录</i></a>
-                        <a type="button" class="btn  btn-default btn-xs " id="previousBtn" onclick="toPrevious()"
-                        ><i class="glyphicon glyphicon-arrow-left">上一条</i></a>
 
-                        <a type="button" class="btn  btn-default btn-xs " id="nextBtn" onclick="toNext()"
-                        ><i class="glyphicon glyphicon-arrow-right">下一条</i></a>
 
-                        <a type="button" class="btn  btn-default btn-xs " id="deleteBtn"
-                        ><i class="glyphicon glyphicon-remove">删除记录</i></a>
+                        <div class="box-body" style="padding: 5px 20px 0px 20px">
+                            <!-- Split button -->
+                            <div class="btn-group">
+
+                                <button type="button" class="btn btn-default " onclick="loadCreateForm()">
+                                    <i class="glyphicon glyphicon-plus"></i>新建记录
+                                </button>
+                                <button type="button" class="btn btn-default" onclick="backwards()"><i
+                                        class="glyphicon glyphicon-glyphicon glyphicon-backward"></i>上一条
+                                </button>
+                                <button type="button" class="btn btn-default" onclick="forwards()"><i
+                                        class="glyphicon glyphicon-glyphicon glyphicon-forward"></i>下一条
+                                </button>
+                            </div>
+                        </div>
+
+
 
                         <div class="box-body">
                             <div id="contentDiv">

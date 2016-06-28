@@ -3,6 +3,6 @@
 <div class="tab-pane fade in active" id="tab_1_1">
     <div class="divide-10"></div>
     <div class="box-body">
-        <%@include file="edit-form.jsp" %>
+        <%@include file="form.jsp" %>
     </div>
 </div>

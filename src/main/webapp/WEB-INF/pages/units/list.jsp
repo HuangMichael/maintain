@@ -42,6 +42,9 @@
                                             <li class="active"><a href="#tab_1_0" data-toggle="tab">
                                                 <i class="fa fa-home" id="unit"></i>外委单位信息</a>
                                             </li>
+                                            <li><a href="#tab_1_A" data-toggle="tab">
+                                                <i class="fa fa-flag" id="unitCreate"></i>新建外委单位信息</a>
+                                            </li>
                                             <li><a href="#tab_1_1" data-toggle="tab">
                                                 <i class="fa fa-flag" id="unitDetail"></i>外委单位明细信息</a>
                                             </li>
@@ -61,6 +64,9 @@
                                         <div class="tab-content">
                                             <div class="tab-pane fade in active" id="tab_1_0">
                                                 <%@include file="table_1_0.jsp" %>
+                                            </div>
+                                            <div class="tab-pane fade" id="tab_1_A">
+                                                <%@include file="create.jsp" %>
                                             </div>
 
                                             <div class="tab-pane fade" id="tab_1_1">

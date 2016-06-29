@@ -67,12 +67,24 @@ $(function () {
                     showMessageBoxCenter("danger", "center", "设备编号不能重复");
                     return;
                 }
+            },
+            loadLocs: function (event) {
+                console.log("loadLocs--------------");
+            },
+            loadEqClasses: function () {
+                console.log("loadEqClasses--------------");
             }
         }
     });
 
 
-    $('#myTab li:eq(1) a').on('click', function () {
+
+    $('#myTab li:eq(1) a').on('click', function(e) {
+        e.preventDefault();
+    });
+
+
+    $('#myTab li:eq(2) a').on('click', function () {
         //首先判断是否有选中的
         var eq = null;
         if (selectedIds.length > 0) {
@@ -90,10 +102,8 @@ $(function () {
     });
 
 
-    $('#myTab li:eq(2) a').on('click', function () {
+    $('#myTab li:eq(3) a').on('click', function () {
         //首先判断是否有选中的
-
-
         var equipments = vdm.$get("equipments");
         var historyModel = new Vue({
             el: "#historyForm",
@@ -102,8 +112,6 @@ $(function () {
             }
         });
         console.log("history--------" + vdm.equipments.description);
-
-
     });
 
 
@@ -190,11 +198,110 @@ $(function () {
         });
 
 
+    $('#createForm')
+        .bootstrapValidator({
+            message: '该值无效 ',
+            fields: {
+                eqCode: {
+                    message: '设备编号无效',
+                    validators: {
+                        notEmpty: {
+                            message: '设备编号不能为空!'
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 20,
+                            message: '设备编号长度为6到20个字符'
+                        }
+                    }
+                },
+                description: {
+                    message: '设备描述无效',
+                    validators: {
+                        notEmpty: {
+                            message: '设备描述不能为空!'
+                        },
+                        stringLength: {
+                            min: 2,
+                            max: 20,
+                            message: '设备描述长度为2到20个字符'
+                        }
+                    }
+                },
+                "locations.id": {
+                    message: '设备位置无效',
+                    validators: {
+                        notEmpty: {
+                            message: '设备位置不能为空!'
+                        }
+                    }
+                },
+                "equipmentsClassification.id": {
+                    message: '设备分类无效',
+                    validators: {
+                        notEmpty: {
+                            message: '设备分类不能为空!'
+                        }
+                    }
+                },
+                "manageLevel": {
+                    message: '管理等级无效',
+                    validators: {
+                        notEmpty: {
+                            message: '管理等级不能为空!'
+                        }
+                    }
+                }
+                ,
+                "status": {
+                    message: '设备状态无效',
+                    validators: {
+                        notEmpty: {
+                            message: '设备状态不能为空!'
+                        }
+                    }
+                }
+                ,
+                "running": {
+                    message: '运行状态无效',
+                    validators: {
+                        notEmpty: {
+                            message: '运行状态不能为空!'
+                        }
+                    }
+                }
+            }
+        })
+        .on('success.form.bv', function (e) {
+            // Prevent form submission
+            e.preventDefault();
+            createEquipment();
+        });
+
+
 });
 
 
 function loadCreateForm() {
-    vdm.$set("equipments", null);
+
+    var create = new Vue({
+        el: "#createForm",
+        data: {
+            equipments: null,
+            locs: locs,
+            eqClasses: eqClasses,
+            status: [{value: 0, text: "停用"},
+                {value: 1, text: "投用"},
+                {value: 2, text: "报废"}],
+            running: [
+                {value: 0, text: "运行"},
+                {value: 1, text: "停止"}
+            ],
+            manageLevels: [1, 2, 3, 4]
+        }
+
+
+    });
     $('#myTab li:eq(1) a').tab('show');
 }
 
@@ -287,43 +394,74 @@ function getCurrentStep(steps) {
 
 
 function createEquipment() {
-    var objStr = getFormJsonData("eqForm");
+    var objStr = getFormJsonData("createForm");
     var equipments = JSON.parse(objStr);
+    var id = equipments.id;
     var eqCode = equipments.eqCode;
+    var purchasePrice = equipments.purchasePrice;
     var description = equipments.description;
     var manager = equipments.manager;
     var maintainer = equipments.maintainer;
     var productFactory = equipments.productFactory;
-    var locations_id = equipments["locations.id"];
-    var equipmentsClassification_id = equipments["equipmentsClassification.id"];
+    var imgUrl = equipments.imgUrl;
+    var originalValue = equipments.originalValue;
+    var netValue = equipments.netValue;
+    var purchaseDate = equipments.purchaseDate;
+    var locations_id = $("#locations_id").val();
+    var equipmentsClassification_id = $("#equipmentsClassification_id").val();
     var status = equipments.status;
-
-    var url = "/equipment/add";
+    var eqModel = equipments.eqModel;
+    var assetNo = equipments.assetNo;
+    var manageLevel = equipments.manageLevel;
+    var running = equipments.running;
+    var warrantyPeriod = equipments.warrantyPeriod;
+    var setupDate = equipments.setupDate;
+    var productDate = equipments.productDate;
+    var runDate = equipments.runDate;
+    var expectedYear = equipments.expectedYear;
+    var url = "/equipment/save";
     $.ajax({
         type: "POST", url: url, data: {
+            id: id,
             eqCode: eqCode,
             description: description,
             manager: manager,
             maintainer: maintainer,
             productFactory: productFactory,
+            imgUrl: imgUrl,
+            originalValue: originalValue,
+            netValue: netValue,
             description: description,
+            purchasePrice: purchasePrice,
+            purchaseDate: purchaseDate,
             locations_id: locations_id,
             equipmentsClassification_id: equipmentsClassification_id,
-            status: status
+            status: status,
+            eqModel: eqModel,
+            assetNo: assetNo,
+            manageLevel: manageLevel,
+            running: running,
+            warrantyPeriod: warrantyPeriod,
+            setupDate: setupDate,
+            productDate: productDate,
+            runDate: runDate,
+            expectedYear: expectedYear
         },
         dataType: "JSON", success: function (msg) {
-            if (id) {
-                showMessageBox("info", "设备信息更新成功")
+            if (equipments.id) {
+                showMessageBox("info", "设备信息更新成功");
+                $(dataTableName).bootgrid("reload");
             } else {
                 //loadList("#" + dataTableName);
                 showMessageBox("info", "设备信息添加成功")
-
+                vm.$set("eqs", eqs.push(msg));
             }
             $("#eq_modal").modal("hide")
         }
+
         ,
         error: function (msg) {
-            if (id) {
+            if (equipments.id) {
                 showMessageBox("danger", "设备信息更新失败")
             } else {
                 showMessageBox("danger", "设备信息添加失败")

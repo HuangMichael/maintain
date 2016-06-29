@@ -10884,7 +10884,6 @@ ul.stats li small {
     border-radius: 0 0 4px 4px;
 }
 
-
 .myNavBtn {
     border: 2px solid white;
     background-color: lightgray;
@@ -10898,4 +10897,8 @@ legend {
     font-size: small;
     color: #0b68e3;
     font-weight: bold
+}
+
+select {
+    width: 100%
 }

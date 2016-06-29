@@ -5,13 +5,12 @@
 <%@ taglib prefix="v-on" uri="http://www.springframework.org/tags/form" %>
 <form class="form-horizontal" role="form" id="detailForm">
     <fieldset class="form-group" id="a">
-        <legend >基本信息</legend>
+        <legend>基本信息</legend>
         <div class="form-group">
             <label class="col-md-1 control-label" for="eqCode">设备编号</label>
 
             <div class="col-md-3">
-                <input class="form-control" id="eqCode" type="text" name="eqCode" v-model="equipments.eqCode" required
-                       lazy @change="checkEqCode()"/>
+                <input class="form-control" id="eqCode" type="text" name="eqCode" v-model="equipments.eqCode" required/>
                 <input class="form-control" id="id" type="hidden" name="id" v-model="equipments.id"/>
             </div>
             <label for="description" class="col-md-1 control-label">设备名称</label>
@@ -23,8 +22,9 @@
             <label for="locations_id" class="col-md-1 control-label">设备位置</label>
 
             <div class="col-md-3">
-                <select v-model="equipments.locations.id" class="form-control" id="locations_id" name="locations.id"
+                <select v-model="equipments.locations.id" class="form-control" id="locations_id" name="locations.id" @click="loadLocs()"
                         required style="width:100%">
+                    <option>请选择设备位置</option>
                     <option v-for="item of locs" v-if="item.id == equipments.locations.id" selected
                             v-bind:value="item.id">{{ item.description }}
                     </option>
@@ -51,7 +51,7 @@
             <label for="equipmentsClassification_id" class="col-md-1 control-label">设备类型</label>
 
             <div class="col-md-3">
-                <select class="form-control" id="equipmentsClassification_id" name="equipmentsClassification.id"
+                <select class="form-control" id="equipmentsClassification_id" name="equipmentsClassification.id"  @click="loadEqClasses()"
                         required v-model="equipments.equipmentsClassification.id"
                         style="width:100%">
                     <option>请选择设备类型</option>

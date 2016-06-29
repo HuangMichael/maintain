@@ -44,6 +44,10 @@
                                                 <i class="fa fa-home" id="eq"></i>设备信息</a>
                                             </li>
 
+                                            <li><a href="#tab_1_A" data-toggle="tab" style="font-family: 微软雅黑;font-weight: bold">
+                                                <i class="fa fa-flag" id="eqCreate"></i>新建设备信息</a>
+                                            </li>
+
                                             <li><a href="#tab_1_1" data-toggle="tab" style="font-family: 微软雅黑;font-weight: bold">
                                                 <i class="fa fa-flag" id="eqDetail"></i>设备详细信息</a>
                                             </li>
@@ -55,6 +59,9 @@
                                             <div class="tab-pane fade in active" id="tab_1_0"
                                                  style="color: #111;background-color: #fff;border-color: #d26911 #e5e5e5 ">
                                                 <%@include file="table_1_0.jsp" %>
+                                            </div>
+                                            <div class="tab-pane fade" id="tab_1_A">
+                                                <%@include file="create.jsp" %>
                                             </div>
                                             <div class="tab-pane fade" id="tab_1_1">
                                                 <%@include file="table_1_1.jsp" %>

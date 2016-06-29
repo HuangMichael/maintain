@@ -61,6 +61,52 @@ $(function () {
         });
 
 
+    $('#createForm')
+        .bootstrapValidator({
+            message: '该值无效 ',
+            fields: {
+                unitNo: {
+                    message: '单位编号无效',
+                    validators: {
+                        notEmpty: {
+                            message: '单位编号不能为空!'
+                        },
+                        stringLength: {
+                            min: 3,
+                            max: 20,
+                            message: '单位编号长度为3到20个字符'
+                        }
+                    }
+                },
+                description: {
+                    message: '单位名称无效',
+                    validators: {
+                        notEmpty: {
+                            message: '单位名称不能为空!'
+                        },
+                        stringLength: {
+                            min: 2,
+                            max: 20,
+                            message: '单位名称长度为2到20个字符'
+                        }
+                    }
+                },
+                "status": {
+                    message: '单位状态无效',
+                    validators: {
+                        notEmpty: {
+                            message: '单位状态不能为空!'
+                        }
+                    }
+                }
+            }
+        })
+        .on('success.form.bv', function (e) {
+            // Prevent form submission
+            e.preventDefault();
+            createUnit();
+        });
+
     console.log("units--------------" + JSON.stringify(units[0]));
     unitDetail = new Vue({
         el: "#unitDetailForm",
@@ -106,7 +152,7 @@ $(function () {
     });
 
 
-    $('#myTab li:eq(1) a').on('click', function () {
+    $('#myTab li:eq(2) a').on('click', function () {
         //首先判断是否有选中的
         var unit = null;
         if (selectedIds.length > 0) {
@@ -175,7 +221,7 @@ function findUnitByIdLocal(uid) {
 
 function loadCreateForm() {
     var createModel = new Vue({
-        el: "#detailForm",
+        el: "#createForm",
         data: {
             unit: null,
         }
@@ -184,7 +230,32 @@ function loadCreateForm() {
     $('#myTab li:eq(1) a').tab('show');
 }
 
-
+function createUnit() {
+    var objStr = getFormJsonData("createForm");
+    var outsourcingUnit = JSON.parse(objStr);
+    console.log(JSON.stringify(outsourcingUnit));
+    var url = "/outsourcingUnit/save";
+    $.ajax({
+        type: "post",
+        url: url,
+        data: outsourcingUnit,
+        dataType: "json",
+        success: function (data) {
+            $("#unit_modal").modal("hide");
+            if (data.id) {
+                showMessageBox("info", "外委单位信息更新成功");
+            } else {
+                showMessageBox("info", "外委单位信息添加成功");
+            }
+        }, error: function (data) {
+            if (data.id) {
+                showMessageBox("danger", "外委单位信息更新失败");
+            } else {
+                showMessageBox("info", "外委单位信息添加失败");
+            }
+        }
+    });
+}
 function saveUnit() {
     var objStr = getFormJsonData("unitDetailForm");
     var outsourcingUnit = JSON.parse(objStr);

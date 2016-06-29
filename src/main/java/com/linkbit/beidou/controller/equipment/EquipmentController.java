@@ -67,9 +67,9 @@ public class EquipmentController extends BaseController {
 
     @RequestMapping(value = "/list")
     public String list(ModelMap modelMap, HttpSession session) {
-        Object object = session.getAttribute("equipmentsClassificationList");
+    /*    Object object = session.getAttribute("equipmentsClassificationList");
         List<EquipmentsClassification> equipmentsClassificationList = (ArrayList<EquipmentsClassification>) (object);
-        modelMap.put("equipmentsClassificationList", equipmentsClassificationList);
+        modelMap.put("equipmentsClassificationList", equipmentsClassificationList);*/
         return "/equipments/list";
     }
 

@@ -7,6 +7,13 @@ var allSize = 0;
 var vdm = null; //明细页面的模型
 var vm = null; //明细页面的模型
 var hm = null;
+
+//数据列表
+var listTab = $('#myTab li:eq(0) a');;
+//数据列表
+var formTab = $('#myTab li:eq(1) a');;
+//维修历史列表
+var historyTab = $('#myTab li:eq(2) a');
 var pointer = 0;
 $.ajaxSettings.async = false;
 $(function () {
@@ -84,12 +91,12 @@ $(function () {
     });
 
 
-/*    $('#myTab li:eq(1) a').on('click', function (e) {
-        e.preventDefault();
-    });*/
+    /*    formTab.on('click', function (e) {
+     e.preventDefault();
+     });*/
 
 
-    $('#myTab li:eq(1) a').on('click', function () {
+    formTab.on('click', function () {
         //首先判断是否有选中的
         var eq = null;
         if (selectedIds.length > 0) {
@@ -107,7 +114,7 @@ $(function () {
     });
 
 
-    $('#myTab li:eq(2) a').on('click', function () {
+    historyTab.on('click', function () {
         //首先判断是否有选中的
         var equipments = findEquipmentByIdInEqs(selectedIds[pointer]);
         hm.$set("e", equipments);
@@ -297,7 +304,7 @@ function loadCreateForm() {
     vdm.$set("eqClasses", eqClasses);
     vdm.$set("status", status);
     vdm.$set("running", running);
-    $('#myTab li:eq(1) a').tab('show');
+    formTab.tab('show');
 }
 
 
@@ -447,14 +454,14 @@ function createEquipment() {
         },
         dataType: "JSON", success: function (msg) {
             if (equipments.id) {
+                // refreshData();
                 showMessageBox("info", "设备信息更新成功");
-                $(dataTableName).bootgrid("reload");
+
             } else {
-                //loadList("#" + dataTableName);
+                // refreshData();
                 showMessageBox("info", "设备信息添加成功")
-                vm.$set("eqs", eqs.push(msg));
+
             }
-            $("#eq_modal").modal("hide")
         }
 
         ,
@@ -527,9 +534,10 @@ function saveEquipment() {
             if (id) {
                 showMessageBox("info", "设备信息更新成功");
                 // $(dataTableName).bootgrid("reload");
+                refreshData();
             } else {
                 showMessageBox("info", "设备信息添加成功")
-                vm.eqs.push(msg);
+                refreshData();
             }
         }
         ,
@@ -715,7 +723,7 @@ function editEq() {
     var eq = findEquipmentByIdInEqs(eid);
     if (eid) {
         vdm.$set("equipments", eq);
-        $('#myTab li:eq(2) a').tab('show');
+        formTab.tab('show');
 
     } else {
         showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
@@ -724,3 +732,13 @@ function editEq() {
 }
 
 
+/**
+ * 保存设备信息
+ */
+function saveEq() {
+    $("#saveBtn").trigger("click");
+}
+
+function refreshData() {
+    $("#contentDiv").load("/equipment/list");
+}

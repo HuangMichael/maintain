@@ -23,6 +23,15 @@
                                         onclick="loadCreateForm()">
                                     <i class="glyphicon glyphicon-plus"></i>新建记录
                                 </button>
+
+                                <button type="button" class="btn btn-sm myNavBtn active" onclick="editEq()">
+                                    <i class="glyphicon glyphicon-edit"></i>编辑记录
+                                </button>
+
+                                <button type="button" class="btn btn-sm myNavBtn active" onclick="saveEq()">
+                                    <i class="glyphicon glyphicon-save"></i>保存记录
+                                </button>
+
                                 <button type="button" class="btn btn-sm myNavBtn active"
                                         onclick="backwards()"><i
                                         class="glyphicon glyphicon-glyphicon glyphicon-backward"></i>上一条
@@ -31,43 +40,42 @@
                                         onclick="forwards()"><i
                                         class="glyphicon glyphicon-glyphicon glyphicon-forward"></i>下一条
                                 </button>
-                                <button type="button" class="btn btn-sm myNavBtn active" onclick="editEq()">
-                                    <i class="glyphicon glyphicon-edit"></i>编辑记录
+
+                                <button type="button" class="btn btn-sm myNavBtn active" onclick="refreshData()">
+                                <i class="glyphicon glyphicon-glyphicon glyphicon-refresh"></i>刷新列表
                                 </button>
                             </div>
                         </div>
                         <%--  <a type="button" class="btn  btn-default btn-xs " id="createBtn"
                              onclick="loadCreateForm()"><i class="glyphicon glyphicon-plus">新建记录</i></a>--%>
                         <div class="box-body">
-                            <div id="contentDiv">
-                                <div class="box-body">
-                                    <div class="tabbable">
-                                        <ul class="nav nav-tabs" id="myTab">
-                                            <li class="active"><a href="#tab_1_0" data-toggle="tab"
-                                                                  style="font-family: 微软雅黑;font-weight: bold">
-                                                <i class="fa fa-home" id="eq"></i>设备信息</a>
-                                            </li>
+                            <div class="box-body">
+                                <div class="tabbable">
+                                    <ul class="nav nav-tabs" id="myTab">
+                                        <li class="active"><a href="#tab_1_0" data-toggle="tab"
+                                                              style="font-family: 微软雅黑;font-weight: bold">
+                                            <i class="fa fa-home" id="eq"></i>设备信息</a>
+                                        </li>
 
-                                            <li><a href="#tab_1_1" data-toggle="tab"
-                                                   style="font-family: 微软雅黑;font-weight: bold">
-                                                <i class="fa fa-flag" id="eqDetail"></i>设备详细信息</a>
-                                            </li>
-                                            <li><a href="#tab_1_3" data-toggle="tab"
-                                                   style="font-family: 微软雅黑;font-weight: bold"><i class="fa fa-lock"
-                                                                                                  id="history"></i>报修历史信息</a>
-                                            </li>
-                                        </ul>
-                                        <div class="tab-content">
-                                            <div class="tab-pane fade in active" id="tab_1_0"
-                                                 style="color: #111;background-color: #fff;border-color: #d26911 #e5e5e5 ">
-                                                <%@include file="table_1_0.jsp" %>
-                                            </div>
-                                            <div class="tab-pane fade" id="tab_1_1">
-                                                <%@include file="table_1_1.jsp" %>
-                                            </div>
-                                            <div class="tab-pane fade" id="tab_1_3">
-                                                <%@include file="table_1_3.jsp" %>
-                                            </div>
+                                        <li><a href="#tab_1_1" data-toggle="tab"
+                                               style="font-family: 微软雅黑;font-weight: bold">
+                                            <i class="fa fa-flag" id="eqDetail"></i>设备详细信息</a>
+                                        </li>
+                                        <li><a href="#tab_1_3" data-toggle="tab"
+                                               style="font-family: 微软雅黑;font-weight: bold"><i class="fa fa-lock"
+                                                                                              id="history"></i>报修历史信息</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade in active" id="tab_1_0"
+                                             style="color: #111;background-color: #fff;border-color: #d26911 #e5e5e5 ">
+                                            <%@include file="table_1_0.jsp" %>
+                                        </div>
+                                        <div class="tab-pane fade" id="tab_1_1">
+                                            <%@include file="table_1_1.jsp" %>
+                                        </div>
+                                        <div class="tab-pane fade" id="tab_1_3">
+                                            <%@include file="table_1_3.jsp" %>
                                         </div>
                                     </div>
                                 </div>

@@ -84,12 +84,12 @@ $(function () {
     });
 
 
-    $('#myTab li:eq(1) a').on('click', function (e) {
+/*    $('#myTab li:eq(1) a').on('click', function (e) {
         e.preventDefault();
-    });
+    });*/
 
 
-    $('#myTab li:eq(2) a').on('click', function () {
+    $('#myTab li:eq(1) a').on('click', function () {
         //首先判断是否有选中的
         var eq = null;
         if (selectedIds.length > 0) {
@@ -107,7 +107,7 @@ $(function () {
     });
 
 
-    $('#myTab li:eq(3) a').on('click', function () {
+    $('#myTab li:eq(2) a').on('click', function () {
         //首先判断是否有选中的
         var equipments = findEquipmentByIdInEqs(selectedIds[pointer]);
         hm.$set("e", equipments);
@@ -297,7 +297,7 @@ function loadCreateForm() {
     vdm.$set("eqClasses", eqClasses);
     vdm.$set("status", status);
     vdm.$set("running", running);
-    $('#myTab li:eq(2) a').tab('show');
+    $('#myTab li:eq(1) a').tab('show');
 }
 
 

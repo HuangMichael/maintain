@@ -20,13 +20,13 @@
                             <!-- Split button -->
                             <div class="btn-group">
 
-                                <button type="button" class="btn btn-default btn-primary " style="border:2px solid white" onclick="loadCreateForm()">
+                                <button type="button" class="btn btn-sm myNavBtn active" onclick="loadCreateForm()">
                                     <i class="glyphicon glyphicon-plus"></i>新建记录
                                 </button>
-                                <button type="button" class="btn btn-default btn-primary " style="border:2px solid white" onclick="backwards()"><i
+                                <button type="button" class="btn btn-sm myNavBtn active" onclick="backwards()"><i
                                         class="glyphicon glyphicon-glyphicon glyphicon-backward"></i>上一条
                                 </button>
-                                <button type="button" class="btn btn-default btn-primary " style="border:2px solid white" onclick="forwards()"><i
+                                <button type="button" class="btn btn-sm myNavBtn active" onclick="forwards()"><i
                                         class="glyphicon glyphicon-glyphicon glyphicon-forward"></i>下一条
                                 </button>
                             </div>

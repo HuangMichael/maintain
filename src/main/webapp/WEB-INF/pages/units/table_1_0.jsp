@@ -31,7 +31,13 @@
             {{unit.telephone}}
         </td>
         <td>
-            {{unit.status}}
+
+            <div v-if="unit.status=='0'">
+                禁用
+            </div>
+            <div v-if="unit.status=='1'">
+                启用
+            </div>
         </td>
     </tr>
     </tbody>

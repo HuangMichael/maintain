@@ -44,12 +44,15 @@
             <th>报修描述</th>
             <th>报修时间</th>
             <th>状态</th>
-            <th>报修时间</th>
         </tr>
         </thead>
         <tbody id="reportHistory_list" style="height: 100px;overflow: scroll">
         <tr v-for="h in histories">
             <td>{{$index+1}}</td>
+            <td>{{h[0]}}</td>
+            <td>{{h[4]}}</td>
+            <td>{{h[3]}}</td>
+            <td>{{h[1]}}</td>
         </tr>
         </tbody>
     </table>

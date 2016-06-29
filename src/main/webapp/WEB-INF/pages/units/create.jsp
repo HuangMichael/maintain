@@ -1,6 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+
+<div class="divide-10"></div>
+<div class="divide-10"></div>
+
 <form class="form-horizontal" role="form" id="createForm">
     <div class="form-group">
         <div class="col-md-12">
@@ -33,7 +38,8 @@
                 <label for="status" class="col-md-1 control-label">状态</label>
 
                 <div class="col-md-3">
-                    <select class="form-control" id="status" name="status" style="width:100%" v-model="unit.status">
+                    <select class="form-control" id="status" name="status" style="width:100%"
+                            v-model="unit.status">
                         <option value="1">启用</option>
                         <option value="0">禁用</option>
                     </select>

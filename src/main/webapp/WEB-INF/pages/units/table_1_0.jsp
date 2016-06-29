@@ -4,7 +4,7 @@
     <thead>
     <tr>
         <th data-column-id="index">序号</th>
-        <th data-column-id="id" data-type="numeric" data-identifier="true" data-visiable="false">ID</th>
+        <th data-column-id="id" data-type="numeric" data-identifier="true" data-visible="false">ID</th>
         <th data-column-id="unitNo">单位编号</th>
         <th data-column-id="description">单位名称</th>
         <th data-column-id="linkman">联系人</th>

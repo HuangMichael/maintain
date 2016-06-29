@@ -10886,10 +10886,10 @@ ul.stats li small {
 
 
 .myNavBtn {
-    border: 2px solid lightgrey;
-    background-color: darkgrey;
-    background-image: -webkit-linear-gradient(lightgrey, darkgrey);
-    background-image: linear-gradient(lightgrey, darkgrey);
+    border: 2px solid white;
+    background-color: lightgray;
+    background-image: -webkit-linear-gradient(white, lightgray);
+    background-image: linear-gradient(white, lightgray);
     border-radius: 6px
 }
 

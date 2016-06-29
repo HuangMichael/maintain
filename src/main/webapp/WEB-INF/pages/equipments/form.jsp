@@ -22,13 +22,12 @@
             <label for="locations_id" class="col-md-1 control-label">设备位置</label>
 
             <div class="col-md-3">
-                <select v-model="equipments.locations.id" class="form-control" id="locations_id" name="locations.id" @click="loadLocs()"
+                <select v-model="equipments.locations.id" class="form-control" id="locations_id" name="locations.id"
                         required style="width:100%">
-                    <option>请选择设备位置</option>
-                    <option v-for="item of locs" v-if="item.id == equipments.locations.id" selected
+                    <option v-for="item in locs" v-if="item.id == equipments.locations.id" selected
                             v-bind:value="item.id">{{ item.description }}
                     </option>
-                    <option v-for="item of locs" v-if="item.id != equipments.locations.id" v-bind:value="item.id">{{
+                    <option v-for="item in locs" v-if="item.id != equipments.locations.id" v-bind:value="item.id">{{
                         item.description }}
                     </option>
                 </select>
@@ -51,14 +50,13 @@
             <label for="equipmentsClassification_id" class="col-md-1 control-label">设备类型</label>
 
             <div class="col-md-3">
-                <select class="form-control" id="equipmentsClassification_id" name="equipmentsClassification.id"  @click="loadEqClasses()"
+                <select class="form-control" id="equipmentsClassification_id" name="equipmentsClassification.id"
                         required v-model="equipments.equipmentsClassification.id"
                         style="width:100%">
-                    <option>请选择设备类型</option>
-                    <option v-for="item of eqClasses" v-if="item.id == equipments.equipmentsClassification.id" selected
+                    <option v-for="item in eqClasses" v-if="item.id == equipments.equipmentsClassification.id" selected
                             v-bind:value="item.id">{{ item.description }}
                     </option>
-                    <option v-for="item of eqClasses" v-if="item.id != equipments.equipmentsClassification.id"
+                    <option v-for="item in eqClasses" v-if="item.id != equipments.equipmentsClassification.id"
                             v-bind:value="item.id">{{ item.description }}
                     </option>
                 </select>

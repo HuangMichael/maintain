@@ -1,6 +1,6 @@
 <script src="js/jquery/jquery-2.0.3.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
-<script type="text/javascript" src="/js/app/common/common-vue.js"></script>
+<%--<script type="text/javascript" src="/js/app/common/common-vue.js"></script>--%>
 <script type="text/javascript" src="bootstrap-dist/js/bootstrap.js"></script>
 <%--<script type="text/javascript" src="http://apps.bdimg.com/libs/bootstrap/3.2.0/js/bootstrap.min.js"></script>--%>
 <script type="text/javascript" src="http://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
@@ -16,19 +16,11 @@
 <script src="js/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
 <script src="js/jquery-validate/jquery.validate.min.js"></script>
 <script src="js/jquery-validate/additional-methods.min.js"></script>
-
-
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-
-
 <script src="js/script.js"></script>
 <script src="/js/ystep/js/ystep.js"></script>
 <script src="http://www.lanrenzhijia.com/ajaxjs/pdfobject.js"></script>
-
 <script src="/js/PDFObject-master/pdfobject.js"></script>
-
-
 <script language="javascript" type="text/javascript" src="/js/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="/js/bootstrapvalidator/dist/js/bootstrapValidator.js"></script>
 

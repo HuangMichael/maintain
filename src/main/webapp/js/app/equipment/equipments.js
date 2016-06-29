@@ -88,7 +88,7 @@ $(function () {
         el: "#historyInfo",
         data: {
             e: eqs[0],
-            histories: loadFixHistoryByEid(eqs[0]["id"])
+            histories: loadFixHistoryByEid(eqs[0] ? eqs[0]["id"] : null)
         }
     });
 

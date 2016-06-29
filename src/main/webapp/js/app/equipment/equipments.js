@@ -6,8 +6,7 @@ var selectedIds = []; //获取被选择记录集合
 var allSize = 0;
 var vdm = null; //明细页面的模型
 var vm = null; //明细页面的模型
-
-
+var hm = null;
 var pointer = 0;
 $.ajaxSettings.async = false;
 $(function () {
@@ -47,7 +46,9 @@ $(function () {
 
                     var e = getEquipmentByIdInEqs(selectedIds[pointer])
                     vdm.$set("equipments", e);
-                    loadFixHistoryByEid(selectedIds[pointer]);
+                    hm.$set("e", e);
+                    //loadFixHistoryByEid(selectedIds[pointer]);
+                    hm.$set("histories", loadFixHistoryByEid(selectedIds[pointer]));
                 }
             },
             next: function (event) {
@@ -58,7 +59,8 @@ $(function () {
                     pointer = pointer + 1;
                     var e = getEquipmentByIdInEqs(selectedIds[pointer])
                     vdm.$set("equipments", e);
-                    loadFixHistoryByEid(selectedIds[pointer]);
+                    hm.$set("e", e);
+                    hm.$set("histories", loadFixHistoryByEid(selectedIds[pointer]));
                 }
             },
             checkEqCode: function () {
@@ -78,8 +80,16 @@ $(function () {
     });
 
 
+    hm = new Vue({
+        el: "#historyInfo",
+        data: {
+            e: eqs[0],
+            histories: loadFixHistoryByEid(eqs[0]["id"])
+        }
+    });
 
-    $('#myTab li:eq(1) a').on('click', function(e) {
+
+    $('#myTab li:eq(1) a').on('click', function (e) {
         e.preventDefault();
     });
 
@@ -104,14 +114,10 @@ $(function () {
 
     $('#myTab li:eq(3) a').on('click', function () {
         //首先判断是否有选中的
-        var equipments = vdm.$get("equipments");
-        var historyModel = new Vue({
-            el: "#historyForm",
-            data: {
-                e: equipments
-            }
-        });
-        console.log("history--------" + vdm.equipments.description);
+        var equipments = findEquipmentByIdInEqs(selectedIds[pointer]);
+        hm.$set("e", equipments);
+        hm.$set("histories", loadFixHistoryByEid(selectedIds[pointer]));
+        console.log("history--------" + hm.e.description);
     });
 
 
@@ -419,6 +425,9 @@ function createEquipment() {
     var productDate = equipments.productDate;
     var runDate = equipments.runDate;
     var expectedYear = equipments.expectedYear;
+
+    console.log("locations_id---------" + locations_id);
+    console.log("equipmentsClassification_id---------" + equipmentsClassification_id);
     var url = "/equipment/save";
     $.ajax({
         type: "POST", url: url, data: {
@@ -485,8 +494,8 @@ function saveEquipment() {
     var originalValue = equipments.originalValue;
     var netValue = equipments.netValue;
     var purchaseDate = equipments.purchaseDate;
-    var locations_id = $("#locations_id").val();
-    var equipmentsClassification_id = $("#equipmentsClassification_id").val();
+    var locations_id = $("#locations_id").find("option:selected").val();
+    var equipmentsClassification_id = $("#equipmentsClassification_id").find("option:selected").val();
     var status = equipments.status;
     var eqModel = equipments.eqModel;
     var assetNo = equipments.assetNo;
@@ -498,6 +507,9 @@ function saveEquipment() {
     var runDate = equipments.runDate;
     var expectedYear = equipments.expectedYear;
     var url = "/equipment/save";
+
+    console.log("locations_id---------" + locations_id);
+    console.log("equipmentsClassification_id---------" + equipmentsClassification_id);
     $.ajax({
         type: "POST", url: url, data: {
             id: id,
@@ -656,10 +668,12 @@ function setAllInSelectedList(eqs) {
  * 根据设备ID载入维修历史信息
  */
 function loadFixHistoryByEid(eid) {
-    var url = "/equipment/loadHistory/" + eid;
-    $("#tab_1_3").load(url);
-
-
+    var url = "/equipment/getFixSteps/" + eid;
+    var histories = [];
+    $.getJSON(url, function (data) {
+        histories = data;
+    });
+    return histories;
 }
 
 function setFormSelect(eq) {
@@ -692,7 +706,8 @@ function backwards() {
         //判断当前指针位置
         var e = getEquipmentByIdInEqs(selectedIds[pointer]);
         vdm.$set("equipments", e);
-        loadFixHistoryByEid(selectedIds[pointer]);
+        hm.$set("e", e);
+        hm.$set("histories", loadFixHistoryByEid(selectedIds[pointer]));
     }
 
 }
@@ -704,7 +719,8 @@ function forwards() {
         pointer = pointer + 1;
         var e = getEquipmentByIdInEqs(selectedIds[pointer])
         vdm.$set("equipments", e);
-        loadFixHistoryByEid(selectedIds[pointer]);
+        hm.$set("e", e);
+        hm.$set("histories", loadFixHistoryByEid(selectedIds[pointer]));
     }
 }
 

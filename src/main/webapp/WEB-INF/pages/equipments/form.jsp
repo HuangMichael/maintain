@@ -24,12 +24,9 @@
             <div class="col-md-3">
                 <select v-model="equipments.locations.id" class="form-control" id="locations_id" name="locations.id"
                         required style="width:100%">
-                    <option v-for="item in locs" v-if="item.id == equipments.locations.id" selected
-                            v-bind:value="item.id">{{ item.description }}
+                    <option v-for="l in locs" v-bind:value="l.id">{{ l.description }}
                     </option>
-                    <option v-for="item in locs" v-if="item.id != equipments.locations.id" v-bind:value="item.id">{{
-                        item.description }}
-                    </option>
+
                 </select>
             </div>
         </div>

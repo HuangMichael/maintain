@@ -7,7 +7,6 @@
         <legend>基本信息</legend>
         <div class="form-group">
             <label class="col-md-1 control-label" for="eqCode">设备编号</label>
-
             <div class="col-md-3">
                 <input class="form-control" id="eqCode" type="text" name="eqCode" v-model="equipments.eqCode" required/>
                 <input class="form-control" id="id" type="hidden" name="id" v-model="equipments.id"/>

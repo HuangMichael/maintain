@@ -24,13 +24,14 @@
             <div class="col-md-3">
                 <select v-model="equipments.locations.id" class="form-control" id="locations_id" name="locations.id"
                         required style="width:100%">
-                    <option v-for="item in locs" v-if="item.id == equipments.locations.id" selected
-                            v-bind:value="item.id">{{ item.description }}
-                    </option>
-                    <option v-for="item in locs" v-if="item.id != equipments.locations.id"
-                            v-bind:value="item.id">{{ item.description }}
-                    </option>
-
+                    <template v-for="option in locs">
+                        <option :value="option.id" v-if="option.id == equipments.locations.id" selected>
+                            {{ option.description }}
+                        </option>
+                        <option :value="option.id" v-else>
+                            {{ option.description }}
+                        </option>
+                    </template>
                 </select>
             </div>
         </div>
@@ -54,12 +55,16 @@
                 <select class="form-control" id="equipmentsClassification_id" name="equipmentsClassification.id"
                         required v-model="equipments.equipmentsClassification.id"
                         style="width:100%">
-                    <option v-for="item in eqClasses" v-if="item.id == equipments.equipmentsClassification.id" selected
-                            v-bind:value="item.id">{{ item.description }}
-                    </option>
-                    <option v-for="item in eqClasses" v-if="item.id != equipments.equipmentsClassification.id"
-                            v-bind:value="item.id">{{ item.description }}
-                    </option>
+                    <template v-for="option in eqClasses">
+                        <option :value="option.id" v-if="option.id == equipments.equipmentsClassification.id" selected>
+                            {{ option.description }}
+                        </option>
+                        <option :value="option.id" v-else>
+                            {{ option.description }}
+                        </option>
+                    </template>
+
+
                 </select>
             </div>
         </div>

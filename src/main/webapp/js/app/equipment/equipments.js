@@ -69,26 +69,8 @@ $(function () {
                     showMessageBoxCenter("danger", "center", "设备编号不能重复");
                     return;
                 }
-            },
-            loadLocs: function (event) {
-                console.log("loadLocs--------------");
-            },
-            loadEqClasses: function () {
-                console.log("loadEqClasses--------------");
             }
-        },
-
-        watch: {
-            'equipments': function (val, oldVal) {
-                //console.log('new: %s, old: %s', val, oldVal);
-
-                console.log(JSON.stringify("新位置:" + val.locations.description));
-                console.log(JSON.stringify("旧位置:" + oldVal.locations.description));
-            },
-            deep: true
         }
-
-
     })
     ;
 
@@ -303,25 +285,19 @@ $(function () {
 
 function loadCreateForm() {
 
-    var create = new Vue({
-        el: "#createForm",
-        data: {
-            equipments: null,
-            locs: locs,
-            eqClasses: eqClasses,
-            status: [{value: 0, text: "停用"},
-                {value: 1, text: "投用"},
-                {value: 2, text: "报废"}],
-            running: [
-                {value: 0, text: "运行"},
-                {value: 1, text: "停止"}
-            ],
-            manageLevels: [1, 2, 3, 4]
-        }
 
+    var status = [{value: 0, text: "停用"},
+        {value: 1, text: "投用"},
+        {value: 2, text: "报废"}];
 
-    });
-    $('#myTab li:eq(1) a').tab('show');
+    var running = [{value: 0, text: "运行"}];
+
+    vdm.$set("equipments", null);
+    vdm.$set("locs", locs);
+    vdm.$set("eqClasses", eqClasses);
+    vdm.$set("status", status);
+    vdm.$set("running", running);
+    $('#myTab li:eq(2) a').tab('show');
 }
 
 
@@ -508,7 +484,7 @@ function saveEquipment() {
     var netValue = equipments.netValue;
     var purchaseDate = equipments.purchaseDate;
     var locations_id = equipments["locations.id"];
-    var equipmentsClassification_id =equipments["equipmentsClassification.id"];
+    var equipmentsClassification_id = equipments["equipmentsClassification.id"];
     var status = equipments.status;
     var eqModel = equipments.eqModel;
     var assetNo = equipments.assetNo;

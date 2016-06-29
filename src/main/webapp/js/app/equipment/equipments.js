@@ -76,8 +76,21 @@ $(function () {
             loadEqClasses: function () {
                 console.log("loadEqClasses--------------");
             }
+        },
+
+        watch: {
+            'equipments': function (val, oldVal) {
+                //console.log('new: %s, old: %s', val, oldVal);
+
+                console.log(JSON.stringify("新位置:" + val.locations.description));
+                console.log(JSON.stringify("旧位置:" + oldVal.locations.description));
+            },
+            deep: true
         }
-    });
+
+
+    })
+    ;
 
 
     hm = new Vue({
@@ -494,8 +507,8 @@ function saveEquipment() {
     var originalValue = equipments.originalValue;
     var netValue = equipments.netValue;
     var purchaseDate = equipments.purchaseDate;
-    var locations_id = $("#locations_id").find("option:selected").val();
-    var equipmentsClassification_id = $("#equipmentsClassification_id").find("option:selected").val();
+    var locations_id = equipments["locations.id"];
+    var equipmentsClassification_id =equipments["equipmentsClassification.id"];
     var status = equipments.status;
     var eqModel = equipments.eqModel;
     var assetNo = equipments.assetNo;
@@ -507,9 +520,6 @@ function saveEquipment() {
     var runDate = equipments.runDate;
     var expectedYear = equipments.expectedYear;
     var url = "/equipment/save";
-
-    console.log("locations_id---------" + locations_id);
-    console.log("equipmentsClassification_id---------" + equipmentsClassification_id);
     $.ajax({
         type: "POST", url: url, data: {
             id: id,
@@ -538,20 +548,17 @@ function saveEquipment() {
             expectedYear: expectedYear
         },
         dataType: "JSON", success: function (msg) {
-            if (equipments.id) {
+            if (id) {
                 showMessageBox("info", "设备信息更新成功");
-                $(dataTableName).bootgrid("reload");
+                // $(dataTableName).bootgrid("reload");
             } else {
-                //loadList("#" + dataTableName);
                 showMessageBox("info", "设备信息添加成功")
-                vm.$set("eqs", eqs.push(msg));
+                vm.eqs.push(msg);
             }
-            $("#eq_modal").modal("hide")
         }
-
         ,
         error: function (msg) {
-            if (equipments.id) {
+            if (id) {
                 showMessageBox("danger", "设备信息更新失败")
             } else {
                 showMessageBox("danger", "设备信息添加失败")
@@ -721,6 +728,22 @@ function forwards() {
         vdm.$set("equipments", e);
         hm.$set("e", e);
         hm.$set("histories", loadFixHistoryByEid(selectedIds[pointer]));
+    }
+}
+
+/**
+ * 编辑设备信息
+ */
+function editEq() {
+    var eid = selectedIds[0];
+    var eq = findEquipmentByIdInEqs(eid);
+    if (eid) {
+        vdm.$set("equipments", eq);
+        $('#myTab li:eq(2) a').tab('show');
+
+    } else {
+        showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
+        return;
     }
 }
 

@@ -10902,3 +10902,7 @@ legend {
 select {
     width: 100%
 }
+
+.appTitle {
+    font-family: 黑体;
+}

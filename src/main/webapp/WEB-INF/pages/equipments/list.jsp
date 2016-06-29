@@ -12,7 +12,7 @@
                     <!-- BOX -->
                     <div class="box border blue">
                         <div class="box-title">
-                            <h4 style="font-family: 微软雅黑"><i class="fa fa-sitemap"></i>设备信息</h4>
+                            <h4 class="appTitle"><i class="fa fa-sitemap"></i>设备信息</h4>
                         </div>
 
                         <div class="box-body" style="padding: 5px 20px 0px 20px">
@@ -31,7 +31,7 @@
                                         onclick="forwards()"><i
                                         class="glyphicon glyphicon-glyphicon glyphicon-forward"></i>下一条
                                 </button>
-                                <button type="button" class="btn btn-sm myNavBtn active">
+                                <button type="button" class="btn btn-sm myNavBtn active" onclick="editEq()">
                                     <i class="glyphicon glyphicon-edit"></i>编辑记录
                                 </button>
                             </div>

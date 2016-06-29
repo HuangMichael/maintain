@@ -9,9 +9,11 @@ var vm = null; //明细页面的模型
 var hm = null;
 
 //数据列表
-var listTab = $('#myTab li:eq(0) a');;
+var listTab = $('#myTab li:eq(0) a');
+;
 //数据列表
-var formTab = $('#myTab li:eq(1) a');;
+var formTab = $('#myTab li:eq(1) a');
+;
 //维修历史列表
 var historyTab = $('#myTab li:eq(2) a');
 var pointer = 0;
@@ -170,14 +172,6 @@ $(function () {
                             message: '设备分类不能为空!'
                         }
                     }
-                },
-                "manageLevel": {
-                    message: '管理等级无效',
-                    validators: {
-                        notEmpty: {
-                            message: '管理等级不能为空!'
-                        }
-                    }
                 }
                 ,
                 "status": {
@@ -252,15 +246,6 @@ $(function () {
                         }
                     }
                 },
-                "manageLevel": {
-                    message: '管理等级无效',
-                    validators: {
-                        notEmpty: {
-                            message: '管理等级不能为空!'
-                        }
-                    }
-                }
-                ,
                 "status": {
                     message: '设备状态无效',
                     validators: {
@@ -297,7 +282,7 @@ function loadCreateForm() {
         {value: 1, text: "投用"},
         {value: 2, text: "报废"}];
 
-    var running = [{value: 0, text: "运行"}];
+    var running = [{value: 0, text: "运行"}, {value: 1, text: "停止"}];
 
     vdm.$set("equipments", null);
     vdm.$set("locs", locs);

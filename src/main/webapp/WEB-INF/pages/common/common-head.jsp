@@ -34,6 +34,7 @@
     <link rel="stylesheet" type="text/css" href="js/ystep/css/ystep.css">
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+
     <link href="/js/select2-bootstrap-theme-master/dist/select2-bootstrap.min.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="/js/bootstrapvalidator/dist/css/bootstrapValidator.css"/>

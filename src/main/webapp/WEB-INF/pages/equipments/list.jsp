@@ -41,9 +41,9 @@
                                         class="glyphicon glyphicon-glyphicon glyphicon-forward"></i>下一条
                                 </button>
 
-                                <button type="button" class="btn btn-sm myNavBtn active" onclick="refreshData()">
+                                <%--<button type="button" class="btn btn-sm myNavBtn active" onclick="refreshData()">
                                 <i class="glyphicon glyphicon-glyphicon glyphicon-refresh"></i>刷新列表
-                                </button>
+                                </button>--%>
                             </div>
                         </div>
                         <%--  <a type="button" class="btn  btn-default btn-xs " id="createBtn"

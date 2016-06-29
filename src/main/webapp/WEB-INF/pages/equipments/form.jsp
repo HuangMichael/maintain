@@ -36,19 +36,6 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-1 control-label" for="maintainer">维护人员</label>
-
-            <div class="col-md-3">
-                <input class="form-control" id="maintainer" type="text" name="maintainer"
-                       v-model="equipments.maintainer"/>
-            </div>
-
-            <label class="col-md-1 control-label" for="eqModel">设备型号</label>
-
-            <div class="col-md-3">
-                <input class="form-control" id="eqModel" type="text" name="eqModel" v-model="equipments.eqModel"/>
-            </div>
-
             <label for="equipmentsClassification_id" class="col-md-1 control-label">设备类型</label>
 
             <div class="col-md-3">
@@ -67,8 +54,48 @@
 
                 </select>
             </div>
+
+            <label class="col-md-1 control-label" for="running">是否运行</label>
+
+            <div class="col-md-3">
+                <select class="form-control" id="running" name="running" required v-model="equipments.running"
+                        style="width:100%">
+                    <option>请选择设备运行状态</option>
+                    <option v-for="r in running" v-bind:value="r.value">
+                        {{ r.text }}
+                    </option>
+                </select>
+            </div>
+
+
+            <label for="status" class="col-md-1 control-label">设备状态</label>
+
+            <div class="col-md-3">
+                <select class="form-control" id="status" name="status" required v-model="equipments.status"
+                        style="width:100%">
+                    <option>请选择设备状态</option>
+                    <option v-for="s in status" v-bind:value="s.value">
+                        {{ s.text }}
+                    </option>
+                </select>
+            </div>
         </div>
         <div class="form-group">
+            <label class="col-md-1 control-label" for="maintainer">维护人员</label>
+
+            <div class="col-md-3">
+                <input class="form-control" id="maintainer" type="text" name="maintainer"
+                       v-model="equipments.maintainer"/>
+            </div>
+
+            <label class="col-md-1 control-label" for="eqModel">设备型号</label>
+
+            <div class="col-md-3">
+                <input class="form-control" id="eqModel" type="text" name="eqModel" v-model="equipments.eqModel"/>
+            </div>
+
+
+
             <label class="col-md-1 control-label" for="manageLevel">管理等级</label>
 
             <div class="col-md-3">
@@ -81,6 +108,9 @@
 
                 </select>
             </div>
+
+        </div>
+        <div class="form-group">
             <label class="col-md-1 control-label" for="assetNo">资产编号</label>
 
             <div class="col-md-3">
@@ -92,36 +122,9 @@
                 <input class="form-control" id="productFactory" type="text" name="productFactory"
                        v-model="equipments.productFactory"/>
             </div>
-        </div>
-        <div class="form-group">
             <label class="col-md-1 control-label" for="manager">负责人</label>
-
             <div class="col-md-3">
                 <input class="form-control" id="manager" type="text" name="manager" v-model="equipments.manager"/>
-            </div>
-
-            <label for="status" class="col-md-1 control-label">设备状态</label>
-
-            <div class="col-md-3">
-                <select class="form-control" id="status" name="status" required v-model="equipments.status"
-                        style="width:100%">
-                    <option>请选择设备状态</option>
-                    <option v-for="s in status" v-bind:value="s.value">
-                        {{ s.text }}
-                    </option>
-
-                </select>
-            </div>
-            <label class="col-md-1 control-label" for="running">是否运行</label>
-
-            <div class="col-md-3">
-                <select class="form-control" id="running" name="running" required v-model="equipments.running"
-                        style="width:100%">
-                    <option>请选择设备运行状态</option>
-                    <option v-for="r in running" v-bind:value="r.value">
-                        {{ r.text }}
-                    </option>
-                </select>
             </div>
 
 

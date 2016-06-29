@@ -19,27 +19,15 @@
                             <!-- Split button -->
                             <div class="btn-group">
 
-                                <button type="button" class="btn btn-default btn-primary btn-sm active"
-                                        style="border:1px solid white;background-color:#60b044;background-color: #569e3d;
-    background-image: -webkit-linear-gradient(#79d858, #569e3d);
-    background-image: linear-gradient(#79d858, #569e3d);
-    border-radius: 6px"
+                                <button type="button" class="btn btn-sm myNavBtn active"
                                         onclick="loadCreateForm()">
                                     <i class="glyphicon glyphicon-plus"></i>新建记录
                                 </button>
-                                <button type="button" class="btn btn-success btn-sm active"
-                                        style="border:1px solid white;background-color:#60b044;background-color: #569e3d;
-    background-image: -webkit-linear-gradient(#79d858, #569e3d);
-    background-image: linear-gradient(#79d858, #569e3d);
-    border-radius: 6px"
+                                <button type="button" class="btn btn-sm myNavBtn active"
                                         onclick="backwards()"><i
                                         class="glyphicon glyphicon-glyphicon glyphicon-backward"></i>上一条
                                 </button>
-                                <button type="button" class="btn btn-default btn-primary btn-sm active"
-                                        style="border:1px solid white;background-color:#60b044;background-color: #569e3d;
-    background-image: -webkit-linear-gradient(#79d858, #569e3d);
-    background-image: linear-gradient(#79d858, #569e3d);
-    border-radius: 6px"
+                                <button type="button" class="btn btn-sm myNavBtn active"
                                         onclick="forwards()"><i
                                         class="glyphicon glyphicon-glyphicon glyphicon-forward"></i>下一条
                                 </button>

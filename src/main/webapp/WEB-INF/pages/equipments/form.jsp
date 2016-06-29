@@ -5,7 +5,7 @@
 <%@ taglib prefix="v-on" uri="http://www.springframework.org/tags/form" %>
 <form class="form-horizontal" role="form" id="detailForm">
     <fieldset class="form-group" id="a">
-        <legend style="font-family:微软雅黑;font-size: small;color: #0b68e3 ;font-weight:bold">基本信息</legend>
+        <legend >基本信息</legend>
         <div class="form-group">
             <label class="col-md-1 control-label" for="eqCode">设备编号</label>
 

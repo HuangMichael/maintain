@@ -729,3 +729,31 @@ function saveEq() {
 function refreshData() {
     $("#contentDiv").load("/equipment/list");
 }
+
+
+function deleteEq() {
+    var eid = selectedIds[0];
+    var url = "/equipment/delete/" + eid;
+    if (eid) {
+        var confirm = window.confirm("确定要删除该记录么？");
+        if (confirm) {
+            $.ajax({
+                type: "GET",
+                url: url,
+                success: function (msg) {
+                    showMessageBoxCenter("info", "center", "设备信息删除成功 ");
+                },
+                error: function (msg) {
+                    showMessageBoxCenter("danger", "center", "设备信息删除失败");
+                }
+            });
+
+
+        } else {
+            showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
+            return;
+        }
+
+
+    }
+}

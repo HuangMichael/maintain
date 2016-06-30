@@ -210,4 +210,15 @@ public class EquipmentAccountService extends BaseService {
         }
         return !equipmentsList.isEmpty();
     }
+
+
+    /**
+     * @param equipments
+     * @return 返回true 删除成功
+     */
+    public Boolean delete(Equipments equipments) {
+        equipmentsRepository.delete(equipments);
+        Equipments e = equipmentsRepository.findById(equipments.getId());
+        return e == null;
+    }
 }

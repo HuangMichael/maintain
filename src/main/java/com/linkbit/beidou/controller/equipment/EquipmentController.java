@@ -67,9 +67,6 @@ public class EquipmentController extends BaseController {
 
     @RequestMapping(value = "/list")
     public String list(ModelMap modelMap, HttpSession session) {
-    /*    Object object = session.getAttribute("equipmentsClassificationList");
-        List<EquipmentsClassification> equipmentsClassificationList = (ArrayList<EquipmentsClassification>) (object);
-        modelMap.put("equipmentsClassificationList", equipmentsClassificationList);*/
         return "/equipments/list";
     }
 
@@ -83,7 +80,7 @@ public class EquipmentController extends BaseController {
     public List<Equipments> findMyEqs(HttpSession session) {
         User user = (User) session.getAttribute("currentUser");
         String userLocation = user.getLocation();
-        return equipmentsRepository.findByLocationStartingWith(userLocation);
+        return equipmentsRepository.findByLocationStartingWithAndDeleted(userLocation, "0");
     }
 
     @RequestMapping(value = "/reload/{objId}")
@@ -221,10 +218,12 @@ public class EquipmentController extends BaseController {
      */
     @RequestMapping(value = "/delete/{id}")
     @ResponseBody
-    public Equipments delete(@PathVariable("id") Long id) {
-        Equipments equipments = equipmentAccountService.findById(id);
-        equipments.setDeleted(true);
-        return equipmentAccountService.save(equipments);
+    public Boolean delete(@PathVariable("id") Long id) {
+        Equipments equipments = null;
+        if (id != null) {
+            equipments = equipmentAccountService.findById(id);
+        }
+        return equipmentAccountService.delete(equipments);
 
     }
 

@@ -28,6 +28,12 @@ public interface EquipmentsRepository extends CrudRepository<Equipments, Long> {
 
     List<Equipments> findByDeleted(Boolean deleted);
 
+
+    /**
+     * 查询所有设备类别
+     */
+    void delete(Equipments equipments);
+
     /**
      * 根据状态查询设备类别
      */
@@ -63,6 +69,13 @@ public interface EquipmentsRepository extends CrudRepository<Equipments, Long> {
      * @return 按照位置模糊查询资产信息
      */
     List<Equipments> findByLocationStartingWith(String location);
+
+
+    /**
+     * @param location 位置编码
+     * @return 按照位置模糊查询资产信息
+     */
+    List<Equipments> findByLocationStartingWithAndDeleted(String location, String deleted);
 
 
     /**

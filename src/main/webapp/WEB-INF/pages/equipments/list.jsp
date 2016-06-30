@@ -32,6 +32,10 @@
                                     <i class="glyphicon glyphicon-save"></i>保存记录
                                 </button>
 
+                                <button type="button" class="btn btn-sm myNavBtn active" onclick="deleteEq()">
+                                    <i class="glyphicon glyphicon-remove"></i>删除记录
+                                </button>
+
                                 <button type="button" class="btn btn-sm myNavBtn active"
                                         onclick="backwards()"><i
                                         class="glyphicon glyphicon-glyphicon glyphicon-backward"></i>上一条
@@ -41,9 +45,18 @@
                                         class="glyphicon glyphicon-glyphicon glyphicon-forward"></i>下一条
                                 </button>
 
-                                <%--<button type="button" class="btn btn-sm myNavBtn active" onclick="refreshData()">
-                                <i class="glyphicon glyphicon-glyphicon glyphicon-refresh"></i>刷新列表
-                                </button>--%>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm myNavBtn dropdown-toggle active"
+                                            data-toggle="dropdown">
+                                        操作菜单 <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a onclick="deleteEq()">删除记录</a></li>
+                                        <li><a href="#">设备停用</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">其他功能</a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         <%--  <a type="button" class="btn  btn-default btn-xs " id="createBtn"

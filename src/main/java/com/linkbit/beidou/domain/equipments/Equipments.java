@@ -88,7 +88,7 @@ public class Equipments {
     private String location; //加入冗余字段location 方便模糊查询
 
     @Column(length = 1, columnDefinition = "default 0")
-    private boolean deleted;
+    private String  deleted;
 
     @Column(length = 20)
     private String eqModel;  //设备型号

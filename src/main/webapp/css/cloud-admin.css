@@ -146,7 +146,7 @@ input,
 select,
 textarea {
     font-family: "微软雅黑";
-    font-size: 14px;
+    font-size: 12px;
     margin: 0;
 }
 
@@ -2016,7 +2016,7 @@ output {
     width: 100%;
     height: 34px;
     padding: 6px 12px;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 1.428571429;
     color: #555555;
     vertical-align: middle;

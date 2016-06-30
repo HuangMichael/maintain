@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="v-bind" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="v-on" uri="http://www.springframework.org/tags/form" %>
-<form class="form-horizontal" role="form" id="detailForm">
+<form class="form-horizontal myform" role="form" id="detailForm">
     <fieldset class="form-group" id="a">
         <legend>基本信息</legend>
         <div class="form-group">
@@ -95,7 +95,6 @@
             </div>
 
 
-
             <label class="col-md-1 control-label" for="manageLevel">管理等级</label>
 
             <div class="col-md-3">
@@ -123,6 +122,7 @@
                        v-model="equipments.productFactory"/>
             </div>
             <label class="col-md-1 control-label" for="manager">负责人</label>
+
             <div class="col-md-3">
                 <input class="form-control" id="manager" type="text" name="manager" v-model="equipments.manager"/>
             </div>

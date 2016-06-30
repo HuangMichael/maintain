@@ -39,6 +39,8 @@
 
     <link rel="stylesheet" href="/js/bootstrapvalidator/dist/css/bootstrapValidator.css"/>
 
+    <link rel="stylesheet" href="/css/formStyle.css"/>
+
     <%--    <link rel="stylesheet" type="text/css" href="bootstrap-dist/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="css/cloud-admin.css">
         <link rel="stylesheet" type="text/css" href="css/themes/default.css" id="skin-switcher">

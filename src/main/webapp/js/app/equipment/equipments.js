@@ -36,7 +36,8 @@ $(function () {
             equipments: eqs[0],
             locs: locs,
             eqClasses: eqClasses,
-            status: [{value: 0, text: "停用"},
+            status: [
+                {value: 0, text: "停用"},
                 {value: 1, text: "投用"},
                 {value: 2, text: "报废"}],
             running: [
@@ -278,7 +279,7 @@ $(function () {
 function loadCreateForm() {
 
 
-    var status = [{value: 0, text: "停用"},
+    var status = [{value: 0, text: "停用", selected: "selected"},
         {value: 1, text: "投用"},
         {value: 2, text: "报废"}];
 
@@ -289,6 +290,10 @@ function loadCreateForm() {
     vdm.$set("eqClasses", eqClasses);
     vdm.$set("status", status);
     vdm.$set("running", running);
+    //设置设备状态和运行状态默认值
+    vdm.$set("equipments.status", 1);
+    vdm.$set("equipments.running", 0);
+
     formTab.tab('show');
 }
 

@@ -14,8 +14,6 @@
                         <div class="box-title">
                             <h4><i class="fa fa-sitemap"></i>外委单位信息</h4>
                         </div>
-
-
                         <div class="box-body" style="padding: 5px 20px 0px 20px">
                             <!-- Split button -->
                             <div class="btn-group">
@@ -52,60 +50,54 @@
                                         操作菜单 <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a onclick="deleteEq()" class="optionMenu">删除记录</a></li>
-                                        <li><a href="#" class="optionMenu">设备停用</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="#" class="optionMenu">其他功能</a></li>
+                                        <li><a onclick="deleteUnit()" class="optionMenu"><i
+                                                class="glyphicon glyphicon-remove"></i>删除记录</a></li>
                                     </ul>
                                 </div>
 
                             </div>
-
-
                             <div class="box-body">
-                                <div id="contentDiv">
-                                    <div class="box-body">
-                                        <div class="tabbable">
-                                            <ul class="nav nav-tabs" id="myTab">
-                                                <li class="active"><a href="#tab_1_0" data-toggle="tab">
-                                                    <i class="fa fa-home" id="unit"></i>外委单位信息</a>
-                                                </li>
-                                                <li><a href="#tab_1_1" data-toggle="tab">
-                                                    <i class="fa fa-flag" id="unitDetail"></i>外委单位明细信息</a>
-                                                </li>
-                                                <%-- <li><a href="#tab_1_2" data-toggle="tab">
-                                                     <i class="fa fa-flag" id="contract"></i>合同文本信息</a>
-                                                 </li>
-                                                 <li><a href="#tab_1_3" data-toggle="tab"><i
-                                                         class="fa fa-lock" id="safety"></i>安全教育档案信息</a>
-                                                 </li>
-                                                 <li><a href="#tab_1_4" data-toggle="tab"><i
-                                                         class="fa fa-lock" id="service"></i>年度服务评价信息</a>
-                                                 </li>
-                                                 <li><a href="#tab_1_5" data-toggle="tab"><i
-                                                         class="fa fa-lock" id="eqs"></i>所属设备信息</a>
-                                                 </li>--%>
-                                            </ul>
-                                            <div class="tab-content">
-                                                <div class="tab-pane fade in active" id="tab_1_0">
-                                                    <%@include file="table_1_0.jsp" %>
-                                                </div>
-                                                <div class="tab-pane fade" id="tab_1_1">
-                                                    <%@include file="table_1_1.jsp" %>
-                                                </div>
-                                                <%-- <div class="tab-pane fade" id="table_1_2">
-                                                     <%@include file="table_1_2.jsp" %>
-                                                 </div>
-                                                 <div class="tab-pane fade" id="tab_1_3">
-                                                     <%@include file="table_1_3.jsp" %>
-                                                 </div>
-                                                 <div class="tab-pane fade" id="tab_1_4">
-                                                     <%@include file="table_1_4.jsp" %>
-                                                 </div>
-                                                 <div class="tab-pane fade" id="tab_1_5">
-                                                     <%@include file="table_1_5.jsp" %>
-                                                 </div>--%>
+                                <div class="box-body">
+                                    <div class="tabbable">
+                                        <ul class="nav nav-tabs" id="myTab">
+                                            <li class="active"><a href="#tab_1_0" data-toggle="tab">
+                                                <i class="fa fa-home" id="unit"></i>外委单位信息</a>
+                                            </li>
+                                            <li><a href="#tab_1_1" data-toggle="tab">
+                                                <i class="fa fa-flag" id="unitDetail"></i>外委单位明细信息</a>
+                                            </li>
+                                            <%-- <li><a href="#tab_1_2" data-toggle="tab">
+                                                 <i class="fa fa-flag" id="contract"></i>合同文本信息</a>
+                                             </li>
+                                             <li><a href="#tab_1_3" data-toggle="tab"><i
+                                                     class="fa fa-lock" id="safety"></i>安全教育档案信息</a>
+                                             </li>
+                                             <li><a href="#tab_1_4" data-toggle="tab"><i
+                                                     class="fa fa-lock" id="service"></i>年度服务评价信息</a>
+                                             </li>
+                                             <li><a href="#tab_1_5" data-toggle="tab"><i
+                                                     class="fa fa-lock" id="eqs"></i>所属设备信息</a>
+                                             </li>--%>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade in active" id="tab_1_0">
+                                                <%@include file="table_1_0.jsp" %>
                                             </div>
+                                            <div class="tab-pane fade" id="tab_1_1">
+                                                <%@include file="table_1_1.jsp" %>
+                                            </div>
+                                            <%-- <div class="tab-pane fade" id="table_1_2">
+                                                 <%@include file="table_1_2.jsp" %>
+                                             </div>
+                                             <div class="tab-pane fade" id="tab_1_3">
+                                                 <%@include file="table_1_3.jsp" %>
+                                             </div>
+                                             <div class="tab-pane fade" id="tab_1_4">
+                                                 <%@include file="table_1_4.jsp" %>
+                                             </div>
+                                             <div class="tab-pane fade" id="tab_1_5">
+                                                 <%@include file="table_1_5.jsp" %>
+                                             </div>--%>
                                         </div>
                                     </div>
                                 </div>

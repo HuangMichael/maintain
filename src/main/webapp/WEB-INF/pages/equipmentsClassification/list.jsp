@@ -27,14 +27,30 @@
                 <div class="col-md-9">
                     <div class="box border blue">
                         <div class="box-body">
-                            <a type="button" class="btn  btn-xs btn-default" id="loadCreateBtn"
-                               onclick="loadCreateForm()"><i class="glyphicon glyphicon-plus"></i>新建记录</a>
-                            <a type="button" class="btn  btn-xs btn-default" id="saveBtn" onclick="save()"><i
-                                    class="glyphicon glyphicon-floppy-save"></i>保存记录</a>
-                            <a type="button" class="btn  btn-xs btn-default" id="deleteBtn" onclick="deleteObject()"><i
-                                    class="glyphicon glyphicon-remove"></i>删除记录</a>
-                            <a type="button" class="btn  btn-xs btn-default" id="addUnitBtn" onclick="addUnit()"><i
-                                    class="glyphicon glyphicon-align-justify"></i>添加单位</a>
+
+                            <div class="btn-group">
+
+                                <button type="button" class="btn btn-sm myNavBtn active"
+                                        onclick="loadCreateForm()">
+                                    <i class="glyphicon glyphicon-plus"></i>新建记录
+                                </button>
+
+                                <button type="button" class="btn btn-sm myNavBtn active" onclick="edit()">
+                                    <i class="glyphicon glyphicon-edit"></i>编辑记录
+                                </button>
+
+                                <button type="button" class="btn btn-sm myNavBtn active" onclick="save()">
+                                    <i class="glyphicon glyphicon-save"></i>保存记录
+                                </button>
+
+                                <button type="button" class="btn btn-sm myNavBtn active" onclick="deleteObject()">
+                                    <i class="glyphicon glyphicon-remove"></i>删除记录
+                                </button>
+                                <button type="button" class="btn btn-sm myNavBtn active"
+                                        onclick="addUnit()"><i
+                                        class="glyphicon glyphicon-align-justify"></i>添加单位
+                                </button>
+                            </div>
 
                         </div>
                     </div>

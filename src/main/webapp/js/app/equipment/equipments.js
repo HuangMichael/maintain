@@ -8,6 +8,8 @@ var vdm = null; //明细页面的模型
 var vm = null; //明细页面的模型
 var hm = null;
 
+var formLocked = true;
+
 //数据列表
 var listTab = $('#myTab li:eq(0) a');
 ;
@@ -33,6 +35,7 @@ $(function () {
     vdm = new Vue({
         el: "#detailForm",
         data: {
+            formLocked: formLocked,
             equipments: eqs[0],
             locs: locs,
             eqClasses: eqClasses,
@@ -81,8 +84,9 @@ $(function () {
                 }
             }
         }
-    })
-    ;
+    });
+
+    //setReadonly(vdm.el);
 
 
     hm = new Vue({
@@ -706,6 +710,7 @@ function forwards() {
  * 编辑设备信息
  */
 function editEq() {
+    setFormReadStatus(vdm.el,true);
     var eid = selectedIds[0];
     var eq = findEquipmentByIdInEqs(eid);
     if (eid) {
@@ -756,4 +761,21 @@ function deleteEq() {
 
 
     }
+}
+
+
+/**
+ *
+ * @param formId 设置form为只读
+ */
+function setFormReadStatus(formId, formLocked) {
+
+    console.log("formId--------------"+formId);
+    if (formLocked) {
+        $("#" + formId + " input").attr("readonly", "readonly");
+    } else {
+        $("#" + formId + " input").removeAttr("readonly");
+    }
+
+
 }

@@ -19,8 +19,8 @@
                 <div class="col-md-3">
                     <!-- BOX -->
                     <div class="box border blue">
-                        <div class="box-body">
-                            <ul id="tree" class="ztree" style="width:560px; overflow:auto;"></ul>
+                        <div class="box-body treeContainer"  id="treeDiv">
+                            <ul id="tree" class="ztree"></ul>
                         </div>
                     </div>
                 </div>

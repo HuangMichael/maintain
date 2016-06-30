@@ -19,7 +19,7 @@
                 <div class="col-md-3">
                     <!-- BOX -->
                     <div class="box border blue">
-                        <div class="box-body" style="height:700px;  overflow-y:scroll" id="treeDiv">
+                        <div class="box-body treeContainer" id="treeDiv">
                             <ul id="tree" class="ztree"></ul>
                         </div>
                     </div>

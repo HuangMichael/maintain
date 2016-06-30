@@ -42,7 +42,7 @@ public class Equipments {
     @Column(length = 20)
     private String maintainer; //设备维护人员
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date purchaseDate; //购置日期
 
@@ -88,7 +88,7 @@ public class Equipments {
     private String location; //加入冗余字段location 方便模糊查询
 
     @Column(length = 1, columnDefinition = "default 0")
-    private String  deleted;
+    private String deleted;
 
     @Column(length = 20)
     private String eqModel;  //设备型号
@@ -118,5 +118,6 @@ public class Equipments {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date expectedYear; //预计年限
+
 
 }

@@ -28,6 +28,8 @@ public class Locations implements java.io.Serializable {
     @Column(length = 100)
     private String description;//描述
 
+    @Column(length = 200)
+    private String locDetailDesc;//位置完整描述
 
     @JsonBackReference
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -53,4 +55,5 @@ public class Locations implements java.io.Serializable {
     private String status;//状态
     @Column(length = 1)
     private String hasChild;  //是否有孩子节点
+
 }

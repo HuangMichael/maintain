@@ -104,6 +104,7 @@ $(function () {
 
 
     formTab.on('click', function () {
+        setFormReadStatus(vdm.el,true);
         //首先判断是否有选中的
         var eq = null;
         if (selectedIds.length > 0) {
@@ -126,7 +127,6 @@ $(function () {
         var equipments = findEquipmentByIdInEqs(selectedIds[pointer]);
         hm.$set("e", equipments);
         hm.$set("histories", loadFixHistoryByEid(selectedIds[pointer]));
-        console.log("history--------" + hm.e.description);
     });
 
 
@@ -412,9 +412,6 @@ function createEquipment() {
     var productDate = equipments.productDate;
     var runDate = equipments.runDate;
     var expectedYear = equipments.expectedYear;
-
-    console.log("locations_id---------" + locations_id);
-    console.log("equipmentsClassification_id---------" + equipmentsClassification_id);
     var url = "/equipment/save";
     $.ajax({
         type: "POST", url: url, data: {

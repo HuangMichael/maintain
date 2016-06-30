@@ -61,6 +61,26 @@ public class OutsoucingUnitService extends BaseService {
 
 
     /**
+     * @param uid
+     * @return 根据根据ID查询外委单位信息
+     */
+    public OutsourcingUnit findById(Long uid) {
+        return outsourcingUnitRepository.findById(uid);
+    }
+
+
+    /**
+     * @param unit
+     * @return 删除外委单位
+     */
+    public Boolean delete(OutsourcingUnit unit) {
+        outsourcingUnitRepository.delete(unit);
+        unit = outsourcingUnitRepository.findById(unit.getId());
+        return unit == null;
+    }
+
+
+    /**
      * @param cid 设备种类id
      * @param ids 外委单位id集合字符串
      * @return 加入外委单位 返回种类本身
@@ -78,7 +98,6 @@ public class OutsoucingUnitService extends BaseService {
         }
         return equipmentsClassification;
     }
-
 
 
     /**

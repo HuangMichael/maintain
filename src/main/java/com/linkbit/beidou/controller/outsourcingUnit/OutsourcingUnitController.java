@@ -3,6 +3,7 @@ package com.linkbit.beidou.controller.outsourcingUnit;
 
 import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
+import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnitContract;
@@ -85,6 +86,23 @@ public class OutsourcingUnitController {
         outsourcingUnit = outsourcingUnitRepository.save(outsourcingUnit);
         return outsourcingUnit;
 
+
+    }
+
+
+
+
+    /**
+     * @param id 根据id删除设备信息
+     */
+    @RequestMapping(value = "/delete/{id}")
+    @ResponseBody
+    public Boolean delete(@PathVariable("id") Long id) {
+        OutsourcingUnit unit = null;
+        if (id != null) {
+            unit = outsourcingUnitService.findById(id);
+        }
+        return outsourcingUnitService.delete(unit);
 
     }
 

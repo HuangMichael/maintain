@@ -110,7 +110,6 @@ $(function () {
         if (selectedIds.length > 0) {
             //切换tab时默认给detail中第一个数据
             eq = findEquipmentByIdInEqs(selectedIds[0]);
-            console.log("设备名称----" + eq.description);
         } else {
             //没有选中的 默认显示整个列表的第一条
             eq = eqs[0];
@@ -749,14 +748,10 @@ function deleteEq() {
                     showMessageBoxCenter("danger", "center", "设备信息删除失败");
                 }
             });
-
-
         } else {
             showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
             return;
         }
-
-
     }
 }
 

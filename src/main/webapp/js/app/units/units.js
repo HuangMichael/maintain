@@ -7,6 +7,8 @@ var vm = null; //明细页面的模型
 var unit = null;
 
 var pointer = 0;
+var listTab = $('#myTab li:eq(0) a');
+var formTab = $('#myTab li:eq(1) a');
 $.ajaxSettings.async = false;
 $(function () {
     //初始化从数据库获取列表数据
@@ -219,16 +221,81 @@ function findUnitByIdLocal(uid) {
 }
 
 
-function loadCreateForm() {
-    var createModel = new Vue({
-        el: "#createForm",
-        data: {
-            unit: null,
-        }
-    });
+formTab.on('click', function () {
+    //首先判断是否有选中的
+    var unit = null;
+    if (selectedIds.length > 0) {
+        //切换tab时默认给detail中第一个数据
+        unit = findUnitByIdLocal(selectedIds[0]);
+    } else {
+        //没有选中的 默认显示整个列表的第一条
+        unit = units[0];
+        //所有的都在选中列表中
+        selectedIds = setAllInSelectedList(units);
+    }
+    unitDetail.$set("unit", unit);
 
-    $('#myTab li:eq(1) a').tab('show');
+});
+
+
+function addNew() {
+
+    unitDetail.$set("unit", null);
+    //设置设备状态和运行状态默认值
+    unitDetail.$set("unit.status", 1);
+    formTab.tab('show');
+
 }
+
+
+/**
+ * 编辑设备信息
+ */
+function edit() {
+    var uid = selectedIds[0];
+    var unit = findUnitByIdLocal(uid);
+    if (uid) {
+        unitDetail.$set("unit", unit);
+        formTab.tab('show');
+
+    } else {
+        showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
+        return;
+    }
+}
+
+
+/**
+ * 保存设备信息
+ */
+function save() {
+    $("#saveBtn").trigger("click");
+}
+
+
+function deleteUnit() {
+    var uid = selectedIds[0];
+    var url = "/outsourcingUnit/delete/" + uid;
+    if (uid) {
+        var confirm = window.confirm("确定要删除该记录么？");
+        if (confirm) {
+            $.ajax({
+                type: "GET",
+                url: url,
+                success: function (msg) {
+                    showMessageBoxCenter("info", "center", "外委单位信息删除成功 ");
+                },
+                error: function (msg) {
+                    showMessageBoxCenter("danger", "center", "删除失败，请联系管理员操作!");
+                }
+            });
+        } else {
+            showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
+            return;
+        }
+    }
+}
+
 
 function createUnit() {
     var objStr = getFormJsonData("createForm");
@@ -267,14 +334,13 @@ function saveUnit() {
         data: outsourcingUnit,
         dataType: "json",
         success: function (data) {
-            $("#unit_modal").modal("hide");
-            if (data.id) {
+            if (outsourcingUnit.id) {
                 showMessageBox("info", "外委单位信息更新成功");
             } else {
                 showMessageBox("info", "外委单位信息添加成功");
             }
         }, error: function (data) {
-            if (data.id) {
+            if (outsourcingUnit.id) {
                 showMessageBox("danger", "外委单位信息更新失败");
             } else {
                 showMessageBox("info", "外委单位信息添加失败");

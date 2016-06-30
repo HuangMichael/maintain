@@ -276,13 +276,10 @@ $(function () {
 });
 
 
-function loadCreateForm() {
-
-
+function addNew() {
     var status = [{value: 0, text: "停用", selected: "selected"},
         {value: 1, text: "投用"},
         {value: 2, text: "报废"}];
-
     var running = [{value: 0, text: "运行"}, {value: 1, text: "停止"}];
 
     vdm.$set("equipments", null);

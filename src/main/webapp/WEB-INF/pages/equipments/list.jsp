@@ -20,7 +20,7 @@
                             <div class="btn-group">
 
                                 <button type="button" class="btn btn-sm myNavBtn active"
-                                        onclick="loadCreateForm()">
+                                        onclick="addNew()">
                                     <i class="glyphicon glyphicon-plus"></i>新建记录
                                 </button>
 

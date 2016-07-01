@@ -16,7 +16,8 @@
 <script src="js/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
 <script src="js/jquery-validate/jquery.validate.min.js"></script>
 <script src="js/jquery-validate/additional-methods.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>--%>
+<script src="/js/select2/select2.cdn.js"></script>
 <script src="js/script.js"></script>
 <script src="/js/ystep/js/ystep.js"></script>
 <script src="http://www.lanrenzhijia.com/ajaxjs/pdfobject.js"></script>

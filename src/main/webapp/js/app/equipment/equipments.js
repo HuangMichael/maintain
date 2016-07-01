@@ -306,9 +306,6 @@ function addNew() {
     //设置设备状态和运行状态默认值
     vdm.$set("equipments.status", 1);
     vdm.$set("equipments.running", 0);
-
-    setFromRequiredStatus("detailForm");
-
     formTab.tab('show');
 }
 
@@ -772,12 +769,6 @@ function setFormReadStatus(formId, formLocked) {
 }
 
 
-function setFromRequiredStatus(formId) {
-    var requiredFields = ["eqCode", "description", "locations_id", "status", "running", "equipmentsClassification_id"];
-    for (var x = 0; x < requiredFields.length; x++) {
-        $("#" + requiredFields[x]).css("background-color", "#ffffce");
-    }
-}
 
 
 /**

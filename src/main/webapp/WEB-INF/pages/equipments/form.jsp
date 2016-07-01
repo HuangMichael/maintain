@@ -104,10 +104,7 @@
             <div class="col-md-3">
                 <input class="form-control" id="eqModel" type="text" name="eqModel" v-model="equipments.eqModel"/>
             </div>
-
-
             <label class="col-md-1 control-label" for="manageLevel">管理等级</label>
-
             <div class="col-md-3">
                 <select class="form-control" id="manageLevel" name="manageLevel" v-model="equipments.manageLevel"
                         style="width:100%">

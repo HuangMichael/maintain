@@ -4,12 +4,14 @@ import com.linkbit.beidou.dao.groups.GroupsRepository;
 import com.linkbit.beidou.dao.user.UserRepository;
 import com.linkbit.beidou.domain.user.Groups;
 import com.linkbit.beidou.domain.user.User;
+import com.linkbit.beidou.object.PageObject;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -57,12 +59,53 @@ public class UserService extends BaseService {
         return userRepository.findByStatus(status);
     }
 
+
+    /**
+     * 根据状态查询用户
+     */
+    public PageObject getPageObject(String status) {
+        List<User> userList = new ArrayList<User>();
+        for (int i = 0; i < 240; i++) {
+            User user = new User();
+            user.setId(i + 1);
+            user.setUserName("GRQETQE" + (i + 1));
+            user.setStatus("1");
+            userList.add(user);
+        }
+        PageObject pageObject = new PageObject();
+        pageObject.setCurrent(1l);
+        pageObject.setRowCount(6l);
+        pageObject.setRows(userList);
+        pageObject.setTotal(userList.size()+0l);
+        return pageObject;
+    }
+
+
+    /*{
+        "current": 1,
+            "rowCount": 10,
+            "rows": [
+        {
+            "id": 19,
+                "sender": "123@test.de",
+                "received": "2014-05-30T22:15:00"
+        },
+        {
+            "id": 14,
+                "sender": "123@test.de",
+                "received": "2014-05-30T20:15:00"
+        }
+        ]
+        "total": 1123
+    }*/
+
+
     /**
      * 对用户进行加密
      */
     public User save(User user) {
         String password = user.getPassword();
-        if(user.getPassword()!=null){
+        if (user.getPassword() != null) {
             user.setPassword(MD5Util.md5(password));
         }
         user.setStatus("1");

@@ -56,6 +56,7 @@
                                                                    onclick="checkAll(this)" value=""></td>
                                                         <th>序号</th>
                                                         <th>跟踪号</th>
+                                                        <th>设备编号</th>
                                                         <th>设备名称</th>
                                                         <th>设备位置</th>
                                                         <th>设备分类</th>
@@ -75,6 +76,7 @@
                                                             </td>
                                                             <td>${w.index+1}</td>
                                                             <td>${workOrder.orderLineNo}</td>
+                                                            <td>${workOrder.equipments.eqCode}</td>
                                                             <td>${workOrder.equipments.description}</td>
                                                             <td>${workOrder.locations.description}</td>
                                                             <td>${workOrder.equipmentsClassification.description}</td>

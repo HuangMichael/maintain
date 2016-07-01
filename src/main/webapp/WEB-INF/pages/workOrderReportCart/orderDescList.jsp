@@ -7,6 +7,7 @@
     <thead>
     <tr id="trr2">
         <th>序号</th>
+        <th>设备编号</th>
         <th>设备名称</th>
         <th>设备位置</th>
         <th>设备分类</th>
@@ -18,11 +19,11 @@
     <c:forEach items="${workOrderReportCartList}" var="workOrder" varStatus="w">
         <tr id="tr-${w.index+1}">
             <td>${w.index+1}</td>
+            <td>${workOrder.equipments.eqCode}</td>
             <td>${workOrder.equipments.description}</td>
             <td>${workOrder.locations.description}</td>
             <td>${workOrder.equipmentsClassification.description}</td>
-            <td><input type="text" id="orderDesc${workOrder.id}"
-                       class="form-control" style="height:28px" value="${workOrder.orderDesc}"/>
+            <td><input type="text" id="orderDesc${workOrder.id}" class="form-control" style="height:28px" value="${workOrder.orderDesc}"/>
             </td>
         </tr>
     </c:forEach>

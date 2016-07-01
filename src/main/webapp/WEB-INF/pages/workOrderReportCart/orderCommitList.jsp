@@ -8,13 +8,20 @@
         <div class="form-group">
             <label class="control-label col-md-1">跟踪号：</label>
 
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <p class="form-control-static"
                    data-display="email">${workOrder.orderLineNo}</p>
             </div>
+
+            <label class="control-label col-md-1">设备编号：</label>
+
+            <div class="col-md-1">
+                <p class="form-control-static"
+                   data-display="email">${workOrder.equipments.eqCode}</p>
+            </div>
             <label class="control-label col-md-1">设备名称：</label>
 
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <p class="form-control-static"
                    data-display="email">${workOrder.equipments.description}</p>
             </div>

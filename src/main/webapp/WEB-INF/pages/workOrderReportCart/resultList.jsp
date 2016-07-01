@@ -7,6 +7,7 @@
     <tr>
         <th data-column-id="index">序号</th>
         <th data-column-id="id" data-visible="false">序号</th>
+        <th data-column-id="eqCode">设备编号</th>
         <th data-column-id="eqName">设备名称</th>
         <th data-column-id="location">设备位置</th>
         <th data-column-id="eqClass">设备种类</th>
@@ -17,6 +18,7 @@
         <tr>
             <td>${w.index+1}</td>
             <td class="hidden-xs hidden-sm">${workOrder.orderLineNo}</td>
+            <td>${workOrder.equipments.eqCode}</td>
             <td>${workOrder.equipments.description}</td>
             <td>${workOrder.locations.description}</td>
             <td>${workOrder.equipmentsClassification.description}</td>

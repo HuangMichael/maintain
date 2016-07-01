@@ -37,6 +37,7 @@
                                                         />
                                                         </th>
                                                         <th width="5%">跟踪号</th>
+                                                        <th width="10%">设备编号</th>
                                                         <th width="10%">设备名称</th>
                                                         <th width="20%">故障描述</th>
                                                         <th width="10%">设备位置</th>
@@ -53,10 +54,10 @@
                                                             <td><input type="checkbox" name="check${s.index+1}"
                                                                        onclick="checkAll(this)"/></td>
                                                             <td>${s.index+1}</td>
-                                                            <td colspan="2">报修单:${w.orderNo}</td>
-                                                            <td colspan="2" class="hidden-xs hidden-sm">下单时间:<fmt:formatDate
+                                                            <td colspan="3">报修单:${w.orderNo}</td>
+                                                            <td colspan="3" class="hidden-xs hidden-sm">下单时间:<fmt:formatDate
                                                                     value="${w.reportTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-                                                            <td><c:if test="${w.status=='0'}">
+                                                           <%-- <td><c:if test="${w.status=='0'}">
                                                                 <span class="badge badge-info">已分配</span>
                                                             </c:if>
                                                                 <c:if test="${w.status=='1'}">
@@ -64,7 +65,7 @@
                                                                 </c:if>
                                                                 <c:if test="${w.status=='2'}">
                                                                     <span class="badge badge-important">已暂停</span>
-                                                                </c:if></td>
+                                                                </c:if></td>--%>
                                                                 <%-- <td colspan="7"></td>--%>
                                                         </tr>
                                                         <c:forEach items="${w.workOrderReportDetailList}" var="d" varStatus="ds">
@@ -72,6 +73,7 @@
                                                                 <td><input type="checkbox" name="check${s.index+1}-${ds.index+1}"
                                                                            onclick="checkAll(this)" value="${d.id}"/></td>
                                                                 <td>${d.orderLineNo}</td>
+                                                                <td>${d.equipments.eqCode}</td>
                                                                 <td>${d.equipments.description}</td>
                                                                 <td class="hidden-xs hidden-sm">${d.orderDesc}</td>
                                                                 <td>${d.locations.description}</td>

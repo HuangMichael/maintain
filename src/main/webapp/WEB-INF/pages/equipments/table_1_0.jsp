@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<table id="equipmentsDataTable" class=" table table-striped table-bordered table-hover">
+<table id="equipmentsDataTable" class=" table table-striped table-bordered table-hover iconRefresh">
     <thead>
     <tr>
         <th data-column-id="index" width="5%">序号</th>

@@ -107,16 +107,13 @@ $(function () {
         }
     });
 
-    /*    formTab.on('click', function (e) {
-     e.preventDefault();
-     });*/
     listTab.on('click', function () {
-        $("#main-content").load("/equipment/list");
+        //$("#main-content").load("/equipment/list");
+        refresh();
     });
 
 
     formTab.on('click', function () {
-
         setFormReadStatus("#detailForm", formLocked);
         //首先判断是否有选中的
         var eq = null;
@@ -293,6 +290,7 @@ $(function () {
 
 
 function addNew() {
+    setFormReadStatus("#detailForm", false);
     var status = [{value: 0, text: "停用", selected: "selected"},
         {value: 1, text: "投用"},
         {value: 2, text: "报废"}];
@@ -534,9 +532,11 @@ function saveEquipment() {
         dataType: "JSON", success: function (msg) {
             if (id) {
                 showMessageBox("info", "设备信息更新成功");
-
+                changeValue(msg);
             } else {
                 showMessageBox("info", "设备信息添加成功")
+
+                refresh(msg);
             }
         }
         ,
@@ -573,6 +573,17 @@ function initLoadData(url, elementName) {
                     method: "GET",
                     cache: false
                 },
+
+                labels: {
+                    all: "All",
+                    infos: "显示第{{ctx.start}}条到第{{ctx.end}} 条共{{ctx.total}}记录",
+                    loading: "加载中...",
+                    noResults: "没有查询到结果!",
+                    refresh: "刷新",
+                    search: "查询"
+                },
+
+
                 selection: true,
                 multiSelect: true,
                 rowSelect: true,
@@ -769,8 +780,6 @@ function setFormReadStatus(formId, formLocked) {
 }
 
 
-
-
 /**
  *  设备报废
  */
@@ -806,4 +815,38 @@ function reload(url) {
         dataList = data;
     })
     return dataList;
+}
+
+
+function refresh(data) {
+    var index = $(dataTableName).bootgrid("getTotalPageCount");
+    var nextIndex = parseInt(index + 1);
+    if (data.id) {
+        var obj = {
+            index: nextIndex,
+            id: data.id,
+            eqCode: data.eqCode,
+            description: data.description,
+            equipClass: data.equipmentsClassification.description,
+            location: data.locations.description,
+            status: '投用',
+            report: '<a class="btn btn-default btn-xs"  onclick="report(' + data.id + ')" title="报修"><i class="glyphicon glyphicon-wrench"></i></a>',
+            track: '<a class="btn btn-default btn-xs"  onclick="track(' + data.id + ')" title="追踪"><i class="glyphicon glyphicon-map-marker"></i></a>'
+        }
+        $(dataTableName).bootgrid("append", [obj]);
+    }
+}
+
+
+/**
+ *
+ * @param data 动态更新列表数据
+ */
+function changeValue(data) {
+    var trId = data.id;
+    $("tr[data-row-id='" + trId + "'] td:eq(2)").html(data.eqCode);
+    $("tr[data-row-id='" + trId + "'] td:eq(3)").html(data.description);
+    $("tr[data-row-id='" + trId + "'] td:eq(5)").html(equipmentsClassification.description);
+    $("tr[data-row-id='" + trId + "'] td:eq(6)").html(data.locations.description);
+    $("tr[data-row-id='" + trId + "'] td:eq(7)").html('投用');
 }

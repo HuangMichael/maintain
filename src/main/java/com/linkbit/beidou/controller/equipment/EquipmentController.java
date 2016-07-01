@@ -227,6 +227,23 @@ public class EquipmentController extends BaseController {
 
     }
 
+
+    /**
+     * @param id 根据id删除设备信息
+     */
+    @RequestMapping(value = "/abandon/{id}")
+    @ResponseBody
+    public String abandon(@PathVariable("id") Long id) {
+        Equipments equipments = null;
+        String status = "";
+        if (id != null) {
+            equipments = equipmentAccountService.findById(id);
+            status = equipmentAccountService.abandon(equipments);
+        }
+        return status;
+
+    }
+
     /**
      * @param location 位置编号
      * @returnzz

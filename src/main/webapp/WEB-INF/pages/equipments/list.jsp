@@ -51,10 +51,9 @@
                                         操作菜单 <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a onclick="deleteEq()" class="optionMenu">删除记录</a></li>
-                                        <li><a href="#" class="optionMenu">设备停用</a></li>
+                                        <li><a onclick="deleteEq()" class="optionMenu"> <i class="glyphicon glyphicon-remove"></i>删除记录</a></li>
                                         <li class="divider"></li>
-                                        <li><a href="#" class="optionMenu">其他功能</a></li>
+                                        <li><a onclick="abandonEq()" class="optionMenu"> <i class="glyphicon glyphicon-question-sign"></i>设备报废</a></li>
                                     </ul>
                                 </div>
                             </div>

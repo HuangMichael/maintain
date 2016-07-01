@@ -4,6 +4,7 @@ package com.linkbit.beidou.controller.common;
 import com.linkbit.beidou.dao.locations.LocationsRepository;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.locations.Locations;
+import com.linkbit.beidou.object.ListObject;
 import com.linkbit.beidou.service.commonData.CommonDataService;
 import com.linkbit.beidou.utils.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by huangbin on 2015/12/23 0023.
@@ -57,5 +60,26 @@ public class CommnDataController extends BaseController {
         return equipmentsClassificationList;
     }
 
+
+    /**
+     * @param httpSession 当前会话
+     * @return 获得设备状态
+     */
+    @RequestMapping(value = "/getEqStatus", method = RequestMethod.GET)
+    @ResponseBody
+    public List<ListObject> getEqStatus(HttpSession httpSession) {
+        return commonDataService.getEqStatus(httpSession);
+    }
+
+    /**
+     * @param httpSession 当前会话
+     * @return 获得设备状态
+     */
+    @RequestMapping(value = "/getEqRunStatus", method = RequestMethod.GET)
+    @ResponseBody
+    public List<ListObject> getEqRunStatus(HttpSession httpSession) {
+
+        return   commonDataService.getRunningStatus(httpSession);
+    }
 }
 

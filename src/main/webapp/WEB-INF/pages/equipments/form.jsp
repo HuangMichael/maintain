@@ -13,6 +13,7 @@
                 <input class="form-control" id="eqCode" type="text" name="eqCode" v-model="equipments.eqCode" required/>
                 <input class="form-control" id="id" type="hidden" name="id" v-model="equipments.id"/>
             </div>
+
             <label for="description" class="col-md-1 control-label">设备名称</label>
 
             <div class="col-md-3">
@@ -23,7 +24,7 @@
 
             <div class="col-md-3">
                 <select v-model="equipments.locations.id" class="form-control" id="locations_id" name="locations.id"
-                        required style="width:100%">
+                        required style="width:100%" required>
                     <template v-for="option in locs">
                         <option :value="option.id" v-if="option.id == equipments.locations.id" selected>
                             {{ option.description }}
@@ -41,7 +42,7 @@
             <div class="col-md-3">
                 <select class="form-control" id="equipmentsClassification_id" name="equipmentsClassification.id"
                         required v-model="equipments.equipmentsClassification.id"
-                        style="width:100%">
+                        style="width:100%;background-color:#ffffce" required>
                     <template v-for="option in eqClasses">
                         <option :value="option.id" v-if="option.id == equipments.equipmentsClassification.id" selected>
                             {{ option.description }}
@@ -59,11 +60,15 @@
 
             <div class="col-md-3">
                 <select class="form-control" id="running" name="running" required v-model="equipments.running"
-                        style="width:100%">
-                    <option>请选择设备运行状态</option>
-                    <option v-for="r in running" v-bind:value="r.value">
-                        {{ r.text }}
-                    </option>
+                        style="width:100%" required>
+                    <template v-for="option in eqStatuses">
+                        <option :value="option.key" v-if="option.key == equipments.running" selected>
+                            {{ option.value }}
+                        </option>
+                        <option :value="option.key" v-else>
+                            {{ option.value }}
+                        </option>
+                    </template>
                 </select>
             </div>
 
@@ -71,12 +76,18 @@
             <label for="status" class="col-md-1 control-label">设备状态</label>
 
             <div class="col-md-3">
+
+                <%--<input class="form-control" id="status" type="text" name="status" v-model="equipments.status" required/>--%>
                 <select class="form-control" id="status" name="status" required v-model="equipments.status"
-                        style="width:100%">
-                    <option>请选择设备状态</option>
-                    <option v-for="s in status" v-bind:value="s.value">
-                        {{ s.text }}
-                    </option>
+                        style="width:100%" required>
+                    <template v-for="option in runStatus">
+                        <option :value="option.key" v-if="option.key == equipments.status" selected>
+                            {{ option.value }}
+                        </option>
+                        <option :value="option.key" v-else>
+                            {{ option.value }}
+                        </option>
+                    </template>
                 </select>
             </div>
         </div>

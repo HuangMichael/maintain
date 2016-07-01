@@ -2,6 +2,10 @@ var dataTableName = '#equipmentsDataTable';
 var eqs = [];
 var locs = [];
 var eqClasses = [];
+
+var eqStatuses = [];
+
+var runStatus =[]
 var selectedIds = []; //获取被选择记录集合
 var allSize = 0;
 var vdm = null; //明细页面的模型
@@ -32,6 +36,20 @@ $(function () {
         eqClasses = data;
     });
 
+
+    var url = "/commonData/getEqStatus";
+    $.getJSON(url, function (data) {
+        eqStatuses = data;
+        console.log("eqStatuses-----------------"+eqStatuses.length)
+    });
+
+    var url = "/commonData/getEqRunStatus";
+    $.getJSON(url, function (data) {
+        runStatus = data;
+        console.log("runStatus-----------------"+runStatus.length)
+    });
+
+
     vdm = new Vue({
         el: "#detailForm",
         data: {
@@ -39,14 +57,8 @@ $(function () {
             equipments: eqs[0],
             locs: locs,
             eqClasses: eqClasses,
-            status: [
-                {value: 0, text: "停用"},
-                {value: 1, text: "投用"},
-                {value: 2, text: "报废"}],
-            running: [
-                {value: 0, text: "运行"},
-                {value: 1, text: "停止"}
-            ]
+            eqStatuses: eqStatuses,
+            runStatus:runStatus
         },
         methods: {
             previous: function (event) {
@@ -104,7 +116,8 @@ $(function () {
 
 
     formTab.on('click', function () {
-        setFormReadStatus(vdm.el,true);
+
+        setFormReadStatus("#detailForm", formLocked);
         //首先判断是否有选中的
         var eq = null;
         if (selectedIds.length > 0) {
@@ -293,6 +306,8 @@ function addNew() {
     //设置设备状态和运行状态默认值
     vdm.$set("equipments.status", 1);
     vdm.$set("equipments.running", 0);
+
+    setFromRequiredStatus("detailForm");
 
     formTab.tab('show');
 }
@@ -706,7 +721,7 @@ function forwards() {
  * 编辑设备信息
  */
 function editEq() {
-    setFormReadStatus(vdm.el,true);
+    setFormReadStatus("#detailForm", false);
     var eid = selectedIds[0];
     var eq = findEquipmentByIdInEqs(eid);
     if (eid) {
@@ -761,13 +776,44 @@ function deleteEq() {
  * @param formId 设置form为只读
  */
 function setFormReadStatus(formId, formLocked) {
-
-    console.log("formId--------------"+formId);
     if (formLocked) {
-        $("#" + formId + " input").attr("readonly", "readonly");
+        $(formId + " input").attr("readonly", "readonly");
+       // $(formId + " select").attr("disabled", "disabled");
     } else {
-        $("#" + formId + " input").removeAttr("readonly");
+        $(formId + " input").attr("readonly", "readonly").removeAttr("readonly");
+       // $(formId + " select").attr("disabled", "disabled").removeAttr("disabled");
+        // $(formId + " #status").attr("disabled", "disabled");
     }
+}
 
+
+function setFromRequiredStatus(formId) {
+    var requiredFields = ["eqCode", "description", "locations_id", "status", "running", "equipmentsClassification_id"];
+    for (var x = 0; x < requiredFields.length; x++) {
+        $("#" + requiredFields[x]).css("background-color", "#ffffce");
+    }
+}
+
+
+/**
+ *  设备报废
+ */
+function abandonEq() {
+    var status = vdm.equipments.status;
+    if (status === '2') {
+        showMessageBoxCenter("danger", "center", "当前设备状态已经是报废!");
+        return;
+    }
+    var eid = selectedIds[0];
+    var url = "/equipment/abandon/" + eid;
+    $.getJSON(url, function (data) {
+        if (data) {
+            $("#status").removeAttr("disabled");
+            $("#status").val(data);
+            console.log("data--------------" + data);
+            $("#status").attr("disabled");
+            showMessageBoxCenter("info", "center", "设备状态已更新为报废!");
+        }
+    });
 
 }

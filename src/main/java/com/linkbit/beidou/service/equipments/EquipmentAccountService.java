@@ -221,4 +221,16 @@ public class EquipmentAccountService extends BaseService {
         Equipments e = equipmentsRepository.findById(equipments.getId());
         return e == null;
     }
+
+
+    /**
+     * @param equipments
+     * @return 返回true 删除成功
+     */
+    public String abandon(Equipments equipments) {
+        equipments.setStatus("2");
+        equipments = equipmentsRepository.save(equipments);
+        return equipments.getStatus();
+
+    }
 }

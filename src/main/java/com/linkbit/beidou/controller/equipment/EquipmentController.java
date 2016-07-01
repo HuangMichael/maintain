@@ -5,13 +5,8 @@ import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
 import com.linkbit.beidou.dao.test.DateTestRepository;
-import com.linkbit.beidou.dao.workOrder.VworkOrderStepRepository;
 import com.linkbit.beidou.domain.equipments.Equipments;
-import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
-import com.linkbit.beidou.domain.equipments.EquipmentsSpecDetail;
-import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
-import com.linkbit.beidou.domain.test.DateTest;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.domain.workOrder.VworkOrderStep;
 import com.linkbit.beidou.object.PageObject;
@@ -23,16 +18,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.*;
 import javax.servlet.http.HttpSession;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -80,7 +70,7 @@ public class EquipmentController extends BaseController {
     public List<Equipments> findMyEqs(HttpSession session) {
         User user = (User) session.getAttribute("currentUser");
         String userLocation = user.getLocation();
-        return equipmentsRepository.findByLocationStartingWith(userLocation);
+        return equipmentsRepository.findByLocationStartingWithOrderByIdDesc(userLocation);
     }
 
     @RequestMapping(value = "/reload/{objId}")

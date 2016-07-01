@@ -64,6 +64,13 @@ public interface EquipmentsRepository extends CrudRepository<Equipments, Long> {
     List<Equipments> findByLocationStartingWith(String location);
 
 
+
+    /**
+     * @param location 位置编码
+     * @return 按照位置模糊查询资产信息
+     */
+    List<Equipments> findByLocationStartingWithOrderByIdDesc(String location);
+
     /**
      * @param eqCode 设备编号
      * @return 根据设备编号查询设备数量

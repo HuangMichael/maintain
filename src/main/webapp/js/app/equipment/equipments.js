@@ -5,7 +5,7 @@ var eqClasses = [];
 
 var eqStatuses = [];
 
-var runStatus =[]
+var runStatus = []
 var selectedIds = []; //获取被选择记录集合
 var allSize = 0;
 var vdm = null; //明细页面的模型
@@ -40,13 +40,13 @@ $(function () {
     var url = "/commonData/getEqStatus";
     $.getJSON(url, function (data) {
         eqStatuses = data;
-        console.log("eqStatuses-----------------"+eqStatuses.length)
+        console.log("eqStatuses-----------------" + eqStatuses.length)
     });
 
     var url = "/commonData/getEqRunStatus";
     $.getJSON(url, function (data) {
         runStatus = data;
-        console.log("runStatus-----------------"+runStatus.length)
+        console.log("runStatus-----------------" + runStatus.length)
     });
 
 
@@ -58,7 +58,7 @@ $(function () {
             locs: locs,
             eqClasses: eqClasses,
             eqStatuses: eqStatuses,
-            runStatus:runStatus
+            runStatus: runStatus
         },
         methods: {
             previous: function (event) {
@@ -456,14 +456,16 @@ function createEquipment() {
         },
         dataType: "JSON", success: function (msg) {
             if (equipments.id) {
-                // refreshData();
+                // refreshData(equipments);
                 showMessageBox("info", "设备信息更新成功");
 
             } else {
-                // refreshData();
+                //refreshData(equipments);
                 showMessageBox("info", "设备信息添加成功")
 
             }
+
+            reload("/equipment/findMyEqs");
         }
 
         ,
@@ -535,12 +537,12 @@ function saveEquipment() {
         dataType: "JSON", success: function (msg) {
             if (id) {
                 showMessageBox("info", "设备信息更新成功");
-                // $(dataTableName).bootgrid("reload");
-                refreshData();
+
             } else {
                 showMessageBox("info", "设备信息添加成功")
-                refreshData();
             }
+          //  vm.eqs = reload("/equipment/findMyEqs");
+            initLoadData("/equipment/findMyEqs", dataTableName);
         }
         ,
         error: function (msg) {
@@ -598,12 +600,10 @@ function initLoadData(url, elementName) {
                         selectedIds.push(rows[x]["id"]);
                     }
                 }
-                console.log("选择后的ID列表----------------" + selectedIds);
             }).on("deselected.rs.jquery.bootgrid", function (e, rows) {
                 for (var x in rows) {
                     selectedIds.remove(rows[x]["id"]);
                 }
-                console.log("取消选中后的ID列表----------------" + selectedIds);
             });
         }
     });
@@ -742,8 +742,10 @@ function saveEq() {
     $("#saveBtn").trigger("click");
 }
 
-function refreshData() {
-    $("#contentDiv").load("/equipment/list");
+function refreshData(msg) {
+
+    console.log("msg----" + JSON.stringify(msg));
+    vm.eqs.push(msg);
 }
 
 
@@ -778,10 +780,10 @@ function deleteEq() {
 function setFormReadStatus(formId, formLocked) {
     if (formLocked) {
         $(formId + " input").attr("readonly", "readonly");
-       // $(formId + " select").attr("disabled", "disabled");
+        // $(formId + " select").attr("disabled", "disabled");
     } else {
         $(formId + " input").attr("readonly", "readonly").removeAttr("readonly");
-       // $(formId + " select").attr("disabled", "disabled").removeAttr("disabled");
+        // $(formId + " select").attr("disabled", "disabled").removeAttr("disabled");
         // $(formId + " #status").attr("disabled", "disabled");
     }
 }
@@ -816,4 +818,18 @@ function abandonEq() {
         }
     });
 
+}
+
+
+/**
+ *
+ * @param url 重新载入数据
+ * @returns {Array}
+ */
+function reload(url) {
+    var dataList = [];
+    $.getJSON(url, function (data) {
+        dataList = data;
+    })
+    return dataList;
 }

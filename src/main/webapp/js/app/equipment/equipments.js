@@ -40,13 +40,11 @@ $(function () {
     var url = "/commonData/getEqStatus";
     $.getJSON(url, function (data) {
         eqStatuses = data;
-        console.log("eqStatuses-----------------" + eqStatuses.length)
     });
 
     var url = "/commonData/getEqRunStatus";
     $.getJSON(url, function (data) {
         runStatus = data;
-        console.log("runStatus-----------------" + runStatus.length)
     });
 
 
@@ -109,10 +107,12 @@ $(function () {
         }
     });
 
-
     /*    formTab.on('click', function (e) {
      e.preventDefault();
      });*/
+    listTab.on('click', function () {
+        $("#main-content").load("/equipment/list");
+    });
 
 
     formTab.on('click', function () {
@@ -465,7 +465,7 @@ function createEquipment() {
 
             }
 
-            reload("/equipment/findMyEqs");
+
         }
 
         ,
@@ -541,8 +541,6 @@ function saveEquipment() {
             } else {
                 showMessageBox("info", "设备信息添加成功")
             }
-          //  vm.eqs = reload("/equipment/findMyEqs");
-            initLoadData("/equipment/findMyEqs", dataTableName);
         }
         ,
         error: function (msg) {
@@ -616,7 +614,6 @@ function initLoadData(url, elementName) {
 function getEquipmentByIdInEqs(eid) {
     var equipment = null;
     var url = "/equipment/findById/" + eid;
-    console.log("url-----------------" + url);
     $.getJSON(url, function (data) {
         equipment = data;
     });
@@ -668,13 +665,6 @@ function loadFixHistoryByEid(eid) {
     });
     return histories;
 }
-
-function setFormSelect(eq) {
-    $("#equipmentsClassification_id").val(eq.id);
-    $("#locations_id").val(eq.id);
-
-}
-
 
 /**
  *
@@ -742,13 +732,6 @@ function saveEq() {
     $("#saveBtn").trigger("click");
 }
 
-function refreshData(msg) {
-
-    console.log("msg----" + JSON.stringify(msg));
-    vm.eqs.push(msg);
-}
-
-
 function deleteEq() {
     var eid = selectedIds[0];
     var url = "/equipment/delete/" + eid;
@@ -780,11 +763,11 @@ function deleteEq() {
 function setFormReadStatus(formId, formLocked) {
     if (formLocked) {
         $(formId + " input").attr("readonly", "readonly");
-        // $(formId + " select").attr("disabled", "disabled");
+        $(formId + " select").attr("disabled", "disabled");
     } else {
         $(formId + " input").attr("readonly", "readonly").removeAttr("readonly");
-        // $(formId + " select").attr("disabled", "disabled").removeAttr("disabled");
-        // $(formId + " #status").attr("disabled", "disabled");
+        $(formId + " select").attr("disabled", "disabled").removeAttr("disabled");
+        $(formId + " #status").attr("disabled", "disabled");
     }
 }
 

@@ -80,7 +80,7 @@ public class EquipmentController extends BaseController {
     public List<Equipments> findMyEqs(HttpSession session) {
         User user = (User) session.getAttribute("currentUser");
         String userLocation = user.getLocation();
-        return equipmentsRepository.findByLocationStartingWithAndDeleted(userLocation, "0");
+        return equipmentsRepository.findByLocationStartingWith(userLocation);
     }
 
     @RequestMapping(value = "/reload/{objId}")

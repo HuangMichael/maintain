@@ -1,6 +1,7 @@
 <script src="js/jquery/jquery-2.0.3.min.js" type="text/javascript"></script>
 <%--<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>--%>
 <script type="text/javascript" src="/js/vue/vue.cdn.js"></script>
+<script type="text/javascript" src="/js/vue-pagination-master/vue-nav.js"></script>
 <%--<script type="text/javascript" src="/js/app/common/common-vue.js"></script>--%>
 <script type="text/javascript" src="bootstrap-dist/js/bootstrap.js"></script>
 <%--<script type="text/javascript" src="http://apps.bdimg.com/libs/bootstrap/3.2.0/js/bootstrap.min.js"></script>--%>

@@ -41,6 +41,7 @@
     <link href="/js/select2-bootstrap-theme-master/dist/select2-bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="/js/bootstrapvalidator/dist/css/bootstrapValidator.css"/>
     <link rel="stylesheet" href="/css/formStyle.css"/>
+    <link rel="stylesheet" href="/js/vue-pagination-master/index.css">
 
 
 </head>

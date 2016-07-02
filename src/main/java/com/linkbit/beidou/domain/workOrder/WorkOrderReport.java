@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.persistence.criteria.Fetch;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,6 +35,6 @@ public class WorkOrderReport {
     private String location;
     //一个分类有多个子分类
     @JsonBackReference("workOrderReportDetailList")
-    @OneToMany(targetEntity = WorkOrderReportDetail.class, cascade = CascadeType.ALL, mappedBy = "workOrderReport")
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = WorkOrderReportDetail.class, cascade = CascadeType.ALL, mappedBy = "workOrderReport")
     List<WorkOrderReportDetail> workOrderReportDetailList = new ArrayList<WorkOrderReportDetail>();
 }

@@ -111,6 +111,7 @@ public class WorkOrderReportController {
     public List<WorkOrderReport> findCommittedReportedOrders(HttpSession httpSession) {
 
         String location = SessionUtil.getCurrentUserLocationBySession(httpSession);
+        System.out.println("location---------------1-----------"+location);
         return workOrderReportService.findByLocationStartingWithAndStatus(location, "1");
     }
 
@@ -123,6 +124,8 @@ public class WorkOrderReportController {
     @ResponseBody
     public List<WorkOrderReport> findNewReportedOrders(HttpSession httpSession) {
         String location = SessionUtil.getCurrentUserLocationBySession(httpSession);
+
+        System.out.println("location----------------0----------"+location);
         return workOrderReportService.findByLocationStartingWithAndStatus(location, "0");
     }
 }

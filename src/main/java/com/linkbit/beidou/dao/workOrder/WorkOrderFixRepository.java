@@ -55,8 +55,8 @@ public interface WorkOrderFixRepository extends CrudRepository<WorkOrderFix, Lon
      * @param status   维修单状态
      * @return
      */
-    @Query("select w from WorkOrderFix w where w.location like :location and w.status <> :status")
-    List<WorkOrderFix> findByLocationStartWithAndStatusEqual(@Param("location") String location, @Param("status") String status);
+    @Query("select w from WorkOrderFix w where w.location like :location and w.status =:status")
+    List<WorkOrderFix> findByLocationStartWithAndStatusEquals(@Param("location") String location, @Param("status") String status);
 
 
 }

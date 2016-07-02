@@ -97,4 +97,32 @@ public class WorkOrderReportController {
         }
         return workOrderReportDetailList;
     }
+
+
+    //查询已经提交的报修单
+
+
+    /**
+     * @param httpSession
+     * @return 查询没有提交的维修单
+     */
+    @RequestMapping(value = "/findCommitted", method = RequestMethod.GET)
+    @ResponseBody
+    public List<WorkOrderReport> findCommittedReportedOrders(HttpSession httpSession) {
+
+        String location = SessionUtil.getCurrentUserLocationBySession(httpSession);
+        return workOrderReportService.findByLocationStartingWithAndStatus(location, "1");
+    }
+
+
+    /**
+     * @param httpSession
+     * @return 查询没有被完全提交的维修单
+     */
+    @RequestMapping(value = "/findNew", method = RequestMethod.GET)
+    @ResponseBody
+    public List<WorkOrderReport> findNewReportedOrders(HttpSession httpSession) {
+        String location = SessionUtil.getCurrentUserLocationBySession(httpSession);
+        return workOrderReportService.findByLocationStartingWithAndStatus(location, "0");
+    }
 }

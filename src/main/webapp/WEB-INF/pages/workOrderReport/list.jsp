@@ -140,16 +140,15 @@
 
                                                 </tr>
                                                 </thead>
-                                                <tbody v-for ="">
+                                                <tbody v-for="w in committedReports">
 
-                                                    <tr class="treegrid treegrid-${s.index+1} treegrid-collapsed success">
-                                                        <td>${s.index+1}</td>
-                                                        <td colspan="3">报修单:${w.orderNo}</td>
-                                                        <td colspan="3" class="hidden-xs hidden-sm">
-                                                            下单时间:<fmt:formatDate
-                                                                value="${w.reportTime}"
-                                                                pattern="yyyy-MM-dd HH:mm:ss"/></td>
-                                                    </tr>
+                                                <tr class="treegrid treegrid-${s.index+1} treegrid-collapsed success">
+                                                    <td>{{s.index+1}</td>
+                                                    <td colspan="3">报修单:{{w.orderNo}}</td>
+                                                    <td colspan="3" class="hidden-xs hidden-sm">
+                                                        下单时间:{{w.reportTime}}
+                                                    </td>
+                                                </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -191,6 +190,9 @@
 <script type="text/javascript" src="js/jquery-treegrid/js/jquery.treegrid.js"></script>
 <script type="text/javascript" src="js/jquery-treegrid/js/jquery.treegrid.bootstrap3.js"></script>
 <script type="text/javascript">
+
+
+    var committedReports = [];
     $(document).ready(function () {
         $('.tree').treegrid();
         $("#myTab a").on("click", function (e) {
@@ -200,15 +202,28 @@
         })
 
 
+        var url = "/workOrderReport/findCommitted";
+        committedReports = loadReports(url);
+
+        var commitedModel = new Vue({
+
+            el: "#fix_history",
+            data: {
+                committedReports: committedReports
+            }
+        });
+
+
         var searchModel = new Vue({
 
             el: "#search-container",
             data: {
                 keywords: ""
+
             },
             methods: {
                 search: function () {
-                    console.log("查询关键字-------------------" );
+                    console.log("查询关键字-------------------");
                 }
 
             }
@@ -297,6 +312,20 @@
                 }
         )
         ;
+    }
+
+
+    function loadReports(url) {
+
+        var reports = [];
+
+        $.getJSON(url, function (data) {
+
+            reports = data;
+
+        })
+        return reports;
+
     }
 
 </script>

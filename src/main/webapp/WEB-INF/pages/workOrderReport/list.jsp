@@ -16,92 +16,191 @@
                             <h4><i class="fa fa-table"></i>报修单信息</h4>
                         </div>
                         <div class="box-body">
-                            <div id="contentDiv">
-                                <div class="box-body">
-                                    <div class="tabbable">
-                                        <ul class="nav nav-tabs" id="myTab">
-                                            <li class="active"><a href="#tab_1_0" data-toggle="tab">
-                                                <i class="fa fa-home" id="eq"></i>报修单信息</a>
-                                            </li>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm myNavBtn active"
+                                        onclick="backwards()"><i
+                                        class="glyphicon glyphicon-glyphicon glyphicon-backward"></i>上一条
+                                </button>
+                                <button type="button" class="btn btn-sm myNavBtn active"
+                                        onclick="forwards()"><i
+                                        class="glyphicon glyphicon-glyphicon glyphicon-forward"></i>下一条
+                                </button>
+                            </div>
 
-                                            <li><a href="#pdf_view" data-toggle="tab">
-                                                <i class="fa fa-flag" id="pdf-preview"></i>报修单预览</a>
-                                            </li>
-                                        </ul>
-                                        <div class="tab-content">
-                                            <div class="tab-pane fade in active" id="tab_1_0">
-                                                <table cellpadding="0" cellspacing="0" border="0"  class=" table tree  table-bordered table-hover">
-                                                    <thead>
-                                                    <tr>
-                                                        <th width="5%"><input type="checkbox" name="check" onclick="checkAll(this)"
-                                                        />
-                                                        </th>
-                                                        <th width="5%">跟踪号</th>
-                                                        <th width="10%">设备编号</th>
-                                                        <th width="10%">设备名称</th>
-                                                        <th width="20%">故障描述</th>
-                                                        <th width="10%">设备位置</th>
-                                                        <th width="10%">设备分类</th>
-                                                        <%--<th width="10%">报修人</th>
-                                                        <th width="10%">报修时间</th>--%>
-                                                        <th width="5%">设备状态</th>
+                            <div class="box-body">
+                                <div class="tabbable">
+                                    <ul class="nav nav-tabs" id="myTab">
+                                        <li class="active"><a href="#tab_1_0" data-toggle="tab">
+                                            <i class="fa fa-home" id="eq"></i>报修单信息</a>
+                                        </li>
 
+                                        <li><a href="#tab_1_1" data-toggle="tab">
+                                            <i class="fa fa-home" id="report_History"></i>报修单历史信息</a>
+                                        </li>
+
+                                        <li><a href="#pdf_view" data-toggle="tab">
+                                            <i class="fa fa-flag" id="pdf-preview"></i>报修单预览</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade in active" id="tab_1_0">
+                                            <table class="table tree table-bordered table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <th width="5%"><input type="checkbox" name="check"
+                                                                          onclick="checkAll(this)"
+                                                    />
+                                                    </th>
+                                                    <th width="5%">跟踪号</th>
+                                                    <th width="10%">设备编号</th>
+                                                    <th width="10%">设备名称</th>
+                                                    <th width="20%">故障描述</th>
+                                                    <th width="10%">设备位置</th>
+                                                    <th width="10%">设备分类</th>
+                                                    <th width="5%">设备状态</th>
+
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <c:forEach items="${workOrderReportList}" var="w" varStatus="s">
+                                                    <tr class="treegrid treegrid-${s.index+1} treegrid-collapsed success">
+                                                        <td><input type="checkbox" name="check${s.index+1}"
+                                                                   onclick="checkAll(this)"/></td>
+                                                        <td>${s.index+1}</td>
+                                                        <td colspan="3">报修单:${w.orderNo}</td>
+                                                        <td colspan="3" class="hidden-xs hidden-sm">
+                                                            下单时间:<fmt:formatDate
+                                                                value="${w.reportTime}"
+                                                                pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                                                            <%-- <td><c:if test="${w.status=='0'}">
+                                                                 <span class="badge badge-info">已分配</span>
+                                                             </c:if>
+                                                                 <c:if test="${w.status=='1'}">
+                                                                     <span class="badge badge-success">已完工</span>
+                                                                 </c:if>
+                                                                 <c:if test="${w.status=='2'}">
+                                                                     <span class="badge badge-important">已暂停</span>
+                                                                 </c:if></td>--%>
+                                                            <%-- <td colspan="7"></td>--%>
                                                     </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <c:forEach items="${workOrderReportList}" var="w" varStatus="s">
-                                                        <tr class="treegrid treegrid-${s.index+1} treegrid-collapsed success">
-                                                            <td><input type="checkbox" name="check${s.index+1}"
-                                                                       onclick="checkAll(this)"/></td>
-                                                            <td>${s.index+1}</td>
-                                                            <td colspan="3">报修单:${w.orderNo}</td>
-                                                            <td colspan="3" class="hidden-xs hidden-sm">下单时间:<fmt:formatDate
-                                                                    value="${w.reportTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-                                                           <%-- <td><c:if test="${w.status=='0'}">
-                                                                <span class="badge badge-info">已分配</span>
-                                                            </c:if>
-                                                                <c:if test="${w.status=='1'}">
+                                                    <c:forEach items="${w.workOrderReportDetailList}" var="d"
+                                                               varStatus="ds">
+                                                        <tr class="treegrid treegrid-${s.index+1}-${ds.index+1} treegrid-parent-${s.index+1}">
+                                                            <td><input type="checkbox"
+                                                                       name="check${s.index+1}-${ds.index+1}"
+                                                                       onclick="checkAll(this)" value="${d.id}"/>
+                                                            </td>
+                                                            <td>${d.orderLineNo}</td>
+                                                            <td>${d.equipments.eqCode}</td>
+                                                            <td>${d.equipments.description}</td>
+                                                            <td class="hidden-xs hidden-sm">${d.orderDesc}</td>
+                                                            <td>${d.locations.description}</td>
+                                                            <td>${d.equipmentsClassification.description}</td>
+                                                                <%-- <td class="hidden-xs hidden-sm">${d.reporter}</td>
+                                                                 <td class="hidden-xs hidden-sm">${d.reportTime}</td>--%>
+                                                            <td>
+                                                                <c:if test="${d.status=='0'}">
+                                                                    <span class="badge badge-info">未分配</span>
+                                                                </c:if>
+                                                                <c:if test="${d.status=='1'}">
+                                                                    <span class="badge badge-success">维修中</span>
+                                                                </c:if>
+                                                                <c:if test="${d.status=='3'}">
                                                                     <span class="badge badge-success">已完工</span>
                                                                 </c:if>
-                                                                <c:if test="${w.status=='2'}">
-                                                                    <span class="badge badge-important">已暂停</span>
-                                                                </c:if></td>--%>
-                                                                <%-- <td colspan="7"></td>--%>
+                                                                <c:if test="${d.status=='2'}">
+                                                                    <span class="badge badge-important">  已暂停</span>
+                                                                </c:if>
+                                                            </td>
                                                         </tr>
-                                                        <c:forEach items="${w.workOrderReportDetailList}" var="d" varStatus="ds">
-                                                            <tr class="treegrid treegrid-${s.index+1}-${ds.index+1} treegrid-parent-${s.index+1}">
-                                                                <td><input type="checkbox" name="check${s.index+1}-${ds.index+1}"
-                                                                           onclick="checkAll(this)" value="${d.id}"/></td>
-                                                                <td>${d.orderLineNo}</td>
-                                                                <td>${d.equipments.eqCode}</td>
-                                                                <td>${d.equipments.description}</td>
-                                                                <td class="hidden-xs hidden-sm">${d.orderDesc}</td>
-                                                                <td>${d.locations.description}</td>
-                                                                <td>${d.equipmentsClassification.description}</td>
-                                                                    <%-- <td class="hidden-xs hidden-sm">${d.reporter}</td>
-                                                                     <td class="hidden-xs hidden-sm">${d.reportTime}</td>--%>
-                                                                <td>
-                                                                    <c:if test="${d.status=='0'}">
-                                                                        <span class="badge badge-info">未分配</span>
-                                                                    </c:if>
-                                                                    <c:if test="${d.status=='1'}">
-                                                                        <span class="badge badge-success">维修中</span>
-                                                                    </c:if>
-                                                                    <c:if test="${d.status=='3'}">
-                                                                        <span class="badge badge-success">已完工</span>
-                                                                    </c:if>
-                                                                    <c:if test="${d.status=='2'}">
-                                                                        <span class="badge badge-important">  已暂停</span>
-                                                                    </c:if>
-                                                                </td>
-                                                            </tr>
-                                                        </c:forEach>
                                                     </c:forEach>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="tab-pane fade" id="pdf_view">
-                                            </div>
+                                                </c:forEach>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="tab_1_1">
+                                            <form class="navbar-form navbar-right" role="search">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control"  placeholder="输入关键字">
+                                                </div>
+                                                <button type="submit" class="btn btn-default">查询</button>
+                                            </form>
+                                            <table class="table tree table-bordered table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <th width="5%"><input type="checkbox" name="check"
+                                                                          onclick="checkAll(this)"
+                                                    />
+                                                    </th>
+                                                    <th width="5%">跟踪号</th>
+                                                    <th width="10%">设备编号</th>
+                                                    <th width="10%">设备名称</th>
+                                                    <th width="20%">故障描述</th>
+                                                    <th width="10%">设备位置</th>
+                                                    <th width="10%">设备分类</th>
+                                                    <th width="5%">设备状态</th>
+
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <c:forEach items="${workOrderReportList}" var="w" varStatus="s">
+                                                    <tr class="treegrid treegrid-${s.index+1} treegrid-collapsed success">
+                                                        <td><input type="checkbox" name="check${s.index+1}"
+                                                                   onclick="checkAll(this)"/></td>
+                                                        <td>${s.index+1}</td>
+                                                        <td colspan="3">报修单:${w.orderNo}</td>
+                                                        <td colspan="3" class="hidden-xs hidden-sm">
+                                                            下单时间:<fmt:formatDate
+                                                                value="${w.reportTime}"
+                                                                pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                                                            <%-- <td><c:if test="${w.status=='0'}">
+                                                                 <span class="badge badge-info">已分配</span>
+                                                             </c:if>
+                                                                 <c:if test="${w.status=='1'}">
+                                                                     <span class="badge badge-success">已完工</span>
+                                                                 </c:if>
+                                                                 <c:if test="${w.status=='2'}">
+                                                                     <span class="badge badge-important">已暂停</span>
+                                                                 </c:if></td>--%>
+                                                            <%-- <td colspan="7"></td>--%>
+                                                    </tr>
+                                                    <c:forEach items="${w.workOrderReportDetailList}" var="d"
+                                                               varStatus="ds">
+                                                        <tr class="treegrid treegrid-${s.index+1}-${ds.index+1} treegrid-parent-${s.index+1}">
+                                                            <td><input type="checkbox"
+                                                                       name="check${s.index+1}-${ds.index+1}"
+                                                                       onclick="checkAll(this)" value="${d.id}"/>
+                                                            </td>
+                                                            <td>${d.orderLineNo}</td>
+                                                            <td>${d.equipments.eqCode}</td>
+                                                            <td>${d.equipments.description}</td>
+                                                            <td class="hidden-xs hidden-sm">${d.orderDesc}</td>
+                                                            <td>${d.locations.description}</td>
+                                                            <td>${d.equipmentsClassification.description}</td>
+                                                                <%-- <td class="hidden-xs hidden-sm">${d.reporter}</td>
+                                                                 <td class="hidden-xs hidden-sm">${d.reportTime}</td>--%>
+                                                            <td>
+                                                                <c:if test="${d.status=='0'}">
+                                                                    <span class="badge badge-info">未分配</span>
+                                                                </c:if>
+                                                                <c:if test="${d.status=='1'}">
+                                                                    <span class="badge badge-success">维修中</span>
+                                                                </c:if>
+                                                                <c:if test="${d.status=='3'}">
+                                                                    <span class="badge badge-success">已完工</span>
+                                                                </c:if>
+                                                                <c:if test="${d.status=='2'}">
+                                                                    <span class="badge badge-important">  已暂停</span>
+                                                                </c:if>
+                                                            </td>
+                                                        </tr>
+                                                    </c:forEach>
+                                                </c:forEach>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="tab-pane fade" id="pdf_view">
                                         </div>
                                     </div>
                                 </div>
@@ -209,10 +308,10 @@
         var ids = orderReportList.join(",");
         var url = "/workOrderReport/mapByType";
 
-        console.log("ids------------------"+ids);
+        console.log("ids------------------" + ids);
         $.post(url, {ids: ids}, function (data) {
-            if(data){
-                showMessageBox("info","维修报告单已生成!");
+            if (data) {
+                showMessageBox("info", "维修报告单已生成!");
             }
         });
     }

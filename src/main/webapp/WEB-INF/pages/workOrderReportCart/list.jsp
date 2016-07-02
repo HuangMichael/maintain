@@ -84,7 +84,8 @@
                                                             <td><fmt:formatDate value="${workOrder.reportTime}"
                                                                                 pattern="yyyy-MM-dd HH:mm:ss"/></td>
                                                             <td><a class="btn  btn-default btn-xs"
-                                                                   onclick="delCart(${workOrder.id})" title="移除报修车"><i class="glyphicon glyphicon-trash"></i></a></td>
+                                                                   onclick="delCart(${workOrder.id})" title="移除报修车"><i
+                                                                    class="glyphicon glyphicon-trash"></i></a></td>
                                                         </tr>
                                                     </c:forEach>
                                                     </tbody>

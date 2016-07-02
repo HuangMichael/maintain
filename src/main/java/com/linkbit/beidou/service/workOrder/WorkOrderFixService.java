@@ -187,4 +187,13 @@ public class WorkOrderFixService extends BaseService {
 
         return workOrderFixList;
     }
+
+
+    /**
+     * @param location
+     * @return 根据位置编号查询已提交完成的工单信息
+     */
+    public List<WorkOrderFix> findFinishedOrders(String location) {
+        return workOrderFixRepository.findByLocationStartWithAndStatusLessThan(location, "1");
+    }
 }

@@ -221,4 +221,15 @@ public class WorkOrderFixController {
         return workOrderFix;
     }
 
+
+
+
+
+    @RequestMapping(value = "/findFinishedOrders/{location}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<WorkOrderFix> findFinishedOrders(@PathVariable String location) {
+        List<WorkOrderFix>  workOrderFixList = workOrderFixService.findFinishedOrders(location);
+        return workOrderFixList;
+    }
+
 }

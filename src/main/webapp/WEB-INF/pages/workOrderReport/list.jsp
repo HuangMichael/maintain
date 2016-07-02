@@ -120,19 +120,16 @@
                                         </div>
 
                                         <div class="tab-pane fade" id="tab_1_1">
-                                            <form class="navbar-form navbar-right" role="search">
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control"  placeholder="输入关键字">
+                                            <form class="navbar-form navbar-right" role="search" id="searchForm">
+                                                <div class="form-group" id="search-container">
+                                                    {{keywords}}
+                                                    <input type="text" class="form-control" placeholder="输入关键字"
+                                                           v-model="keywords" @change="search()">
                                                 </div>
-                                                <button type="submit" class="btn btn-default">查询</button>
                                             </form>
-                                            <table class="table tree table-bordered table-hover">
+                                            <table class="table tree table-bordered table-hover" id="fix_history">
                                                 <thead>
                                                 <tr>
-                                                    <th width="5%"><input type="checkbox" name="check"
-                                                                          onclick="checkAll(this)"
-                                                    />
-                                                    </th>
                                                     <th width="5%">跟踪号</th>
                                                     <th width="10%">设备编号</th>
                                                     <th width="10%">设备名称</th>
@@ -143,60 +140,16 @@
 
                                                 </tr>
                                                 </thead>
-                                                <tbody>
-                                                <c:forEach items="${workOrderReportList}" var="w" varStatus="s">
+                                                <tbody v-for ="">
+
                                                     <tr class="treegrid treegrid-${s.index+1} treegrid-collapsed success">
-                                                        <td><input type="checkbox" name="check${s.index+1}"
-                                                                   onclick="checkAll(this)"/></td>
                                                         <td>${s.index+1}</td>
                                                         <td colspan="3">报修单:${w.orderNo}</td>
                                                         <td colspan="3" class="hidden-xs hidden-sm">
                                                             下单时间:<fmt:formatDate
                                                                 value="${w.reportTime}"
                                                                 pattern="yyyy-MM-dd HH:mm:ss"/></td>
-                                                            <%-- <td><c:if test="${w.status=='0'}">
-                                                                 <span class="badge badge-info">已分配</span>
-                                                             </c:if>
-                                                                 <c:if test="${w.status=='1'}">
-                                                                     <span class="badge badge-success">已完工</span>
-                                                                 </c:if>
-                                                                 <c:if test="${w.status=='2'}">
-                                                                     <span class="badge badge-important">已暂停</span>
-                                                                 </c:if></td>--%>
-                                                            <%-- <td colspan="7"></td>--%>
                                                     </tr>
-                                                    <c:forEach items="${w.workOrderReportDetailList}" var="d"
-                                                               varStatus="ds">
-                                                        <tr class="treegrid treegrid-${s.index+1}-${ds.index+1} treegrid-parent-${s.index+1}">
-                                                            <td><input type="checkbox"
-                                                                       name="check${s.index+1}-${ds.index+1}"
-                                                                       onclick="checkAll(this)" value="${d.id}"/>
-                                                            </td>
-                                                            <td>${d.orderLineNo}</td>
-                                                            <td>${d.equipments.eqCode}</td>
-                                                            <td>${d.equipments.description}</td>
-                                                            <td class="hidden-xs hidden-sm">${d.orderDesc}</td>
-                                                            <td>${d.locations.description}</td>
-                                                            <td>${d.equipmentsClassification.description}</td>
-                                                                <%-- <td class="hidden-xs hidden-sm">${d.reporter}</td>
-                                                                 <td class="hidden-xs hidden-sm">${d.reportTime}</td>--%>
-                                                            <td>
-                                                                <c:if test="${d.status=='0'}">
-                                                                    <span class="badge badge-info">未分配</span>
-                                                                </c:if>
-                                                                <c:if test="${d.status=='1'}">
-                                                                    <span class="badge badge-success">维修中</span>
-                                                                </c:if>
-                                                                <c:if test="${d.status=='3'}">
-                                                                    <span class="badge badge-success">已完工</span>
-                                                                </c:if>
-                                                                <c:if test="${d.status=='2'}">
-                                                                    <span class="badge badge-important">  已暂停</span>
-                                                                </c:if>
-                                                            </td>
-                                                        </tr>
-                                                    </c:forEach>
-                                                </c:forEach>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -240,13 +193,28 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('.tree').treegrid();
-
         $("#myTab a").on("click", function (e) {
             e.preventDefault();
             preview(1);
             $(this).tab('show');
         })
 
+
+        var searchModel = new Vue({
+
+            el: "#search-container",
+            data: {
+                keywords: ""
+            },
+            methods: {
+                search: function () {
+                    console.log("查询关键字-------------------" );
+                }
+
+            }
+
+
+        });
 
     });
 

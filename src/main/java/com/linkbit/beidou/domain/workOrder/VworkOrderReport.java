@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "T_WORK_ORDER_REPORT")
+@Table(name = "V_WORK_ORDER_REPORT")
 @Data
 @Setter
 @Getter
@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * 报修工单信息
  * */
-public class WorkOrderReport {
+public class VworkOrderReport {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;

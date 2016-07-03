@@ -1,6 +1,7 @@
 package com.linkbit.beidou.dao.workOrder;
 
 import com.linkbit.beidou.domain.equipments.Equipments;
+import com.linkbit.beidou.domain.workOrder.WorkOrderReport;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportDetail;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -101,4 +102,17 @@ public interface WorkOrderReportDetailRepository extends CrudRepository<WorkOrde
 
     @Query("SELECT r from WorkOrderReportDetail r where r.id in :ids ")
     List<WorkOrderReportDetail> findWorkOrderReportDetailByIds(@Param("ids") List<Long> ids);
+
+
+    @Query(nativeQuery = true, value = "SELECT  r.id,e.eq_code,e.description,r.order_line_no, r.order_desc,DATE_FORMAT(r.report_time,'%Y-%m-%d %T') report_time ,c.description eqclass,r.status FROM t_work_order_report_detail r LEFT JOIN t_equipments e  on r.equipments_id =e.id LEFT JOIN  t_equipments_classification c ON r.eq_class_id = c.id where 1=1  limit :fromIndex ,:perPageCount ")
+    List<Object> getRecortsByPage(@Param("fromIndex") Long fromIndex, @Param("perPageCount") Long perPageCount);
+
+
+    /**
+     * @param location 位置编码
+     * @param status   状态
+     * @return
+     */
+    List<WorkOrderReportDetail> findByLocationStartingWithAndStatus(String location, String status);
+
 }

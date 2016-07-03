@@ -30,35 +30,44 @@
                                         </ul>
                                         <div class="tab-content">
                                             <div class="tab-pane fade in active" id="tab_1_0">
-                                                <table cellpadding="0" cellspacing="0" border="0"
-                                                       class=" table tree  table-bordered table-hover">
+
+                                                <form class="navbar-form navbar-right" role="search">
+                                                    <div class="form-group" id="searchView">
+                                                        <input type="text" class="form-control" placeholder="搜索"
+                                                               v-model="keywords" @change="change()">
+                                                    </div>
+                                                </form>
+                                                <table class=" table tree  table-bordered">
                                                     <thead>
                                                     <tr>
                                                         <th width="5%">跟踪号</th>
                                                         <th width="10%">设备编号</th>
                                                         <th width="10%">设备名称</th>
+                                                        <th width="10%">维修行号</th>
                                                         <th width="20%">故障描述</th>
-                                                        <th width="10%">设备位置</th>
+                                                        <th width="10%">报修时间</th>
+                                                        <%-- <th width="10%">设备位置</th>--%>
                                                         <th width="10%">设备分类</th>
                                                         <th width="5%">设备状态</th>
-
                                                     </tr>
                                                     </thead>
-                                                    <tbody id="reportsView">
-                                                    <tr class="treegrid treegrid-${s.index+1} treegrid-collapsed success">
-                                                        <td>${s.index+1}</td>
-                                                        <td colspan="3">报修单:${w.orderNo}</td>
-                                                        <td colspan="3" class="hidden-xs hidden-sm">
-                                                            下单时间:<fmt:formatDate
-                                                                value="${w.reportTime}"
-                                                                pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                                                    <tbody id="reportView">
+                                                    <tr v-for="r in reports|filterBy keywords">
+                                                        <td>{{$index+1}}</td>
+                                                        <td>{{r[1]}}</td>
+                                                        <td>{{r[2]}}</td>
+                                                        <td>{{r[3]}}</td>
+                                                        <td>{{r[4]}}</td>
+                                                        <td>{{r[5]}}</td>
+                                                        <td>{{r[6]}}</td>
+                                                        <td v-if="r[7]=='0'">未提交</td>
+                                                        <td v-if="r[7]=='1'">已提交</td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
                                                 <div id="app">
-                                                    <vue-nav :cur.sync="cur" :all.sync="all" v-on:btn-click="listen"></vue-nav>
-                                                    <p>{{msg}}</p>
-
+                                                    <vue-nav :cur.sync="cur" :all.sync="all"
+                                                             v-on:btn-click="listen"></vue-nav>
                                                 </div>
                                             </div>
                                             <div class="tab-pane fade" id="pdf_view">
@@ -102,22 +111,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        var app = new Vue({
-            el: '#app',
-            data:{
-                cur: 1,
-                all: 8,
-                msg: ''
-            },
-            components:{
-                'vue-nav': Vnav
-            },
-            methods:{
-                listen:function(data){
-                    this.msg = '你点击了'+data+ '页'
-                }
-            }
-        })
+        //建立模型加入到表格中
 
 
         $('.tree').treegrid();
@@ -127,6 +121,47 @@
             preview(1);
             $(this).tab('show');
         })
+
+        var listModel = new Vue({
+            el: "#reportView",
+            data: {
+                reports: getRecortsByPage(6, 0),
+                keywords: ""
+            }
+        });
+
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                cur: 1,
+                pageCount: 6,
+                all: Math.ceil(findNewDetails().length / 6)
+            },
+            components: {
+                'vue-nav': Vnav
+            },
+            methods: {
+                listen: function (data) {
+                    listModel.reports = getRecortsByPage(this.pageCount, this.cur - 1);
+                }
+            }
+        });
+
+        var searchModel = new Vue({
+            el: "#searchView",
+            data: {
+                keywords: ""
+            },
+            methods: {
+
+                change: function () {
+
+                    alert("正在开发中 ");
+                }
+
+            }
+        });
 
 
     });
@@ -212,4 +247,45 @@
         ;
     }
 
+
+    /**
+     * 查询未提交的维修单信息
+     * @returns {Array}
+     */
+    function findNew() {
+        var reports = [];
+        var url = "/workOrderReport/findNew";
+        $.getJSON(url, function (data) {
+            reports = data;
+            console.log("data--------------" + data.length);
+        });
+        return reports;
+    }
+
+    /**
+     * 查询未提交的维修单明细信息
+     * @returns {Array}
+     */
+    function findNewDetails() {
+        var reports = [];
+        var url = "/workOrderReport/findNewDetails";
+        $.getJSON(url, function (data) {
+            reports = data;
+            console.log("data--------------" + data.length);
+        });
+        return reports;
+    }
+    /**
+     *
+     * @param perPageCount 每页条数
+     * @param currentPageIndex 当前页是第几页
+     */
+    function getRecortsByPage(perPageCount, currentPageIndex) {
+        var reports = [];
+        var url = "/workOrderReport/getRecortsByPage/" + perPageCount + "/" + currentPageIndex;
+        $.getJSON(url, function (data) {
+            reports = data;
+        });
+        return reports;
+    }
 </script>

@@ -111,7 +111,7 @@ public class WorkOrderReportController {
     public List<WorkOrderReport> findCommittedReportedOrders(HttpSession httpSession) {
 
         String location = SessionUtil.getCurrentUserLocationBySession(httpSession);
-        System.out.println("location---------------1-----------"+location);
+        System.out.println("location---------------1-----------" + location);
         return workOrderReportService.findByLocationStartingWithAndStatus(location, "1");
     }
 
@@ -125,7 +125,33 @@ public class WorkOrderReportController {
     public List<WorkOrderReport> findNewReportedOrders(HttpSession httpSession) {
         String location = SessionUtil.getCurrentUserLocationBySession(httpSession);
 
-        System.out.println("location----------------0----------"+location);
+        System.out.println("location----------------0----------" + location);
         return workOrderReportService.findByLocationStartingWithAndStatus(location, "0");
     }
+
+
+    /**
+     * @param httpSession
+     * @return 查询没有被完全提交的维修单
+     */
+    @RequestMapping(value = "/findNewDetails", method = RequestMethod.GET)
+    @ResponseBody
+    public List<WorkOrderReportDetail> findNewReportedOrdersDetail(HttpSession httpSession) {
+        String location = SessionUtil.getCurrentUserLocationBySession(httpSession);
+        return workOrderReportService.findDetailByLocationStartingWithAndStatus(location, "0");
+    }
+
+    /**
+     * @param perPageCount     每页显示多少条记录
+     * @param currentPageIndex 当前是第几页
+     * @return 查询没有被完全提交的维修单
+     */
+    @RequestMapping(value = "/getRecortsByPage/{perPageCount}/{currentPageIndex}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Object> getRecortsByPage(@PathVariable("perPageCount") Long perPageCount, @PathVariable("currentPageIndex") Long currentPageIndex) {
+
+        return workOrderReportService.getRecortsByPage(perPageCount * currentPageIndex, perPageCount);
+    }
+
+
 }

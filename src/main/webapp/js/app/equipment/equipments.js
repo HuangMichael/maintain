@@ -143,14 +143,8 @@ $(function () {
 
     historyTab.on('click', function () {
         //首先判断是否有选中的
-        var equipments = findEquipmentByIdInEqs(selectedIds[pointer]);
-        var histories = [];
-        if (!equipments) {
-            histories = loadFixHistoryByEid(selectedIds[0]);
-        } else {
-            equipments = findEquipmentByIdInEqs(selectedIds[pointer]);
-            histories = loadFixHistoryByEid(selectedIds[pointer]);
-        }
+        var equipments = vdm.equipments;
+        var histories = loadFixHistoryByEid(equipments.id);
         hm.$set("e", equipments);
         hm.$set("histories", histories);
     });
@@ -737,7 +731,7 @@ function forwards() {
  */
 function editEq() {
     setFormReadStatus("#detailForm", false);
-    $("#eqCode").attr("readonly","readonly");
+    $("#eqCode").attr("readonly", "readonly");
     var eid = selectedIds[0];
     var eq = getEquipmentByIdInEqs(eid);
     if (eid) {
@@ -798,8 +792,8 @@ function setFormReadStatus(formId, formLocked) {
         $(formId + " #status").attr("disabled", "disabled");
     }
     /*for (var x in readColumns) {
-        $("#" + readColumns[x]).attr("readonly", "readonly");
-    }*/
+     $("#" + readColumns[x]).attr("readonly", "readonly");
+     }*/
 }
 
 

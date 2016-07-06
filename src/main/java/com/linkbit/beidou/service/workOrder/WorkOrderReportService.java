@@ -322,6 +322,20 @@ public class WorkOrderReportService extends BaseService {
 
 
     /**
+     * @param location 位置编码
+     * @param status   状态
+     * @return 模糊查询位置编码下对应的报修单信息
+     */
+    public List<WorkOrderReportDetail> findDetailByLocationStartingWithAndStatus(String location, String status) {
+        List<WorkOrderReportDetail> workOrderReportList = null;
+        if (location != null && !location.equals("") && status != null && !status.equals("")) {
+            workOrderReportList = workOrderReportDetailRepository.findByLocationStartingWithAndStatus(location, status);
+        }
+        return workOrderReportList;
+    }
+
+
+    /**
      * @param equipmentsId 设备id
      * @return 根据设备的id查询设备报修历史信息
      */
@@ -356,6 +370,11 @@ public class WorkOrderReportService extends BaseService {
     public String getLastOrderLineNoByEquipmentId(Long equipmentId) {
         return workOrderReportDetailRepository.getLastOrderLineNoByEquipmentId(equipmentId);
 
+    }
+
+
+    public List<Object> getRecortsByPage(Long fromIndex, Long pageCount) {
+        return workOrderReportDetailRepository.getRecortsByPage(fromIndex, pageCount);
     }
 
 

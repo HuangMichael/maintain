@@ -116,15 +116,23 @@ $(function () {
     formTab.on('click', function () {
         setFormReadStatus("#detailForm", formLocked);
         //首先判断是否有选中的
+
+
+        console.log("selectedIds-------------" + selectedIds);
         var eq = null;
         if (selectedIds.length > 0) {
             //切换tab时默认给detail中第一个数据
             eq = findEquipmentByIdInEqs(selectedIds[0]);
+            console.log("search in db -------------" + selectedIds);
+            if (!eq) {
+                eq = getEquipmentByIdInEqs(selectedIds);
+            }
         } else {
             //没有选中的 默认显示整个列表的第一条
             eq = eqs[0];
             //所有的都在选中列表中
             selectedIds = setAllInSelectedList(eqs);
+            console.log("search in local -------------" + selectedIds);
         }
         vdm.$set("equipments", eq);
 
@@ -134,6 +142,12 @@ $(function () {
     historyTab.on('click', function () {
         //首先判断是否有选中的
         var equipments = findEquipmentByIdInEqs(selectedIds[pointer]);
+
+        if (!equipments) {
+            equipments = getEquipmentByIdInEqs(selectedIds);
+        }
+
+
         hm.$set("e", equipments);
         hm.$set("histories", loadFixHistoryByEid(selectedIds[pointer]));
     });
@@ -819,9 +833,9 @@ function reload(url) {
 
 
 function refresh(data) {
-    var index = $(dataTableName).bootgrid("getTotalPageCount");
+    var index = $(dataTableName).bootgrid("getTotalRowCount"); //获取所有行数
     var nextIndex = parseInt(index + 1);
-    if (data.id) {
+    if (data) {
         var obj = {
             index: nextIndex,
             id: data.id,
@@ -846,7 +860,7 @@ function changeValue(data) {
     var trId = data.id;
     $("tr[data-row-id='" + trId + "'] td:eq(2)").html(data.eqCode);
     $("tr[data-row-id='" + trId + "'] td:eq(3)").html(data.description);
-    $("tr[data-row-id='" + trId + "'] td:eq(5)").html(equipmentsClassification.description);
+    $("tr[data-row-id='" + trId + "'] td:eq(5)").html(data.equipmentsClassification.description);
     $("tr[data-row-id='" + trId + "'] td:eq(6)").html(data.locations.description);
     $("tr[data-row-id='" + trId + "'] td:eq(7)").html('投用');
 }

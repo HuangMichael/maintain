@@ -3,6 +3,7 @@
 <table class="table table-striped table-bordered table-hover">
     <thead>
     <tr>
+        <td><input type="checkbox" value="" name="unit"></td>
         <th width="5%" data-column-id="index">序号</th>
         <th>单位编号</th>
         <th>单位名称</th>
@@ -14,6 +15,7 @@
     <tbody>
     <c:forEach items="${unitList}" var="unit" varStatus="s">
         <tr class="gradeX">
+            <td><input type="checkbox" name="unit" value="${unit.id}" onclick="add2Units()"></td>
             <td>${s.index+1}</td>
             <td>
                     ${unit.unitNo}

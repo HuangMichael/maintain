@@ -737,6 +737,7 @@ function forwards() {
  */
 function editEq() {
     setFormReadStatus("#detailForm", false);
+    $("#eqCode").attr("readonly","readonly");
     var eid = selectedIds[0];
     var eq = getEquipmentByIdInEqs(eid);
     if (eid) {
@@ -796,9 +797,9 @@ function setFormReadStatus(formId, formLocked) {
         $(formId + " select").attr("disabled", "disabled").removeAttr("disabled");
         $(formId + " #status").attr("disabled", "disabled");
     }
-    for (var x in readColumns) {
+    /*for (var x in readColumns) {
         $("#" + readColumns[x]).attr("readonly", "readonly");
-    }
+    }*/
 }
 
 

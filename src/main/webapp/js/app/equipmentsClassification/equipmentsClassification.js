@@ -21,7 +21,6 @@ var setting = {
         onClick: function (event, treeId, treeNode, clickFlag) {
             var url = "/equipmentsClassification/detail/" + treeNode.id;
             $("#contentDiv").load(url);
-
             $.getJSON(url, function (data) {
                 fillForm(data, "#form");
                 loadTable();
@@ -63,6 +62,26 @@ $(document).ready(function () {
         if (h < 530) h = 530;
         demoIframe.height(h);
     }
+
+
+    $("input[name = 'unit']").on("click", function () {
+        alert($(this).val());
+
+    });
+
+
+    //查询当前选中的分类对应的外委单位
+
+    var unitsModel = new Vue({
+
+        el: "#unitsTable",
+        data: {
+
+            units: units
+        }
+    });
+
+
 });
 
 
@@ -178,7 +197,7 @@ function loadTable() {
  */
 function addUnit() {
 //获取选中的设备分类节点
-    var selectEqClassId =getSelectedNodeId();
+    var selectEqClassId = getSelectedNodeId();
     //弹出框选择未添加的外委单位信息
     var url = "/equipmentsClassification/loadSelectUnitPage/" + selectEqClassId;
     $("#mBody").load(url);
@@ -204,9 +223,7 @@ $("#confitmBtn").on("click", function () {
         // 提示操作成功或失败
         $.post(url, {cid: cid, ids: ids}, function (data) {
             if (data) {
-               $("#contentDiv").load("/equipmentsClassification/detail/"+cid);
-
-
+                $("#contentDiv").load("/equipmentsClassification/detail/" + cid);
                 showMessageBox("info", "设备分类添加外委单位成功！")
             } else {
                 showMessageBox("danger", "设备分类添加外委单位失败！")
@@ -214,3 +231,34 @@ $("#confitmBtn").on("click", function () {
         });
     }
 });
+
+
+var selected = [];
+var units = [];
+function add2Units() {
+
+    var val = $(this).val();
+    if (val) {
+        units.push(val);
+    }
+    console.log("数组去重------------------ " + units.length);
+}
+/**
+ *  解除外委单位
+ */
+function relieveUnits() {
+
+
+    //首先找出选中的外委单位信息
+
+    alert(units[0]);
+
+    //将选中的从原有的关联中移除
+
+    //然后更新
+
+}
+
+
+function getUnitsByClassId() {
+}

@@ -12,7 +12,7 @@ var vdm = null; //明细页面的模型
 var vm = null; //明细页面的模型
 var hm = null;
 
-var readColumns =["eqCode"];
+var readColumns = ["eqCode"];
 
 var formLocked = true;
 
@@ -144,14 +144,15 @@ $(function () {
     historyTab.on('click', function () {
         //首先判断是否有选中的
         var equipments = findEquipmentByIdInEqs(selectedIds[pointer]);
-
+        var histories = [];
         if (!equipments) {
-            equipments = getEquipmentByIdInEqs(selectedIds);
+            histories = loadFixHistoryByEid(selectedIds[0]);
+        } else {
+            equipments = findEquipmentByIdInEqs(selectedIds[pointer]);
+            histories = loadFixHistoryByEid(selectedIds[pointer]);
         }
-
-
         hm.$set("e", equipments);
-        hm.$set("histories", loadFixHistoryByEid(selectedIds[pointer]));
+        hm.$set("histories", histories);
     });
 
 
@@ -787,7 +788,6 @@ function deleteEq() {
 function setFormReadStatus(formId, formLocked) {
 
 
-
     if (formLocked) {
         $(formId + " input").attr("readonly", "readonly");
         $(formId + " select").attr("disabled", "disabled");
@@ -796,8 +796,8 @@ function setFormReadStatus(formId, formLocked) {
         $(formId + " select").attr("disabled", "disabled").removeAttr("disabled");
         $(formId + " #status").attr("disabled", "disabled");
     }
-    for(var x in readColumns){
-        $("#"+readColumns[x]).attr("readonly", "readonly");
+    for (var x in readColumns) {
+        $("#" + readColumns[x]).attr("readonly", "readonly");
     }
 }
 

@@ -61,7 +61,7 @@
             <div class="col-md-3">
                 <select class="form-control" id="running" name="running" required v-model="equipments.running"
                         style="width:100%" required>
-                    <template v-for="option in eqStatuses">
+                    <template v-for="option in runStatus ">
                         <option :value="option.key" v-if="option.key == equipments.running" selected>
                             {{ option.value }}
                         </option>
@@ -80,7 +80,7 @@
                 <%--<input class="form-control" id="status" type="text" name="status" v-model="equipments.status" required/>--%>
                 <select class="form-control" id="status" name="status" required v-model="equipments.status"
                         style="width:100%" required>
-                    <template v-for="option in runStatus">
+                    <template v-for="option in eqStatuses">
                         <option :value="option.key" v-if="option.key == equipments.status" selected>
                             {{ option.value }}
                         </option>

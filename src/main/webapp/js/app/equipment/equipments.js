@@ -12,6 +12,8 @@ var vdm = null; //明细页面的模型
 var vm = null; //明细页面的模型
 var hm = null;
 
+var readColumns =["eqCode"];
+
 var formLocked = true;
 
 //数据列表
@@ -735,7 +737,7 @@ function forwards() {
 function editEq() {
     setFormReadStatus("#detailForm", false);
     var eid = selectedIds[0];
-    var eq = findEquipmentByIdInEqs(eid);
+    var eq = getEquipmentByIdInEqs(eid);
     if (eid) {
         vdm.$set("equipments", eq);
         formTab.tab('show');
@@ -783,6 +785,9 @@ function deleteEq() {
  * @param formId 设置form为只读
  */
 function setFormReadStatus(formId, formLocked) {
+
+
+
     if (formLocked) {
         $(formId + " input").attr("readonly", "readonly");
         $(formId + " select").attr("disabled", "disabled");
@@ -790,6 +795,9 @@ function setFormReadStatus(formId, formLocked) {
         $(formId + " input").attr("readonly", "readonly").removeAttr("readonly");
         $(formId + " select").attr("disabled", "disabled").removeAttr("disabled");
         $(formId + " #status").attr("disabled", "disabled");
+    }
+    for(var x in readColumns){
+        $("#"+readColumns[x]).attr("readonly", "readonly");
     }
 }
 
@@ -860,7 +868,9 @@ function changeValue(data) {
     var trId = data.id;
     $("tr[data-row-id='" + trId + "'] td:eq(2)").html(data.eqCode);
     $("tr[data-row-id='" + trId + "'] td:eq(3)").html(data.description);
-    $("tr[data-row-id='" + trId + "'] td:eq(5)").html(data.equipmentsClassification.description);
-    $("tr[data-row-id='" + trId + "'] td:eq(6)").html(data.locations.description);
-    $("tr[data-row-id='" + trId + "'] td:eq(7)").html('投用');
+    $("tr[data-row-id='" + trId + "'] td:eq(4)").html(data.equipmentsClassification.description);
+    $("tr[data-row-id='" + trId + "'] td:eq(5)").html(data.locations.description);
+    $("tr[data-row-id='" + trId + "'] td:eq(6)").html(eqStatuses[data.status]["value"]);
+    $("tr[data-row-id='" + trId + "'] td:eq(7)").html(runStatus[data.running]["value"]);
+
 }

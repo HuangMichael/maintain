@@ -1,7 +1,9 @@
 package com.linkbit.beidou.service.locations;
 
 import com.linkbit.beidou.dao.locations.LocationsRepository;
+import com.linkbit.beidou.dao.locations.VlocationsRepository;
 import com.linkbit.beidou.domain.locations.Locations;
+import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.service.app.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,10 @@ public class LocationsService extends BaseService {
 
     @Autowired
     LocationsRepository locationsRepository;
+
+    @Autowired
+    VlocationsRepository vlocationsRepository;
+
 
     /**
      * 设置位置编码
@@ -145,6 +151,16 @@ public class LocationsService extends BaseService {
     public List<Locations> findByLocationStartingWithAndStatus(String location, String status) {
 
         return locationsRepository.findByLocationStartingWithAndStatus(location, status);
+    }
+
+
+    /**
+     * @param location
+     * @return 根据位置编码模糊查询
+     */
+    public List<Vlocations> findByLocationStartingWithAndStatus(String location) {
+
+        return vlocationsRepository.findByLocationStartingWith(location);
     }
 }
 

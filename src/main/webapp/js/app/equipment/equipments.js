@@ -29,7 +29,7 @@ $.ajaxSettings.async = false;
 $(function () {
     //初始化从数据库获取列表数据
     initLoadData("/equipment/findMyEqs", dataTableName);
-    var url_location = "/commonData/findMyLocation";
+    var url_location = "/commonData/findMyLoc";
     $.getJSON(url_location, function (data) {
         locs = data;
     });
@@ -221,16 +221,7 @@ $(function () {
         // Prevent form submission
         e.preventDefault();
 
-        // Get the form instance
-        var $form = $(e.target);
-
-        // Get the BootstrapValidator instance
-        var bv = $form.data('bootstrapValidator');
-
-        // Use Ajax to submit form data
-        $.post($form.attr('action'), $form.serialize(), function (result) {
-            console.log(result);
-        }, 'json');
+        saveEquipment();
     });
 
 
@@ -302,7 +293,7 @@ $(function () {
         // Prevent form submission
         e.preventDefault();
         // Get the form instance
-        saveEquipment();
+        createEquipment();
     });
 
 

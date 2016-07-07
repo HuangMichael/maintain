@@ -27,10 +27,10 @@
                         required style="width:100%" required>
                     <template v-for="option in locs">
                         <option :value="option.id" v-if="option.id == equipments.locations.id" selected>
-                            {{ option.description }}
+                            {{ option.line }}/{{ option.station }}/{{ option.locName }}
                         </option>
                         <option :value="option.id" v-else>
-                            {{ option.description }}
+                            {{ option.line }}/{{ option.station }}/{{ option.locName }}
                         </option>
                     </template>
                 </select>

@@ -99,22 +99,7 @@
     </div>
     <%@include file="../common/common-back2top.jsp" %>
 </div>
-<div class="modal fade " id="eq_modal" tabindex="-1"
-     role="dialog" aria-labelledby="myModalLabel2">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel2">新增设备信息</h4>
-            </div>
-            <div class="modal-body">
-                <%@include file="simple-form.jsp" %>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <div class="modal fade " id="show_eq_modal" tabindex="-1" back-drop="false"
      role="dialog" aria-labelledby="fix_work_order">

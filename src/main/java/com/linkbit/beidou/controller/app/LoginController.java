@@ -6,6 +6,7 @@ import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.line.Line;
 import com.linkbit.beidou.domain.line.Station;
 import com.linkbit.beidou.domain.locations.Locations;
+import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.service.equipments.EquipmentAccountService;
 import com.linkbit.beidou.service.equipmentsClassification.EquipmentsClassificationService;
@@ -83,7 +84,7 @@ public class LoginController {
             User currentUser = userList.get(0);
             List<Line> lineList = lineService.findByStatus("1");
             List<Station> stationList = stationService.findByStatus("1");
-            List<Locations> locationsList = locationsService.findByLocationStartingWithAndStatus(currentUser.getLocation(), CommonStatusType.STATUS_YES);
+            List<Vlocations> locationsList = locationsService.findByLocationStartingWithAndStatus(currentUser.getLocation());
             List<EquipmentsClassification> equipmentsClassificationList = equipmentsClassificationService.findAll();
             session.setAttribute("currentUser", currentUser);
             session.setAttribute("personName", currentUser.getPerson().getPersonName());

@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="box-body">
-                <div class="btn-group">
+                <%--<div class="btn-group">
                     <button type="button" class="btn btn-sm myNavBtn active"
                             onclick="add2Units()">
                         <i class="glyphicon glyphicon-plus"></i>新建记录
@@ -27,7 +27,7 @@
                     <button type="button" class="btn btn-sm myNavBtn active" onclick="deleteEq()">
                         <i class="glyphicon glyphicon-remove"></i>删除记录
                     </button>
-                </div>
+                </div>--%>
                 <%@include file="table_1_2.jsp" %>
             </div>
         </div>

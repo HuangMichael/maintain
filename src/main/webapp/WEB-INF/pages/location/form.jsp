@@ -35,14 +35,14 @@
                     <input class="form-control" id="localLevel" type="hidden" name="localLevel"
                            value="${locations.locLevel}"/>
                 </div>
-                <label class="col-md-2 control-label" for="superior">上级位置</label>
+               <%-- <label class="col-md-2 control-label" for="superior">上级位置</label>
 
                 <div class="col-md-4">
                     <form:select path="locationsList" class="form-control" id="parent_id" name="parent"
                                  itemValue="${locations.parent}">
                         <form:options itemLabel="description" items="${locationsList}" itemValue="id"></form:options>
                     </form:select>
-                </div>
+                </div>--%>
             </div>
         </div>
     </div>

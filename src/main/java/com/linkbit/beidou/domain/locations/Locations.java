@@ -27,10 +27,6 @@ public class Locations implements java.io.Serializable {
     private String location;//位置
     @Column(length = 100)
     private String description;//描述
-
-    @Column(length = 200)
-    private String locDetailDesc;//位置完整描述
-
     @JsonBackReference
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "line_id", referencedColumnName = "id")

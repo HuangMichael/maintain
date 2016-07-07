@@ -178,6 +178,8 @@ public class EquipmentsClassificationController {
     @RequestMapping(value = "/findUnitListByEqClassId/{cid}", method = RequestMethod.GET)
     @ResponseBody
     public List<Object> findUnitListByEqClassId(@PathVariable("cid") Long cid) {
+
+
         return outsoucingUnitService.findUnitListByEqClassIdEq(cid);
     }
 
@@ -199,11 +201,23 @@ public class EquipmentsClassificationController {
 
     @RequestMapping(value = "/addUnits", method = RequestMethod.POST)
     @ResponseBody
-    public EquipmentsClassification addUnits(@RequestParam("cid") Long cid, @RequestParam("ids") String ids, ModelMap modelMap) {
+    public EquipmentsClassification addUnits(@RequestParam("cid") Long cid, @RequestParam("ids") String ids) {
         EquipmentsClassification equipmentsClassification = null;
         if (cid != null && ids != null) {
             equipmentsClassification = outsoucingUnitService.addUnits(cid, ids);
         }
         return equipmentsClassification;
+    }
+
+
+    /**
+     * @param cid 设备分类ID
+     * @return 根据设备分类的ID查询对应的外委单位的ID集合
+     */
+    @RequestMapping(value = "/getUnitsByEqClassId/{cid}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Long> getUnitsByEqClassId(@PathVariable("cid") Long cid) {
+        List<Long> longList = equipmentsClassificationService.getUnitsByEqClassId(cid);
+        return longList;
     }
 }

@@ -133,11 +133,5 @@
         <!-- /CONTENT-->
     </div>
 </div>
-<%--<script type="text/javascript" src="/js/jquery/jquery-1.8.3.min.js"></script>--%>
 <script src="//cdn.bootcss.com/highcharts/4.2.3/highcharts.js"></script>
 <script src="//cdn.bootcss.com/highcharts/4.2.3/modules/exporting.js"></script>
-<script>
-    $(document).ready(function () {
-        /* App.setPage("inbox");  //Set current page
-         App.init(); //Initialise plugins and elements*/
-    });</script>

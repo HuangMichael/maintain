@@ -72,15 +72,6 @@ $(document).ready(function () {
 
     //查询当前选中的分类对应的外委单位
 
-    var unitsModel = new Vue({
-
-        el: "#unitsTable",
-        data: {
-
-            units: units
-        }
-    });
-
 
 });
 
@@ -203,6 +194,30 @@ function addUnit() {
     $("#mBody").load(url);
     $("#unitListModal").modal("show");
 }
+
+/**
+ * 选中设备分类节点  添加外委单位
+ */
+function addMoreUnit() {
+//获取选中的设备分类节点
+    var selectEqClassId = getSelectedNodeId();
+    //弹出框选择未添加的外委单位信息
+    var url = "/equipmentsClassification/loadSelectUnitPage/" + selectEqClassId;
+    $("#mBody").load(url);
+    var units = getUnitsByEqClass(selectEqClassId);
+    for (var x in units) {
+        if (!isNaN(units[x])) {
+            console.log("units--------------------" + units[x]);
+            $("#unitListModal input[value='" + units[x] + "'] ").each(function () {
+                $(this).attr("checked", "checked");
+            });
+        }
+    }
+    //将已有的默认选中//
+    $("#unitListModal").modal("show");
+}
+
+
 $("#confitmBtn").on("click", function () {
     //检查获取选择的ids
     var ids = "";
@@ -233,33 +248,14 @@ $("#confitmBtn").on("click", function () {
 });
 
 
-var selected = [];
-var units = [];
-function add2Units() {
-
-    if ($(this).is(":checked")) {
-
-        console.log("val-------------------------" + $(this).val());
-    }
-
-
-}
 /**
- *  解除外委单位
+ * 根据设备分类查询对应的外委单位ID集合
  */
-function relieveUnits() {
-
-
-    //首先找出选中的外委单位信息
-
-    alert(units[0]);
-
-    //将选中的从原有的关联中移除
-
-    //然后更新
-
-}
-
-
-function getUnitsByClassId() {
+function getUnitsByEqClass(cid) {
+    var unitIds = [];
+    var url = "/equipmentsClassification/getUnitsByEqClassId/" + cid;
+    $.getJSON(url, function (data) {
+        unitIds = data;
+    });
+    return unitIds
 }

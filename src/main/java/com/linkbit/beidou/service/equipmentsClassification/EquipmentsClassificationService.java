@@ -2,11 +2,13 @@ package com.linkbit.beidou.service.equipmentsClassification;
 
 import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
+import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import com.linkbit.beidou.service.app.BaseService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -71,7 +73,7 @@ public class EquipmentsClassificationService extends BaseService {
      */
 
     public EquipmentsClassification findById(Long id) {
-        return this.getEquipmentsClassificationRepository().findById(id);
+        return equipmentsClassificationRepository.findById(id);
     }
 
     /**
@@ -79,6 +81,24 @@ public class EquipmentsClassificationService extends BaseService {
      */
 
     public void delete(EquipmentsClassification equipmentsClassification) {
-        this.getEquipmentsClassificationRepository().delete(equipmentsClassification);
+        equipmentsClassificationRepository.delete(equipmentsClassification);
+    }
+
+
+    public List<Long> getUnitsByEqClassId(Long cid) {
+        EquipmentsClassification equipmentsClassification;
+        List<Long> idList = new ArrayList<Long>();
+        if (cid != null) {
+            equipmentsClassification = equipmentsClassificationRepository.findById(cid);
+            List<OutsourcingUnit> unitList = equipmentsClassification.getUnitSet();
+            for (OutsourcingUnit unit : unitList) {
+                idList.add(unit.getId());
+            }
+
+            if (idList.isEmpty()) {
+                idList.add(0l);
+            }
+        }
+        return idList;
     }
 }

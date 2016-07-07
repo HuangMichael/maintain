@@ -6,6 +6,7 @@ import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import com.linkbit.beidou.service.app.BaseService;
+import com.linkbit.beidou.service.equipmentsClassification.EquipmentsClassificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,10 +23,10 @@ public class OutsoucingUnitService extends BaseService {
     //根据设备分类查询对应外委单位
     @Autowired
     OutsourcingUnitRepository outsourcingUnitRepository;
-
-
     @Autowired
     EquipmentsClassificationRepository equipmentsClassificationRepository;
+    @Autowired
+    EquipmentsClassificationService equipmentsClassificationService;
 
     /**
      * @return 查询所有外委单位信息
@@ -56,7 +57,9 @@ public class OutsoucingUnitService extends BaseService {
      * @return 根据设备分类查询非该分类对应的外委单位信息 id 描述
      */
     public List<Object> findUnitListByEqClassIdNotEq(Long eqClassId) {
-        return outsourcingUnitRepository.findUnitListByEqClassIdNotEq(eqClassId);
+
+        List<Long> longList = equipmentsClassificationService.getUnitsByEqClassId(eqClassId);
+        return outsourcingUnitRepository.findUnitListByEqClassIdNotEq(longList);
     }
 
 
@@ -87,18 +90,20 @@ public class OutsoucingUnitService extends BaseService {
      */
     public EquipmentsClassification addUnits(Long cid, String ids) {
         EquipmentsClassification equipmentsClassification = equipmentsClassificationRepository.findById(cid);
+
+        List<OutsourcingUnit> originalUnits = equipmentsClassification.getUnitSet();
         List<OutsourcingUnit> outsourcingUnitSet = new ArrayList<OutsourcingUnit>();
         if (equipmentsClassification != null && ids != null) {
             String idArray[] = ids.split(",");
             for (String id : idArray) {
                 outsourcingUnitSet.add(outsourcingUnitRepository.findById(Long.parseLong(id)));
             }
+            outsourcingUnitSet.addAll(originalUnits);
             equipmentsClassification.setUnitSet(outsourcingUnitSet);
             equipmentsClassification = equipmentsClassificationRepository.save(equipmentsClassification);
         }
         return equipmentsClassification;
     }
-
 
     /**
      * @param unitCode

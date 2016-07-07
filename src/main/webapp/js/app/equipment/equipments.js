@@ -217,12 +217,21 @@ $(function () {
                     }
                 }
             }
-        })
-        .on('success.form.bv', function (e) {
-            // Prevent form submission
-            e.preventDefault();
-            saveEquipment();
-        });
+        }).on('success.form.bv', function (e) {
+        // Prevent form submission
+        e.preventDefault();
+
+        // Get the form instance
+        var $form = $(e.target);
+
+        // Get the BootstrapValidator instance
+        var bv = $form.data('bootstrapValidator');
+
+        // Use Ajax to submit form data
+        $.post($form.attr('action'), $form.serialize(), function (result) {
+            console.log(result);
+        }, 'json');
+    });
 
 
     $('#createForm')
@@ -289,12 +298,12 @@ $(function () {
                     }
                 }
             }
-        })
-        .on('success.form.bv', function (e) {
-            // Prevent form submission
-            e.preventDefault();
-            createEquipment();
-        });
+        }).on('success.form.bv', function (e) {
+        // Prevent form submission
+        e.preventDefault();
+        // Get the form instance
+        saveEquipment();
+    });
 
 
 });
@@ -302,11 +311,11 @@ $(function () {
 
 function addNew() {
     setFormReadStatus("#detailForm", false);
-    var status = [{value: 0, text: "停用", selected: "selected"},
+    var status = [
+        {value: 0, text: "停用", selected: "selected"},
         {value: 1, text: "投用"},
         {value: 2, text: "报废"}];
     var running = [{value: 0, text: "运行"}, {value: 1, text: "停止"}];
-
     vdm.$set("equipments", null);
     vdm.$set("locs", locs);
     vdm.$set("eqClasses", eqClasses);
@@ -462,11 +471,9 @@ function createEquipment() {
         },
         dataType: "JSON", success: function (msg) {
             if (equipments.id) {
-                // refreshData(equipments);
                 showMessageBox("info", "设备信息更新成功");
 
             } else {
-                //refreshData(equipments);
                 showMessageBox("info", "设备信息添加成功")
 
             }

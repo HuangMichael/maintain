@@ -4,6 +4,7 @@ package com.linkbit.beidou.controller.common;
 import com.linkbit.beidou.dao.locations.LocationsRepository;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.locations.Locations;
+import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.object.ListObject;
 import com.linkbit.beidou.service.commonData.CommonDataService;
 import com.linkbit.beidou.utils.SessionUtil;
@@ -46,6 +47,22 @@ public class CommnDataController extends BaseController {
         return locationList;
     }
 
+
+    /**
+     * @param httpSession 当前会话
+     * @return
+     */
+    @RequestMapping(value = "/findMyLoc", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Vlocations> findMyLoc(HttpSession httpSession) {
+        String location = SessionUtil.getCurrentUserLocationBySession(httpSession);
+        List<Vlocations> locationList = null;
+        if (location != null && !location.equals("")) {
+            locationList = commonDataService.findMyVLocation(location, httpSession);
+        }
+        return locationList;
+    }
+
     /**
      * @param httpSession 当前会话
      * @return 查询分类
@@ -79,7 +96,7 @@ public class CommnDataController extends BaseController {
     @ResponseBody
     public List<ListObject> getEqRunStatus(HttpSession httpSession) {
 
-        return   commonDataService.getRunningStatus(httpSession);
+        return commonDataService.getRunningStatus(httpSession);
     }
 }
 

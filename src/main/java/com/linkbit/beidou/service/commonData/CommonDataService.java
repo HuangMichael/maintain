@@ -2,8 +2,10 @@ package com.linkbit.beidou.service.commonData;
 
 import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
 import com.linkbit.beidou.dao.locations.LocationsRepository;
+import com.linkbit.beidou.dao.locations.VlocationsRepository;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.locations.Locations;
+import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.object.ListObject;
 import com.linkbit.beidou.service.app.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class CommonDataService extends BaseService {
 
     @Autowired
     LocationsRepository locationsRepository;
+
+    @Autowired
+    VlocationsRepository vlocationsRepository;
     @Autowired
     EquipmentsClassificationRepository equipmentsClassificationRepository;
 
@@ -40,6 +45,28 @@ public class CommonDataService extends BaseService {
         } else {
             if (location != null && !location.equals("")) {
                 locationsList = locationsRepository.findByLocationStartingWith(location);
+                log.info(this.getClass().getCanonicalName() + "------------从缓存中查询位置信息");
+            }
+        }
+        return locationsList;
+    }
+
+
+    /**
+     * @param location    位置编号
+     * @param httpSession 查询位置我的视图信息
+     * @return 查询我的下属位置信息
+     * 先从session中找  如果失败再做查询
+     */
+    public List<Vlocations> findMyVLocation(String location, HttpSession httpSession) {
+        List<Vlocations> locationsList = null;
+        Object object = httpSession.getAttribute("locationsList");
+        if (object != null) {
+            locationsList = (ArrayList<Vlocations>) object;
+            log.info(this.getClass().getCanonicalName() + "------------从缓存中查询位置信息");
+        } else {
+            if (location != null && !location.equals("")) {
+                locationsList = vlocationsRepository.findByLocationStartingWith(location);
                 log.info(this.getClass().getCanonicalName() + "------------从缓存中查询位置信息");
             }
         }

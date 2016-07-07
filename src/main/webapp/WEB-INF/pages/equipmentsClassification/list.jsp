@@ -27,9 +27,7 @@
                 <div class="col-md-9">
                     <div class="box border blue">
                         <div class="box-body">
-
                             <div class="btn-group">
-
                                 <button type="button" class="btn btn-sm myNavBtn active"
                                         onclick="loadCreateForm()">
                                     <i class="glyphicon glyphicon-plus"></i>新建记录
@@ -51,7 +49,6 @@
                                         class="glyphicon glyphicon-align-justify"></i>添加单位
                                 </button>
                             </div>
-
                         </div>
                     </div>
                     <div class="divide-2"></div>

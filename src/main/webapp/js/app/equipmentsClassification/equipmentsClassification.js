@@ -237,11 +237,12 @@ var selected = [];
 var units = [];
 function add2Units() {
 
-    var val = $(this).val();
-    if (val) {
-        units.push(val);
+    if ($(this).is(":checked")) {
+
+        console.log("val-------------------------" + $(this).val());
     }
-    console.log("数组去重------------------ " + units.length);
+
+
 }
 /**
  *  解除外委单位

@@ -210,6 +210,17 @@ public class EquipmentsClassificationController {
     }
 
 
+    @RequestMapping(value = "/removeUnits", method = RequestMethod.POST)
+    @ResponseBody
+    public EquipmentsClassification removeUnits(@RequestParam("cid") Long cid, @RequestParam("ids") String ids) {
+        EquipmentsClassification equipmentsClassification = null;
+        if (cid != null && ids != null) {
+            equipmentsClassification = outsoucingUnitService.removeUnits(cid, ids);
+        }
+        return equipmentsClassification;
+    }
+
+
     /**
      * @param cid 设备分类ID
      * @return 根据设备分类的ID查询对应的外委单位的ID集合

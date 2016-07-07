@@ -105,6 +105,28 @@ public class OutsoucingUnitService extends BaseService {
         return equipmentsClassification;
     }
 
+
+    /**
+     * @param cid 设备种类id
+     * @param ids 外委单位id集合字符串
+     * @return 加入外委单位 返回种类本身
+     */
+    public EquipmentsClassification removeUnits(Long cid, String ids) {
+        EquipmentsClassification equipmentsClassification = equipmentsClassificationRepository.findById(cid);
+        List<OutsourcingUnit> originalUnits = equipmentsClassification.getUnitSet();
+        List<OutsourcingUnit> outsourcingUnitSet = new ArrayList<OutsourcingUnit>();
+        if (equipmentsClassification != null && ids != null) {
+            String idArray[] = ids.split(",");
+            for (String id : idArray) {
+                outsourcingUnitSet.add(outsourcingUnitRepository.findById(Long.parseLong(id)));
+            }
+            originalUnits.removeAll(outsourcingUnitSet);
+            equipmentsClassification.setUnitSet(originalUnits);
+            equipmentsClassification = equipmentsClassificationRepository.save(equipmentsClassification);
+        }
+        return equipmentsClassification;
+    }
+
     /**
      * @param unitCode
      * @return 查询维修历史信息

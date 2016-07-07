@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<table class="table table-striped table-bordered table-hover">
+<table class="table table-striped table-bordered table-hover" id="unitsTable">
     <thead>
     <tr>
         <td><input type="checkbox" value="" name="unit"></td>
@@ -15,7 +15,7 @@
     <tbody>
     <c:forEach items="${unitList}" var="unit" varStatus="s">
         <tr class="gradeX">
-            <td><input type="checkbox" name="unit" value="${unit.id}" onclick="add2Units()"></td>
+            <td><input type="checkbox" name="unit" value="${unit.id}"></td>
             <td>${s.index+1}</td>
             <td>
                     ${unit.unitNo}

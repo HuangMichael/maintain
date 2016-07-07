@@ -24,7 +24,7 @@
                             onclick="addMoreUnit()">
                         <i class="glyphicon glyphicon-plus"></i>添加单位
                     </button>
-                    <button type="button" class="btn btn-sm myNavBtn active" onclick="deleteEq()">
+                    <button type="button" class="btn btn-sm myNavBtn active" onclick="removeUnit()">
                         <i class="glyphicon glyphicon-remove"></i>删除单位
                     </button>
                 </div>

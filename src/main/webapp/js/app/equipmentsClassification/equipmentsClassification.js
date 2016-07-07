@@ -259,3 +259,40 @@ function getUnitsByEqClass(cid) {
     });
     return unitIds
 }
+
+
+/**
+ *  移除关联的外委单位
+ */
+function removeUnit() {
+    var cid = getSelectedNodeId();
+
+    if (!cid) {
+        showMessageBoxCenter("danger", "请选中要操作的设备分类信息再进行操作！");
+        return;
+    }
+
+    var selectedUnitIds = [];
+    $("#unitsTable input[name='unit']").each(function () {
+        if ($(this).is(":checked")) {
+            selectedUnitIds.push($(this).val());
+        }
+    });
+    var confirm = window.confirm("确定要删除当前选中关联的外委单位信息吗?");
+    if (confirm) {
+        var ids = selectedUnitIds.join(",");
+
+        if (!ids) {
+            showMessageBoxCenter("danger", "请选中要删除的外委单位信息再进行操作！");
+            return;
+        } else {
+            var url = "/equipmentsClassification/removeUnits";
+            $.post(url, {cid: cid, ids: ids}, function (data) {
+                if (data) {
+                    $("#contentDiv").load("/equipmentsClassification/detail/" + cid);
+                    showMessageBox("info", "设备分类外委单位移除成功！")
+                }
+            });
+        }
+    }
+}

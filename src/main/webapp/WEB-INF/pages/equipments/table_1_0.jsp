@@ -9,8 +9,8 @@
         <th data-column-id="description">设备名称</th>
         <th data-column-id="equipClass">设备分类</th>
         <th data-column-id="location">设备位置</th>
-        <th data-column-id="running">运行状态</th>
         <th data-column-id="status">设备状态</th>
+        <th data-column-id="running">运行状态</th>
         <th data-column-id="report" data-formatter="report" data-sortable="false">报修</th>
         <th data-column-id="track" data-formatter="track" data-sortable="false">跟踪</th>
     </tr>

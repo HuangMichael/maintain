@@ -3,15 +3,15 @@
     <div class="sidebar-menu nav-collapse">
         <div class="divide-20"></div>
         <ul>
-            <%-- <li class="has-sub">
+             <li class="has-sub">
                  <a data-url="javascript:;" class="">
-                     <i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">门户信息</span>
+                     <i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">主页信息</span>
                      <span class="arrow"></span>
                  </a>
                  <ul class="sub">
                      <li><a class="" data-url="/portal/list"><span class="sub-menu-text">我的门户</span></a></li>
                  </ul>
-             </li>--%>
+             </li>
             <li class="has-sub">
                 <a data-url="javascript:;" class="">
                     <i class="fa fa-bookmark-o fa-fw"></i> <span class="menu-text">用户管理</span>

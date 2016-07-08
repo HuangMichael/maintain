@@ -52,13 +52,13 @@
         Highcharts.setOptions({
             colors: ['#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4']
         });
-        var url = "/station/findStationByLine/4";
-        var stations = [];
+        var url = "/line/findByStatus";
+        var lines = [];
         $.ajaxSettings.async = false;
         $.getJSON(url, function (data) {
             for (var x in data) {
                 if (data[x]['description'] && x < 7) {
-                    stations[x] = data[x]['description'];
+                    lines[x] = data[x]['description'];
                 }
             }
         });
@@ -67,13 +67,13 @@
                 type: 'column'
             },
             title: {
-                text: '设备维修统计分析'
+                text: '报修单按线别统计'
             },
             subtitle: {
-                text: '虚拟数据'
+                text: '2016年6月'
             },
             xAxis: {
-                categories: stations,
+                categories: lines,
                 crosshair: true
             },
             yAxis: {
@@ -98,23 +98,19 @@
             },
             series: [{
                 name: '已报修',
-                data: [1356, 1485, 2164, 1941, 956, 544]
+                data: [1356, 1485, 2164, 1941]
 
             }, {
                 name: '维修中',
-                data: [836, 1043, 912, 835, 1066, 923]
+                data: [836, 1043, 912, 835]
 
             }, {
                 name: '已完工',
-                data: [483, 590, 596, 524, 652, 593]
+                data: [483, 590, 596, 524]
 
             }, {
                 name: '已挂起',
-                data: [424, 332, 345, 397, 391, 468]
-
-            }, {
-                name: '评价',
-                data: [590, 596, 524, 652, 593, 512]
+                data: [424, 332, 345, 397]
 
             }
             ]
@@ -125,10 +121,10 @@
                 type: 'pie'
             },
             title: {
-                text: '设备维修统计'
+                text: '报修单按报修前5设备种类统计'
             },
             subtitle: {
-                text: '虚拟数据'
+                text: '2016年6月'
             },
             plotOptions: {
                 series: {
@@ -145,109 +141,38 @@
 
             tooltip: {
                 headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b>'
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b>'
             },
             series: [{
-                name: '完工率',
+                name: '报修数量',
                 colorByPoint: true,
                 data: [{
-                    name: '西直门',
-                    y: 56.33,
-                    drilldown: '西直门'
+                    name: '灯箱',
+                    y: 56
                 }, {
-                    name: '大钟寺',
-                    y: 24.03,
-                    drilldown: '大钟寺'
+                    name: '闸机',
+                    y: 44,
+                    drilldown: '闸机'
                 }, {
-                    name: '知春路',
-                    y: 10.38,
-                    drilldown: '知春路'
+                    name: '屏蔽门',
+                    y: 29,
+                    drilldown: '屏蔽门'
                 }, {
-                    name: '上地',
-                    y: 4.77,
-                    drilldown: '上地'
+                    name: '点钞机',
+                    y: 24,
+                    drilldown: '点钞机'
                 }, {
-                    name: '西二旗',
-                    y: 0.91,
-                    drilldown: '西二旗'
+                    name: '电脑',
+                    y: 19,
+                    drilldown: '电脑'
                 }]
-            }],
-            drilldown: {
-                series: [{
-                    name: '西直门',
-                    id: '西直门',
-                    data: [
-                        ['v11.0', 24.13],
-                        ['v8.0', 17.2],
-                        ['v9.0', 8.11],
-                        ['v10.0', 5.33],
-                        ['v6.0', 1.06],
-                        ['v7.0', 0.5]
-                    ]
-                }, {
-                    name: '大钟寺',
-                    id: '大钟寺',
-                    data: [
-                        ['v40.0', 5],
-                        ['v41.0', 4.32],
-                        ['v42.0', 3.68],
-                        ['v39.0', 2.96],
-                        ['v36.0', 2.53],
-                        ['v43.0', 1.45],
-                        ['v31.0', 1.24],
-                        ['v35.0', 0.85],
-                        ['v38.0', 0.6],
-                        ['v32.0', 0.55],
-                        ['v37.0', 0.38],
-                        ['v33.0', 0.19],
-                        ['v34.0', 0.14],
-                        ['v30.0', 0.14]
-                    ]
-                }, {
-                    name: '知春路',
-                    id: '知春路',
-                    data: [
-                        ['v35', 2.76],
-                        ['v36', 2.32],
-                        ['v37', 2.31],
-                        ['v34', 1.27],
-                        ['v38', 1.02],
-                        ['v31', 0.33],
-                        ['v33', 0.22],
-                        ['v32', 0.15]
-                    ]
-                }, {
-                    name: '上地',
-                    id: '上地',
-                    data: [
-                        ['v8.0', 2.56],
-                        ['v7.1', 0.77],
-                        ['v5.1', 0.42],
-                        ['v5.0', 0.3],
-                        ['v6.1', 0.29],
-                        ['v7.0', 0.26],
-                        ['v6.2', 0.17]
-                    ]
-                }, {
-                    name: '西二旗',
-                    id: '西二旗',
-                    data: [
-                        ['v12.x', 0.34],
-                        ['v28', 0.24],
-                        ['v27', 0.17],
-                        ['v29', 0.16]
-                    ]
-                }]
-            }
+            }]
         });
 
 
         var workOrderStatus = [
-            {'name': '0', description: '已报修'},
-            {'name': '1', description: '维修中'},
-            {'name': '2', description: '已完工'},
-            {'name': '3', description: '已挂起'},
-            {'name': '4', description: '已评价'}
+            {'name': '0', description: '报修数量'},
+            {'name': '1', description: '完工数量'}
         ];
         var seriesOptions = [];
         var option;
@@ -255,7 +180,7 @@
             if (workOrderStatus[x].description) {
                 option = {
                     "name": workOrderStatus[x].description,
-                    "data": [Math.floor(Math.random() * 100), Math.floor(Math.random() * 100), Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)]
+                    "data": [Math.floor(Math.random() * 100), Math.floor(Math.random() * 100),Math.floor(Math.random() * 100)]
                 }
                 seriesOptions.push(option);
             }
@@ -271,10 +196,10 @@
                 enabled: false
             },
             title: {
-                text: '设备维修统计分析'
+                text: '最近3个月报修完成率统计'
             },
             subtitle: {
-                text: '虚拟数据'
+                text: '5,6,7 月'
             },
             plotOptions: {
                 column: {
@@ -282,7 +207,7 @@
                 }
             },
             xAxis: {
-                categories: loadStations()
+                categories:['5月','6月','7月']
             },
             yAxis: {
                 title: {
@@ -295,18 +220,20 @@
         });
 
 
-        function loadStations() {
+
+
+
+
+       /* function loadLines() {
             var lines = [];
             var url = "/line/findByStatus";
             $.getJSON(url, function (data) {
                 for (var x in data) {
                     lines.push(data[x]["description"]);
-
-
                 }
             });
             return lines;
-        }
+        }*/
     });
 </script>
 </body>

@@ -3,13 +3,13 @@
 <table class="table table-striped table-bordered table-hover" id="unitsTable">
     <thead>
     <tr>
-        <td><input type="checkbox" value="" name="unit"></td>
-        <th width="5%" data-column-id="index">序号</th>
-        <th>单位编号</th>
-        <th>单位名称</th>
-        <th>联系人</th>
-        <th>电话</th>
-        <th width="5%">状态</th>
+        <th><input type="checkbox" value="" name="unit"></th>
+        <th width="10%" data-column-id="index">序号</th>
+        <th width="10%">单位编号</th>
+        <th width="20%">单位名称</th>
+        <th width="20%">联系人</th>
+        <th width="20%">电话</th>
+        <th width="10%">状态</th>
     </tr>
     </thead>
     <tbody>

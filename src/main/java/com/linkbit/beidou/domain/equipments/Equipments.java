@@ -77,10 +77,6 @@ public class Equipments {
     List<EquipmentsSpecDetail> equipmentsSpecDetailList = new ArrayList<EquipmentsSpecDetail>(); //设备技术参数
 
 
-/*    @ManyToOne(optional = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "maintain_unit_id", referencedColumnName = "id")
-    private OutsourcingUnit unit; //维修单位id*/
-
     @Column(length = 1, columnDefinition = "default 1")
     private String status; //默认为正常  0不正常 1正常  2报修   3报废
 

@@ -11,17 +11,12 @@ var allSize = 0;
 var vdm = null; //明细页面的模型
 var vm = null; //明细页面的模型
 var hm = null;
-
-var readColumns = ["eqCode"];
-
 var formLocked = true;
 
 //数据列表
 var listTab = $('#myTab li:eq(0) a');
-;
 //数据列表
 var formTab = $('#myTab li:eq(1) a');
-;
 //维修历史列表
 var historyTab = $('#myTab li:eq(2) a');
 var pointer = 0;
@@ -37,7 +32,6 @@ $(function () {
     $.getJSON(url, function (data) {
         eqClasses = data;
     });
-
 
     var url = "/commonData/getEqStatus";
     $.getJSON(url, function (data) {
@@ -98,9 +92,6 @@ $(function () {
         }
     });
 
-    //setReadonly(vdm.el);
-
-
     hm = new Vue({
         el: "#historyInfo",
         data: {
@@ -118,14 +109,10 @@ $(function () {
     formTab.on('click', function () {
         setFormReadStatus("#detailForm", formLocked);
         //首先判断是否有选中的
-
-
-        console.log("selectedIds-------------" + selectedIds);
         var eq = null;
         if (selectedIds.length > 0) {
             //切换tab时默认给detail中第一个数据
             eq = findEquipmentByIdInEqs(selectedIds[0]);
-            console.log("search in db -------------" + selectedIds);
             if (!eq) {
                 eq = getEquipmentByIdInEqs(selectedIds);
             }
@@ -134,7 +121,6 @@ $(function () {
             eq = eqs[0];
             //所有的都在选中列表中
             selectedIds = setAllInSelectedList(eqs);
-            console.log("search in local -------------" + selectedIds);
         }
         vdm.$set("equipments", eq);
 
@@ -220,11 +206,8 @@ $(function () {
         }).on('success.form.bv', function (e) {
         // Prevent form submission
         e.preventDefault();
-
         saveEquipment();
     });
-
-
     $('#createForm')
         .bootstrapValidator({
             message: '该值无效 ',
@@ -789,9 +772,6 @@ function setFormReadStatus(formId, formLocked) {
         $(formId + " select").attr("disabled", "disabled").removeAttr("disabled");
         $(formId + " #status").attr("disabled", "disabled");
     }
-    /*for (var x in readColumns) {
-     $("#" + readColumns[x]).attr("readonly", "readonly");
-     }*/
 }
 
 
@@ -810,7 +790,6 @@ function abandonEq() {
         if (data) {
             $("#status").removeAttr("disabled");
             $("#status").val(data);
-            console.log("data--------------" + data);
             $("#status").attr("disabled");
             showMessageBoxCenter("info", "center", "设备状态已更新为报废!");
         }

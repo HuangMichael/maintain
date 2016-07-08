@@ -15,7 +15,7 @@
                             <h4 class="appTitle"><i class="fa fa-sitemap"></i>设备信息</h4>
                         </div>
 
-                        <div class="box-body" style="padding: 5px 20px 0px 20px">
+                        <div class="box-body" style="padding: 5px 20px 5px 5px">
                             <!-- Split button -->
                             <div class="btn-group">
 
@@ -57,37 +57,33 @@
                                 </div>
                             </div>
                         </div>
-                        <%--  <a type="button" class="btn  btn-default btn-xs " id="createBtn"
-                             onclick="loadCreateForm()"><i class="glyphicon glyphicon-plus">新建记录</i></a>--%>
                         <div class="box-body">
-                            <div class="box-body">
-                                <div class="tabbable">
-                                    <ul class="nav nav-tabs" id="myTab">
-                                        <li class="active"><a href="#tab_1_0" data-toggle="tab"
-                                                              style="font-family: 微软雅黑;font-weight: bold">
-                                            <i class="fa fa-home" id="eq"></i>设备信息</a>
-                                        </li>
+                            <div class="tabbable">
+                                <ul class="nav nav-tabs" id="myTab">
+                                    <li class="active"><a href="#tab_1_0" data-toggle="tab"
+                                                          style="font-family: 微软雅黑;font-weight: bold">
+                                        <i class="fa fa-home" id="eq"></i>设备信息</a>
+                                    </li>
 
-                                        <li><a href="#tab_1_1" data-toggle="tab"
-                                               style="font-family: 微软雅黑;font-weight: bold">
-                                            <i class="fa fa-flag" id="eqDetail"></i>设备详细信息</a>
-                                        </li>
-                                        <li><a href="#tab_1_3" data-toggle="tab"
-                                               style="font-family: 微软雅黑;font-weight: bold"><i class="fa fa-lock"
-                                                                                              id="history"></i>报修历史信息</a>
-                                        </li>
-                                    </ul>
-                                    <div class="tab-content">
-                                        <div class="tab-pane fade in active" id="tab_1_0"
-                                             style="color: #111;background-color: #fff;border-color: #d26911 #e5e5e5 ">
-                                            <%@include file="table_1_0.jsp" %>
-                                        </div>
-                                        <div class="tab-pane fade" id="tab_1_1">
-                                            <%@include file="table_1_1.jsp" %>
-                                        </div>
-                                        <div class="tab-pane fade" id="tab_1_3">
-                                            <%@include file="table_1_3.jsp" %>
-                                        </div>
+                                    <li><a href="#tab_1_1" data-toggle="tab"
+                                           style="font-family: 微软雅黑;font-weight: bold">
+                                        <i class="fa fa-flag" id="eqDetail"></i>设备详细信息</a>
+                                    </li>
+                                    <li><a href="#tab_1_3" data-toggle="tab"
+                                           style="font-family: 微软雅黑;font-weight: bold"><i class="fa fa-lock"
+                                                                                          id="history"></i>报修历史信息</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active" id="tab_1_0"
+                                         style="color: #111;background-color: #fff;border-color: #d26911 #e5e5e5 ">
+                                        <%@include file="table_1_0.jsp" %>
+                                    </div>
+                                    <div class="tab-pane fade" id="tab_1_1">
+                                        <%@include file="table_1_1.jsp" %>
+                                    </div>
+                                    <div class="tab-pane fade" id="tab_1_3">
+                                        <%@include file="table_1_3.jsp" %>
                                     </div>
                                 </div>
                             </div>

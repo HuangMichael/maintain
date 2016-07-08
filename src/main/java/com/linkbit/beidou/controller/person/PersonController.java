@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -46,6 +44,15 @@ public class PersonController {
         return personList;
     }
 
+    /**
+     * 根据ID查询人员信息
+     */
+    @RequestMapping(value = "/findById/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Person findById(@PathVariable("id") Long id) {
+        return personRepository.findById(id);
+    }
+
 
     /**
      * 查询根节点
@@ -69,10 +76,10 @@ public class PersonController {
         person.setTelephone(telephone);
         person.setEmail(email);
 
-        try{
+        try {
 
             person.setBirthDate(new SimpleDateFormat("yyyy-MM-dd").parse(birthDate));
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

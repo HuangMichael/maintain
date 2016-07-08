@@ -78,7 +78,7 @@ public class PersonController {
 
         person.setStatus(status);
         person.setSortNo(sortNo);
-        person.setDepartment(departmentRepository.findById(departmentId));
+        //person.setDepartment(departmentRepository.findById(departmentId));
         person = personRepository.save(person);
         return person;
     }

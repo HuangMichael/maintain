@@ -137,9 +137,9 @@ public class DepartmentController {
     }
 
 
-    /**
+   /* *//**
      * 部门选择人员信息
-     */
+     *//*
     @RequestMapping(value = "/selectUsers", method = RequestMethod.GET)
     @ResponseBody
     public Boolean selectUsers(@RequestParam("personId") long personId, @RequestParam("departmentId") Long departmentId) {
@@ -147,5 +147,5 @@ public class DepartmentController {
         person.setDepartment(departmentRepository.findById(departmentId));
         personRepository.save(person);
         return true;
-    }
+    }*/
 }

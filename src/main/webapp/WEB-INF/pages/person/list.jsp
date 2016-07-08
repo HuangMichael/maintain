@@ -1,21 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!-- SAMPLE BOX CONFIGURATION MODAL FORM-->
-<div class="modal fade" id="createPerson_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">新建人员</h4>
-            </div>
-            <div class="modal-body">
-                <%@include file="form.jsp" %>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- /SAMPLE BOX CONFIGURATION MODAL FORM-->
 <div class="container">
     <div class="row">
         <div id="content" class="col-lg-12">
@@ -27,66 +11,64 @@
                     <div class="box border blue">
                         <div class="box-title">
                             <h4><i class="fa fa-table"></i>人员信息</h4>
+                        </div>
+                        <div class="box-body" style="padding: 5px 20px 5px 5px">
+                            <!-- Split button -->
+                            <div class="btn-group">
 
-                            <div class="tools hidden-xs">
-                                <a href="#box-config" data-toggle="modal" class="config">
-                                    <i class="fa fa-cog"></i>
-                                </a>
-                                <a href="javascript:" class="reload">
-                                    <i class="fa fa-refresh"></i>
-                                </a>
-                                <a href="javascript:" class="collapse">
-                                    <i class="fa fa-chevron-up"></i>
-                                </a>
-                                <a href="javascript:" class="remove">
-                                    <i class="fa fa-times"></i>
-                                </a>
+                                <button type="button" class="btn btn-sm myNavBtn active"
+                                        onclick="addNew()">
+                                    <i class="glyphicon glyphicon-plus"></i>新建记录
+                                </button>
+                                <button type="button" class="btn btn-sm myNavBtn active" onclick="editEq()">
+                                    <i class="glyphicon glyphicon-edit"></i>编辑记录
+                                </button>
+
+                                <button type="button" class="btn btn-sm myNavBtn active" onclick="saveEq()">
+                                    <i class="glyphicon glyphicon-save"></i>保存记录
+                                </button>
+
+                                <button type="button" class="btn btn-sm myNavBtn active" onclick="deleteEq()">
+                                    <i class="glyphicon glyphicon-remove"></i>删除记录
+                                </button>
+
+                                <button type="button" class="btn btn-sm myNavBtn active"
+                                        onclick="backwards()"><i
+                                        class="glyphicon glyphicon-glyphicon glyphicon-backward"></i>上一条
+                                </button>
+                                <button type="button" class="btn btn-sm myNavBtn active"
+                                        onclick="forwards()"><i
+                                        class="glyphicon glyphicon-glyphicon glyphicon-forward"></i>下一条
+                                </button>
                             </div>
                         </div>
                         <div class="box-body">
-                            <a class="btn btn-default btn-mini navbar-btn">信息列表
-                            </a>
-                            <a class="btn btn-default btn-mini navbar-btn" href="#createPerson_modal"
-                               data-toggle="modal"
-                               class="config">
-                                新建记录
-                            </a>
-                            <a class="btn btn-default btn-mini navbar-btn" id="saveBtn"
-                               class="config">
-                                保存记录
-                            </a>
-                            <table id="datatable1" cellpadding="0" cellspacing="0" border="0"
-                                   class=" table table-striped table-bordered table-hover">
-                                <thead>
-                                <tr>
-                                    <th data-column-id="id">序号</th>
-                                    <th data-column-id="personNo">人员工号</th>
-                                    <th data-column-id="personName">姓名</th>
-                                    <th data-column-id="description">部门</th>
-                                    <th data-column-id="telephone">电话</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach items="${personList}" var="person" varStatus="s">
-                                    <tr class="gradeX">
-                                        <td>${s.index+1}</td>
-                                        <td class="center">
-                                                ${person.personNo}
-                                        </td>
-                                        <td class="center">
-                                                ${person.personName}
-                                        </td>
-                                        <td class="center">${person.department.description}</td>
-                                        <td class="center">${person.telephone}</td>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                                <tfoot>
-                                </tfoot>
-                            </table>
+                            <div class="tabbable">
+                                <ul class="nav nav-tabs" id="myTab">
+                                    <li class="active"><a href="#tab_1_0" data-toggle="tab"
+                                                          style="font-family: 微软雅黑;font-weight: bold">
+                                        <i class="fa fa-home" id="eq"></i>人员信息</a>
+                                    </li>
+                                    <li><a href="#tab_1_1" data-toggle="tab"
+                                           style="font-family: 微软雅黑;font-weight: bold">
+                                        <i class="fa fa-flag" id="eqDetail"></i>人员详细信息</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active" id="tab_1_0"
+                                         style="color: #111;background-color: #fff;border-color: #d26911 #e5e5e5 ">
+                                        <%@include file="personList.jsp" %>
+                                    </div>
+                                    <div class="tab-pane fade" id="tab_1_1">
+                                        <%@include file="form.jsp" %>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!-- /BOX -->
+
+
                 </div>
             </div>
             <%@include file="../common/common-back2top.jsp" %>
@@ -97,46 +79,16 @@
 
 <%@include file="../common/common-foot.jsp" %>
 <script>
-    jQuery(document).ready(function () {
-        /*App.setPage("workOrder");
-        App.init();*/
-        $("#datatable1").bootgrid();
-        //当点击时  异步加载部门信息
-        $.ajaxSettings.async = false;
-        $.getJSON("/department/findAll", function (data) {
-            if (data) {
-                for (var x in data) {
-                    $("#departmentId").append("<option value='" + data[x].id + "'>" + data[x].description + "</option>");
-                }
-            }
-        });
-        $("#saveBtn").on("click", function () {
-            var person = $("#form").serialize();
-            var departmentId = $("#departmentId").find("option:selected").val();
-            person += "&departmentId=" + departmentId;
-            var url = "/person/save";
-            $.ajax({
-                type: "post",
-                url: url,
-                data: person,
-                dataType: "json",
-                success: function (data) {
-                    $.bootstrapGrowl("人员信息添加成功！", {
-                        type: 'info',
-                        align: 'right',
-                        stackup_spacing: 30
-                    });
-                }, error: function (data) {
-                    $.bootstrapGrowl("人员信息添加失败！", {
-                        type: 'danger',
-                        align: 'right',
-                        stackup_spacing: 30
-                    });
-                }
-            });
-        });
 
-
+    var dataTableName = "#personListTable";
+    var selectedIds = [];
+    $(function () {
+        $(dataTableName).bootgrid({
+            selection: true,
+            multiSelect: true,
+            rowSelect: true,
+            keepSelection: true
+        });
     });
 </script>
 

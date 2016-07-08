@@ -3,13 +3,14 @@ package com.linkbit.beidou.controller.portal;
 
 import com.linkbit.beidou.dao.workOrder.WorkOrderRepository;
 import com.linkbit.beidou.domain.workOrder.WorkOrder;
+import com.linkbit.beidou.domain.workOrder.WorkOrderReport;
+import com.linkbit.beidou.service.workOrder.WorkOrderReportCartService;
 import com.linkbit.beidou.service.workOrder.WorkOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,10 @@ public class PortalController {
     WorkOrderService workOrderService;
     @Autowired
     WorkOrderRepository workOrderRepository;
+
+
+    @Autowired
+    WorkOrderReportCartService workOrderReportCartService;
 
     List<WorkOrder> workOrderList0 = new ArrayList<WorkOrder>();
     List<WorkOrder> workOrderList2 = new ArrayList<WorkOrder>();
@@ -49,5 +54,13 @@ public class PortalController {
         modelMap.put("workOrderList2", workOrderList2);
         return "/portal/list";
     }
+
+
+    @RequestMapping(value = "/findTopEqClass/{n}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Object> findTopNReportCartByEqClass(@PathVariable("n") Long n) {
+        return workOrderReportCartService.findTopNReportCartByEqClass(n);
+    }
+
 }
 

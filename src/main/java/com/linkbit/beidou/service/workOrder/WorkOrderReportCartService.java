@@ -137,7 +137,7 @@ public class WorkOrderReportCartService extends BaseService {
      * @return 设备按照设备equipmentId查询是否有未完成的维修任务
      */
     public List<Object> checkLocsBeforeAdd2Cart(String locations) {
-        List<Object> workOrderReportCartList = workOrderReportCartRepository.findReportedLocations(locations+"%", CommonStatusType.FIX_ACCOMPLISHED);
+        List<Object> workOrderReportCartList = workOrderReportCartRepository.findReportedLocations(locations + "%", CommonStatusType.FIX_ACCOMPLISHED);
         return workOrderReportCartList;
 
 
@@ -224,6 +224,14 @@ public class WorkOrderReportCartService extends BaseService {
         }
         return workOrderReportCart;
 
+    }
+
+
+    /**
+     * @return 查询当月报修的设备分类的前5
+     */
+    public List<Object> findTopNReportCartByEqClass(Long n) {
+        return workOrderReportCartRepository.findTopNReportCartByEqClass(n);
     }
 }
 

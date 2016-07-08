@@ -107,4 +107,8 @@ public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderR
     List<WorkOrderReportCart> findByLocationStartingWithAndStatus(String location, String status);
 
 
+    @Query(nativeQuery = true,value = "select v.eqclass as name,v.ccount as y from v_top5_reportcart_eqclass v limit :n")
+    List<Object> findTopNReportCartByEqClass(@Param("n") Long n);
+
+
 }

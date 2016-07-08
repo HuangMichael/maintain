@@ -28,8 +28,6 @@ public class EquipmentsClassification {
     @Column(length = 20)
     private String classId;
     @Column(length = 20)
-    private String classType;
-    @Column(length = 20)
     private String description;
     @Column(length = 1)
     private String hasChild;
@@ -50,8 +48,6 @@ public class EquipmentsClassification {
     private Long level;
     @Column(length = 20)
     private Long sortNo;
-    @Column(length = 1)
-    private String status;
     @JsonBackReference("unitSet")
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     @JoinTable(name = "t_unit_class",  joinColumns = {

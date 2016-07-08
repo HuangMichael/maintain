@@ -46,7 +46,6 @@ public class EquipmentsClassificationService extends BaseService {
         EquipmentsClassification parent = equipmentsClassificationRepository.findById(parentId);
         EquipmentsClassification newObj = new EquipmentsClassification();
         newObj.setClassId(this.getCodeByParent(parent));
-        newObj.setClassType(parent.getClassType());
         newObj.setParent(parent);
         return newObj;
 
@@ -57,7 +56,7 @@ public class EquipmentsClassificationService extends BaseService {
      * 新建设备分类
      */
     public List<EquipmentsClassification> findAll() {
-        List<EquipmentsClassification> equipmentsClassificationList = equipmentsClassificationRepository.findByStatus("1");
+        List<EquipmentsClassification> equipmentsClassificationList = equipmentsClassificationRepository.findAll();
         return equipmentsClassificationList;
     }
 

@@ -95,7 +95,7 @@ public class EquipmentsClassificationController {
     public String create(@PathVariable("id") Long id, ModelMap modelMap) {
         EquipmentsClassification newObj = equipmentsClassificationService.create(id);
         modelMap.put("equipmentsClassification", newObj);
-        List<EquipmentsClassification> equipmentsClassificationList = equipmentsClassificationService.getEquipmentsClassificationRepository().findByStatus("1");
+        List<EquipmentsClassification> equipmentsClassificationList = equipmentsClassificationService.findAll();
         modelMap.put("equipmentsClassificationList", equipmentsClassificationList);
         return "/equipmentsClassification/create";
     }
@@ -116,13 +116,10 @@ public class EquipmentsClassificationController {
             newObj = new EquipmentsClassification();
             newObj.setClassId(classId);
             newObj.setDescription(description);
-            newObj.setStatus("1");
-            newObj.setClassType(classType);
             newObj.setParent(equipmentsClassificationService.findById(parentId));
         } else {
             newObj = equipmentsClassificationService.findById(lid);
             newObj.setDescription(description);
-            newObj.setClassType(classType);
             newObj.setParent(equipmentsClassificationService.findById(parentId));
         }
         newObj = equipmentsClassificationService.save(newObj);

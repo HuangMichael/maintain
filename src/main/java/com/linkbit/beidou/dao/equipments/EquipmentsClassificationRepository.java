@@ -17,12 +17,6 @@ public interface EquipmentsClassificationRepository extends CrudRepository<Equip
      * 查询所有设备类别
      */
     List<EquipmentsClassification> findAll();
-
-    /**
-     * 根据状态查询设备类别
-     */
-    List<EquipmentsClassification> findByStatus(String status);
-
     /**
      * 根据id查询
      */
@@ -33,7 +27,7 @@ public interface EquipmentsClassificationRepository extends CrudRepository<Equip
      * 查询一级节点集合
      */
     @OrderBy("sortNo asc")
-    List<EquipmentsClassification> findByParentAndStatus(EquipmentsClassification equipmentsClassification, String status);
+    List<EquipmentsClassification> findByParent(EquipmentsClassification equipmentsClassification);
 
 
     /**
@@ -60,10 +54,6 @@ public interface EquipmentsClassificationRepository extends CrudRepository<Equip
     /**
      * 查询设备分类对应的维修单位
      */
-
-
-
-
 
 
 }

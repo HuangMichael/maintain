@@ -86,7 +86,7 @@ public class CommonDataService extends BaseService {
             log.info(this.getClass().getCanonicalName() + "------------从缓存中查询设备种类");
 
         } else {
-            equipmentsClassificationList = equipmentsClassificationRepository.findByStatus("1");
+            equipmentsClassificationList = equipmentsClassificationRepository.findAll();
             log.info(this.getClass().getCanonicalName() + "------------从数据库中查询设备种类");
             httpSession.setAttribute("equipmentsClassificationList", equipmentsClassificationList);
             log.info(this.getClass().getCanonicalName() + "------------设备种类放入缓存");

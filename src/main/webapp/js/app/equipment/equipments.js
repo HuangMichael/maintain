@@ -148,7 +148,7 @@ $(function () {
 function addNew() {
     setFormReadStatus("#detailForm", false);
 
-    $('#createForm')
+    $('#detailForm')
         .bootstrapValidator({
             message: '该值无效 ',
             fields: {
@@ -216,7 +216,7 @@ function addNew() {
         // Prevent form submission
         e.preventDefault();
         // Get the form instance
-        createEquipment();
+        saveEquipment();
     });
 
 
@@ -769,8 +769,6 @@ function deleteEq() {
  * @param formId 设置form为只读
  */
 function setFormReadStatus(formId, formLocked) {
-
-
     if (formLocked) {
         $(formId + " input").attr("readonly", "readonly");
         $(formId + " select").attr("disabled", "disabled");

@@ -41,12 +41,7 @@ public class LocationsService extends BaseService {
      * @return
      */
     public Locations save(Locations locations) {
-
-        Long id = locations.getId();
-        Locations old = locationsRepository.findById(id);
-        locations.setParent(old.getParent());
-        Locations newLocation = locationsRepository.save(locations);
-        return newLocation;
+        return locationsRepository.save(locations);
     }
 
     public List<Locations> findAll() {

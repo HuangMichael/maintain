@@ -62,7 +62,6 @@ public class WorkOrderReportCartService extends BaseService {
         workOrderReportCart.setReportType(CommonStatusType.REPORT_BY_EQ);  //报修类型为设备报修
         workOrderReportCart.setStatus(CommonStatusType.CART_CREATED);
         workOrderReportCart = workOrderReportCartRepository.save(workOrderReportCart);
-
         equipments.setStatus(CommonStatusType.EQ_ABNORMAL); //将设备状态修改为不正常
         equipmentAccountService.save(equipments);
         return workOrderReportCart;

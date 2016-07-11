@@ -138,76 +138,7 @@ $(function () {
 
     $('select').select2({theme: "bootstrap"});
     // 表单ajax提交
-    $('#detailForm')
-        .bootstrapValidator({
-            message: '该值无效 ',
-            fields: {
-                eqCode: {
-                    message: '设备编号无效',
-                    validators: {
-                        notEmpty: {
-                            message: '设备编号不能为空!'
-                        },
-                        stringLength: {
-                            min: 6,
-                            max: 20,
-                            message: '设备编号长度为6到20个字符'
-                        }
-                    }
-                },
-                description: {
-                    message: '设备描述无效',
-                    validators: {
-                        notEmpty: {
-                            message: '设备描述不能为空!'
-                        },
-                        stringLength: {
-                            min: 2,
-                            max: 20,
-                            message: '设备描述长度为2到20个字符'
-                        }
-                    }
-                },
-                "locations.id": {
-                    message: '设备位置无效',
-                    validators: {
-                        notEmpty: {
-                            message: '设备位置不能为空!'
-                        }
-                    }
-                },
-                "equipmentsClassification.id": {
-                    message: '设备分类无效',
-                    validators: {
-                        notEmpty: {
-                            message: '设备分类不能为空!'
-                        }
-                    }
-                }
-                ,
-                "status": {
-                    message: '设备状态无效',
-                    validators: {
-                        notEmpty: {
-                            message: '设备状态不能为空!'
-                        }
-                    }
-                }
-                ,
-                "running": {
-                    message: '运行状态无效',
-                    validators: {
-                        notEmpty: {
-                            message: '运行状态不能为空!'
-                        }
-                    }
-                }
-            }
-        }).on('success.form.bv', function (e) {
-        // Prevent form submission
-        e.preventDefault();
-        saveEquipment();
-    });
+
 
 
 
@@ -716,6 +647,78 @@ function forwards() {
  */
 function editEq() {
     setFormReadStatus("#detailForm", false);
+    $('#detailForm')
+        .bootstrapValidator({
+            message: '该值无效 ',
+            fields: {
+                eqCode: {
+                    message: '设备编号无效',
+                    validators: {
+                        notEmpty: {
+                            message: '设备编号不能为空!'
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 20,
+                            message: '设备编号长度为6到20个字符'
+                        }
+                    }
+                },
+                description: {
+                    message: '设备描述无效',
+                    validators: {
+                        notEmpty: {
+                            message: '设备描述不能为空!'
+                        },
+                        stringLength: {
+                            min: 2,
+                            max: 20,
+                            message: '设备描述长度为2到20个字符'
+                        }
+                    }
+                },
+                "locations.id": {
+                    message: '设备位置无效',
+                    validators: {
+                        notEmpty: {
+                            message: '设备位置不能为空!'
+                        }
+                    }
+                },
+                "equipmentsClassification.id": {
+                    message: '设备分类无效',
+                    validators: {
+                        notEmpty: {
+                            message: '设备分类不能为空!'
+                        }
+                    }
+                }
+                ,
+                "status": {
+                    message: '设备状态无效',
+                    validators: {
+                        notEmpty: {
+                            message: '设备状态不能为空!'
+                        }
+                    }
+                }
+                ,
+                "running": {
+                    message: '运行状态无效',
+                    validators: {
+                        notEmpty: {
+                            message: '运行状态不能为空!'
+                        }
+                    }
+                }
+            }
+        }).on('success.form.bv', function (e) {
+        // Prevent form submission
+        e.preventDefault();
+        saveEquipment();
+    });
+
+
     $("#eqCode").attr("readonly", "readonly");
     var eid = selectedIds[0];
     var eq = getEquipmentByIdInEqs(eid);

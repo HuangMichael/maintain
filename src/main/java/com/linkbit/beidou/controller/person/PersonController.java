@@ -55,21 +55,19 @@ public class PersonController {
 
 
     /**
-     * 查询根节点
+     * 保存人员信息
      */
-    @RequestMapping(value = "/save")
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
     public Person save(@RequestParam("personNo") String personNo,
                        @RequestParam("personName") String personName,
                        @RequestParam("telephone") String telephone,
                        @RequestParam("email") String email,
                        @RequestParam("birthDate") String birthDate,
-                       @RequestParam("sortNo") Long sortNo,
-                       @RequestParam("status") String status,
-                       @RequestParam("departmentId") Long departmentId
+                       @RequestParam("status") String status
 
     ) {
-
+        System.out.println("personNo---------------" + personNo);
         Person person = new Person();
         person.setPersonNo(personNo);
         person.setPersonName(personName);
@@ -77,17 +75,22 @@ public class PersonController {
         person.setEmail(email);
 
         try {
-
             person.setBirthDate(new SimpleDateFormat("yyyy-MM-dd").parse(birthDate));
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         person.setStatus(status);
-        person.setSortNo(sortNo);
-        //person.setDepartment(departmentRepository.findById(departmentId));
         person = personRepository.save(person);
         return person;
+    }
+
+
+    /**
+     * @return 载入新建人员表单
+     */
+    @RequestMapping(value = "/loadCreateForm", method = RequestMethod.GET)
+    public String loadCreateForm() {
+        return "/person/create";
     }
 
 }

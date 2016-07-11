@@ -208,6 +208,15 @@ $(function () {
         e.preventDefault();
         saveEquipment();
     });
+
+
+
+});
+
+
+function addNew() {
+    setFormReadStatus("#detailForm", false);
+
     $('#createForm')
         .bootstrapValidator({
             message: '该值无效 ',
@@ -280,11 +289,6 @@ $(function () {
     });
 
 
-});
-
-
-function addNew() {
-    setFormReadStatus("#detailForm", false);
     var status = [
         {value: 0, text: "停用", selected: "selected"},
         {value: 1, text: "投用"},

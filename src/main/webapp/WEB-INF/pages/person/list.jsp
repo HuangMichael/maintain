@@ -59,15 +59,13 @@
                                         <%@include file="personList.jsp" %>
                                     </div>
                                     <div class="tab-pane fade" id="tab_1_1" style="padding: 20px">
-                                        <%@include file="form.jsp" %>
+                                        <%@include file="create.jsp" %>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- /BOX -->
-
-
                 </div>
             </div>
             <%@include file="../common/common-back2top.jsp" %>

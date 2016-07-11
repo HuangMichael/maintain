@@ -7,6 +7,18 @@ var personList = [];
 var pointer = 0;
 var listModel = null;
 var personDetail = null;
+
+
+//数据列表
+var listTab = $('#myTab li:eq(0) a');
+//数据列表
+var formTab = $('#myTab li:eq(1) a');
+
+
+//新建数据模型
+var createModel = null;
+
+
 $(function () {
     //ajax 请求personList集合
     var url = "/person/findAll";
@@ -50,6 +62,8 @@ $(function () {
             selectedIds.remove(rows[x]["id"]);
         }
     });
+    $('select').select2({theme: "bootstrap"});
+
 
 });
 
@@ -91,4 +105,106 @@ function getPersonById(pid) {
         person = data;
     });
     return person;
+}
+
+
+/**
+ *  新增人员信息
+ */
+function addNew() {
+    //载入createFrom
+    $("#tab_1_1").load("/person/loadCreateForm");
+    //新建一个数据模型
+    createModel = new Vue({
+        el: "#createForm",
+        data: {
+            person: null
+        }
+    });
+    //数据验证
+    $('#createForm')
+        .bootstrapValidator({
+            message: '该值无效 ',
+            fields: {
+                personNo: {
+                    message: '人员编号无效',
+                    validators: {
+                        notEmpty: {
+                            message: '人员编号不能为空!'
+                        },
+                        stringLength: {
+                            min: 2,
+                            max: 10,
+                            message: '人员编号长度为2到10个字符'
+                        }
+                    }
+                },
+                personName: {
+                    message: '人员名称无效',
+                    validators: {
+                        notEmpty: {
+                            message: '人员名称不能为空!'
+                        },
+                        stringLength: {
+                            min: 2,
+                            max: 20,
+                            message: '人员名称长度为2到20个字符'
+                        }
+                    }
+                },
+                telephone: {
+                    validators: {
+                        notEmpty: {
+                            message: '电话号码不能为空'
+                        },
+                        digits: {
+                            message: '请输入正确的电话号码'
+                        },
+                        stringLength: {
+                            min: 11,
+                            max: 11,
+                            message: '电话号码长度有误'
+                        }
+                    }
+                },
+                email: {
+                    validators: {
+                        emailAddress: {
+                            message: '请输入正确的邮箱'
+                        }
+                    }
+                }
+            }
+        }).on('success.form.bv', function (e) {
+        // Prevent form submission
+        e.preventDefault();
+        // Get the form instance
+        createPerson();
+    });
+    formTab.tab('show');
+}
+
+
+/**
+ *  造人方法
+ */
+function createPerson() {
+    var person = createModel.$data.person;
+    var url = "/person/save";
+    $.post(url, {
+        personNo: person.personNo,
+        personName: person.personName,
+        telephone: person.telephone,
+        email: person.email,
+        birthDate: person.birthDate,
+        status: person.status
+    }, function () {
+
+    }).success(function (data) {
+        showMessageBoxCenter("info", "center", "人员信息添加成功!");
+    }).error(function (data) {
+        showMessageBoxCenter("danger", "center", "人员信息添加失败!");
+    });
+
+
 }

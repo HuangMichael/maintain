@@ -40,7 +40,7 @@
         <thead>
         <tr>
             <th>序号</th>
-            <th>报修行号</th>
+            <th>跟踪号</th>
             <th>报修描述</th>
             <th>报修时间</th>
             <th>状态</th>

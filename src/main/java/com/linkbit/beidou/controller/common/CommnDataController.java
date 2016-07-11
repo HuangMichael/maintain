@@ -2,6 +2,7 @@ package com.linkbit.beidou.controller.common;
 
 
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
+import com.linkbit.beidou.domain.equipments.VeqClass;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.object.ListObject;
@@ -71,6 +72,21 @@ public class CommnDataController extends BaseController {
             equipmentsClassificationList = commonDataService.findEquipmentsClassification(httpSession);
         }
         return equipmentsClassificationList;
+    }
+
+
+    /**
+     * @param httpSession 当前会话
+     * @return 查询分类视图信息
+     */
+    @RequestMapping(value = "/findVEqClass", method = RequestMethod.GET)
+    @ResponseBody
+    public List<VeqClass> findVeqClass(HttpSession httpSession) {
+        List<VeqClass> veqClassList = null;
+        if (httpSession != null) {
+            veqClassList = commonDataService.findVeqClass(httpSession);
+        }
+        return veqClassList;
     }
 
 

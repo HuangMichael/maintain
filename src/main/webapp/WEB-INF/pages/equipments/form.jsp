@@ -27,10 +27,10 @@
                         required style="width:100%" required>
                     <template v-for="option in locs">
                         <option :value="option.id" v-if="option.id == equipments.locations.id" selected>
-                            {{ option.line }}{{ option.station }}{{ option.locName }}
+                            {{ option.line + option.station + option.locName }}
                         </option>
                         <option :value="option.id" v-else>
-                            {{ option.line }}{{ option.station }}{{ option.locName }}
+                            {{ option.line + option.station + option.locName }}
                         </option>
                     </template>
                 </select>
@@ -45,10 +45,10 @@
                         style="width:100%;background-color:#ffffce" required>
                     <template v-for="option in eqClasses">
                         <option :value="option.id" v-if="option.id == equipments.equipmentsClassification.id" selected>
-                            {{ option.description }}
+                            {{ option.cpName +'/'+ option.cname }}
                         </option>
                         <option :value="option.id" v-else>
-                            {{ option.description }}
+                            {{ option.cpName +'/'+ option.cname }}
                         </option>
                     </template>
 
@@ -105,6 +105,7 @@
                 <input class="form-control" id="eqModel" type="text" name="eqModel" v-model="equipments.eqModel"/>
             </div>
             <label class="col-md-1 control-label" for="manageLevel">管理等级</label>
+
             <div class="col-md-3">
                 <select class="form-control" id="manageLevel" name="manageLevel" v-model="equipments.manageLevel"
                         style="width:100%">

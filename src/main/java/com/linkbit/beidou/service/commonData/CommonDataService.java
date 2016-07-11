@@ -1,9 +1,11 @@
 package com.linkbit.beidou.service.commonData;
 
 import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
+import com.linkbit.beidou.dao.equipments.VeqClassRepository;
 import com.linkbit.beidou.dao.locations.LocationsRepository;
 import com.linkbit.beidou.dao.locations.VlocationsRepository;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
+import com.linkbit.beidou.domain.equipments.VeqClass;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.object.ListObject;
@@ -13,9 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by huangbin on 2016/3/24.
@@ -28,6 +28,10 @@ public class CommonDataService extends BaseService {
 
     @Autowired
     VlocationsRepository vlocationsRepository;
+
+    @Autowired
+    VeqClassRepository veqClassRepository;
+
     @Autowired
     EquipmentsClassificationRepository equipmentsClassificationRepository;
 
@@ -92,6 +96,29 @@ public class CommonDataService extends BaseService {
             log.info(this.getClass().getCanonicalName() + "------------设备种类放入缓存");
         }
         return equipmentsClassificationList;
+
+
+    }
+
+
+    /**
+     * @param httpSession
+     * @return 查询设备种类信息
+     */
+    public List<VeqClass> findVeqClass(HttpSession httpSession) {
+        List<VeqClass> eqClassList = null;
+        Object object = httpSession.getAttribute("eqClassList");
+        if (object != null) {
+            eqClassList = (ArrayList<VeqClass>) object;
+            log.info(this.getClass().getCanonicalName() + "------------从缓存中查询设备种类视图");
+
+        } else {
+            eqClassList = veqClassRepository.findAll();
+            log.info(this.getClass().getCanonicalName() + "------------从数据库中查询设备种类视图");
+            httpSession.setAttribute("eqClassList", eqClassList);
+            log.info(this.getClass().getCanonicalName() + "------------设备种类视图放入缓存");
+        }
+        return eqClassList;
 
 
     }

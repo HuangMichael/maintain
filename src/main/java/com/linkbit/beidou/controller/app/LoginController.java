@@ -1,8 +1,10 @@
 package com.linkbit.beidou.controller.app;
 
 import com.linkbit.beidou.dao.app.org.OrgRepository;
+import com.linkbit.beidou.dao.equipments.VeqClassRepository;
 import com.linkbit.beidou.domain.app.org.Org;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
+import com.linkbit.beidou.domain.equipments.VeqClass;
 import com.linkbit.beidou.domain.line.Line;
 import com.linkbit.beidou.domain.line.Station;
 import com.linkbit.beidou.domain.locations.Locations;
@@ -54,6 +56,9 @@ public class LoginController {
     @Autowired
     EquipmentsClassificationService equipmentsClassificationService;
 
+    @Autowired
+    VeqClassRepository veqClassRepository;
+
 
     @RequestMapping("/")
     public String logout(HttpServletRequest request, ModelMap modelMap) {
@@ -85,13 +90,18 @@ public class LoginController {
             List<Line> lineList = lineService.findByStatus("1");
             List<Station> stationList = stationService.findByStatus("1");
             List<Vlocations> locationsList = locationsService.findByLocationStartingWithAndStatus(currentUser.getLocation());
-            List<EquipmentsClassification> equipmentsClassificationList = equipmentsClassificationService.findAll();
+            //List<EquipmentsClassification> equipmentsClassificationList = equipmentsClassificationService.findAll();
+            List<VeqClass> veqClassList = veqClassRepository.findAll();
+
+
+
+
             session.setAttribute("currentUser", currentUser);
             session.setAttribute("personName", currentUser.getPerson().getPersonName());
             Org org = orgRepository.findByStatus("1").get(0);
             session.setAttribute("org", org);
             session.setAttribute("locationsList", locationsList);
-            session.setAttribute("equipmentsClassificationList", equipmentsClassificationList);
+            session.setAttribute("veqClassList", veqClassList);
             session.setAttribute("lineList", lineList);
             session.setAttribute("stationList", stationList);
             return "redirect:/portal/index";

@@ -21,11 +21,11 @@
                 <label class="col-md-2 control-label" for="equipmentsClassification_id">设备分类</label>
                 <div class="col-md-10">
                     <select class="form-control" id="equipmentsClassification_id" name="equipmentsClassification.id"
-                            required v-model="equipments.equipmentsClassification.id"
+                             v-model="equipments.equipmentsClassification.id"
                             style="width:100%;background-color:#ffffce">
                         <template v-for="option in eqClasses">
                             <option :value="option.id">
-                                {{ option.description }}
+                                {{ option.cpName }}{{ option.cName }}
                             </option>
                         </template>
                     </select>

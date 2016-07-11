@@ -210,10 +210,9 @@ function reportByLocation() {
 function continueLocReport() {
 
 
-    var url = "/commonData/findEqClass";
+    var url = "/commonData/findVEqClass";
     $.getJSON(url, function (data) {
         eqClasses = data;
-        console.log("eqClasses-----------" + eqClasses.length);
         reportModel.$data.eqClasses = data;
     });
 

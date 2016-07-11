@@ -28,7 +28,7 @@ $(function () {
     $.getJSON(url_location, function (data) {
         locs = data;
     });
-    var url = "/commonData/findEqClass";
+    var url = "/commonData/findVEqClass";
     $.getJSON(url, function (data) {
         eqClasses = data;
     });

@@ -29,9 +29,7 @@ public class LocationsService extends BaseService {
      */
     public String getLocationsNo(Locations locations) {
         List<Locations> locationsList = locationsRepository.findByParent(locations.getId());
-        System.out.println("locationsList------------------------" + locationsList.size());
         String locationNo = String.format("%02d", locationsList.size() + 1);
-        System.out.println("locationsList------------------------" + locationNo);
         if (locations.getLocation() != null) {
             locationNo = locations.getLocation() + locationNo;
         }
@@ -43,7 +41,6 @@ public class LocationsService extends BaseService {
      * @return
      */
     public Locations save(Locations locations) {
-        locations.setStatus("1");
         Locations newLocation = locationsRepository.save(locations);
         return newLocation;
     }

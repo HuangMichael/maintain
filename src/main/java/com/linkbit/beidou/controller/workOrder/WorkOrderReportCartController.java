@@ -129,9 +129,9 @@ public class WorkOrderReportCartController {
      */
     @RequestMapping(value = "/add2LocCart", method = RequestMethod.POST)
     @ResponseBody
-    public WorkOrderReportCart add2LocCart(@RequestParam("locationId") Long locationId, @RequestParam("orderDesc") String orderDesc, @RequestParam("reporter") String reporter, HttpSession httpSession) {
+    public WorkOrderReportCart add2LocCart(@RequestParam("locationId") Long locationId, @RequestParam("orderDesc") String orderDesc, @RequestParam("reporter") String reporter, @RequestParam("eqClassId") Long eqClassId, HttpSession httpSession) {
         String creator = (String) httpSession.getAttribute("personName");
-        WorkOrderReportCart workOrderReportCart = workOrderReportCartService.add2LocCart(locationId, orderDesc, creator, reporter);
+        WorkOrderReportCart workOrderReportCart = workOrderReportCartService.add2LocCart(locationId, orderDesc, creator, reporter,eqClassId);
         return workOrderReportCart;
     }
 

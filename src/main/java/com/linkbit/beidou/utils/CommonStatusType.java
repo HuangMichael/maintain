@@ -48,7 +48,7 @@ public final class CommonStatusType {
 
 
     public static String LOC_NORMAL = "1";  //位置正常的
-    public static String LOC_ABNORMAL = "2";//设备不正常
+    public static String LOC_ABNORMAL = "2";//位置不正常
 
 
 }

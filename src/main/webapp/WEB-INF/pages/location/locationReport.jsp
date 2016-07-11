@@ -6,7 +6,7 @@
 
     String user = (String) session.getAttribute("personName");
 %>
-<form class="form-horizontal" role="form" id="form">
+<form class="form-horizontal" role="form" id="locReportForm">
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
@@ -16,6 +16,23 @@
                     <input type="text" class="form-control" id="rptLoc" name="rptLoc" readonly/>
                 </div>
             </div>
+
+            <div class="form-group">
+                <label class="col-md-2 control-label" for="equipmentsClassification_id">设备分类</label>
+                <div class="col-md-10">
+                    <select class="form-control" id="equipmentsClassification_id" name="equipmentsClassification.id"
+                            required v-model="equipments.equipmentsClassification.id"
+                            style="width:100%;background-color:#ffffce">
+                        <template v-for="option in eqClasses">
+                            <option :value="option.id">
+                                {{ option.description }}
+                            </option>
+                        </template>
+                    </select>
+                </div>
+            </div>
+
+
             <div class="form-group">
                 <label class="col-md-2 control-label" for="rptLoc">故障描述</label>
 

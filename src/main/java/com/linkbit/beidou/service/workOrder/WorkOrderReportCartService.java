@@ -1,5 +1,6 @@
 package com.linkbit.beidou.service.workOrder;
 
+import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
 import com.linkbit.beidou.dao.workOrder.WorkOrderReportCartRepository;
 import com.linkbit.beidou.domain.equipments.Equipments;
@@ -29,6 +30,9 @@ public class WorkOrderReportCartService extends BaseService {
 
     @Autowired
     EquipmentsRepository equipmentsRepository;
+
+    @Autowired
+    EquipmentsClassificationRepository equipmentsClassificationRepository;
 
 
     @Autowired
@@ -72,8 +76,8 @@ public class WorkOrderReportCartService extends BaseService {
      * @param reporter   报修人
      * @return 通过位置报修将设备报修信息加入报修车
      */
-
-    public WorkOrderReportCart add2LocCart(Long locationId, String orderDesc, String creator, String reporter) {
+    @Transactional
+    public WorkOrderReportCart add2LocCart(Long locationId, String orderDesc, String creator, String reporter,Long eqClassId) {
 
         WorkOrderReportCart workOrderReportCart = new WorkOrderReportCart();
         workOrderReportCart.setEquipments(null);
@@ -87,6 +91,7 @@ public class WorkOrderReportCartService extends BaseService {
         workOrderReportCart.setEquipmentsClassification(null);
         workOrderReportCart.setReporter(reporter);
         workOrderReportCart.setCreator(creator);
+        workOrderReportCart.setEquipmentsClassification(equipmentsClassificationRepository.findById(eqClassId));
         workOrderReportCart.setReportTime(new Date());
         workOrderReportCart.setOrderDesc(orderDesc);
         workOrderReportCart.setReportType(CommonStatusType.REPORT_BY_LOC); //根据位置报修

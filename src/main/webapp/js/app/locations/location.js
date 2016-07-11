@@ -1,5 +1,7 @@
 var zTree;
 var demoIframe;
+var reportModel = null;
+var eqClasses = [];
 var setting = {
     check: {enable: false},
     view: {dblClickExpand: false, showLine: true, selectedMulti: false},
@@ -49,6 +51,9 @@ $(document).ready(function () {
         }
         demoIframe.height(h)
     }
+
+
+    $('select').select2({theme: "bootstrap"});
 });
 var flag = false;
 function loadCreateForm() {
@@ -165,6 +170,28 @@ function reportByLocation() {
         showMessageBox("danger", "请先选中位置再进行报修操作!");
         return
     }
+
+
+    var url = "/commonData/findEqClass";
+    $.getJSON(url, function (data) {
+        eqClasses = data;
+        console.log("eqClasses-----------" + eqClasses.length);
+        reportModel.$data.eqClasses = data;
+    });
+
+
+    console.log("eqClasses-------------" + eqClasses.length);
+    //新建一个数据模型
+    //初始化请求设备分类
+    reportModel = new Vue({
+        el: "#locReportForm",
+        data: {
+            eqClasses: eqClasses
+
+        }
+    });
+
+    console.log("report status-----------" + status);
     if (status == "2") {
         var curl = "/workOrderReportCart/loadReportedLocPage/" + location;
         $("#locList").load(curl, function (data) {
@@ -177,10 +204,23 @@ function reportByLocation() {
         }
     }
 }
+/**
+ *  已经报修提示重复报修 选择继续
+ */
 function continueLocReport() {
+
+
+    var url = "/commonData/findEqClass";
+    $.getJSON(url, function (data) {
+        eqClasses = data;
+        console.log("eqClasses-----------" + eqClasses.length);
+        reportModel.$data.eqClasses = data;
+    });
+
+
     $("#show_loc_modal").modal("hide");
     $("#rptLoc").val(getSelectedNode().name);
-    $("#loc_modal").modal("show")
+    $("#loc_modal").modal("show");
 }
 function add2LocCart() {
     var nodeId = getSelectedNodeId();
@@ -188,6 +228,8 @@ function add2LocCart() {
     var orderDesc = $("#orderDesc").val();
     var reporter = $("#reporter").val();
     var creator = $("#creator").val();
+    var eqClassId = $("#equipmentsClassification_id").val();
+
     if (!orderDesc) {
         showMessageBox("danger", "位置报修描述不能为空!");
         $("#orderDesc").focus();
@@ -198,7 +240,9 @@ function add2LocCart() {
         $("#reporter").focus();
         return
     }
-    var obj = {locationId: nodeId, orderDesc: orderDesc, reporter: reporter, creator: creator};
+
+
+    var obj = {locationId: nodeId, orderDesc: orderDesc, reporter: reporter, creator: creator, eqClassId: eqClassId};
     $.post(url, obj, function (data) {
         $("#loc_modal").modal("hide");
         var size = $("#reportOrderSize").html();

@@ -2,6 +2,7 @@ package com.linkbit.beidou.domain.equipments;
 
 
 import com.linkbit.beidou.domain.locations.Locations;
+import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;

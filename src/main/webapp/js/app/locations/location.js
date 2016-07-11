@@ -170,17 +170,10 @@ function reportByLocation() {
         showMessageBox("danger", "请先选中位置再进行报修操作!");
         return
     }
-
-
-    var url = "/commonData/findEqClass";
+    var url = "/commonData/findVEqClass";
     $.getJSON(url, function (data) {
         eqClasses = data;
-        console.log("eqClasses-----------" + eqClasses.length);
-        reportModel.$data.eqClasses = data;
     });
-
-
-    console.log("eqClasses-------------" + eqClasses.length);
     //新建一个数据模型
     //初始化请求设备分类
     reportModel = new Vue({
@@ -208,15 +201,6 @@ function reportByLocation() {
  *  已经报修提示重复报修 选择继续
  */
 function continueLocReport() {
-
-
-    var url = "/commonData/findVEqClass";
-    $.getJSON(url, function (data) {
-        eqClasses = data;
-        reportModel.$data.eqClasses = data;
-    });
-
-
     $("#show_loc_modal").modal("hide");
     $("#rptLoc").val(getSelectedNode().name);
     $("#loc_modal").modal("show");

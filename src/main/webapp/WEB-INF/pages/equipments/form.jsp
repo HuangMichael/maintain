@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="equipmentsClassification_id" class="col-md-1 control-label">设备类型</label>
+            <label for="equipmentsClassification_id" class="col-md-1 control-label">设备分类</label>
 
             <div class="col-md-3">
                 <select class="form-control" id="equipmentsClassification_id" name="equipmentsClassification.id"

@@ -72,9 +72,7 @@ public class EquipmentAccountService extends BaseService {
      * @return
      */
     public Equipments save(Equipments equipments) {
-       // equipments.setStatus(CommonStatusType.EQ_NORMAL); //默认添加的设备都是正常的
         equipments = equipmentsRepository.save(equipments);
-        //updateLocation(equipments);
         return equipments;
     }
 

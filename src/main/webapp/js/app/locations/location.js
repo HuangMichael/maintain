@@ -253,9 +253,6 @@ function add2LocCart() {
  */
 function firstLoad(data) {
     if (data.length > 0) {
-
-
-        console.log("lid---"+data[0][0]);
         $("#lid").val(data[0][0]);
         $("#location").val(data[0][1]);
         $("#description").val(data[0][2]);

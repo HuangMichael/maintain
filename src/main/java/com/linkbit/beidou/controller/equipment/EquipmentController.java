@@ -130,14 +130,10 @@ public class EquipmentController extends BaseController {
             @RequestParam(value = "runDate", required = false) String runDate,
             @RequestParam(value = "expectedYear", required = false) String expectedYear
     ) {
-        Equipments equipments = id != null ? equipmentAccountService.findById(id) : new Equipments();
+        Equipments equipments = (id != null) ? equipmentAccountService.findById(id) : new Equipments();
 
         //首先判断是否存在
         try {
-
-       /*     if (id != null) {
-                equipments.setId(id);
-            }*/
             equipments.setEqCode(eqCode);
             equipments.setDescription(description);
             equipments.setManager(manager);
@@ -145,7 +141,6 @@ public class EquipmentController extends BaseController {
             equipments.setProductFactory(productFactory);
             equipments.setImgUrl(imgUrl);
             equipments.setOriginalValue(originalValue);
-
             equipments.setPurchasePrice(purchasePrice);
             equipments.setNetValue(netValue);
             equipments.setLocations(locationsService.findById(locations_id));
@@ -156,12 +151,12 @@ public class EquipmentController extends BaseController {
             equipments.setAssetNo(assetNo);
             equipments.setManageLevel(manageLevel);
             equipments.setRunning(running);
-            Date purchaseDated ;
-            Date warrantyPeriodDate ;
-            Date setupDateDate ;
-            Date productDateDate ;
-            Date runDateDate ;
-            Date expectedYearDate ;
+            Date purchaseDated;
+            Date warrantyPeriodDate;
+            Date setupDateDate;
+            Date productDateDate;
+            Date runDateDate;
+            Date expectedYearDate;
             if (purchaseDate != null) {
                 purchaseDated = DateUtils.convertStr2Date(purchaseDate, "yyyy-MM-dd");
                 equipments.setPurchaseDate(purchaseDated);

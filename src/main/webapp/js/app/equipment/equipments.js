@@ -42,8 +42,6 @@ $(function () {
     $.getJSON(url, function (data) {
         runStatus = data;
     });
-
-
     vdm = new Vue({
         el: "#detailForm",
         data: {
@@ -235,8 +233,6 @@ function addNew() {
         // Get the form instance
         saveEquipment();
     });
-
-
     formTab.tab('show');
 }
 
@@ -357,34 +353,35 @@ function saveEquipment() {
     var runDate = equipments.runDate;
     var expectedYear = equipments.expectedYear;
     var url = "/equipment/save";
+
+    var data = {
+        id: id,
+        eqCode: eqCode,
+        description: description,
+        manager: manager,
+        maintainer: maintainer,
+        productFactory: productFactory,
+        imgUrl: imgUrl,
+        originalValue: originalValue,
+        netValue: netValue,
+        description: description,
+        purchasePrice: purchasePrice,
+        purchaseDate: purchaseDate,
+        locations_id: locations_id,
+        equipmentsClassification_id: equipmentsClassification_id,
+        status: status,
+        eqModel: eqModel,
+        assetNo: assetNo,
+        manageLevel: manageLevel,
+        running: running,
+        warrantyPeriod: warrantyPeriod,
+        setupDate: setupDate,
+        productDate: productDate,
+        runDate: runDate,
+        expectedYear: expectedYear
+    };
     $.ajax({
-        type: "POST", url: url, data: {
-            id: id,
-            eqCode: eqCode,
-            description: description,
-            manager: manager,
-            maintainer: maintainer,
-            productFactory: productFactory,
-            imgUrl: imgUrl,
-            originalValue: originalValue,
-            netValue: netValue,
-            description: description,
-            purchasePrice: purchasePrice,
-            purchaseDate: purchaseDate,
-            locations_id: locations_id,
-            equipmentsClassification_id: equipmentsClassification_id,
-            status: status,
-            eqModel: eqModel,
-            assetNo: assetNo,
-            manageLevel: manageLevel,
-            running: running,
-            warrantyPeriod: warrantyPeriod,
-            setupDate: setupDate,
-            productDate: productDate,
-            runDate: runDate,
-            expectedYear: expectedYear
-        },
-        dataType: "JSON", success: function (msg) {
+        type: "POST", url: url, data: data, dataType: "JSON", success: function (msg) {
             if (id) {
                 showMessageBox("info", "设备信息更新成功");
                 changeValue(msg);
@@ -394,6 +391,7 @@ function saveEquipment() {
             }
             //更新detailForm数据模型
             vdm.$set("equipments", msg);
+            $("#detailForm #id").val(msg.id);
         }
         ,
         error: function (msg) {
@@ -657,7 +655,6 @@ function editEq() {
                 }
             }
         }).on('success.form.bv', function (e) {
-        // Prevent form submission
         e.preventDefault();
         saveEquipment();
     });

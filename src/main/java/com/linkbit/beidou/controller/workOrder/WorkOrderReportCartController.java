@@ -131,7 +131,7 @@ public class WorkOrderReportCartController {
     @ResponseBody
     public WorkOrderReportCart add2LocCart(@RequestParam("locationId") Long locationId, @RequestParam("orderDesc") String orderDesc, @RequestParam("reporter") String reporter, @RequestParam("eqClassId") Long eqClassId, HttpSession httpSession) {
         String creator = (String) httpSession.getAttribute("personName");
-        WorkOrderReportCart workOrderReportCart = workOrderReportCartService.add2LocCart(locationId, orderDesc, creator, reporter,eqClassId);
+        WorkOrderReportCart workOrderReportCart = workOrderReportCartService.add2LocCart(locationId, orderDesc, creator, reporter, eqClassId);
         return workOrderReportCart;
     }
 
@@ -166,7 +166,7 @@ public class WorkOrderReportCartController {
     public ReturnObject delCart(@RequestParam Long id) {
         ReturnObject returnObject = new ReturnObject();
         WorkOrderReportCart workOrderReportCart = workOrderReportCartService.delCart(id);
-        returnObject.setResult(workOrderReportCart.getStatus().equals("2"));
+        returnObject.setResult(workOrderReportCart == null);
         String resultDesc = "报修信息移报修车";
         resultDesc += returnObject.getResult() ? "成功！" : "失败";
         returnObject.setResultDesc(resultDesc);
@@ -205,9 +205,6 @@ public class WorkOrderReportCartController {
         WorkOrderReportCart workOrderReportCart = workOrderReportCartService.updateOrderDesc(id, orderDesc);
         return workOrderReportCart;
     }
-
-
-
 
 
 }

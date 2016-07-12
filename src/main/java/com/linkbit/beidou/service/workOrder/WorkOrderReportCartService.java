@@ -76,7 +76,7 @@ public class WorkOrderReportCartService extends BaseService {
      * @return 通过位置报修将设备报修信息加入报修车
      */
     @Transactional
-    public WorkOrderReportCart add2LocCart(Long locationId, String orderDesc, String creator, String reporter,Long eqClassId) {
+    public WorkOrderReportCart add2LocCart(Long locationId, String orderDesc, String creator, String reporter, Long eqClassId) {
 
         WorkOrderReportCart workOrderReportCart = new WorkOrderReportCart();
         workOrderReportCart.setEquipments(null);
@@ -192,12 +192,10 @@ public class WorkOrderReportCartService extends BaseService {
      * @return 查询我的购物车
      */
     public WorkOrderReportCart delCart(Long id) {
-        WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(id);
-        workOrderReportCart.setStatus("2"); //状态设置为2 已移出
-        workOrderReportCart = workOrderReportCartRepository.save(workOrderReportCart);
-        return workOrderReportCart;
-
-
+        if (id != null) {
+            workOrderReportCartRepository.delete(id);
+        }
+        return workOrderReportCartRepository.findById(id);
     }
 
 

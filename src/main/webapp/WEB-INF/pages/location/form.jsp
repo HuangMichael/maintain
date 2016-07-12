@@ -31,17 +31,19 @@
 
                     <input class="form-control" id="parent_id" type="hidden" name="parent"
                            value="${locations.parent}"/>
+                    <input class="form-control" id="status" type="hidden" name="status"
+                           value="1"/>
                 </div>
-               <%-- <label class="col-md-2 control-label" for="superior">上级位置</label>
+                <%-- <label class="col-md-2 control-label" for="superior">上级位置</label>
 
-                <div class="col-md-4">
-                   &lt;%&ndash; <form:select path="locationsList" class="form-control" id="parent_id" name="parent"
-                                 itemValue="${locations.parent}" readonly="true">
-                        <form:options itemLabel="description" items="${locationsList}" itemValue="id"></form:options>
-                    </form:select>&ndash;%&gt;
+                 <div class="col-md-4">
+                    &lt;%&ndash; <form:select path="locationsList" class="form-control" id="parent_id" name="parent"
+                                  itemValue="${locations.parent}" readonly="true">
+                         <form:options itemLabel="description" items="${locationsList}" itemValue="id"></form:options>
+                     </form:select>&ndash;%&gt;
 
-                   <input class="form-control" id="parentName" type="text" name="parentName" readonly/>
-                </div>--%>
+                    <input class="form-control" id="parentName" type="text" name="parentName" readonly/>
+                 </div>--%>
             </div>
         </div>
     </div>

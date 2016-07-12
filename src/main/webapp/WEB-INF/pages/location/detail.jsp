@@ -93,7 +93,7 @@
                 <button type="button" class="close" data-dismiss="modal"
                         aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="fix_work_order1">该位置已报修还未完工,要继续报修该设备么?</h4>
+                <h4 class="modal-title" id="fix_work_order1">该报修流程还未完工,要继续报修么?</h4>
             </div>
             <div class="modal-body">
                 <%@include file="reportedLocList.jsp" %>

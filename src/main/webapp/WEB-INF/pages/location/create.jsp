@@ -10,9 +10,17 @@
         <div class="tab-pane fade in active" id="tab_1_1">
             <div class="divide-10"></div>
             <div id="detailForm"></div>
-            <div class="box-body">
+        <%--    <div class="box-body">
                 <%@include file="form.jsp" %>
+            </div>--%>
+
+            <div class="box border blue">
+                <div class="box-body">
+                    <%@include file="form.jsp" %>
+                </div>
             </div>
+
+
         </div>
     </div>
 </div>

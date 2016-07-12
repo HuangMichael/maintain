@@ -117,7 +117,7 @@ function deleteObject() {
     var id = selectedNode.id;
     var url = "/location/delete/" + id;
     $.getJSON(url, function (data) {
-        console.log(JSON.parse(data));
+        console.log("删除位置---"+JSON.stringify(data));
         if (data) {
             var zTree = $.fn.zTree.getZTreeObj("tree");
             zTree.removeNode(zTree.getSelectedNodes()[0]);
@@ -154,6 +154,9 @@ function changeLine(stationId) {
         }
     })
 }
+/**
+ * 位置保修
+ */
 function reportByLocation() {
     var location = getSelectedNode().location;
     var locationId = getSelectedNode().id;
@@ -180,7 +183,7 @@ function reportByLocation() {
         }
     });
     if (status == "2") {
-        var curl = "/workOrderReportCart/loadReportedLocPage/" + location;
+        var curl = "/workOrderReportCart/loadWorkOrderStep/" + locationId;
         $("#locList").load(curl, function (data) {
             $("#show_loc_modal").modal("show")
         })

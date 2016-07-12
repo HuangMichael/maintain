@@ -6,24 +6,24 @@
     <tr>
         <th>序号</th>
         <th>故障描述</th>
-        <%--<th>报修人</th>--%>
         <th>报修时间</th>
         <th>维修状态</th>
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${vworkOrderStepList}" var="e" varStatus="s">
+    <c:forEach items="${reportedEqList}" var="e" varStatus="s">
         <tr class="gradeX">
             <td>${s.index+1}</td>
             <td>
-                    ${e.orderDesc}
+                    ${e[1]}
             </td>
             <td>
-                    ${e.reportTime}
+                    ${e[2]}
             </td>
+
             <td>
-                <c:if test="${e.status=='0'}">${e.flowDesc}</c:if>
-                <c:if test="${e.status=='1'}">${e.flowDesc}</c:if>
+                <c:if test="${e[3]=='0'}">新建${e[4]}</c:if>
+                <c:if test="${e[3]=='1'}">提交${e[4]}</c:if>
             </td>
         </tr>
     </c:forEach>

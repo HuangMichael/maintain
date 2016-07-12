@@ -1,10 +1,6 @@
 package com.linkbit.beidou.domain.workOrder;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.linkbit.beidou.domain.equipments.Equipments;
-import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
-import com.linkbit.beidou.domain.line.Line;
-import com.linkbit.beidou.domain.line.Station;
 import com.linkbit.beidou.domain.locations.Locations;
 import lombok.*;
 
@@ -38,7 +34,11 @@ public class VworkOrderStep {
 
     String status;
 
-    String s;
+    String flowDesc;
+    //关联位置
+    @ManyToOne(optional = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "locations_id", referencedColumnName = "id")
+    Locations locations;
 
 
 }

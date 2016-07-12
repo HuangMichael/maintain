@@ -2,9 +2,11 @@ package com.linkbit.beidou.service.workOrder;
 
 import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
+import com.linkbit.beidou.dao.workOrder.VworkOrderStepRepository;
 import com.linkbit.beidou.dao.workOrder.WorkOrderReportCartRepository;
 import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.locations.Locations;
+import com.linkbit.beidou.domain.workOrder.VworkOrderStep;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.service.equipments.EquipmentAccountService;
@@ -41,6 +43,8 @@ public class WorkOrderReportCartService extends BaseService {
 
     @Autowired
     EquipmentAccountService equipmentAccountService;
+    @Autowired
+    VworkOrderStepRepository vworkOrderStepRepository;
 
     /**
      * @param equipmentId
@@ -142,6 +146,8 @@ public class WorkOrderReportCartService extends BaseService {
      */
     public List<Object> checkLocsBeforeAdd2Cart(String locations) {
         List<Object> workOrderReportCartList = workOrderReportCartRepository.findReportedLocations(locations + "%", CommonStatusType.FIX_ACCOMPLISHED);
+
+        System.out.println("workOrderReportCartList---------------" + workOrderReportCartList.size());
         return workOrderReportCartList;
 
 
@@ -184,6 +190,15 @@ public class WorkOrderReportCartService extends BaseService {
      */
     public WorkOrderReportCart findById(Long id) {
         return workOrderReportCartRepository.findById(id);
+    }
+
+
+    /**
+     * @param locations
+     * @return 根据位置查询维修流程
+     */
+    public List<VworkOrderStep> findByLocations(Locations locations) {
+        return vworkOrderStepRepository.findByLocations(locations);
     }
 
 

@@ -130,17 +130,16 @@ function deleteObject() {
     })
 }
 function fillForm1(treeNode) {
-    if (!treeNode.pId) {
+/*    if (!treeNode.pId) {
         $("#parent_id").attr("readonly", "readonly")
     } else {
         $("#parent_id").removeAttr("readonly");
-    }
+    }*/
+    $("#parent_id").attr("disabled", "disabled");
     $("#lid").val(treeNode.id);
     $("#location").val(treeNode.location);
     $("#description").val(treeNode.name);
     $("#superior").val(treeNode.superior);
-
-    console.log("treeNode.pId-----------"+treeNode.pId);
     $("#parent_id").val(treeNode.pId);
 }
 function changeLine(stationId) {

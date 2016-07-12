@@ -11,14 +11,13 @@ var setting = {
             fillForm1(treeNode);
             var url = "/location/detail/" + treeNode.id;
             $("#contentDiv").load(url, function (data) {
-                fillForm1(treeNode, data);
+                //fillForm1(treeNode, data);
             });
             return true
         }
     }
 };
 var zNodes = [];
-var locationSel = [];
 $(document).ready(function () {
     var url = "/location/findTree";
     var pid = 0;
@@ -34,15 +33,16 @@ $(document).ready(function () {
                 open: false,
                 isParent: pid
             };
-            locationSel[x] = {id: data[x][0], text: data[x][1], desc: data[x][1]}
-            // firstLoad(data);
         }
+
         var t = $("#tree");
         t = $.fn.zTree.init(t, setting, zNodes);
         demoIframe = $("#testIframe");
         demoIframe.bind("load", loadReady);
-        zTree = $.fn.zTree.getZTreeObj("tree");
-        zTree.selectNode(zTree.getNodeByParam("id", zNodes[0]));
+       /* zTree = $.fn.zTree.getZTreeObj("tree");
+        zTree.selectNode(zTree.getNodeByParam("id", zNodes[0]));*/
+
+        firstLoad(zNodes[0]);
     });
     function loadReady() {
         var bodyH = demoIframe.contents().find("body").get(0).scrollHeight, htmlH = demoIframe.contents().find("html").get(0).scrollHeight, maxH = Math.max(bodyH, htmlH), minH = Math.min(bodyH, htmlH), h = demoIframe.height() >= maxH ? minH : maxH;
@@ -80,11 +80,11 @@ function save() {
     var url = "/location/save";
     $.ajax({
         type: "POST", url: url, data: locations, dataType: "JSON", success: function (obj) {
-            var parent = $("#parent_id").val();
+            //  var parent = $("#parent_id").val();
             //构造一个子节点
             var childZNode = {
                 id: obj.id,
-                pId: parent,//如果重新选择了上级  以选择后的位置为准
+                //  pId: parent,//如果重新选择了上级  以选择后的位置为准
                 name: obj.description,
                 location: obj.location,
                 superior: obj.superior,
@@ -137,9 +137,6 @@ function fillForm1(treeNode) {
     $("#superior").val(treeNode.superior);
     $("#parent_id").val(treeNode.pId);
 
-   /* var nid = getSelectedNode()["pId"];
-    var locName = getNodeNameById(nid);
-    $("#parentName").val(locName);*/
 }
 function changeLine(stationId) {
     var lineId = $("#line_id").val();
@@ -183,8 +180,6 @@ function reportByLocation() {
 
         }
     });
-
-    console.log("report status-----------" + status);
     if (status == "2") {
         var curl = "/workOrderReportCart/loadReportedLocPage/" + location;
         $("#locList").load(curl, function (data) {
@@ -245,14 +240,11 @@ function add2LocCart() {
  */
 function firstLoad(data) {
     if (data.length > 0) {
-        $("#lid").val(data[0][0]);
-        $("#location").val(data[0][1]);
-        $("#description").val(data[0][2]);
-        $("#superior").val(data[0][3]);
-        // $("#parent_id").val(null).attr("readonly", "readonly");
-
-        // console.log("name------------"+getNodeNameById(zNodes[0].pid));
-        console.log("-------------" + JSON.stringify(zNodes[0]));
+        $("#form #lid").val(data.id);
+        $("#form #location").val(data.location);
+        $("#form #description").val(data.name);
+        $("#form #superior").val(data.superior);
+        //$("#parent_id").val(null).attr("readonly", "readonly");
 
     }
 }

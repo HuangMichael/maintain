@@ -12,7 +12,7 @@
             <div class="col-md-3">
                 <input class="form-control" id="eqCode" type="text" name="eqCode" v-model="equipments.eqCode" required
                        @change="checkEqCode()"/>
-                <input class="form-control" id="id" type="text" name="id" v-model="equipments.id"/>
+                <input class="form-control" id="id" type="hidden" name="id" v-model="equipments.id"/>
             </div>
 
             <label for="description" class="col-md-1 control-label">设备名称</label>

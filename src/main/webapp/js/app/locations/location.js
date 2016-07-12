@@ -77,10 +77,17 @@ function loadCreateForm() {
 function save() {
     var objStr = getFormJsonData("form");
     var locations = JSON.parse(objStr);
+
+
+    console.log("locations------------------"+JSON.stringify(locations));
     var url = "/location/save";
     $.ajax({
         type: "POST", url: url, data: locations, dataType: "JSON", success: function (obj) {
+
+
             var parent = $("#parent_id").val();
+
+            console.log("parent------------------"+parent);
             //构造一个子节点
             var childZNode = {
                 id: obj.id,
@@ -135,7 +142,7 @@ function fillForm1(treeNode) {
     } else {
         $("#parent_id").removeAttr("readonly");
     }*/
-    $("#parent_id").attr("disabled", "disabled");
+    $("#parent_id").attr("readonly", "readonly");
     $("#lid").val(treeNode.id);
     $("#location").val(treeNode.location);
     $("#description").val(treeNode.name);

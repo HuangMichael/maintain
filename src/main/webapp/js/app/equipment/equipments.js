@@ -149,10 +149,10 @@ function addNew() {
     setFormReadStatus("#detailForm", false);
 
     var status = [
-        {value: 0, text: "停用", selected: "selected"},
-        {value: 1, text: "投用"},
+        {value: 1, text: "投用", selected: "selected"},
+        {value: 0, text: "停用"},
         {value: 2, text: "报废"}];
-    var running = [{value: 0, text: "运行"}, {value: 1, text: "停止"}];
+    var running = [{value: 1, text: "运行"}, {value: 0, text: "停止"}];
     vdm.$set("equipments", null);
     vdm.$set("locs", locs);
     vdm.$set("eqClasses", eqClasses);
@@ -162,7 +162,7 @@ function addNew() {
     vdm.$set("equipments.locations.id", null);
     vdm.$set("equipments.equipmentsClassification.id", null);
     vdm.$set("equipments.status", 1);
-    vdm.$set("equipments.running", 0);
+    vdm.$set("equipments.running", 1);
 
 
     $('#detailForm')
@@ -773,6 +773,7 @@ function refresh(data) {
             equipClass: data.equipmentsClassification.description,
             location: data.locations.description,
             status: '投用',
+            running: '运行',
             report: '<a class="btn btn-default btn-xs"  onclick="report(' + data.id + ')" title="报修"><i class="glyphicon glyphicon-wrench"></i></a>',
             track: '<a class="btn btn-default btn-xs"  onclick="track(' + data.id + ')" title="追踪"><i class="glyphicon glyphicon-map-marker"></i></a>'
         }

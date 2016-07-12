@@ -29,12 +29,17 @@
                     <input class="form-control" id="localLevel" type="hidden" name="localLevel"
                            value="${locations.locLevel}"/>
                 </div>
-               <label class="col-md-2 control-label" for="superior">上级位置</label>
+                <label class="col-md-2 control-label" for="superior">上级位置</label>
 
                 <div class="col-md-4">
-                    <form:select path="locationsList" class="form-control" id="parent_id" name="parent" itemValue="${locations.parent}">
+                    <form:select path="locationsList" class="form-control" id="parent_id" name="parent"
+                                 itemValue="${locations.parent}" readonly="true"
+                                 onfocus="this.defaultIndex=this.selectedIndex;"
+                                 onchange="this.selectedIndex=this.defaultIndex;">
                         <form:options itemLabel="description" items="${locationsList}" itemValue="id"></form:options>
                     </form:select>
+
+                    <%-- <input class="form-control" id="parentName" type="text" name="parentName" readonly/>--%>
                 </div>
             </div>
         </div>

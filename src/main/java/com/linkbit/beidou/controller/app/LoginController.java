@@ -3,20 +3,17 @@ package com.linkbit.beidou.controller.app;
 import com.linkbit.beidou.dao.app.org.OrgRepository;
 import com.linkbit.beidou.dao.equipments.VeqClassRepository;
 import com.linkbit.beidou.domain.app.org.Org;
-import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.equipments.VeqClass;
 import com.linkbit.beidou.domain.line.Line;
 import com.linkbit.beidou.domain.line.Station;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.domain.user.User;
-import com.linkbit.beidou.service.equipments.EquipmentAccountService;
 import com.linkbit.beidou.service.equipmentsClassification.EquipmentsClassificationService;
 import com.linkbit.beidou.service.line.LineService;
 import com.linkbit.beidou.service.line.StationService;
 import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.service.user.UserService;
-import com.linkbit.beidou.utils.CommonStatusType;
 import com.linkbit.beidou.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -90,10 +87,9 @@ public class LoginController {
             List<Line> lineList = lineService.findByStatus("1");
             List<Station> stationList = stationService.findByStatus("1");
             List<Vlocations> locationsList = locationsService.findByLocationStartingWithAndStatus(currentUser.getLocation());
+            List<Locations> locList = locationsService.findByLocationStartingWithAndStatus(currentUser.getLocation(), "1");
             //List<EquipmentsClassification> equipmentsClassificationList = equipmentsClassificationService.findAll();
             List<VeqClass> veqClassList = veqClassRepository.findAll();
-
-
 
 
             session.setAttribute("currentUser", currentUser);
@@ -101,6 +97,7 @@ public class LoginController {
             Org org = orgRepository.findByStatus("1").get(0);
             session.setAttribute("org", org);
             session.setAttribute("locationsList", locationsList);
+            session.setAttribute("locList", locList);
             session.setAttribute("veqClassList", veqClassList);
             session.setAttribute("lineList", lineList);
             session.setAttribute("stationList", stationList);

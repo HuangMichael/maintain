@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -77,7 +78,7 @@ public class LocationController {
     public String list(ModelMap modelMap, HttpSession session) {
 
         User user = (User) session.getAttribute("currentUser");
-        List<Locations> locationsList = locationsRepository.findByLocationStartingWith(user.getLocation());
+        List<Locations> locationsList = (ArrayList<Locations>) session.getAttribute("locList");
         List<Line> lineList = (List<Line>) session.getAttribute("lineList");
         List<Station> stationList = (List<Station>) session.getAttribute("stationList");
         modelMap.put("locationsList", locationsList);
@@ -103,7 +104,8 @@ public class LocationController {
         }
 
         User user = (User) session.getAttribute("currentUser");
-        List<Locations> locationsList = locationsRepository.findByLocationStartingWith(user.getLocation());
+        //List<Locations> locationsList = locationsRepository.findByLocationStartingWith(user.getLocation());
+        List<Locations> locationsList = (ArrayList<Locations>) session.getAttribute("locList");
         modelMap.put("locations", object);
         modelMap.put("lineList", lineList);
         modelMap.put("stationList", stationList);

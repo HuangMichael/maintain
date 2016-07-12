@@ -11,7 +11,7 @@ var setting = {
             fillForm1(treeNode);
             var url = "/location/detail/" + treeNode.id;
             $("#contentDiv").load(url, function (data) {
-                fillForm1(treeNode, data)
+                fillForm1(treeNode, data);
             });
             return true
         }
@@ -35,7 +35,7 @@ $(document).ready(function () {
                 isParent: pid
             };
             locationSel[x] = {id: data[x][0], text: data[x][1], desc: data[x][1]}
-            firstLoad(data);
+            // firstLoad(data);
         }
         var t = $("#tree");
         t = $.fn.zTree.init(t, setting, zNodes);
@@ -77,17 +77,10 @@ function loadCreateForm() {
 function save() {
     var objStr = getFormJsonData("form");
     var locations = JSON.parse(objStr);
-
-
-    console.log("locations------------------"+JSON.stringify(locations));
     var url = "/location/save";
     $.ajax({
         type: "POST", url: url, data: locations, dataType: "JSON", success: function (obj) {
-
-
             var parent = $("#parent_id").val();
-
-            console.log("parent------------------"+parent);
             //构造一个子节点
             var childZNode = {
                 id: obj.id,
@@ -137,17 +130,16 @@ function deleteObject() {
     })
 }
 function fillForm1(treeNode) {
-/*    if (!treeNode.pId) {
-        $("#parent_id").attr("readonly", "readonly")
-    } else {
-        $("#parent_id").removeAttr("readonly");
-    }*/
     $("#parent_id").attr("readonly", "readonly");
     $("#lid").val(treeNode.id);
     $("#location").val(treeNode.location);
     $("#description").val(treeNode.name);
     $("#superior").val(treeNode.superior);
     $("#parent_id").val(treeNode.pId);
+
+   /* var nid = getSelectedNode()["pId"];
+    var locName = getNodeNameById(nid);
+    $("#parentName").val(locName);*/
 }
 function changeLine(stationId) {
     var lineId = $("#line_id").val();
@@ -257,6 +249,31 @@ function firstLoad(data) {
         $("#location").val(data[0][1]);
         $("#description").val(data[0][2]);
         $("#superior").val(data[0][3]);
-        $("#parent_id").val(null).attr("readonly", "readonly");
+        // $("#parent_id").val(null).attr("readonly", "readonly");
+
+        // console.log("name------------"+getNodeNameById(zNodes[0].pid));
+        console.log("-------------" + JSON.stringify(zNodes[0]));
+
     }
+}
+
+
+/**
+ *
+ * @param pid
+ *  根据pid获取上级位置名称
+ * @param zNodes
+ */
+function getNodeNameById(id) {
+    var locName = "";
+    var url = "/location/getLocDesc/" + id;
+    console.log("url----" + url);
+    $.ajaxSettings.async = false;
+    $.getJSON(url, function (data) {
+        console.log("data---" + JSON.stringify(data));
+        locName = data;
+        console.log("locName---" + locName);
+        $("#form #parentName").val(locName);
+    });
+    return locName;
 }

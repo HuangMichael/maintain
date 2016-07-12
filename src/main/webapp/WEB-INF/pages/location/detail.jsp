@@ -45,10 +45,13 @@
                                 </td>
                                 <td>
                                     <c:if test="${equipment.status==1}">
-                                        <span class="badge badge-green"> 正常</span>
+                                        停用
                                     </c:if>
                                     <c:if test="${equipment.status==0}">
-                                        <span class="badge badge-error">故障</span>
+                                        投用
+                                    </c:if>
+                                    <c:if test="${equipment.status==2}">
+                                        报废
                                     </c:if>
                                 </td>
                             </tr>
@@ -149,7 +152,6 @@
         </div>
     </div>
 </div>
-
 
 
 <script type="text/javascript" src="/js/app/locations/location.detail.min.js"></script>

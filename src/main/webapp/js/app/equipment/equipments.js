@@ -101,7 +101,6 @@ $(function () {
     });
 
     listTab.on('click', function () {
-        //$("#main-content").load("/equipment/list");
         refresh();
     });
 
@@ -131,7 +130,10 @@ $(function () {
         //首先判断是否有选中的
         var equipments = vdm.equipments;
         var histories = loadFixHistoryByEid(equipments.id);
+        var xx = $("#locations_id").find("option:selected").text().trim();
         hm.$set("e", equipments);
+        hm.$set("e.locations.description", xx);
+
         hm.$set("histories", histories);
     });
 
@@ -145,6 +147,23 @@ $(function () {
 
 function addNew() {
     setFormReadStatus("#detailForm", false);
+
+    var status = [
+        {value: 0, text: "停用", selected: "selected"},
+        {value: 1, text: "投用"},
+        {value: 2, text: "报废"}];
+    var running = [{value: 0, text: "运行"}, {value: 1, text: "停止"}];
+    vdm.$set("equipments", null);
+    vdm.$set("locs", locs);
+    vdm.$set("eqClasses", eqClasses);
+    vdm.$set("status", status);
+    vdm.$set("running", running);
+    //设置设备状态和运行状态默认值
+    vdm.$set("equipments.locations.id", null);
+    vdm.$set("equipments.equipmentsClassification.id", null);
+    vdm.$set("equipments.status", 1);
+    vdm.$set("equipments.running", 0);
+
 
     $('#detailForm')
         .bootstrapValidator({
@@ -218,19 +237,6 @@ function addNew() {
     });
 
 
-    var status = [
-        {value: 0, text: "停用", selected: "selected"},
-        {value: 1, text: "投用"},
-        {value: 2, text: "报废"}];
-    var running = [{value: 0, text: "运行"}, {value: 1, text: "停止"}];
-    vdm.$set("equipments", null);
-    vdm.$set("locs", locs);
-    vdm.$set("eqClasses", eqClasses);
-    vdm.$set("status", status);
-    vdm.$set("running", running);
-    //设置设备状态和运行状态默认值
-    vdm.$set("equipments.status", 1);
-    vdm.$set("equipments.running", 0);
     formTab.tab('show');
 }
 
@@ -523,6 +529,21 @@ function loadFixHistoryByEid(eid) {
     return histories;
 }
 
+
+/**
+ * 根据位置ID载入维修历史信息
+ */
+function getLocDesc(lid) {
+    var url = "/location/getLocDesc/" + lid;
+    var locDesc = "";
+    $.ajaxSettings.async = false;
+    $.getJSON(url, function (data) {
+        locDesc = data;
+        console.log("locDesc---------------------" + locDesc);
+    });
+    return locDesc;
+}
+
 /**
  *
  * @param eqCode 设备编号
@@ -773,3 +794,13 @@ function changeValue(data) {
     $("tr[data-row-id='" + trId + "'] td:eq(7)").html(runStatus[data.running]["value"]);
 
 }
+
+
+/**
+ * 新建之前清空表单
+ */
+/*
+function clearForm() {
+
+$("#detailForm select").find("")
+}*/

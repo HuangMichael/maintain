@@ -1,12 +1,12 @@
 package com.linkbit.beidou.controller.locations;
 
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
+import com.linkbit.beidou.dao.locations.LocationsRepository;
 import com.linkbit.beidou.dao.locations.VlocationsRepository;
 import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.line.Line;
 import com.linkbit.beidou.domain.line.Station;
 import com.linkbit.beidou.domain.locations.Locations;
-import com.linkbit.beidou.domain.locations.LocationsSel;
 import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.service.equipments.EquipmentAccountService;
@@ -14,7 +14,6 @@ import com.linkbit.beidou.service.line.LineService;
 import com.linkbit.beidou.service.line.StationService;
 import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.service.workOrder.WorkOrderService;
-import com.linkbit.beidou.utils.CommonStatusType;
 import com.linkbit.beidou.utils.SessionUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -63,7 +62,8 @@ public class LocationController {
 
     List<Station> stationList;
 
-
+    @Autowired
+    LocationsRepository locationsRepository;
     @Autowired
     VlocationsRepository vlocationsRepository;
 
@@ -75,7 +75,9 @@ public class LocationController {
      */
     @RequestMapping(value = "/list")
     public String list(ModelMap modelMap, HttpSession session) {
-        List<Locations> locationsList = (List<Locations>) session.getAttribute("locationsList");
+
+        User user = (User) session.getAttribute("currentUser");
+        List<Locations> locationsList = locationsRepository.findByLocationStartingWith(user.getLocation());
         List<Line> lineList = (List<Line>) session.getAttribute("lineList");
         List<Station> stationList = (List<Station>) session.getAttribute("stationList");
         modelMap.put("locationsList", locationsList);
@@ -99,13 +101,9 @@ public class LocationController {
             url += "/detail";
             object = locationsService.findById(id);
         }
-        List<Locations> locationsList = (List<Locations>) session.getAttribute("locationsList");
-        List<Line> lineList = (List<Line>) session.getAttribute("lineList");
-        List<Station> stationList = (List<Station>) session.getAttribute("stationList");
 
-
-      /*  lineList = lineService.findByStatus("1");
-        stationList = stationService.findByStatus("1");*/
+        User user = (User) session.getAttribute("currentUser");
+        List<Locations> locationsList = locationsRepository.findByLocationStartingWith(user.getLocation());
         modelMap.put("locations", object);
         modelMap.put("lineList", lineList);
         modelMap.put("stationList", stationList);
@@ -234,23 +232,12 @@ public class LocationController {
 
 
     /**
-     * @return
-     */
-    @RequestMapping(value = "/findLoc", method = RequestMethod.GET)
-    @ResponseBody
-    public List<LocationsSel> findLocation() {
-        return locationsSelRepository.findByStatus(CommonStatusType.STATUS_YES);
-
-    }
-
-
-    /**
      * @param id 位置ID
      * @return 根据位置ID获取长描述的位置信息
      */
     @RequestMapping(value = "/getLocDesc/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public String getLocDescById(@PathVariable("id"), Long id) {
+    public String getLocDescById(@PathVariable("id") Long id) {
         String locDesc = "";
         if (id != null) {
             Vlocations vlocations = vlocationsRepository.findById(id);

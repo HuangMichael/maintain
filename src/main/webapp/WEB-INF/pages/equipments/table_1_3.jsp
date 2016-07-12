@@ -24,7 +24,7 @@
                             <label class="col-md-1 control-label" for="eqCode">设备位置</label>
 
                             <div class="col-md-3">
-                                <input class="form-control" id="location" type="text" name="eqCode"
+                                <input class="form-control" id="location" type="text" name="location"
                                        v-model="e.locations.description" readonly/>
                             </div>
                         </div>

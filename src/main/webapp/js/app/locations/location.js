@@ -133,13 +133,15 @@ function fillForm1(treeNode) {
     if (!treeNode.pId) {
         $("#parent_id").attr("readonly", "readonly")
     } else {
-        $("#parent_id").removeAttr("readonly")
+        $("#parent_id").removeAttr("readonly");
     }
     $("#lid").val(treeNode.id);
     $("#location").val(treeNode.location);
     $("#description").val(treeNode.name);
     $("#superior").val(treeNode.superior);
-    $("#parent_id").val(treeNode.pId)
+
+    console.log("treeNode.pId-----------"+treeNode.pId);
+    $("#parent_id").val(treeNode.pId);
 }
 function changeLine(stationId) {
     var lineId = $("#line_id").val();

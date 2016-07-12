@@ -3,7 +3,6 @@ package com.linkbit.beidou.domain.equipments;
 
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.locations.Vlocations;
-import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -67,6 +66,11 @@ public class Equipments {
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "locations_id", referencedColumnName = "id")
     private Locations locations;  //所属位置
+
+
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "vlocations_id", referencedColumnName = "id")
+    private Vlocations vlocations;  //所属位置
 
 
     @ManyToOne(optional = true, fetch = FetchType.LAZY)

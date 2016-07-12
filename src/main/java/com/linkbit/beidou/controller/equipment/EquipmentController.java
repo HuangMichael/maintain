@@ -130,12 +130,14 @@ public class EquipmentController extends BaseController {
             @RequestParam(value = "runDate", required = false) String runDate,
             @RequestParam(value = "expectedYear", required = false) String expectedYear
     ) {
-        Equipments equipments = new Equipments();
+        Equipments equipments = id != null ? equipmentAccountService.findById(id) : new Equipments();
+
+        //首先判断是否存在
         try {
 
-            if (id != null) {
+       /*     if (id != null) {
                 equipments.setId(id);
-            }
+            }*/
             equipments.setEqCode(eqCode);
             equipments.setDescription(description);
             equipments.setManager(manager);
@@ -154,20 +156,36 @@ public class EquipmentController extends BaseController {
             equipments.setAssetNo(assetNo);
             equipments.setManageLevel(manageLevel);
             equipments.setRunning(running);
-            Date purchaseDated = DateUtils.convertStr2Date(purchaseDate, "yyyy-MM-dd");
-
-            Date warrantyPeriodDate = DateUtils.convertStr2Date(warrantyPeriod, "yyyy-MM-dd");
-            Date setupDateDate = DateUtils.convertStr2Date(setupDate, "yyyy-MM-dd");
-            Date productDateDate = DateUtils.convertStr2Date(productDate, "yyyy-MM-dd");
-            Date runDateDate = DateUtils.convertStr2Date(runDate, "yyyy-MM-dd");
-            Date expectedYearDate = DateUtils.convertStr2Date(expectedYear, "yyyy-MM-dd");
-
-            equipments.setPurchaseDate(purchaseDated);
-            equipments.setWarrantyPeriod(warrantyPeriodDate);
-            equipments.setSetupDate(setupDateDate);
-            equipments.setProductDate(productDateDate);
-            equipments.setRunDate(runDateDate);
-            equipments.setExpectedYear(expectedYearDate);
+            Date purchaseDated ;
+            Date warrantyPeriodDate ;
+            Date setupDateDate ;
+            Date productDateDate ;
+            Date runDateDate ;
+            Date expectedYearDate ;
+            if (purchaseDate != null) {
+                purchaseDated = DateUtils.convertStr2Date(purchaseDate, "yyyy-MM-dd");
+                equipments.setPurchaseDate(purchaseDated);
+            }
+            if (warrantyPeriod != null) {
+                warrantyPeriodDate = DateUtils.convertStr2Date(warrantyPeriod, "yyyy-MM-dd");
+                equipments.setWarrantyPeriod(warrantyPeriodDate);
+            }
+            if (setupDate != null) {
+                setupDateDate = DateUtils.convertStr2Date(setupDate, "yyyy-MM-dd");
+                equipments.setSetupDate(setupDateDate);
+            }
+            if (productDate != null) {
+                productDateDate = DateUtils.convertStr2Date(productDate, "yyyy-MM-dd");
+                equipments.setProductDate(productDateDate);
+            }
+            if (runDate != null) {
+                runDateDate = DateUtils.convertStr2Date(runDate, "yyyy-MM-dd");
+                equipments.setRunDate(runDateDate);
+            }
+            if (expectedYear != null) {
+                expectedYearDate = DateUtils.convertStr2Date(expectedYear, "yyyy-MM-dd");
+                equipments.setExpectedYear(expectedYearDate);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

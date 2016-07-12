@@ -389,10 +389,11 @@ function saveEquipment() {
                 showMessageBox("info", "设备信息更新成功");
                 changeValue(msg);
             } else {
-                showMessageBox("info", "设备信息添加成功")
-
+                showMessageBox("info", "设备信息添加成功");
                 refresh(msg);
             }
+            //更新detailForm数据模型
+            vdm.$set("equipments", msg);
         }
         ,
         error: function (msg) {
@@ -800,7 +801,7 @@ function changeValue(data) {
  * 新建之前清空表单
  */
 /*
-function clearForm() {
+ function clearForm() {
 
-$("#detailForm select").find("")
-}*/
+ $("#detailForm select").find("")
+ }*/

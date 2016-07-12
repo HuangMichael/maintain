@@ -299,7 +299,10 @@ function track(eid) {
                 }
             }
         }
-
+        else {
+            showMessageBox("danger", "当前设备不在报修流程中");
+            return;
+        }
     });
 
 }

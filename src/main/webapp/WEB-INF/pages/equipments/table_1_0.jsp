@@ -25,16 +25,15 @@
         <td>{{eq.locations.description}}</td>
         <td>
             <div v-if="eq.status=='0'">
-                投用
+                停用
             </div>
             <div v-if="eq.status=='1'">
-                停用
+                投用
             </div>
             <div v-if="eq.status=='2'">
                 报废
             </div>
         </td>
-
         <td>
             <div v-if="eq.running=='0'">
                 停止
@@ -43,8 +42,6 @@
                 运行
             </div>
         </td>
-
-
     </tr>
     </tbody>
     <tfoot>

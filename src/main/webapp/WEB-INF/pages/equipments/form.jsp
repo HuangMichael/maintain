@@ -57,7 +57,7 @@
                 </select>
             </div>
 
-            <label class="col-md-1 control-label" for="running">是否运行</label>
+            <label class="col-md-1 control-label" for="running">运行状态</label>
 
             <div class="col-md-3">
                 <select class="form-control" id="running" name="running" required v-model="equipments.running"

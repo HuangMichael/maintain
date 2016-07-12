@@ -111,7 +111,6 @@ public class CommonDataService extends BaseService {
         if (object != null) {
             eqClassList = (ArrayList<VeqClass>) object;
             log.info(this.getClass().getCanonicalName() + "------------从缓存中查询设备种类视图");
-
         } else {
             eqClassList = veqClassRepository.findAll();
             log.info(this.getClass().getCanonicalName() + "------------从数据库中查询设备种类视图");
@@ -124,14 +123,17 @@ public class CommonDataService extends BaseService {
     }
 
 
+
+    /**
+     * @param httpSession
+     * @return  (0:停用 1:投用 2报废)
+     */
     public List<ListObject> getEqStatus(HttpSession httpSession) {
         List<ListObject> eqStatusList = new ArrayList<ListObject>();
-
         Object object = httpSession.getAttribute("eqStatusList");
         if (object != null) {
             eqStatusList = (ArrayList<ListObject>) httpSession.getAttribute("eqStatusList");
             log.info(this.getClass().getCanonicalName() + "------------从缓存中查询设备状态");
-
         } else {
             log.info(this.getClass().getCanonicalName() + "------------从数据库中查询设备状态");
             eqStatusList.add(new ListObject("0", "停用"));
@@ -145,13 +147,19 @@ public class CommonDataService extends BaseService {
     }
 
 
+
+
+
+    /**
+     * @param httpSession
+     * @return 获取运行状态 (0:停止 1:运行)
+     */
     public List<ListObject> getRunningStatus(HttpSession httpSession) {
         List<ListObject> eqRunStatusList = new ArrayList<ListObject>();
         Object object = httpSession.getAttribute("eqRunStatusList");
         if (object != null) {
             eqRunStatusList = (ArrayList<ListObject>) httpSession.getAttribute("eqRunStatusList");
             log.info(this.getClass().getCanonicalName() + "------------从缓存中查询设备运行状态");
-
         } else {
             log.info(this.getClass().getCanonicalName() + "------------从数据库中查询设备运行状态");
             eqRunStatusList.add(new ListObject("0", "停止"));

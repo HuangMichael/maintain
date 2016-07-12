@@ -140,8 +140,6 @@ $(function () {
     // 表单ajax提交
 
 
-
-
 });
 
 
@@ -323,85 +321,9 @@ function getCurrentStep(steps) {
     return index;
 }
 
-
-function createEquipment() {
-    var objStr = getFormJsonData("createForm");
-    var equipments = JSON.parse(objStr);
-    var id = equipments.id;
-    var eqCode = equipments.eqCode;
-    var purchasePrice = equipments.purchasePrice;
-    var description = equipments.description;
-    var manager = equipments.manager;
-    var maintainer = equipments.maintainer;
-    var productFactory = equipments.productFactory;
-    var imgUrl = equipments.imgUrl;
-    var originalValue = equipments.originalValue;
-    var netValue = equipments.netValue;
-    var purchaseDate = equipments.purchaseDate;
-    var locations_id = $("#locations_id").val();
-    var equipmentsClassification_id = $("#equipmentsClassification_id").val();
-    var status = equipments.status;
-    var eqModel = equipments.eqModel;
-    var assetNo = equipments.assetNo;
-    var manageLevel = equipments.manageLevel;
-    var running = equipments.running;
-    var warrantyPeriod = equipments.warrantyPeriod;
-    var setupDate = equipments.setupDate;
-    var productDate = equipments.productDate;
-    var runDate = equipments.runDate;
-    var expectedYear = equipments.expectedYear;
-    var url = "/equipment/save";
-    $.ajax({
-        type: "POST", url: url, data: {
-            id: id,
-            eqCode: eqCode,
-            description: description,
-            manager: manager,
-            maintainer: maintainer,
-            productFactory: productFactory,
-            imgUrl: imgUrl,
-            originalValue: originalValue,
-            netValue: netValue,
-            description: description,
-            purchasePrice: purchasePrice,
-            purchaseDate: purchaseDate,
-            locations_id: locations_id,
-            equipmentsClassification_id: equipmentsClassification_id,
-            status: status,
-            eqModel: eqModel,
-            assetNo: assetNo,
-            manageLevel: manageLevel,
-            running: running,
-            warrantyPeriod: warrantyPeriod,
-            setupDate: setupDate,
-            productDate: productDate,
-            runDate: runDate,
-            expectedYear: expectedYear
-        },
-        dataType: "JSON", success: function (msg) {
-            if (equipments.id) {
-                showMessageBox("info", "设备信息更新成功");
-
-            } else {
-                showMessageBox("info", "设备信息添加成功")
-
-            }
-
-
-        }
-
-        ,
-        error: function (msg) {
-            if (equipments.id) {
-                showMessageBox("danger", "设备信息更新失败")
-            } else {
-                showMessageBox("danger", "设备信息添加失败")
-            }
-        }
-    })
-}
-
-
+/**
+ * 保存设备信息
+ */
 function saveEquipment() {
     var objStr = getFormJsonData("detailForm");
     var equipments = JSON.parse(objStr);

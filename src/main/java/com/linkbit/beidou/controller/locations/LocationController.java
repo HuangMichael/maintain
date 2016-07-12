@@ -1,12 +1,13 @@
 package com.linkbit.beidou.controller.locations;
 
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
-import com.linkbit.beidou.dao.locations.LocationsSelRepository;
+import com.linkbit.beidou.dao.locations.VlocationsRepository;
 import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.line.Line;
 import com.linkbit.beidou.domain.line.Station;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.locations.LocationsSel;
+import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.service.equipments.EquipmentAccountService;
 import com.linkbit.beidou.service.line.LineService;
@@ -62,38 +63,36 @@ public class LocationController {
 
     List<Station> stationList;
 
+
     @Autowired
-    LocationsSelRepository locationsSelRepository;
+    VlocationsRepository vlocationsRepository;
 
 
+    /**
+     * @param modelMap
+     * @param session
+     * @return 初始化载入界面
+     */
     @RequestMapping(value = "/list")
     public String list(ModelMap modelMap, HttpSession session) {
         List<Locations> locationsList = (List<Locations>) session.getAttribute("locationsList");
         List<Line> lineList = (List<Line>) session.getAttribute("lineList");
         List<Station> stationList = (List<Station>) session.getAttribute("stationList");
-        log.info("session中获取--------------locationsList");
         modelMap.put("locationsList", locationsList);
         modelMap.put("lineList", lineList);
         modelMap.put("stationList", stationList);
-       /* Locations locations = locationsList.get(0);
-        if (locations != null) {
-            List<WorkOrder> workOrderList0 = workOrderService.findByLocationStartingWithAndStatus(locations.getLocation(), "0");
-            List<WorkOrder> workOrderList1 = workOrderService.findByLocationStartingWithAndStatus(locations.getLocation(), "1");
-            List<WorkOrder> workOrderList2 = workOrderService.findByLocationStartingWithAndStatus(locations.getLocation(), "2");
-            List<WorkOrder> workOrderList4 = workOrderService.findByLocationStartingWithAndStatus(locations.getLocation(), "4");
-            modelMap.put("workOrderList0", workOrderList0);
-            modelMap.put("workOrderList1", workOrderList1);
-            modelMap.put("workOrderList2", workOrderList2);
-            modelMap.put("workOrderList4", workOrderList4);
-        }
-
-        List<Equipments> equipmentList = equipmentAccountService.findByLocation(locations);
-        modelMap.put("equipmentList", equipmentList);*/
         return "/location/list";
 
     }
+
+    /**
+     * @param id
+     * @param modelMap
+     * @param session
+     * @return 根据ID显示位置信息 显示明细
+     */
     @RequestMapping(value = "/detail/{id}")
-    public String detail(@PathVariable("id") Long id, ModelMap modelMap,  HttpSession session) {
+    public String detail(@PathVariable("id") Long id, ModelMap modelMap, HttpSession session) {
         String url = "/location";
         Locations object = null;
         if (id != 0) {
@@ -120,13 +119,15 @@ public class LocationController {
     }
 
 
+    /**
+     * @param request
+     * @return 查询所有的位置信息
+     */
     @RequestMapping(value = "/findAll")
     @ResponseBody
     public List<Locations> findAll(HttpServletRequest request) {
         List<Locations> locationsList = (List<Locations>) request.getSession().getAttribute("locationsList");
-        log.info("session中获取--------------locationsList");
         if (locationsList.isEmpty()) {
-            log.info("从新查询--------------");
             locationsList = locationsService.findAll();
         }
 
@@ -161,14 +162,18 @@ public class LocationController {
     }
 
 
+    /**
+     * @param id
+     * @param modelMap
+     * @param session
+     * @return 新建位置信息
+     */
     @RequestMapping(value = "/create/{id}")
     public String create(@PathVariable("id") Long id, ModelMap modelMap, HttpSession session) {
         Locations newObj = locationsService.create(id);
         User user = SessionUtil.getCurrentUserBySession(session);
         newObj.setSuperior(user.getPerson().getPersonName());
         newObj.setStatus("1");
-       // newObj.setLocLevel();
-
         modelMap.put("locations", newObj);
         lineList = lineService.findByStatus("1");
         stationList = stationService.findByStatus("1");
@@ -182,9 +187,9 @@ public class LocationController {
 
     /**
      * @param locations
-     * @return
+     * @return 保存位置信息
      */
-    @RequestMapping(value = "/save" , method = RequestMethod.POST)
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
     public Locations save(Locations locations) {
         return locationsService.save(locations);
@@ -204,6 +209,10 @@ public class LocationController {
     }
 
 
+    /**
+     * @param id
+     * @return删除位置信息
+     */
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Boolean delete(@PathVariable("id") Long id) {
@@ -224,6 +233,9 @@ public class LocationController {
     }
 
 
+    /**
+     * @return
+     */
     @RequestMapping(value = "/findLoc", method = RequestMethod.GET)
     @ResponseBody
     public List<LocationsSel> findLocation() {
@@ -231,4 +243,29 @@ public class LocationController {
 
     }
 
+
+    /**
+     * @param id 位置ID
+     * @return 根据位置ID获取长描述的位置信息
+     */
+    @RequestMapping(value = "/getLocDesc/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public String getLocDescById(@PathVariable("id"), Long id) {
+        String locDesc = "";
+        if (id != null) {
+            Vlocations vlocations = vlocationsRepository.findById(id);
+            if (vlocations != null) {
+                if (vlocations.getLine() != null) {
+                    locDesc += vlocations.getLine();
+                }
+                if (vlocations.getStation() != null) {
+                    locDesc += vlocations.getStation();
+                }
+                if (vlocations.getLocName() != null) {
+                    locDesc += vlocations.getLocName();
+                }
+            }
+        }
+        return locDesc;
+    }
 }

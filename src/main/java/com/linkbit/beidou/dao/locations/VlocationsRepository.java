@@ -11,18 +11,21 @@ import java.util.List;
  */
 public interface VlocationsRepository extends CrudRepository<Vlocations, Long> {
 
-
     /**
      * @param status
      * @return 根据状态查询位置视图信息
      */
     List<Vlocations> findByStatus(String status);
 
-
     /**
      * @param location
      * @return 根据位置编码模糊查询位置视图信息
      */
     List<Vlocations> findByLocationStartingWith(String location);
+
+    /**
+     * @return 根据位置ID查询位置
+     */
+    Vlocations findById(Long id);
 
 }

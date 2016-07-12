@@ -46,9 +46,10 @@ public interface LocationsRepository extends CrudRepository<Locations, Long> {
     /**
      * 根据父节点查询
      */
+    @Query(value = "select l from Locations l where l.parent=:id order by l.location desc ")
+    List<Locations> findByParentOrderByLocationDesc(@Param("id") Long id);
 
     List<Locations> findByParent(Long id);
-
 
     /**
      * 根据位置编码模糊查询

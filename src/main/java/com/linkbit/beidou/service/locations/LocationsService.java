@@ -28,10 +28,18 @@ public class LocationsService extends BaseService {
      * 设置位置编码
      */
     public String getLocationsNo(Locations locations) {
-        List<Locations> locationsList = locationsRepository.findByParent(locations.getId());
-        String locationNo = String.format("%02d", locationsList.size() + 1);
-        if (locations.getLocation() != null) {
-            locationNo = locations.getLocation() + locationNo;
+        List<Locations> locationsList = locationsRepository.findByParentOrderByLocationDesc(locations.getId());
+
+        String locationNo = "";
+        Locations youngestChild = locationsList.get(0);
+        if (youngestChild != null) {
+            String location = youngestChild.getLocation();
+            String index = location.substring(location.length() - 2);
+            if (index != null && !index.equals("")) {
+                locationNo = locations.getLocation() + (Long.parseLong(index) + 1) + "";
+            } else {
+                locationNo = locations.getLocation() + "01";
+            }
         }
         return locationNo;
     }

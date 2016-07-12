@@ -79,11 +79,11 @@ function save() {
     var url = "/location/save";
     $.ajax({
         type: "POST", url: url, data: locations, dataType: "JSON", success: function (obj) {
-            //  var parent = $("#parent_id").val();
+            var parent = $("#parent_id").val();
             //构造一个子节点
             var childZNode = {
                 id: obj.id,
-                //  pId: parent,//如果重新选择了上级  以选择后的位置为准
+                pId: parent,//如果重新选择了上级  以选择后的位置为准
                 name: obj.description,
                 location: obj.location,
                 superior: obj.superior,
@@ -117,7 +117,7 @@ function deleteObject() {
     var id = selectedNode.id;
     var url = "/location/delete/" + id;
     $.getJSON(url, function (data) {
-        console.log("删除位置---"+JSON.stringify(data));
+        console.log("删除位置---" + JSON.stringify(data));
         if (data) {
             var zTree = $.fn.zTree.getZTreeObj("tree");
             zTree.removeNode(zTree.getSelectedNodes()[0]);

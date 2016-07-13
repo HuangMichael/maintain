@@ -157,6 +157,53 @@ function changeLine(stationId) {
  * 位置保修
  */
 function reportByLocation() {
+    $('#locReportForm')
+        .bootstrapValidator({
+            message: '该值无效 ',
+            fields: {
+                "equipmentsClassification.id": {
+                    message: '设备分类无效',
+                    validators: {
+                        notEmpty: {
+                            message: '设备分类不能为空!'
+                        }
+                    }
+                },
+                "orderDesc": {
+                    message: '故障描述无效',
+                    validators: {
+                        notEmpty: {
+                            message: '故障描述不能为空!'
+                        },
+                        stringLength: {
+                            min: 10,
+                            max: 200,
+                            message: '故障描述长度为10到200个字符'
+                        }
+                    }
+                },
+                "reporter": {
+                    message: '报修人无效',
+                    validators: {
+                        notEmpty: {
+                            message: '报修人不能为空!'
+                        },
+                        stringLength: {
+                            min: 2,
+                            max: 20,
+                            message: '报修人为2到20个字符'
+                        }
+                    }
+                }
+            }
+        }).on('success.form.bv', function (e) {
+        // Prevent form submission
+        e.preventDefault();
+        // Get the form instance
+        add2LocCart();
+    });
+
+
     var location = getSelectedNode().location;
     var locationId = getSelectedNode().id;
     var status = "0";
@@ -189,7 +236,7 @@ function reportByLocation() {
     } else {
         if (status == "1") {
             $("#rptLoc").val(getSelectedNode().name);
-            $("#loc_modal").modal("show")
+            $("#loc_modal").modal("show");
         }
     }
 }

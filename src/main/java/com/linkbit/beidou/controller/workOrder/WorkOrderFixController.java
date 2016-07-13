@@ -105,20 +105,6 @@ public class WorkOrderFixController {
      * @param fixId
      * @return 完成单个维修工单
      */
-/*    @RequestMapping(value = "/finishDetail", method = RequestMethod.POST)
-    @ResponseBody
-    public WorkOrderFixDetail finishDetail(@RequestParam Long fixId, @RequestParam String orderDesc, HttpSession httpSession) {
-        WorkOrderFixDetail workOrderFixDetail = workOrderFixDetailRepository.findById(fixId);
-        String personName = (String) httpSession.getAttribute("personName");
-        workOrderFixService.finishDetailBatch(fixId + ",", personName);
-        return workOrderFixDetail;
-    }*/
-
-
-    /**
-     * @param fixId
-     * @return 完成单个维修工单
-     */
     @RequestMapping(value = "/finishDetail", method = RequestMethod.POST)
     @ResponseBody
     public ReturnObject finishDetail(@RequestParam Long fixId, @RequestParam String fixDesc, HttpSession httpSession) {

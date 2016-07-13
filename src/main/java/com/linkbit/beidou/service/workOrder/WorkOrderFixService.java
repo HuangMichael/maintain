@@ -108,6 +108,7 @@ public class WorkOrderFixService extends BaseService {
      * @param reporter
      * @return 批量完成维修单
      */
+    @Transactional
     public List<WorkOrderFixDetail> finishDetailBatch(String arrayStr, String reporter) {
         List<Long> idList = StringUtils.str2List(arrayStr, reporter);
         List<WorkOrderFixDetail> workOrderFixDetailList = new ArrayList<WorkOrderFixDetail>();
@@ -127,6 +128,15 @@ public class WorkOrderFixService extends BaseService {
             workOrderFixFinish.setReportType(workOrderFixDetail.getReportType());
             workOrderFixFinishRepository.save(workOrderFixFinish);
             workOrderFixDetailList.add(workOrderFixDetail);
+            System.out.println(" 维修单完工-------------------------------");
+
+            //在完工之前 查看对应的位置或者设备是否还在流程中  所有流程都结束 将该设备或者位置的状态设置为正常(1)
+            String reportType = workOrderFixDetail.getReportType();
+
+            if (reportType != null) {
+
+//
+            }
         }
         return workOrderFixDetailList;
     }
@@ -195,5 +205,25 @@ public class WorkOrderFixService extends BaseService {
      */
     public List<WorkOrderFix> findFinishedOrders(String location) {
         return workOrderFixRepository.findByLocationStartWithAndStatusLessThan(location, "1");
+    }
+
+
+    /**
+     * @param type 报修类型
+     */
+    public void updateReportSourceStatusAfterFinishing(String type) {
+
+
+        if (type.equals("w")) {
+            //查询位置是否在报修流程中
+
+           String sql= "SELECT * FROM dev.v_work_order_step v WHERE v.locations_id = 898 and status =0;";
+
+        } else if (type.equals("s")) {
+            //查询设备是否在报修流程中
+
+            String sql= "SELECT * FROM dev.v_work_order_step v WHERE v.equipments_id = 898 and status =0;";
+        }
+
     }
 }

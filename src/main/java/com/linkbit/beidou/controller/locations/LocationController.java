@@ -112,7 +112,11 @@ public class LocationController {
         modelMap.put("stationList", stationList);
 
         List<Equipments> equipmentsList = equipmentsRepository.findByLocationStartingWith(object.getLocation());
+        List<Equipments> fixingEqsList = equipmentsRepository.findByLocationStartingWithAndStatus(object.getLocation(), "2");
+
+
         modelMap.put("equipmentsList", equipmentsList);
+        modelMap.put("fixingEqsList", fixingEqsList);
         modelMap.put("locationsList", locationsList);
         List<Equipments> equipmentList = equipmentAccountService.findByLocation(object);
         modelMap.put("equipmentList", equipmentList);

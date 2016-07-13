@@ -448,11 +448,11 @@ function initLoadData(url, elementName) {
 
                 selection: true,
                 multiSelect: true,
-                rowSelect: true,
+                rowSelect: false,
                 keepSelection: true,
                 formatters: {
                     "report": function (column, row) {
-                        return '<a class="btn btn-default btn-xs"  onclick="report(' + row.id + ')" title="报修"><i class="glyphicon glyphicon-wrench"></i></a>'
+                        return '<a class="btn btn-default btn-xs"  onclick="report(' + row.id + ')" title="报修" ><i class="glyphicon glyphicon-wrench"></i></a>'
                     },
                     "track": function (column, row) {
                         return '<a class="btn btn-default btn-xs"  onclick="track(' + row.id + ')" title="追踪"><i class="glyphicon glyphicon-map-marker"></i></a>'
@@ -536,20 +536,6 @@ function loadFixHistoryByEid(eid) {
     return histories;
 }
 
-
-/**
- * 根据位置ID载入维修历史信息
- */
-function getLocDesc(lid) {
-    var url = "/location/getLocDesc/" + lid;
-    var locDesc = "";
-    $.ajaxSettings.async = false;
-    $.getJSON(url, function (data) {
-        locDesc = data;
-        console.log("locDesc---------------------" + locDesc);
-    });
-    return locDesc;
-}
 
 /**
  *
@@ -660,7 +646,24 @@ function editEq() {
                             message: '运行状态不能为空!'
                         }
                     }
-                }
+                },
+
+                expectedYear: {
+                    message: '预计年限无效',
+                    validators: {
+
+                        digits: {},
+                        greaterThan: {
+                            value: 0,
+                            message: '预计年限必须大于0!'
+                        },
+                        lessThan: {
+                            value: 99,
+                            message: '预计年限必须小于99!'
+                        }
+
+                    }
+                },
             }
         }).on('success.form.bv', function (e) {
         e.preventDefault();
@@ -780,7 +783,7 @@ function refresh(data) {
             status: '投用',
             running: '运行',
             report: '<a class="btn btn-default btn-xs"  onclick="report(' + data.id + ')" title="报修"><i class="glyphicon glyphicon-wrench"></i></a>',
-            track: '<a class="btn btn-default btn-xs"  onclick="track(' + data.id + ')" title="追踪"><i class="glyphicon glyphicon-map-marker"></i></a>'
+            track: '<a class="btn btn-default btn-xs"  onclick="track(' + data.id + ')" title="追踪" disabled="setTrackStatus(' + data.id + ')"><i class="glyphicon glyphicon-map-marker"></i></a>'
         }
         $(dataTableName).bootgrid("append", [obj]);
     }
@@ -811,3 +814,16 @@ function changeValue(data) {
 
  $("#detailForm select").find("")
  }*/
+
+
+function setTrackStatus(id) {
+    $.ajaxSettings.async = false;
+    var disabled = "";
+    var url = "/equipment/findById/" + id;
+    $.getJSON(url, function (data) {
+        if (data.status === '2') {
+            disabled = "disabled";
+        }
+    })
+    return disabled;
+}

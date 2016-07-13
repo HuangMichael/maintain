@@ -4,6 +4,7 @@ package com.linkbit.beidou.controller.equipment;
 import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
+import com.linkbit.beidou.dao.locations.VlocationsRepository;
 import com.linkbit.beidou.dao.test.DateTestRepository;
 import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
@@ -52,8 +53,10 @@ public class EquipmentController extends BaseController {
     LocationsService locationsService;
     @Autowired
     WorkOrderReportService workOrderReportService;
+
     @Autowired
-    DateTestRepository dateTestRepository;
+    VlocationsRepository vlocationsRepository;
+
 
     @RequestMapping(value = "/list")
     public String list(ModelMap modelMap, HttpSession session) {
@@ -151,12 +154,12 @@ public class EquipmentController extends BaseController {
             equipments.setAssetNo(assetNo);
             equipments.setManageLevel(manageLevel);
             equipments.setRunning(running);
+            equipments.setVlocations(vlocationsRepository.findById(locations_id));
             Date purchaseDated;
             Date warrantyPeriodDate;
             Date setupDateDate;
             Date productDateDate;
             Date runDateDate;
-            Date expectedYearDate;
             if (purchaseDate != null) {
                 purchaseDated = DateUtils.convertStr2Date(purchaseDate, "yyyy-MM-dd");
                 equipments.setPurchaseDate(purchaseDated);

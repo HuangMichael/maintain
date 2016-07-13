@@ -394,6 +394,8 @@ function saveEquipment() {
             }
             //更新detailForm数据模型
             vdm.$set("equipments", msg);
+
+            console.log("msg=-----"+JSON.stringify(msg));
             $("#detailForm #id").val(msg.id);
         }
         ,

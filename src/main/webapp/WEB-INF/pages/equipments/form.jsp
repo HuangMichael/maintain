@@ -203,7 +203,7 @@
             <label class="col-md-1 control-label" for="runDate">运行日期</label>
 
             <div class="col-md-3">
-                <input class="Wdate form-control" type="text" onClick="WdatePicker()" id="runDate"
+                <input class="Wdate form-control" type="text" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" id="runDate"
                        name="runDate"
                        v-model="equipments.runDate" style="height:34px;border:1px solid #cccccc"/>
             </div>

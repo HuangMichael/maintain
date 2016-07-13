@@ -31,15 +31,21 @@ public class LocationsService extends BaseService {
         List<Locations> locationsList = locationsRepository.findByParentOrderByLocationDesc(locations.getId());
 
         String locationNo = "";
-        Locations youngestChild = locationsList.get(0);
-        if (youngestChild != null) {
-            String location = youngestChild.getLocation();
-            String index = location.substring(location.length() - 2);
-            if (index != null && !index.equals("")) {
-                locationNo = locations.getLocation() + (Long.parseLong(index) + 1) + "";
-            } else {
-                locationNo = locations.getLocation() + "01";
+
+        if (!locationsList.isEmpty()) {
+            Locations youngestChild = locationsList.get(0);
+            if (youngestChild != null) {
+                String location = youngestChild.getLocation();
+                String index = location.substring(location.length() - 2, 2);
+                if (index != null && !index.equals("")) {
+                    locationNo = locations.getLocation() + (Long.parseLong(index) + 1) + "";
+                } else {
+                    locationNo = locations.getLocation() + "01";
+                }
             }
+        } else {
+
+            locationNo = locations.getLocation() + "01";
         }
         return locationNo;
     }

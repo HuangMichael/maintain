@@ -25,7 +25,7 @@
                             <th data-column-id="id" data-visible="false">序号</th>
                             <th data-column-id="eqCode">设备编号</th>
                             <th data-column-id="description">设备名称</th>
-                            <th data-column-id="location">设备位置</th>
+                            <th data-column-id="vlocation">设备位置</th>
                             <th data-column-id="status">设备状态</th>
                             <th data-column-id="report" data-formatter="report">设备报修</th>
                         </tr>
@@ -42,7 +42,7 @@
                                         ${equipment.description}
                                 </td>
                                 <td>
-                                        ${equipment.locations.description}
+                                        ${equipment.vlocations.line}${equipment.vlocations.station}${equipment.vlocations.locName}
                                 </td>
                                 <td>
                                     <c:if test="${equipment.status==1}">

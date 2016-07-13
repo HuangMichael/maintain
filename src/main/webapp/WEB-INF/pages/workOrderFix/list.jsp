@@ -45,6 +45,7 @@
                                                         <th width="20%">维修描述</th>
                                                         <%-- <th width="5%">预览</th>--%>
                                                         <th width="5%">暂停</th>
+                                                        <th width="5%">取消</th>
                                                         <th width="5%">完工</th>
                                                     </tr>
                                                     </thead>
@@ -105,6 +106,10 @@
                                                                 <td>
                                                                     <a class="btn btn-default btn-xs"
                                                                        onclick="pause(${d.id})">暂停</a>
+                                                                </td>
+                                                                <td>
+                                                                    <a class="btn btn-default btn-xs"
+                                                                       onclick="abort(${d.id})">取消</a>
                                                                 </td>
                                                                 <td>
                                                                     <a class="btn btn-default btn-xs"
@@ -185,7 +190,25 @@
         }
         var url = "/workOrderFix/pauseDetail";
         $.post(url, {fixId: id, fixDesc: fixDesc}, function (data) {
-            $("#statusFlag").html("已完工");
+
+            if(data.result){
+                $("#statusFlag").html("已暂停");
+            }
+            (data.result) ? showMessageBox("info", data.resultDesc) : showMessageBox("danger", data.resultDesc);
+        });
+    }
+    function abort(id) {
+        var fixDesc = $("#fixDesc" + id).val();
+        if (!fixDesc) {
+            showMessageBox("danger", "请输入维修描述!");
+            $("#fixDesc" + id).focus();
+            return;
+        }
+        var url = "/workOrderFix/abortDetail";
+        $.post(url, {fixId: id, fixDesc: fixDesc}, function (data) {
+            if(data.result){
+                $("#statusFlag").html("已取消");
+            }
             (data.result) ? showMessageBox("info", data.resultDesc) : showMessageBox("danger", data.resultDesc);
         });
 

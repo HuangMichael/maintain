@@ -115,7 +115,7 @@ public class WorkOrderFixController {
             workOrderFixDetail.setFixDesc(fixDesc);
             workOrderFixDetail = workOrderFixDetailRepository.save(workOrderFixDetail);
             String personName = (String) httpSession.getAttribute("personName");
-            workOrderFixService.finishDetailBatch(fixId+"",personName);
+            workOrderFixService.finishDetailBatch(fixId + "", personName);
             returnObject.setResult(true);
             returnObject.setResultDesc("维修单" + workOrderFixDetail.getOrderLineNo() + "完工成功！");
         } else {
@@ -143,7 +143,32 @@ public class WorkOrderFixController {
             returnObject.setResultDesc("维修单" + workOrderFixDetail.getOrderLineNo() + "暂停成功！");
         } else {
             returnObject.setResult(false);
-            returnObject.setResultDesc("维修单" + workOrderFixDetail.getOrderLineNo() + "暂停失败！");
+            returnObject.setResultDesc("维修单已经处理,无法暂停！");
+        }
+
+
+        return returnObject;
+    }
+
+
+    /**
+     * @param fixId
+     * @return 取消单个维修工单
+     */
+    @RequestMapping(value = "/abortDetail", method = RequestMethod.POST)
+    @ResponseBody
+    public ReturnObject abortDetail(@RequestParam Long fixId, @RequestParam String fixDesc) {
+        WorkOrderFixDetail workOrderFixDetail = workOrderFixDetailRepository.findById(fixId);
+        ReturnObject returnObject = new ReturnObject();
+        if (workOrderFixDetail.getStatus().equals("0")) {
+            workOrderFixDetail.setStatus("3");
+            workOrderFixDetail.setFixDesc(fixDesc);
+            workOrderFixDetail = workOrderFixDetailRepository.save(workOrderFixDetail);
+            returnObject.setResult(true);
+            returnObject.setResultDesc("维修单" + workOrderFixDetail.getOrderLineNo() + "取消成功！");
+        } else {
+            returnObject.setResult(false);
+            returnObject.setResultDesc("维修单已经处理，无法取消！");
         }
 
 
@@ -208,13 +233,10 @@ public class WorkOrderFixController {
     }
 
 
-
-
-
     @RequestMapping(value = "/findFinishedOrders/{location}", method = RequestMethod.GET)
     @ResponseBody
     public List<WorkOrderFix> findFinishedOrders(@PathVariable String location) {
-        List<WorkOrderFix>  workOrderFixList = workOrderFixService.findFinishedOrders(location);
+        List<WorkOrderFix> workOrderFixList = workOrderFixService.findFinishedOrders(location);
         return workOrderFixList;
     }
 

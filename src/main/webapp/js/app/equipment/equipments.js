@@ -394,8 +394,11 @@ function saveEquipment() {
             }
             //更新detailForm数据模型
             vdm.$set("equipments", msg);
-
-            console.log("msg=-----"+JSON.stringify(msg));
+            vdm.$set("equipments.warrantyPeriod", transformYMD(msg.warrantyPeriod));
+            vdm.$set("equipments.purchaseDate", transformYMD(msg.purchaseDate));
+            vdm.$set("equipments.setupDate", transformYMD(msg.setupDate));
+            vdm.$set("equipments.productDate", transformYMD(msg.productDate));
+            vdm.$set("equipments.runDate", transformYMD(msg.runDate));
             $("#detailForm #id").val(msg.id);
         }
         ,
@@ -793,7 +796,7 @@ function changeValue(data) {
     $("tr[data-row-id='" + trId + "'] td:eq(2)").html(data.eqCode);
     $("tr[data-row-id='" + trId + "'] td:eq(3)").html(data.description);
     $("tr[data-row-id='" + trId + "'] td:eq(4)").html(data.equipmentsClassification.description);
-    $("tr[data-row-id='" + trId + "'] td:eq(5)").html(data.locations.description);
+    $("tr[data-row-id='" + trId + "'] td:eq(5)").html(data.vlocations.line + data.vlocations.station + data.vlocations.locName);
     $("tr[data-row-id='" + trId + "'] td:eq(6)").html(eqStatuses[data.status]["value"]);
     $("tr[data-row-id='" + trId + "'] td:eq(7)").html(runStatus[data.running]["value"]);
 

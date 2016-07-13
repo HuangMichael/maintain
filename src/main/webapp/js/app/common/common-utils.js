@@ -10,6 +10,15 @@ function transformDate(timestamp) {
     return dateStr
 }
 
+function transformYMD(timestamp) {
+    var date = new Date(timestamp);
+    var dateStr = "";
+    dateStr += date.getFullYear() + "-";
+    dateStr += (parseInt(date.getMonth() + 1) < 10) ? "0" + parseInt(date.getMonth() + 1) + "-" : parseInt(date.getMonth() + 1) + "-";
+    dateStr += (date.getDate() < 10) ? "0" + date.getDate() : date.getDate();
+    return dateStr
+}
+
 
 function transformDateHMS(timestamp) {
     var date = new Date(timestamp);

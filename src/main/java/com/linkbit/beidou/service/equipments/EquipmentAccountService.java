@@ -56,11 +56,9 @@ public class EquipmentAccountService extends BaseService {
      */
     public Map<String, List> calculateDetail(Equipments equipments) {
         Map<String, List> map = new HashMap<String, List>();
-        List<EquipmentsSpecDetail> equipmentsSpecDetailList = equipments.getEquipmentsSpecDetailList();
         List<WorkOrder> workOrderList = workOrderRepository.findByLocations(equipments.getLocations());
         List pmList = new ArrayList();
         List consumablesList = new ArrayList();
-        map.put("list0", equipmentsSpecDetailList);
         map.put("list1", workOrderList);
         map.put("list2", pmList);
         map.put("list3", consumablesList);

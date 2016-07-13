@@ -126,16 +126,19 @@ public class LocationsService extends BaseService {
                 locationsRepository.delete(locations);
                 //再查询一次查看是否删除
                 Locations l = locationsRepository.findById(id);
-                if (l != null) {
+                if (l == null) {
                     returnObject.setResult(true);
                     returnObject.setResultDesc("位置信息删除成功!");
                     return returnObject;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                returnObject.setResult(false);
+                returnObject.setResultDesc("位置信息删除失败!");
+                return returnObject;
             }
+            return returnObject;
         }
-        return returnObject;
     }
 
 

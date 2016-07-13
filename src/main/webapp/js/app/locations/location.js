@@ -110,21 +110,20 @@ function save() {
  */
 function deleteObject() {
     if (!confirm("确定要删除该信息么？")) {
-        return
+        return;
     }
     var zTree = $.fn.zTree.getZTreeObj("tree");
     var selectedNode = zTree.getSelectedNodes()[0];
     var id = selectedNode.id;
     var url = "/location/delete/" + id;
     $.getJSON(url, function (data) {
-        console.log("删除位置---" + JSON.stringify(data));
         if (data.result) {
             var zTree = $.fn.zTree.getZTreeObj("tree");
             zTree.removeNode(zTree.getSelectedNodes()[0]);
             zTree.selectNode(zTree.getNodeByParam("id", 1));
-            showMessageBox("info", "设备位置信息删除成功")
+            showMessageBox("info", "设备位置信息删除成功");
         } else {
-            showMessageBox("danger", data.resultDesc)
+            showMessageBox("danger", "设备位置信息删除失败");
         }
     })
 }

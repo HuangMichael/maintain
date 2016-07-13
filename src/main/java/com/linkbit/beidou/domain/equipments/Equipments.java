@@ -4,6 +4,7 @@ package com.linkbit.beidou.domain.equipments;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.locations.Vlocations;
 import lombok.*;
+import org.springframework.data.annotation.Transient;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -68,6 +69,7 @@ public class Equipments {
     private Locations locations;  //所属位置
 
 
+    @Transient
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "vlocations_id", referencedColumnName = "id")
     private Vlocations vlocations;  //所属位置
@@ -117,6 +119,7 @@ public class Equipments {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date expectedYear; //预计年限
+
 
 
 }

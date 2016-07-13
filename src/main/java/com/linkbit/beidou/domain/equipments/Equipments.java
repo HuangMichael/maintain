@@ -116,9 +116,9 @@ public class Equipments {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date productDate; //出厂日期
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Temporal(TemporalType.DATE)
-    private Date expectedYear; //预计年限
+    @Column(length = 2)
+
+    private Long expectedYear; //预计年限
 
 
 

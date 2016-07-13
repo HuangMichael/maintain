@@ -128,7 +128,7 @@ public class EquipmentController extends BaseController {
             @RequestParam(value = "setupDate", required = false) String setupDate,
             @RequestParam(value = "productDate", required = false) String productDate,
             @RequestParam(value = "runDate", required = false) String runDate,
-            @RequestParam(value = "expectedYear", required = false) String expectedYear
+            @RequestParam(value = "expectedYear", required = false) Long expectedYear
     ) {
         Equipments equipments = (id != null) ? equipmentAccountService.findById(id) : new Equipments();
 
@@ -177,10 +177,7 @@ public class EquipmentController extends BaseController {
                 runDateDate = DateUtils.convertStr2Date(runDate, "yyyy-MM-dd");
                 equipments.setRunDate(runDateDate);
             }
-            if (expectedYear != null) {
-                expectedYearDate = DateUtils.convertStr2Date(expectedYear, "yyyy-MM-dd");
-                equipments.setExpectedYear(expectedYearDate);
-            }
+            equipments.setExpectedYear(expectedYear);
         } catch (Exception e) {
             e.printStackTrace();
         }

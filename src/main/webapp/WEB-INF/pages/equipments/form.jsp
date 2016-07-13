@@ -210,9 +210,9 @@
             <label class="col-md-1 control-label" for="expectedYear">预计年限</label>
 
             <div class="col-md-3">
-                <input class="Wdate form-control" type="text" onClick="WdatePicker()" id="expectedYear"
+                <input class=" form-control" type="text" id="expectedYear"
                        name="expectedYear"
-                       v-model="equipments.expectedYear" style="height:34px;border:1px solid #cccccc"/>
+                       v-model="equipments.expectedYear"/>
             </div>
         </div>
     </fieldset>

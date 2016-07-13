@@ -8,7 +8,7 @@
         <th data-column-id="eqCode">设备编号</th>
         <th data-column-id="description">设备名称</th>
         <th data-column-id="equipClass">设备分类</th>
-        <th data-column-id="location">设备位置</th>
+        <th data-column-id="vlocation">设备位置</th>
         <th data-column-id="status">设备状态</th>
         <th data-column-id="running">运行状态</th>
         <th data-column-id="report" data-formatter="report" data-sortable="false">报修</th>
@@ -22,7 +22,7 @@
         <td>{{eq.eqCode}}</td>
         <td>{{eq.description}}</td>
         <td>{{eq.equipmentsClassification.description}}</td>
-        <td>{{eq.locations.description}}</td>
+        <td>{{eq.vlocations.line+eq.vlocations.station+eq.vlocations.locName}}</td>
         <td>
             <div v-if="eq.status=='0'">
                 停用

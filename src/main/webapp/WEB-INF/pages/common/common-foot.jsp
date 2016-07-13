@@ -11,6 +11,7 @@
 <%--<script type="text/javascript" src="http://libs.cdnjs.net/files/jquery.ztree/3.5.15/js/jquery.ztree.all.min.js"></script>--%>
 <script type="text/javascript" src="js/bootstrap-growl/jquery.bootstrap-growl.min.js"></script>
 <script type="text/javascript" src="js/terebentina-sco/js/sco.modal.js"></script>
+<script type="text/javascript" src="js/terebentina-sco/js/sco.confirm.js"></script>
 <script type="text/javascript" src="http://cdn.bootcss.com/jquery-backstretch/2.0.3/jquery.backstretch.min.js"></script>
 <%--<script type="text/javascript" src="http://cdn.bootcss.com/jquery-bootgrid/1.3.1/jquery.bootgrid.min.js"></script>--%>
 <script type="text/javascript" src="js/jquery.bootgrid-1.3.1/jquery.bootgrid.min.js"></script>

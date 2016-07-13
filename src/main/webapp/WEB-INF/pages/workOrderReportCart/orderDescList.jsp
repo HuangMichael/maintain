@@ -11,8 +11,7 @@
         <th>设备名称</th>
         <th>设备位置</th>
         <th>设备分类</th>
-        <th>故障描述
-        </th>
+        <th>故障描述</th>
     </tr>
     </thead>
     <tbody id="tbody2">
@@ -23,11 +22,37 @@
             <td>${workOrder.equipments.description}</td>
             <td>${workOrder.locations.description}</td>
             <td>${workOrder.equipmentsClassification.description}</td>
-            <td><input type="text" id="orderDesc${workOrder.id}" class="form-control" style="height:28px" value="${workOrder.orderDesc}"/>
+            <td><input type="text" id="orderDesc${workOrder.id}" class="form-control" style="height:28px"
+                       value="${workOrder.orderDesc}" onchange="changeContent(${workOrder.id})"/>
             </td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
+
+<script>
+    /**
+     *
+     * @param id  报修明细ID
+     * @param orderDesc 故障描述内容
+     */
+    function changeContent(id) {
+
+        var orderDesc = $("#orderDesc" + id).val();
+        console.log("修改后orderDesc-------------"+orderDesc);
+        if (!orderDesc) {
+            showMessageBox("danger", "故障描述不能为空,请输入故障描述 !");
+            return;
+        }
+        $.ajaxSettings.async = false;
+        var url = "/workOrderReportCart/updateOrderDesc";
+        $.post(url, {id: id, orderDesc: orderDesc}, function (data) {
+            if (data) {
+                showMessageBox("info", "故障描述更新成功!");
+                return;
+            }
+        });
+    }
+</script>
 
 

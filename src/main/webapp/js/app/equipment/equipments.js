@@ -2,9 +2,7 @@ var dataTableName = '#equipmentsDataTable';
 var eqs = [];
 var locs = [];
 var eqClasses = [];
-
 var eqStatuses = [];
-
 var runStatus = []
 var selectedIds = []; //获取被选择记录集合
 var allSize = 0;
@@ -12,6 +10,10 @@ var vdm = null; //明细页面的模型
 var vm = null; //明细页面的模型
 var hm = null;
 var formLocked = true;
+
+var formStatusArray = ["READ", "CREATE", "EDIT", "SAVED", "DELETED"];
+
+var formstatus = formStatusArray["READ"];
 
 //数据列表
 var listTab = $('#myTab li:eq(0) a');
@@ -100,6 +102,7 @@ $(function () {
 
     listTab.on('click', function () {
         refresh();
+
     });
 
 
@@ -145,7 +148,7 @@ $(function () {
 
 function addNew() {
     setFormReadStatus("#detailForm", false);
-
+    formstatus = formStatusArray["CREATE"];
     var status = [
         {value: 1, text: "投用", selected: "selected"},
         {value: 0, text: "停用"},

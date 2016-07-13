@@ -235,10 +235,8 @@ public class WorkOrderReportCartService extends BaseService {
      */
     public WorkOrderReportCart updateOrderDesc(Long id, String orderDesc) {
         WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(id);
-        if (workOrderReportCart.getOrderDesc() == null || workOrderReportCart.getOrderDesc().equals("")) {
-            workOrderReportCart.setOrderDesc(orderDesc);
-            workOrderReportCart = workOrderReportCartRepository.save(workOrderReportCart);
-        }
+        workOrderReportCart.setOrderDesc(orderDesc);
+        workOrderReportCart = workOrderReportCartRepository.save(workOrderReportCart);
         return workOrderReportCart;
 
     }

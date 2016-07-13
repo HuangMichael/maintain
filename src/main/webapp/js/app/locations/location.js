@@ -312,11 +312,10 @@ function reportByLocation() {
         $("#locList").load(curl, function (data) {
             $("#show_loc_modal").modal("show")
         })
-    } else {
-        if (status == "1") {
-            $("#rptLoc").val(getSelectedNode().name);
-            $("#loc_modal").modal("show");
-        }
+    } else if (status == "1") {
+        $("#rptLoc").val(getSelectedNode().name);
+        $("#loc_modal").modal("show");
+
     }
 }
 /**

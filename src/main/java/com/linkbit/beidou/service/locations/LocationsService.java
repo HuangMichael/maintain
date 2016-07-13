@@ -4,6 +4,7 @@ import com.linkbit.beidou.dao.locations.LocationsRepository;
 import com.linkbit.beidou.dao.locations.VlocationsRepository;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.locations.Vlocations;
+import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,22 +30,18 @@ public class LocationsService extends BaseService {
      */
     public String getLocationsNo(Locations locations) {
         List<Locations> locationsList = locationsRepository.findByParentOrderByLocationDesc(locations.getId());
-
         String locationNo = "";
-
         if (!locationsList.isEmpty()) {
             Locations youngestChild = locationsList.get(0);
             if (youngestChild != null) {
                 String location = youngestChild.getLocation();
-                String index = location.substring(location.length() - 2, 2);
+                String index = location.substring(location.length() - 2, location.length());
                 if (index != null && !index.equals("")) {
-                    locationNo = locations.getLocation() + (Long.parseLong(index) + 1) + "";
-                } else {
-                    locationNo = locations.getLocation() + "01";
+                    long n = (Long.parseLong(index) + 1);
+                    locationNo = locations.getLocation() + ((n < 10) ? "0" + n : n);
                 }
             }
         } else {
-
             locationNo = locations.getLocation() + "01";
         }
         return locationNo;
@@ -112,17 +109,33 @@ public class LocationsService extends BaseService {
     }
 
     /**
-     * @param
-     * @return
+     * @param locations 位置信息
+     * @return 删除位置信息
      */
-    public Boolean delete(Locations locations) {
+    public ReturnObject delete(Locations locations) {
+        //有子节点不能删除
+        Long id = locations.getId();
+        ReturnObject returnObject = new ReturnObject();
         boolean hasChild = !locationsRepository.findByParent(locations.getId()).isEmpty();
         if (hasChild) {
-            return false;
+            returnObject.setResult(false);
+            returnObject.setResultDesc("该位置下有位置信息不能删除!");
+            return returnObject;
         } else {
-            locationsRepository.delete(locations);
-            return true;
+            try {
+                locationsRepository.delete(locations);
+                //再查询一次查看是否删除
+                Locations l = locationsRepository.findById(id);
+                if (l != null) {
+                    returnObject.setResult(true);
+                    returnObject.setResultDesc("位置信息删除成功!");
+                    return returnObject;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+        return returnObject;
     }
 
 

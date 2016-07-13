@@ -118,13 +118,13 @@ function deleteObject() {
     var url = "/location/delete/" + id;
     $.getJSON(url, function (data) {
         console.log("删除位置---" + JSON.stringify(data));
-        if (data) {
+        if (data.result) {
             var zTree = $.fn.zTree.getZTreeObj("tree");
             zTree.removeNode(zTree.getSelectedNodes()[0]);
             zTree.selectNode(zTree.getNodeByParam("id", 1));
             showMessageBox("info", "设备位置信息删除成功")
         } else {
-            showMessageBox("danger", "设备位置信息删除失败")
+            showMessageBox("danger", data.resultDesc)
         }
     })
 }

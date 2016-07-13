@@ -9,6 +9,7 @@ import com.linkbit.beidou.domain.line.Station;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.domain.user.User;
+import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.equipments.EquipmentAccountService;
 import com.linkbit.beidou.service.line.LineService;
 import com.linkbit.beidou.service.line.StationService;
@@ -215,7 +216,7 @@ public class LocationController {
      */
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Boolean delete(@PathVariable("id") Long id) {
+    public ReturnObject delete(@PathVariable("id") Long id) {
         Locations locations = locationsService.findById(id);
         return locationsService.delete(locations);
     }

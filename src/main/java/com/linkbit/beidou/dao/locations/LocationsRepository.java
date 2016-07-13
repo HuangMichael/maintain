@@ -72,11 +72,10 @@ public interface LocationsRepository extends CrudRepository<Locations, Long> {
      */
     List<Locations> findByLocation(String location);
 
-  /*  *//**
-     * @param level 级别  <
-     * @return 查询节点级别小于level的
-     *//*
-    List<Locations> findF(Long level);*/
 
-
+    /**
+     * @param locations 删除位置
+     */
+    @Override
+    void delete(Locations locations);
 }

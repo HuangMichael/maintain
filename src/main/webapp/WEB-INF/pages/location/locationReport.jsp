@@ -37,7 +37,7 @@
 
                 <div class="col-md-10">
                     <textarea class="form-control" id="orderDesc" name="orderDesc" rows="5"
-                              placeholder="请输入报修故障描述不超过100字" required/>
+                              placeholder="请输入报修故障描述不超过200个字符" required/>
                 </div>
             </div>
 

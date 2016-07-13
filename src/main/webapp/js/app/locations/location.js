@@ -68,7 +68,79 @@ function loadCreateForm() {
         $("#parent_id").val(id);
         $("#station_id").val(selectedNode.station);
         flag = true
-    })
+    });
+
+//
+    $('#form')
+        .bootstrapValidator({
+            message: '该值无效 ',
+            fields: {
+                "description": {
+                    message: '位置描述无效',
+                    validators: {
+                        notEmpty: {
+                            message: '位置描述不能为空!'
+                        },
+                        stringLength: {
+                            min: 2,
+                            max: 20,
+                            message: '位置描述长度为2到20个字符'
+                        }
+                    }
+                },
+                description: {
+                    message: '设备描述无效',
+                    validators: {
+                        notEmpty: {
+                            message: '设备描述不能为空!'
+                        },
+                        stringLength: {
+                            min: 2,
+                            max: 20,
+                            message: '设备描述长度为2到20个字符'
+                        }
+                    }
+                },
+                "locations.id": {
+                    message: '设备位置无效',
+                    validators: {
+                        notEmpty: {
+                            message: '设备位置不能为空!'
+                        }
+                    }
+                },
+                "equipmentsClassification.id": {
+                    message: '设备分类无效',
+                    validators: {
+                        notEmpty: {
+                            message: '设备分类不能为空!'
+                        }
+                    }
+                },
+                "status": {
+                    message: '设备状态无效',
+                    validators: {
+                        notEmpty: {
+                            message: '设备状态不能为空!'
+                        }
+                    }
+                }
+                ,
+                "running": {
+                    message: '运行状态无效',
+                    validators: {
+                        notEmpty: {
+                            message: '运行状态不能为空!'
+                        }
+                    }
+                }
+            }
+        }).on('success.form.bv', function (e) {
+        // Prevent form submission
+        e.preventDefault();
+        // Get the form instance
+        save();
+    });
 }
 /**
  * 保存位置信息
@@ -77,6 +149,10 @@ function save() {
     var objStr = getFormJsonData("form");
     var locations = JSON.parse(objStr);
     var url = "/location/save";
+    if (!locations.description) {
+        showMessageBox("danger", "位置描述不能为空!");
+        return;
+    }
     $.ajax({
         type: "POST", url: url, data: locations, dataType: "JSON", success: function (obj) {
             var parent = $("#parent_id").val();
@@ -117,13 +193,16 @@ function deleteObject() {
     var id = selectedNode.id;
     var url = "/location/delete/" + id;
     $.getJSON(url, function (data) {
+
+        console.log("data.result---" + data.result);
         if (data.result) {
             var zTree = $.fn.zTree.getZTreeObj("tree");
             zTree.removeNode(zTree.getSelectedNodes()[0]);
             zTree.selectNode(zTree.getNodeByParam("id", 1));
-            showMessageBox("info", "设备位置信息删除成功");
+            showMessageBox("info", data.resultDesc);
         } else {
-            showMessageBox("danger", "设备位置信息删除失败");
+            console.log("data.result---" + data.resultDesc);
+            showMessageBox("danger", data.resultDesc);
         }
     })
 }

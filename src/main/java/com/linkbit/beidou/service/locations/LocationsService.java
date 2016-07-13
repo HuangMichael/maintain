@@ -134,7 +134,7 @@ public class LocationsService extends BaseService {
             } catch (Exception e) {
                 e.printStackTrace();
                 returnObject.setResult(false);
-                returnObject.setResultDesc("位置信息删除失败!");
+                returnObject.setResultDesc("位置信息有关联数据，无法删除，请联系管理员!");
                 return returnObject;
             }
             return returnObject;

@@ -28,7 +28,7 @@ public interface VworkOrderStepRepository extends CrudRepository<VworkOrderStep,
      * @return 根据位置查询维修流程
      */
     //List<VworkOrderStep> findByLocations(Locations locations);
-    @Query(value = "select v from VworkOrderStep v where v.orderLineNo in (select n.orderLineNo from VworkOrderStep n where n.locations =:locations and n.status ='0' )")
+    @Query(value = "select v from VworkOrderStep v where v.orderLineNo in (select n.orderLineNo from VworkOrderStep n where n.locations =:locations and n.status ='0'  ) order by v.id desc")
     List<VworkOrderStep> findByLocations(@Param("locations") Locations locations);
 
 

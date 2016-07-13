@@ -85,7 +85,6 @@ public class WorkOrderReportCartService extends BaseService {
         WorkOrderReportCart workOrderReportCart = new WorkOrderReportCart();
         workOrderReportCart.setEquipments(null);
         workOrderReportCart.setOrderLineNo("WF" + new Date().getTime());
-
         Locations locations = locationsService.findById(locationId);
         if (locations != null) {
             workOrderReportCart.setLocations(locations);
@@ -100,8 +99,10 @@ public class WorkOrderReportCartService extends BaseService {
         workOrderReportCart.setReportType(CommonStatusType.REPORT_BY_LOC); //根据位置报修
         workOrderReportCart.setStatus(CommonStatusType.CART_CREATED);
         workOrderReportCart = workOrderReportCartRepository.save(workOrderReportCart);
-        locations.setStatus(CommonStatusType.LOC_ABNORMAL); //位置不正常
-        locationsService.save(locations); //报修之后更改位置状态为不正常状态
+        if(!locations.getStatus().equals(CommonStatusType.LOC_ABNORMAL)){
+            locations.setStatus(CommonStatusType.LOC_ABNORMAL); //位置不正常
+            locationsService.save(locations); //报修之后更改位置状态为不正常状态
+        }
         return workOrderReportCart;
     }
 

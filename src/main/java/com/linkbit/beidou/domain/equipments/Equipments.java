@@ -80,10 +80,6 @@ public class Equipments {
     private EquipmentsClassification equipmentsClassification; //设备分类
 
 
-    @OneToMany(targetEntity = EquipmentsSpecDetail.class, cascade = CascadeType.ALL, mappedBy = "equipments", fetch = FetchType.LAZY)
-    List<EquipmentsSpecDetail> equipmentsSpecDetailList = new ArrayList<EquipmentsSpecDetail>(); //设备技术参数
-
-
     @Column(length = 1, columnDefinition = "default 1")
     private String status; //默认为正常  0不正常 1正常  2报修   3报废
 

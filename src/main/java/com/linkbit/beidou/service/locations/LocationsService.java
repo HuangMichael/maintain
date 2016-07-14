@@ -2,13 +2,16 @@ package com.linkbit.beidou.service.locations;
 
 import com.linkbit.beidou.dao.locations.LocationsRepository;
 import com.linkbit.beidou.dao.locations.VlocationsRepository;
+import com.linkbit.beidou.dao.workOrder.VworkOrderStepRepository;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.locations.Vlocations;
+import com.linkbit.beidou.domain.workOrder.VworkOrderStep;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +26,10 @@ public class LocationsService extends BaseService {
 
     @Autowired
     VlocationsRepository vlocationsRepository;
+
+
+    @Autowired
+    VworkOrderStepRepository vworkOrderStepRepository;
 
 
     /**
@@ -187,6 +194,18 @@ public class LocationsService extends BaseService {
     public List<Vlocations> findByLocationStartingWithAndStatus(String location) {
 
         return vlocationsRepository.findByLocationStartingWith(location);
+    }
+
+    /**
+     * @param locationId
+     * @return 判断位置是否还在维修流程中
+     */
+    public Boolean isLocationOutOfFlow(Long locationId) {
+        List<VworkOrderStep> stepList = new ArrayList<VworkOrderStep>();
+        if (locationId != null) {
+            stepList = vworkOrderStepRepository.LocationStepsInFlow(locationId);
+        }
+        return stepList.isEmpty();
     }
 }
 

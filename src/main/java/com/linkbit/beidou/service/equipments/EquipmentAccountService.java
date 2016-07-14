@@ -5,7 +5,6 @@ import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
 import com.linkbit.beidou.dao.workOrder.VworkOrderStepRepository;
 import com.linkbit.beidou.dao.workOrder.WorkOrderRepository;
 import com.linkbit.beidou.domain.equipments.Equipments;
-import com.linkbit.beidou.domain.equipments.EquipmentsSpecDetail;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import com.linkbit.beidou.domain.workOrder.VworkOrderStep;
@@ -228,5 +227,18 @@ public class EquipmentAccountService extends BaseService {
         equipments = equipmentsRepository.save(equipments);
         return equipments.getStatus();
 
+    }
+
+
+    /**
+     * @param equipmentId
+     * @return 判断设备是否还在维修流程中
+     */
+    public Boolean isEquipmentsOutOfFlow(Long equipmentId) {
+        List<VworkOrderStep> stepList = new ArrayList<VworkOrderStep>();
+        if (equipmentId != null) {
+            stepList = vworkOrderStepRepository.EquipmentsStepsInFlow(equipmentId);
+        }
+        return stepList.isEmpty();
     }
 }

@@ -43,8 +43,17 @@ public interface VworkOrderStepRepository extends CrudRepository<VworkOrderStep,
 
     /**
      * @param locationId 位置ID
-     * @return 查询该设备是否在流程中
+     * @return 查询该位置是否在流程中
      */
     @Query("select v from VworkOrderStep v where v.locations.id =:locationId and v.status ='0'")
-    Boolean isLocationInFlow(@Param("locationId") Long locationId);
+    List<VworkOrderStep> LocationStepsInFlow(@Param("locationId") Long locationId);
+
+    /**
+     * @param equipmentsId 位置ID
+     * @return 查询该设备是否在流程中
+     */
+    @Query("select v from VworkOrderStep v where v.equipments.id =:equipmentsId and v.status ='0'")
+    List<VworkOrderStep> EquipmentsStepsInFlow(@Param("equipmentsId") Long equipmentsId);
+
+
 }

@@ -2,9 +2,13 @@ package com.linkbit.beidou.service.workOrder;
 
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
 import com.linkbit.beidou.dao.workOrder.*;
+import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
+import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.workOrder.*;
 import com.linkbit.beidou.service.app.BaseService;
+import com.linkbit.beidou.service.equipments.EquipmentAccountService;
+import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.utils.CommonStatusType;
 import com.linkbit.beidou.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +40,12 @@ public class WorkOrderFixService extends BaseService {
 
     @Autowired
     WorkOrderFixFinishRepository workOrderFixFinishRepository;
+
+    @Autowired
+    LocationsService locationsService;
+
+    @Autowired
+    EquipmentAccountService equipmentAccountService;
 
 
     /**
@@ -128,14 +138,12 @@ public class WorkOrderFixService extends BaseService {
             workOrderFixFinish.setReportType(workOrderFixDetail.getReportType());
             workOrderFixFinishRepository.save(workOrderFixFinish);
             workOrderFixDetailList.add(workOrderFixDetail);
-            System.out.println(" 维修单完工-------------------------------");
-
             //在完工之前 查看对应的位置或者设备是否还在流程中  所有流程都结束 将该设备或者位置的状态设置为正常(1)
             String reportType = workOrderFixDetail.getReportType();
 
             if (reportType != null) {
 
-//
+                updateReportSourceStatusAfterFinishing(workOrderFixDetail);
             }
         }
         return workOrderFixDetailList;
@@ -209,21 +217,35 @@ public class WorkOrderFixService extends BaseService {
 
 
     /**
-     * @param type 报修类型
+     * @param workOrderFixDetail 维修明细
+     *                           维修完成后更新设备或者状态信息为正常
      */
-    public void updateReportSourceStatusAfterFinishing(String type) {
+    public void updateReportSourceStatusAfterFinishing(WorkOrderFixDetail workOrderFixDetail) {
+        boolean repaired;
+        String type = workOrderFixDetail.getReportType();
 
-
-        if (type.equals("w")) {
+        if (type == null || type.equals("")) {
+            log.error("报修类型为空");
+            return;
+        } else if (type.equals("w")) {
             //查询位置是否在报修流程中
-
-           String sql= "SELECT * FROM dev.v_work_order_step v WHERE v.locations_id = 898 and status =0;";
+            Locations locations = workOrderFixDetail.getLocations();
+            repaired = locationsService.isLocationOutOfFlow(locations.getId());
+            if (repaired) {
+                //将locationId对应的位置状态修改为正常1
+                locations.setStatus(CommonStatusType.LOC_NORMAL);
+                locationsService.save(locations);
+            }
 
         } else if (type.equals("s")) {
             //查询设备是否在报修流程中
-
-            String sql= "SELECT * FROM dev.v_work_order_step v WHERE v.equipments_id = 898 and status =0;";
+            Equipments equipments = workOrderFixDetail.getEquipments();
+            repaired = equipmentAccountService.isEquipmentsOutOfFlow(equipments.getId());
+            if (repaired) {
+                //将locationId对应的位置状态修改为正常1
+                equipments.setStatus(CommonStatusType.EQ_NORMAL);
+                equipmentAccountService.save(equipments);
+            }
         }
-
     }
 }

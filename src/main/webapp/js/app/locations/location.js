@@ -324,7 +324,6 @@ function reportByLocation() {
 function continueLocReport() {
     $("#show_loc_modal").modal("hide");
     //再次报修时  将原来的输入清空
-
     $("#orderDesc").val("");
     $("#rptLoc").val(getSelectedNode().name);
     $("#loc_modal").modal("show");

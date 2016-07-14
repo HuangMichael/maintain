@@ -22,7 +22,6 @@
     <link rel="stylesheet" type="text/css" href="css/themes/default.css" id="skin-switcher">
     <link rel="stylesheet" type="text/css" href="css/responsive.css">
     <link rel="stylesheet" type="text/css" href="css/animatecss/animate.min.css"/>
-    <link rel="stylesheet" type="text/css" href="js/gritter/css/jquery.gritter.css"/>
     <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css">
    <%-- <link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">--%>
     <%--<link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/Uniform.js/2.1.2/themes/default/css/uniform.default.css">--%>

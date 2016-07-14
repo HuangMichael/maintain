@@ -240,6 +240,7 @@ function addNew() {
 }
 
 
+var reportId;
 function report(id) {
     var status = "0";
     var path = "/equipment/findById/" + id;
@@ -251,8 +252,10 @@ function report(id) {
         $("#eqList").load(curl, function (data) {
             $("#show_eq_modal").modal("show");
             eqId = id
+            reportId = id;
         })
     } else {
+
         equipReport(id)
     }
 }
@@ -268,7 +271,10 @@ function equipReport(id) {
         showMessageBox("info", "已将设备报修加入到维修车!")
     })
 }
-
+function continueEqReport() {
+    $("#show_eq_modal").modal("hide");
+    equipReport(reportId);
+}
 
 //跟踪设备维修进度
 function track(eid) {
@@ -687,6 +693,17 @@ function editEq() {
     }
 }
 
+
+/**
+ *  已经报修提示重复报修 选择继续
+ */
+function continueEqReport() {
+    $("#show_loc_modal").modal("hide");
+    //再次报修时  将原来的输入清空
+    $("#orderDesc").val("");
+    $("#rptLoc").val(getSelectedNode().name);
+    $("#loc_modal").modal("show");
+}
 
 /**
  * 保存设备信息

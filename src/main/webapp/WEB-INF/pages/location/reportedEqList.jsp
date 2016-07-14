@@ -6,6 +6,6 @@
 <div style="text-align: right">
     <button type="button" class="btn btn-default" data-dismiss="modal">取消报修
     </button>
-    <button type="button" id="equipReport" name="equipReport" class="btn btn-danger">继续报修
+    <button type="button" id="equipReport" name="equipReport" class="btn btn-danger" onclick="continueEqReport()">继续报修
     </button>
 </div>

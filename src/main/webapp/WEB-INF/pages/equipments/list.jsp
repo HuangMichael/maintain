@@ -71,7 +71,7 @@
                                     </li>
                                     <li><a href="#tab_1_3" data-toggle="tab"
                                            style="font-family: 微软雅黑;font-weight: bold"><i class="fa fa-lock"
-                                                                                          id="history"></i>报修历史信息</a>
+                                                                                          id="history"></i>维修历史信息</a>
                                     </li>
                                 </ul>
                                 <div class="tab-content">

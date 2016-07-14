@@ -45,6 +45,7 @@
             <th>报修时间</th>
             <th>故障处理情况</th>
             <th>状态</th>
+            <th>跟踪</th>
         </tr>
         </thead>
         <tbody id="reportHistory_list" style="height: 100px;overflow: scroll">
@@ -55,6 +56,7 @@
             <td>{{h[3]}}</td>
             <td><%--{{h[3]}}--%></td>
             <td>{{h[1]}}</td>
+            <td><a class="btn btn-xs"><i class="glyphicon glyphicon-eye-open"></i></a></td>
         </tr>
         </tbody>
     </table>

@@ -9,10 +9,10 @@
         <th data-column-id="description" style="width:15%">设备名称</th>
         <th data-column-id="equipClass" style="width:10%">设备分类</th>
         <th data-column-id="vlocation" style="width:15%">设备位置</th>
-        <th data-column-id="status" style="width:5%">设备状态</th>
-        <th data-column-id="running" style="width:5%">运行状态</th>
+        <th data-column-id="status" data-formatter="status" data-sortable="false" style="width:5%">设备状态</th>
+        <th data-column-id="running" data-formatter="running" data-sortable="false" style="width:5%">运行状态</th>
         <th data-column-id="report" data-formatter="report" data-sortable="false" style="width:5%">报修跟踪</th>
-       <%-- <th data-column-id="track" data-formatter="track" data-sortable="false" style="width:5%">跟踪</th>--%>
+        <%-- <th data-column-id="track" data-formatter="track" data-sortable="false" style="width:5%">跟踪</th>--%>
     </tr>
     </thead>
     <tbody>

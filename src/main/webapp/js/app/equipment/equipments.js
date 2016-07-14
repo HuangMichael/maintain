@@ -440,43 +440,32 @@ function initLoadData(url, elementName) {
             });
             //ajax载入设备信息  并且监听选择事件
             $(dataTableName).bootgrid({
-                ajaxSettings: {
-                    method: "GET",
-                    cache: false
-                },
-
-                labels: {
-                    all: "All",
-                    infos: "显示第{{ctx.start}}条到第{{ctx.end}} 条共{{ctx.total}}记录",
-                    loading: "加载中...",
-                    noResults: "没有查询到结果!",
-                    refresh: "刷新",
-                    search: "查询"
-                },
-
-
-                selection: true,
-                multiSelect: true,
-                rowSelect: false,
-                keepSelection: true,
-                formatters: {
-                    "report": function (column, row) {
-                        return '<a class="btn btn-default btn-xs"  onclick="report(' + row.id + ')" title="报修" ><i class="glyphicon glyphicon-wrench"></i></a>'+'<a class="btn btn-default btn-xs"  onclick="track(' + row.id + ')" title="追踪" ><i class="glyphicon glyphicon-map-marker"></i></a>'
+                    ajaxSettings: {
+                        method: "GET",
+                        cache: false
                     },
-                   /* "track": function (column, row) {
 
-                        return '<a class="btn btn-default btn-xs"  onclick="track(' + row.id + ')" title="追踪" ><i class="glyphicon glyphicon-map-marker"></i></a>'
+                    labels: {
+                        all: "All",
+                        infos: "显示第{{ctx.start}}条到第{{ctx.end}} 条共{{ctx.total}}记录",
+                        loading: "加载中...",
+                        noResults: "没有查询到结果!",
+                        refresh: "刷新",
+                        search: "查询"
+                    },
 
 
-
-                       /!* if (row.status.indexOf('投用') > 0) {
-                            return '<a class="btn btn-default btn-xs"  onclick="track(' + row.id + ')" title="追踪" ><i class="glyphicon glyphicon-map-marker"></i></a>'
-                        } else {
-                            return '<a class="btn btn-default btn-xs"  onclick="track(' + row.id + ')" title="追踪" disabled="disabled"><i class="glyphicon glyphicon-map-marker"></i></a>'
-                        }*!/
-                    }*/
+                    selection: true,
+                    multiSelect: true,
+                    rowSelect: false,
+                    keepSelection: true,
+                    formatters: {
+                        "report": function (column, row) {
+                            return '<a class="btn btn-default btn-xs"  onclick="report(' + row.id + ')" title="报修" ><i class="glyphicon glyphicon-wrench"></i></a>' + '<a class="btn btn-default btn-xs"  onclick="track(' + row.id + ')" title="追踪" ><i class="glyphicon glyphicon-map-marker"></i></a>'
+                        }
+                    }
                 }
-            }).on("selected.rs.jquery.bootgrid", function (e, rows) {
+            ).on("selected.rs.jquery.bootgrid", function (e, rows) {
                 //如果默认全部选中
                 if (selectedIds.length === eqs.length) {
                     selectedIds.clear();
@@ -492,7 +481,8 @@ function initLoadData(url, elementName) {
                 }
             });
         }
-    });
+    })
+    ;
 }
 /**
  * 根据ID获取设备信息
@@ -723,6 +713,12 @@ function saveEq() {
 
 function deleteEq() {
     var eid = selectedIds[0];
+
+    if (!eid) {
+
+        showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
+        return;
+    }
     var url = "/equipment/delete/" + eid;
     if (eid) {
         var confirm = window.confirm("确定要删除该记录么？");
@@ -737,9 +733,6 @@ function deleteEq() {
                     showMessageBoxCenter("danger", "center", "设备信息删除失败");
                 }
             });
-        } else {
-            showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
-            return;
         }
     }
 }

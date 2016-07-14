@@ -5,7 +5,6 @@ import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
 import com.linkbit.beidou.dao.locations.VlocationsRepository;
-import com.linkbit.beidou.dao.test.DateTestRepository;
 import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import com.linkbit.beidou.domain.user.User;
@@ -310,6 +309,27 @@ public class EquipmentController extends BaseController {
         List<Object> historyList = equipmentAccountService.findFixHistoryByEid(eid);
         modelMap.put("historyList", historyList);
         return "/equipments/table_1_3";
+    }
+
+
+    /**
+     * 查询设备对应的维修历史
+     */
+    @RequestMapping(value = "/loadLastHistory/{eid}")
+    public String loadLastHistory(@PathVariable("eid") Long eid, ModelMap modelMap) {
+        List<Object> historyList = equipmentAccountService.findLastFixHistoryByEid(eid);
+        modelMap.put("historyList", historyList);
+        return "/equipments/table_1_3";
+    }
+
+    /**
+     * 查询设备对应的维修历史
+     */
+    @RequestMapping(value = "/loadFixHistory/{orderLineNo}")
+    public String loadFixHistory(@PathVariable("orderLineNo") String orderLineNo, ModelMap modelMap) {
+        List<Object> fixHistoryList = equipmentAccountService.findAllFixStepsByOrderLineNo(orderLineNo);
+        modelMap.put("fixHistoryList", fixHistoryList);
+        return "/equipments/table_1_4";
     }
 
 

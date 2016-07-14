@@ -39,13 +39,13 @@
     <table id="reportHistory" class=" table table-striped table-bordered table-hover">
         <thead>
         <tr>
-            <th>序号</th>
-            <th>跟踪号</th>
-            <th>报修描述</th>
-            <th>报修时间</th>
-            <th>故障处理情况</th>
-            <th>状态</th>
-            <th>跟踪</th>
+            <th width="5%">序号</th>
+            <th width="10%">跟踪号</th>
+            <th width="20%">报修描述</th>
+            <th width="10%">操作时间</th>
+            <th width="20%">故障处理情况</th>
+            <th width="5%"> 状态</th>
+            <th width="5%">跟踪</th>
         </tr>
         </thead>
         <tbody id="reportHistory_list" style="height: 100px;overflow: scroll">
@@ -54,9 +54,10 @@
             <td>{{h[0]}}</td>
             <td>{{h[4]}}</td>
             <td>{{h[3]}}</td>
-            <td><%--{{h[3]}}--%></td>
+            <td>{{h[5]}}</td>
             <td>{{h[1]}}</td>
-            <td><a class="btn btn-xs"><i class="glyphicon glyphicon-eye-open"></i></a></td>
+            <td><a class="btn btn-xs" onclick="showDetailHistory()"><i class="glyphicon glyphicon-eye-open"></i></a>
+            </td>
         </tr>
         </tbody>
     </table>

@@ -179,6 +179,16 @@ public class EquipmentAccountService extends BaseService {
         return equipmentsRepository.findFixHistoryByEid(eid);
     }
 
+    public List<Object> findLastFixHistoryByEid(Long eid) {
+        return equipmentsRepository.findLastFixHistoryByEid(eid);
+    }
+
+
+    public List<Object> findAllFixStepsByOrderLineNo(String orderLineNo) {
+        return equipmentsRepository.findAllFixStepsByOrderLineNo(orderLineNo);
+    }
+
+
 
     /**
      * @param eid

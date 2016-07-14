@@ -169,6 +169,8 @@
 
     function finish(id) {
         var fixDesc = $("#fixDesc" + id).val();
+
+        console.log("fixDesc----------------"+fixDesc);
         if (!fixDesc) {
             showMessageBox("danger", "请输入维修描述!");
             $("#fixDesc" + id).focus();

@@ -127,6 +127,7 @@ public class WorkOrderFixService extends BaseService {
             workOrderFixDetail.setStatus("1");
             workOrderFixDetail = workOrderFixDetailRepository.save(workOrderFixDetail);
             WorkOrderFixFinish workOrderFixFinish = new WorkOrderFixFinish();
+            workOrderFixFinish.setOrderDesc(workOrderFixDetail.getOrderDesc());
             workOrderFixFinish.setLocation(workOrderFixDetail.getLocation());
             workOrderFixFinish.setStatus("1");
             workOrderFixFinish.setUnit(workOrderFixDetail.getUnit());
@@ -140,9 +141,7 @@ public class WorkOrderFixService extends BaseService {
             workOrderFixDetailList.add(workOrderFixDetail);
             //在完工之前 查看对应的位置或者设备是否还在流程中  所有流程都结束 将该设备或者位置的状态设置为正常(1)
             String reportType = workOrderFixDetail.getReportType();
-
             if (reportType != null) {
-
                 updateReportSourceStatusAfterFinishing(workOrderFixDetail);
             }
         }

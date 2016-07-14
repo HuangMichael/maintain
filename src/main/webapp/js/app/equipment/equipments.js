@@ -97,6 +97,12 @@ $(function () {
         data: {
             e: eqs[0],
             histories: loadFixHistoryByEid(eqs[0] ? eqs[0]["id"] : null)
+        },
+        methods: {
+            showDetailHistory: function (data) {
+                alert(data);
+
+            }
         }
     });
 
@@ -545,6 +551,17 @@ function loadFixHistoryByEid(eid) {
 }
 
 
+function showDetailHistory() {
+    var orderLineNo = $("#reportHistory_list tr td").eq(1).html();
+    console.log("orderLineNo--------" + orderLineNo);
+    if (orderLineNo) {
+        var url = "/equipment/loadFixHistory/" + orderLineNo;
+        $("#fix-history").load(url, function (data) {
+            $("#show_history_modal").modal("show");
+        });
+    }
+}
+
 /**
  *
  * @param eqCode 设备编号
@@ -692,17 +709,6 @@ function editEq() {
     }
 }
 
-
-/**
- *  已经报修提示重复报修 选择继续
- */
-function continueEqReport() {
-    $("#show_loc_modal").modal("hide");
-    //再次报修时  将原来的输入清空
-    $("#orderDesc").val("");
-    $("#rptLoc").val(getSelectedNode().name);
-    $("#loc_modal").modal("show");
-}
 
 /**
  * 保存设备信息

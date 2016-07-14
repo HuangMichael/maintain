@@ -461,11 +461,20 @@ function initLoadData(url, elementName) {
                 keepSelection: true,
                 formatters: {
                     "report": function (column, row) {
-                        return '<a class="btn btn-default btn-xs"  onclick="report(' + row.id + ')" title="报修" ><i class="glyphicon glyphicon-wrench"></i></a>'
+                        return '<a class="btn btn-default btn-xs"  onclick="report(' + row.id + ')" title="报修" ><i class="glyphicon glyphicon-wrench"></i></a>'+'<a class="btn btn-default btn-xs"  onclick="track(' + row.id + ')" title="追踪" ><i class="glyphicon glyphicon-map-marker"></i></a>'
                     },
-                    "track": function (column, row) {
-                        return '<a class="btn btn-default btn-xs"  onclick="track(' + row.id + ')" title="追踪"><i class="glyphicon glyphicon-map-marker"></i></a>'
-                    }
+                   /* "track": function (column, row) {
+
+                        return '<a class="btn btn-default btn-xs"  onclick="track(' + row.id + ')" title="追踪" ><i class="glyphicon glyphicon-map-marker"></i></a>'
+
+
+
+                       /!* if (row.status.indexOf('投用') > 0) {
+                            return '<a class="btn btn-default btn-xs"  onclick="track(' + row.id + ')" title="追踪" ><i class="glyphicon glyphicon-map-marker"></i></a>'
+                        } else {
+                            return '<a class="btn btn-default btn-xs"  onclick="track(' + row.id + ')" title="追踪" disabled="disabled"><i class="glyphicon glyphicon-map-marker"></i></a>'
+                        }*!/
+                    }*/
                 }
             }).on("selected.rs.jquery.bootgrid", function (e, rows) {
                 //如果默认全部选中

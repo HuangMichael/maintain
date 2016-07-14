@@ -11,8 +11,7 @@
         <th data-column-id="vlocation" style="width:15%">设备位置</th>
         <th data-column-id="status" data-formatter="status" data-sortable="false" style="width:5%">设备状态</th>
         <th data-column-id="running" data-formatter="running" data-sortable="false" style="width:5%">运行状态</th>
-        <th data-column-id="report" data-formatter="report" data-sortable="false" style="width:5%">报修跟踪</th>
-        <%-- <th data-column-id="track" data-formatter="track" data-sortable="false" style="width:5%">跟踪</th>--%>
+        <th data-column-id="report" data-formatter="report" data-sortable="false" style="width:5%">报修</th>
     </tr>
     </thead>
     <tbody>

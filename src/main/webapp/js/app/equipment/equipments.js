@@ -461,7 +461,7 @@ function initLoadData(url, elementName) {
                     keepSelection: true,
                     formatters: {
                         "report": function (column, row) {
-                            return '<a class="btn btn-default btn-xs"  onclick="report(' + row.id + ')" title="报修" ><i class="glyphicon glyphicon-wrench"></i></a>' + '<a class="btn btn-default btn-xs"  onclick="track(' + row.id + ')" title="追踪" ><i class="glyphicon glyphicon-map-marker"></i></a>'
+                            return '<a class="btn btn-default btn-xs"  onclick="report(' + row.id + ')" title="报修" ><i class="glyphicon glyphicon-wrench"></i></a>'
                         }
                     }
                 }
@@ -713,9 +713,7 @@ function saveEq() {
 
 function deleteEq() {
     var eid = selectedIds[0];
-
     if (!eid) {
-
         showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
         return;
     }
@@ -727,10 +725,12 @@ function deleteEq() {
                 type: "GET",
                 url: url,
                 success: function (msg) {
-                    showMessageBoxCenter("info", "center", "设备信息删除成功 ");
+                    showMessageBox("info", "设备信息删除成功 ");
+                    //删除完之后将该行数据从table中移除
+                    $("#equipmentsDataTable tr[data-row-id='" + msg.id + "']").remove();
                 },
                 error: function (msg) {
-                    showMessageBoxCenter("danger", "center", "设备信息删除失败");
+                    showMessageBox("danger", "设备信息有关联数据，无法删除，请联系管理员");
                 }
             });
         }

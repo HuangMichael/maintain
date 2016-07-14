@@ -18,6 +18,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -109,7 +110,6 @@ public class WorkOrderReportCartController {
      */
     @RequestMapping(value = "/loadWorkOrderStep/{lid}", method = RequestMethod.GET)
     public String loadWorkOrderStep(@PathVariable("lid") Long lid, ModelMap modelMap) {
-
         Locations locations = locationsService.findById(lid);
         List<VworkOrderStep> vworkOrderStepList = workOrderReportCartService.findByLocations(locations);
         modelMap.put("vworkOrderStepList", vworkOrderStepList);
@@ -156,6 +156,8 @@ public class WorkOrderReportCartController {
     @RequestMapping(value = "/add2LocCart", method = RequestMethod.POST)
     @ResponseBody
     public WorkOrderReportCart add2LocCart(@RequestParam("locationId") Long locationId, @RequestParam("orderDesc") String orderDesc, @RequestParam("reporter") String reporter, @RequestParam("eqClassId") Long eqClassId, HttpSession httpSession) {
+
+        System.out.println("------------------------" + new Date().getTime() + "");
         String creator = (String) httpSession.getAttribute("personName");
         WorkOrderReportCart workOrderReportCart = workOrderReportCartService.add2LocCart(locationId, orderDesc, creator, reporter, eqClassId);
         return workOrderReportCart;

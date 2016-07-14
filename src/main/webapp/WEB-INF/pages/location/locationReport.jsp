@@ -9,15 +9,12 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-2 control-label" for="rptLoc">故障位置</label>
-
                 <div class="col-md-10">
                     <input type="text" class="form-control" id="rptLoc" name="rptLoc" readonly/>
                 </div>
             </div>
-
             <div class="form-group">
                 <label class="col-md-2 control-label" for="equipmentsClassification_id">设备分类</label>
-
                 <div class="col-md-10">
                     <select class="form-control" id="equipmentsClassification_id" name="equipmentsClassification.id"
                             v-model="equipments.equipmentsClassification.id"

@@ -323,10 +323,19 @@ function reportByLocation() {
  */
 function continueLocReport() {
     $("#show_loc_modal").modal("hide");
+    //再次报修时  将原来的输入清空
+
+    $("#orderDesc").val("");
     $("#rptLoc").val(getSelectedNode().name);
     $("#loc_modal").modal("show");
 }
+
+var saveIndex = 0;
 function add2LocCart() {
+
+    if (saveIndex > 0) {
+        return;
+    }
     var nodeId = getSelectedNodeId();
     var url = "/workOrderReportCart/add2LocCart";
     var orderDesc = $("#orderDesc").val();
@@ -354,8 +363,11 @@ function add2LocCart() {
             size = 0
         }
         $("#reportOrderSize").html(parseInt(size) + 1);
+
         showMessageBox("info", "已将位置报修加入到维修车!")
     })
+    ;
+    saveIndex = saveIndex + 1;
 };
 
 

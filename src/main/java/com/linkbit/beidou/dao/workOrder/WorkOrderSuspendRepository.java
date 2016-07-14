@@ -2,7 +2,6 @@ package com.linkbit.beidou.dao.workOrder;
 
 
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportSuspend;
-import com.linkbit.beidou.domain.workOrder.WorkOrderSuspend;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

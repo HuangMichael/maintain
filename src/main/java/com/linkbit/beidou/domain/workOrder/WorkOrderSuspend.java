@@ -23,8 +23,6 @@ public class WorkOrderSuspend {
     @Temporal(TemporalType.TIMESTAMP)
     private Date suspendTime;  //挂起时间
 
-    @OneToOne
-    @JoinColumn(name = "workOrder_id")
-    private WorkOrder workOrder;
+
 
 }

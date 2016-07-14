@@ -3,12 +3,10 @@ package com.linkbit.beidou.service.equipments;
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
 import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
 import com.linkbit.beidou.dao.workOrder.VworkOrderStepRepository;
-import com.linkbit.beidou.dao.workOrder.WorkOrderRepository;
 import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import com.linkbit.beidou.domain.workOrder.VworkOrderStep;
-import com.linkbit.beidou.domain.workOrder.WorkOrder;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.utils.CommonStatusType;
@@ -30,8 +28,7 @@ import java.util.Map;
 public class EquipmentAccountService extends BaseService {
 
     Log log = LogFactory.getLog(this.getClass());
-    @Autowired
-    WorkOrderRepository workOrderRepository;
+
 
     @Autowired
     EquipmentsRepository equipmentsRepository;
@@ -49,20 +46,7 @@ public class EquipmentAccountService extends BaseService {
     VworkOrderStepRepository vworkOrderStepRepository;
 
 
-    /**
-     * @param equipments 设备信息
-     * @return 计算设备参数数量 工单数量 预防性维护数量 维修配件数量
-     */
-    public Map<String, List> calculateDetail(Equipments equipments) {
-        Map<String, List> map = new HashMap<String, List>();
-        List<WorkOrder> workOrderList = workOrderRepository.findByLocations(equipments.getLocations());
-        List pmList = new ArrayList();
-        List consumablesList = new ArrayList();
-        map.put("list1", workOrderList);
-        map.put("list2", pmList);
-        map.put("list3", consumablesList);
-        return map;
-    }
+
 
     /**
      * @param equipments 保存设备信息

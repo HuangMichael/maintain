@@ -82,13 +82,13 @@ public class EquipmentController extends BaseController {
         return "/equipments/table_1_2";
     }
 
-    @RequestMapping(value = "/loadNumber/{objId}")
+/*    @RequestMapping(value = "/loadNumber/{objId}")
     @ResponseBody
     public Map<String, List> loadNumber(@PathVariable("objId") long objId) {
         Equipments equipments = equipmentsRepository.findById(objId);
         Map<String, List> map = equipmentAccountService.calculateDetail(equipments);
         return map;
-    }
+    }*/
 
     /**
      * 查询根节点

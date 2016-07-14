@@ -27,9 +27,6 @@ public class ConsumptiveMaterial {
     @Column(length = 1)
     private String status; //状态
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "work_order_id", referencedColumnName = "id")
-    private WorkOrder workOrder; //工单信息
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "consumables_id", referencedColumnName = "id")
     private Consumables consumables; //配件信息
 

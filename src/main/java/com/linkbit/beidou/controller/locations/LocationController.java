@@ -14,7 +14,6 @@ import com.linkbit.beidou.service.equipments.EquipmentAccountService;
 import com.linkbit.beidou.service.line.LineService;
 import com.linkbit.beidou.service.line.StationService;
 import com.linkbit.beidou.service.locations.LocationsService;
-import com.linkbit.beidou.service.workOrder.WorkOrderService;
 import com.linkbit.beidou.utils.SessionUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -51,9 +50,6 @@ public class LocationController {
 
     @Autowired
     LineService lineService;
-
-    @Autowired
-    WorkOrderService workOrderService;
     @Autowired
     EquipmentAccountService equipmentAccountService;
 

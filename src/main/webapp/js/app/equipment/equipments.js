@@ -671,7 +671,7 @@ function setAllInSelectedList(eqs) {
  * 根据设备ID载入维修历史信息
  */
 function loadFixHistoryByEid(eid) {
-    var url = "/equipment/getFixSteps/" + eid;
+    var url = "/equipment/getFixStepsByEid/" + eid;
     var histories = [];
     $.getJSON(url, function (data) {
         histories = data;

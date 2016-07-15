@@ -165,6 +165,10 @@ public class EquipmentAccountService extends BaseService {
     }
 
 
+    public List<Object> findAllFixStepsByEid(Long eid) {
+        return equipmentsRepository.findAllFixStepsByEid(eid);
+    }
+
     /**
      * @param eid
      * @return 查询维修历史信息

@@ -225,10 +225,11 @@ public class EquipmentController extends BaseController {
         if (id != null) {
             equipments = equipmentAccountService.findById(id);
         }
-        boolean result = equipmentAccountService.delete(equipments);
+
         ReturnObject returnObject = new ReturnObject();
-        returnObject.setResult(result);
+        returnObject.setResult(equipmentAccountService.delete(equipments));
         returnObject.setResultDesc(equipments.getId() + "");
+
         return returnObject;
 
     }
@@ -304,6 +305,18 @@ public class EquipmentController extends BaseController {
         }
         return fixSteps;
     }
+
+    /**
+     * @param eid 设备编号
+     * @return 根据设备id获取设备维修节点信息信息
+     */
+    @RequestMapping(value = "/getFixStepsByEid/{eid}")
+    @ResponseBody
+    public List<Object> getFixStepsByEid(@PathVariable("eid") Long eid) {
+        return equipmentAccountService. findAllFixStepsByEid(eid);
+    }
+
+
 
     /**
      * 查询设备对应的维修历史

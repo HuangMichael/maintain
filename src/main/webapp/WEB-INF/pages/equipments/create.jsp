@@ -179,21 +179,21 @@
                     <label class="col-md-1 control-label" for="warrantyPeriod">采购日期</label>
 
                     <div class="col-md-3">
-                        <input class="Wdate form-control" id="purchaseDate" onClick="WdatePicker({maxDate:'%y-%M-%d'})"
+                        <input class="Wdate form-control" id="purchaseDate" onClick="WdatePicker()"
                                name="purchaseDate"
                                v-model="equipments.purchaseDate" style="height:34px;border:1px solid #cccccc"/>
                     </div>
                     <label class="col-md-1 control-label" for="warrantyPeriod">保修期至</label>
 
                     <div class="col-md-3">
-                        <input class="Wdate form-control" type="text" onClick="WdatePicker({minDate:'%y-%M-%d'})"
+                        <input class="Wdate form-control" type="text" onClick="WdatePicker()"
                                id="warrantyPeriod" name="warrantyPeriod"
                                v-model="equipments.warrantyPeriod" style="height:34px;border:1px solid #cccccc"/>
                     </div>
                     <label class="col-md-1 control-label" for="setupDate">安装日期</label>
 
                     <div class="col-md-3">
-                        <input class="Wdate form-control" type="text" onClick="WdatePicker({maxDate:'%y-%M-%d'})"
+                        <input class="Wdate form-control" type="text" onClick="WdatePicker()"
                                id="setupDate"
                                name="setupDate"
                                v-model="equipments.setupDate" style="height:34px;border:1px solid #cccccc"/>
@@ -205,7 +205,7 @@
                     <div class="col-md-3">
 
                         <input class="Wdate form-control" type="text"
-                               onClick="WdatePicker({maxDate:'%y-%M-%d'})"
+                               onClick="WdatePicker()"
                                id="productDate"
                                name="productDate"
                                v-model="equipments.productDate" style="height:34px;border:1px solid #cccccc"/>
@@ -213,7 +213,7 @@
                     <label class="col-md-1 control-label" for="runDate">运行日期</label>
 
                     <div class="col-md-3">
-                        <input class="Wdate form-control" type="text" onClick="WdatePicker({maxDate:'%y-%M-%d'})"
+                        <input class="Wdate form-control" type="text" onClick="WdatePicker()"
                                id="runDate"
                                name="runDate"
                                v-model="equipments.runDate" style="height:34px;border:1px solid #cccccc"/>

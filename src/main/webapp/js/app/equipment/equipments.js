@@ -23,6 +23,72 @@ var formTab = $('#myTab li:eq(1) a');
 var historyTab = $('#myTab li:eq(2) a');
 var pointer = 0;
 $.ajaxSettings.async = false;
+
+
+var validateOptions = {
+    message: '该值无效 ',
+    fields: {
+        eqCode: {
+            message: '设备编号无效',
+            validators: {
+                notEmpty: {
+                    message: '设备编号不能为空!'
+                },
+                stringLength: {
+                    min: 6,
+                    max: 20,
+                    message: '设备编号长度为6到20个字符'
+                }
+            }
+        },
+        description: {
+            message: '设备描述无效',
+            validators: {
+                notEmpty: {
+                    message: '设备描述不能为空!'
+                },
+                stringLength: {
+                    min: 2,
+                    max: 20,
+                    message: '设备描述长度为2到20个字符'
+                }
+            }
+        },
+        "locations.id": {
+            message: '设备位置无效',
+            validators: {
+                notEmpty: {
+                    message: '设备位置不能为空!'
+                }
+            }
+        },
+        "equipmentsClassification.id": {
+            message: '设备分类无效',
+            validators: {
+                notEmpty: {
+                    message: '设备分类不能为空!'
+                }
+            }
+        },
+        "status": {
+            message: '设备状态无效',
+            validators: {
+                notEmpty: {
+                    message: '设备状态不能为空!'
+                }
+            }
+        }
+        ,
+        "running": {
+            message: '运行状态无效',
+            validators: {
+                notEmpty: {
+                    message: '运行状态不能为空!'
+                }
+            }
+        }
+    }
+};
 $(function () {
     //初始化从数据库获取列表数据
     initLoadData("/equipment/findMyEqs", dataTableName);
@@ -105,7 +171,11 @@ $(function () {
             }
         }
     });
-
+    $('#detailForm')
+        .bootstrapValidator(validateOptions).on('success.form.bv', function (e) {
+        e.preventDefault();
+        saveEquipment();
+    });
     listTab.on('click', function () {
         refresh();
 
@@ -170,78 +240,6 @@ function addNew() {
     vdm.$set("equipments.equipmentsClassification.id", null);
     vdm.$set("equipments.status", 1);
     vdm.$set("equipments.running", 1);
-
-
-    $('#detailForm')
-        .bootstrapValidator({
-            message: '该值无效 ',
-            fields: {
-                eqCode: {
-                    message: '设备编号无效',
-                    validators: {
-                        notEmpty: {
-                            message: '设备编号不能为空!'
-                        },
-                        stringLength: {
-                            min: 6,
-                            max: 20,
-                            message: '设备编号长度为6到20个字符'
-                        }
-                    }
-                },
-                description: {
-                    message: '设备描述无效',
-                    validators: {
-                        notEmpty: {
-                            message: '设备描述不能为空!'
-                        },
-                        stringLength: {
-                            min: 2,
-                            max: 20,
-                            message: '设备描述长度为2到20个字符'
-                        }
-                    }
-                },
-                "locations.id": {
-                    message: '设备位置无效',
-                    validators: {
-                        notEmpty: {
-                            message: '设备位置不能为空!'
-                        }
-                    }
-                },
-                "equipmentsClassification.id": {
-                    message: '设备分类无效',
-                    validators: {
-                        notEmpty: {
-                            message: '设备分类不能为空!'
-                        }
-                    }
-                },
-                "status": {
-                    message: '设备状态无效',
-                    validators: {
-                        notEmpty: {
-                            message: '设备状态不能为空!'
-                        }
-                    }
-                }
-                ,
-                "running": {
-                    message: '运行状态无效',
-                    validators: {
-                        notEmpty: {
-                            message: '运行状态不能为空!'
-                        }
-                    }
-                }
-            }
-        }).on('success.form.bv', function (e) {
-        // Prevent form submission
-        e.preventDefault();
-        // Get the form instance
-        saveEquipment();
-    });
     formTab.tab('show');
 }
 
@@ -261,7 +259,6 @@ function report(id) {
             reportId = id;
         })
     } else {
-
         equipReport(id)
     }
 }
@@ -344,6 +341,7 @@ function getCurrentStep(steps) {
 /**
  * 保存设备信息
  */
+var saveIndex = 0;
 function saveEquipment() {
     var objStr = getFormJsonData("detailForm");
     var equipments = JSON.parse(objStr);
@@ -371,6 +369,11 @@ function saveEquipment() {
     var runDate = equipments.runDate;
     var expectedYear = equipments.expectedYear;
     var url = "/equipment/save";
+    if (id && saveIndex > 0) {
+        saveIndex = 0;
+        return;
+    }
+
 
     var data = {
         id: id,
@@ -409,12 +412,24 @@ function saveEquipment() {
             }
             //更新detailForm数据模型
             vdm.$set("equipments", msg);
-            vdm.$set("equipments.warrantyPeriod", transformYMD(msg.warrantyPeriod));
-            vdm.$set("equipments.purchaseDate", transformYMD(msg.purchaseDate));
-            vdm.$set("equipments.setupDate", transformYMD(msg.setupDate));
-            vdm.$set("equipments.productDate", transformYMD(msg.productDate));
-            vdm.$set("equipments.runDate", transformYMD(msg.runDate));
+            if (msg.warrantyPeriod) {
+                vdm.$set("equipments.warrantyPeriod", transformYMD(msg.warrantyPeriod));
+            }
+            if (msg.purchaseDate) {
+                vdm.$set("equipments.purchaseDate", transformYMD(msg.purchaseDate));
+            }
+            if (msg.setupDate) {
+                vdm.$set("equipments.setupDate", transformYMD(msg.setupDate));
+            }
+            if (msg.productDate) {
+                vdm.$set("equipments.productDate", transformYMD(msg.productDate));
+            }
+            if (msg.runDate) {
+                vdm.$set("equipments.runDate", transformYMD(msg.runDate));
+            }
             $("#detailForm #id").val(msg.id);
+
+            saveIndex++;
         }
         ,
         error: function (msg) {

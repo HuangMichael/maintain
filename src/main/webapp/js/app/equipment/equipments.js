@@ -450,7 +450,6 @@ function saveEquipment() {
 }
 
 
-
 function createEquipment() {
     var objStr = getFormJsonData("createForm");
     var equipments = JSON.parse(objStr);

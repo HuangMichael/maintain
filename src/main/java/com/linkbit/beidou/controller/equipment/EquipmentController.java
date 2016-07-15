@@ -323,6 +323,7 @@ public class EquipmentController extends BaseController {
      */
     @RequestMapping(value = "/loadHistory/{eid}")
     public String loadHistoryByEid(@PathVariable("eid") Long eid, ModelMap modelMap) {
+        System.out.println("--------------------明镜高悬");
         List<Object> historyList = equipmentAccountService.findFixHistoryByEid(eid);
         modelMap.put("historyList", historyList);
         return "/equipments/table_1_3";
@@ -334,6 +335,8 @@ public class EquipmentController extends BaseController {
      */
     @RequestMapping(value = "/loadLastHistory/{eid}")
     public String loadLastHistory(@PathVariable("eid") Long eid, ModelMap modelMap) {
+
+        System.out.println("--------------------正大光明");
         List<Object> historyList = equipmentAccountService.findLastFixHistoryByEid(eid);
         modelMap.put("historyList", historyList);
         return "/equipments/table_1_3";

@@ -49,14 +49,14 @@
         </tr>
         </thead>
         <tbody id="reportHistory_list" style="height: 100px;overflow: scroll">
-        <tr v-for="h in histories">
+        <tr v-for="h in histories" id="tr{{$index+1}}">
             <td>{{$index+1}}</td>
             <td>{{h[0]}}</td>
             <td>{{h[4]}}</td>
             <td>{{h[3]}}</td>
             <td>{{h[5]}}</td>
             <td>{{h[1]}}</td>
-            <td><a class="btn btn-xs" onclick="showDetailHistory()"><i class="glyphicon glyphicon-eye-open"></i></a>
+            <td><a class="btn btn-xs" @click="showDetailHistory(h[0])"><i class="glyphicon glyphicon-eye-open"></i></a>
             </td>
         </tr>
         </tbody>

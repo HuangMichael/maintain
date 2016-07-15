@@ -10,10 +10,10 @@
         <th width="30%" style="overflow: hidden">维修描述</th>
     </tr>
     </thead>
-    <tbody id="history" style="height: 100px;overflow: scroll">
+    <tbody id="history">  <%--style="max-height: 100px;overflow-y:scroll"--%>
 
     <c:forEach items="${fixHistoryList}" var="h" varStatus="s">
-        <tr>
+        <tr >
             <td style="overflow: hidden">${s.index+1}</td>
             <td style="overflow: hidden">${h[0]}</td>
             <td style="overflow: hidden">${h[1]}</td>
@@ -24,3 +24,4 @@
     </tbody>
 </table>
 </div>
+

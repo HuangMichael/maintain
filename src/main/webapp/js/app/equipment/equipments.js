@@ -168,8 +168,7 @@ $(function () {
         },
         methods: {
             showDetailHistory: function (data) {
-                alert(data);
-
+                showDetail(data);
             }
         }
     });
@@ -683,8 +682,7 @@ function loadFixHistoryByEid(eid) {
 /**
  *  弹出框显示维修历史明细信息
  */
-function showDetailHistory() {
-    var orderLineNo = $("#reportHistory_list tr td").eq(1).html();
+function showDetail(orderLineNo) {
     if (orderLineNo) {
         var url = "/equipment/loadFixHistory/" + orderLineNo;
         $("#fix-history").load(url, function (data) {

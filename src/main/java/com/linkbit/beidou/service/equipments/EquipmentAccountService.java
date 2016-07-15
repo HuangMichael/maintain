@@ -16,9 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by huangbin on 2016/5/4.
@@ -44,8 +42,6 @@ public class EquipmentAccountService extends BaseService {
 
     @Autowired
     VworkOrderStepRepository vworkOrderStepRepository;
-
-
 
 
     /**
@@ -81,11 +77,7 @@ public class EquipmentAccountService extends BaseService {
      */
     public boolean checkExist(String eqCode) {
 
-        boolean exists = true;
-
-        if (eqCode != null && !eqCode.equals("")) {
-            exists = equipmentsRepository.selectCountByEqcode(eqCode) > 0;
-        }
+        boolean exists = equipmentsRepository.selectCountByEqcode(eqCode) > 0;
         return exists;
     }
 
@@ -171,7 +163,6 @@ public class EquipmentAccountService extends BaseService {
     public List<Object> findAllFixStepsByOrderLineNo(String orderLineNo) {
         return equipmentsRepository.findAllFixStepsByOrderLineNo(orderLineNo);
     }
-
 
 
     /**

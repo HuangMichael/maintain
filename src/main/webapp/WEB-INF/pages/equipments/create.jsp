@@ -237,7 +237,7 @@
             },
             methods: {
                 checkEqCode: function () {
-                    var eqCode = $("#eqCode");
+                    var eqCode = $("#eqCode").val();
                     if (checkEqCode(eqCode)) {
                         showMessageBoxCenter("danger", "center", "设备编号不能重复");
                         $("#eqCode").focus();

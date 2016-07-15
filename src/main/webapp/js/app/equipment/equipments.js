@@ -779,9 +779,11 @@ function deleteEq() {
                 type: "GET",
                 url: url,
                 success: function (msg) {
-                    showMessageBox("info", "设备信息删除成功 ");
-                    //删除完之后将该行数据从table中移除
-                    $("#equipmentsDataTable tr[data-row-id='" + msg.id + "']").remove();
+                    if (msg.result) {
+                        showMessageBox("info", "设备信息删除成功 ");
+                        //删除完之后将该行数据从table中移除
+                        $("tr[data-row-id='" + msg.resultDesc + "']").remove();
+                    }
                 },
                 error: function (msg) {
                     showMessageBox("danger", "设备信息有关联数据，无法删除，请联系管理员");

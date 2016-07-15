@@ -10,6 +10,7 @@ import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.domain.workOrder.VworkOrderStep;
 import com.linkbit.beidou.object.PageObject;
+import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.equipments.EquipmentAccountService;
 import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportService;
@@ -25,7 +26,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by huangbin on 2015/12/23 0023.
@@ -96,7 +96,7 @@ public class EquipmentController extends BaseController {
     @RequestMapping(value = "/create")
     public String create(ModelMap modelMap) {
         List<OutsourcingUnit> outsourcingUnitList = equipmentAccountService.findAllUnit();
-      //  modelMap.put("outsourcingUnitList", outsourcingUnitList);
+        //  modelMap.put("outsourcingUnitList", outsourcingUnitList);
         //查询出所有的设备分类
         return "/equipments/create";
     }
@@ -220,12 +220,16 @@ public class EquipmentController extends BaseController {
      */
     @RequestMapping(value = "/delete/{id}")
     @ResponseBody
-    public Boolean delete(@PathVariable("id") Long id) {
+    public ReturnObject delete(@PathVariable("id") Long id) {
         Equipments equipments = null;
         if (id != null) {
             equipments = equipmentAccountService.findById(id);
         }
-        return equipmentAccountService.delete(equipments);
+        boolean result = equipmentAccountService.delete(equipments);
+        ReturnObject returnObject = new ReturnObject();
+        returnObject.setResult(result);
+        returnObject.setResultDesc(equipments.getId() + "");
+        return returnObject;
 
     }
 

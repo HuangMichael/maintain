@@ -373,8 +373,6 @@ function saveEquipment() {
         saveIndex = 0;
         return;
     }
-
-
     var data = {
         id: id,
         eqCode: eqCode,
@@ -566,9 +564,11 @@ function loadFixHistoryByEid(eid) {
 }
 
 
+/**
+ *  弹出框显示维修历史明细信息
+ */
 function showDetailHistory() {
     var orderLineNo = $("#reportHistory_list tr td").eq(1).html();
-    console.log("orderLineNo--------" + orderLineNo);
     if (orderLineNo) {
         var url = "/equipment/loadFixHistory/" + orderLineNo;
         $("#fix-history").load(url, function (data) {
@@ -591,6 +591,9 @@ function checkEqCode(eqCode) {
     return exists;
 }
 
+/**
+ *  上一条
+ */
 function backwards() {
     if (pointer <= 0) {
         showMessageBoxCenter("danger", "center", "当前记录是第一条");
@@ -605,6 +608,9 @@ function backwards() {
     }
 
 }
+/**
+ *  下一条
+ */
 function forwards() {
     if (pointer >= selectedIds.length - 1) {
         showMessageBoxCenter("danger", "center", "当前记录是最后一条");
@@ -624,88 +630,7 @@ function forwards() {
 function editEq() {
     setFormReadStatus("#detailForm", false);
     $('#detailForm')
-        .bootstrapValidator({
-            message: '该值无效 ',
-            fields: {
-                eqCode: {
-                    message: '设备编号无效',
-                    validators: {
-                        notEmpty: {
-                            message: '设备编号不能为空!'
-                        },
-                        stringLength: {
-                            min: 6,
-                            max: 20,
-                            message: '设备编号长度为6到20个字符'
-                        }
-                    }
-                },
-                description: {
-                    message: '设备描述无效',
-                    validators: {
-                        notEmpty: {
-                            message: '设备描述不能为空!'
-                        },
-                        stringLength: {
-                            min: 2,
-                            max: 20,
-                            message: '设备描述长度为2到20个字符'
-                        }
-                    }
-                },
-                "locations.id": {
-                    message: '设备位置无效',
-                    validators: {
-                        notEmpty: {
-                            message: '设备位置不能为空!'
-                        }
-                    }
-                },
-                "equipmentsClassification.id": {
-                    message: '设备分类无效',
-                    validators: {
-                        notEmpty: {
-                            message: '设备分类不能为空!'
-                        }
-                    }
-                }
-                ,
-                "status": {
-                    message: '设备状态无效',
-                    validators: {
-                        notEmpty: {
-                            message: '设备状态不能为空!'
-                        }
-                    }
-                }
-                ,
-                "running": {
-                    message: '运行状态无效',
-                    validators: {
-                        notEmpty: {
-                            message: '运行状态不能为空!'
-                        }
-                    }
-                },
-
-                expectedYear: {
-                    message: '预计年限无效',
-                    validators: {
-
-                        digits: {},
-                        greaterThan: {
-                            value: 0,
-                            message: '预计年限必须大于0!'
-                        },
-                        lessThan: {
-                            value: 99,
-                            message: '预计年限必须小于99!'
-                        }
-
-                    }
-                },
-            }
-        }).on('success.form.bv', function (e) {
+        .bootstrapValidator(validateOptions).on('success.form.bv', function (e) {
         e.preventDefault();
         saveEquipment();
     });

@@ -17,10 +17,3 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    $(function () {
-        var classType = '${equipmentsClassification.classType}';
-        $("#classType").val(classType);
-    })
-</script>

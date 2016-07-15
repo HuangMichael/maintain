@@ -15,6 +15,8 @@ var formStatusArray = ["READ", "CREATE", "EDIT", "SAVED", "DELETED"];
 
 var formstatus = formStatusArray["READ"];
 
+var activeTab = "list";
+
 //数据列表
 var listTab = $('#myTab li:eq(0) a');
 //数据列表
@@ -183,6 +185,7 @@ $(function () {
 
 
     formTab.on('click', function () {
+        activeTab = "detail";
         setFormReadStatus("#detailForm", formLocked);
         //首先判断是否有选中的
         var eq = null;
@@ -203,7 +206,12 @@ $(function () {
     });
 
 
+    listTab.on('click', function () {
+        activeTab = "list";
+    });
+
     historyTab.on('click', function () {
+        activeTab = "history";
         //首先判断是否有选中的
         var equipments = vdm.equipments;
         var histories = loadFixHistoryByEid(equipments.id);
@@ -766,6 +774,12 @@ function saveEq() {
 }
 
 function deleteEq() {
+    if (activeTab != "list") {
+        showMessageBox("info", "请到列表中选中再进行删除操作!");
+        return;
+    }
+    ;
+    //判断选中的tab
     var eid = selectedIds[0];
     if (!eid) {
         showMessageBoxCenter("danger", "center", "请选中一条记录再操作");

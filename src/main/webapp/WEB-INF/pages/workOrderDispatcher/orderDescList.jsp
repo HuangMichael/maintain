@@ -25,30 +25,14 @@
             <td>${workOrder.locations.description}</td>
             <td>${workOrder.equipmentsClassification.description}</td>
             <td>${workOrder.orderDesc}</td>
-
             <td>
-
-                <c:if test="${workOrder.reportType=='w'}">
-                    <select class="form-control" id="selUnit${workOrder.id}"
-                            onchange="selectUnit('selUnit${workOrder.id}')"
-                            onfocus="loadUnit('selUnit${workOrder.id}')">
-                        <c:forEach var="u" items="${workOrder.equipmentsClassification.unitSet}">
-                            <option value="${u.id}"
-                                    <c:if test="${workOrder.unit.id==u.id}">selected</c:if>
-                            >${u.description}</option>
-                        </c:forEach>
-                    </select>
-                </c:if>
-
-                <c:if test="${workOrder.reportType=='s'}">
-                    <select class="form-control" id="selUnit${workOrder.id}"
-                            onchange="selectUnit('selUnit${workOrder.id}')">
-                        <c:forEach var="u" items="${workOrder.equipmentsClassification.unitSet}">
-                            <option value="${u.id}" <c:if test="${workOrder.unit.id==u.id}">selected</c:if>>${u.description}</option>
-                        </c:forEach>
-                    </select>
-                </c:if>
-
+                <select class="form-control" id="selUnit${workOrder.id}"
+                        onchange="selectUnit('selUnit${workOrder.id}')">
+                    <c:forEach var="u" items="${workOrder.equipmentsClassification.unitSet}">
+                        <option value="${u.id}"
+                                <c:if test="${workOrder.unit.id==u.id}">selected</c:if>>${u.description}</option>
+                    </c:forEach>
+                </select>
             </td>
         </tr>
     </c:forEach>

@@ -20,7 +20,7 @@
                             <div class="btn-group">
 
                                 <button type="button" class="btn btn-sm myNavBtn active"
-                                        onclick="addNew()">
+                                        onclick="loadNew()">
                                     <i class="glyphicon glyphicon-plus"></i>新建记录
                                 </button>
                                 <button type="button" class="btn btn-sm myNavBtn active" onclick="editEq()">

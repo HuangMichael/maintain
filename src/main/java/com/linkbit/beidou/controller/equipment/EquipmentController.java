@@ -96,7 +96,7 @@ public class EquipmentController extends BaseController {
     @RequestMapping(value = "/create")
     public String create(ModelMap modelMap) {
         List<OutsourcingUnit> outsourcingUnitList = equipmentAccountService.findAllUnit();
-        modelMap.put("outsourcingUnitList", outsourcingUnitList);
+      //  modelMap.put("outsourcingUnitList", outsourcingUnitList);
         //查询出所有的设备分类
         return "/equipments/create";
     }

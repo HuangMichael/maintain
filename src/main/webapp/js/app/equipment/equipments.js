@@ -28,7 +28,7 @@ $.ajaxSettings.async = false;
 var validateOptions = {
     message: '该值无效 ',
     fields: {
-        eqCode: {
+        "eqCode": {
             message: '设备编号无效',
             validators: {
                 notEmpty: {
@@ -41,7 +41,7 @@ var validateOptions = {
                 }
             }
         },
-        description: {
+        "description": {
             message: '设备描述无效',
             validators: {
                 notEmpty: {
@@ -244,6 +244,15 @@ function addNew() {
 }
 
 
+/**
+ *  ajax加载新增页面
+ */
+function loadNew() {
+    $("#tab_1_1").load("/equipment/create");
+    formTab.tab('show');
+
+}
+
 var reportId;
 function report(id) {
     var status = "0";
@@ -344,6 +353,106 @@ function getCurrentStep(steps) {
 var saveIndex = 0;
 function saveEquipment() {
     var objStr = getFormJsonData("detailForm");
+    var equipments = JSON.parse(objStr);
+    var id = equipments.id;
+    var eqCode = equipments.eqCode;
+    var purchasePrice = equipments.purchasePrice;
+    var description = equipments.description;
+    var manager = equipments.manager;
+    var maintainer = equipments.maintainer;
+    var productFactory = equipments.productFactory;
+    var imgUrl = equipments.imgUrl;
+    var originalValue = equipments.originalValue;
+    var netValue = equipments.netValue;
+    var purchaseDate = equipments.purchaseDate;
+    var locations_id = equipments["locations.id"];
+    var equipmentsClassification_id = equipments["equipmentsClassification.id"];
+    var status = equipments.status;
+    var eqModel = equipments.eqModel;
+    var assetNo = equipments.assetNo;
+    var manageLevel = equipments.manageLevel;
+    var running = equipments.running;
+    var warrantyPeriod = equipments.warrantyPeriod;
+    var setupDate = equipments.setupDate;
+    var productDate = equipments.productDate;
+    var runDate = equipments.runDate;
+    var expectedYear = equipments.expectedYear;
+    var url = "/equipment/save";
+    if (id && saveIndex > 0) {
+        saveIndex = 0;
+        return;
+    }
+    var data = {
+        id: id,
+        eqCode: eqCode,
+        description: description,
+        manager: manager,
+        maintainer: maintainer,
+        productFactory: productFactory,
+        imgUrl: imgUrl,
+        originalValue: originalValue,
+        netValue: netValue,
+        description: description,
+        purchasePrice: purchasePrice,
+        purchaseDate: purchaseDate,
+        locations_id: locations_id,
+        equipmentsClassification_id: equipmentsClassification_id,
+        status: status,
+        eqModel: eqModel,
+        assetNo: assetNo,
+        manageLevel: manageLevel,
+        running: running,
+        warrantyPeriod: warrantyPeriod,
+        setupDate: setupDate,
+        productDate: productDate,
+        runDate: runDate,
+        expectedYear: expectedYear
+    };
+    $.ajax({
+        type: "POST", url: url, data: data, dataType: "JSON", success: function (msg) {
+            if (id) {
+                showMessageBox("info", "设备信息更新成功");
+                changeValue(msg);
+            } else {
+                showMessageBox("info", "设备信息添加成功");
+                refresh(msg);
+            }
+            //更新detailForm数据模型
+            vdm.$set("equipments", msg);
+            if (msg.warrantyPeriod) {
+                vdm.$set("equipments.warrantyPeriod", transformYMD(msg.warrantyPeriod));
+            }
+            if (msg.purchaseDate) {
+                vdm.$set("equipments.purchaseDate", transformYMD(msg.purchaseDate));
+            }
+            if (msg.setupDate) {
+                vdm.$set("equipments.setupDate", transformYMD(msg.setupDate));
+            }
+            if (msg.productDate) {
+                vdm.$set("equipments.productDate", transformYMD(msg.productDate));
+            }
+            if (msg.runDate) {
+                vdm.$set("equipments.runDate", transformYMD(msg.runDate));
+            }
+            $("#detailForm #id").val(msg.id);
+
+            saveIndex++;
+        }
+        ,
+        error: function (msg) {
+            if (id) {
+                showMessageBox("danger", "设备信息更新失败")
+            } else {
+                showMessageBox("danger", "设备信息添加失败")
+            }
+        }
+    })
+}
+
+
+
+function createEquipment() {
+    var objStr = getFormJsonData("createForm");
     var equipments = JSON.parse(objStr);
     var id = equipments.id;
     var eqCode = equipments.eqCode;

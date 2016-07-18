@@ -6,34 +6,31 @@
     <div class="well">
         <div class="form-group">
             <div class="col-md-2">
+                <label class="control-label">跟踪号：</label>
 
-                <div class="form-control-static"><label class="control-label">跟踪号：</label>${workOrder.orderLineNo}</div>
+                <div class="form-control-static">${workOrder.orderLineNo}</div>
             </div>
 
 
             <div class="col-md-2">
+                <label class="control-label">设备名称：</label>
 
-                <div class="form-control-static"><label
-                        class="control-label">设备名称：</label>${workOrder.equipments.description}</div>
+                <div class="form-control-static">${workOrder.equipments.description}</div>
             </div>
 
             <div class="col-md-2">
-
-
-                <div class="form-control-static"><label
-                        class="control-label">设备位置：</label>${workOrder.locations.description}</div>
-            </div>
-
-
-            <div class="col-md-2">
-
-
-                <div class="form-control-static"><label class="control-label">设备故障：</label>${workOrder.orderDesc}</div>
+                <label class="control-label">设备位置：</label>
+                <div class="form-control-static">${workOrder.locations.description}</div>
             </div>
 
 
             <div class="col-md-2">
-                <div class="form-control-static"><label class="control-label">维修单位：</label>${workOrder.unit.description}
+                <label class="control-label">设备故障：</label>
+                <div class="form-control-static">${workOrder.orderDesc}</div>
+            </div>
+            <div class="col-md-2">
+                <label class="control-label">维修单位：</label>
+                <div class="form-control-static">${workOrder.unit.description}
                 </div>
             </div>
         </div>

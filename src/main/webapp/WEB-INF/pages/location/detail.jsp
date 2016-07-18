@@ -45,13 +45,13 @@
                                         ${equipment.vlocations.line}${equipment.vlocations.station}${equipment.vlocations.locName}
                                 </td>
                                 <td>
-                                    <c:if test="${equipment.status==1}">
+                                    <c:if test="${equipment.status=='0'}">
                                         停用
                                     </c:if>
-                                    <c:if test="${equipment.status==0}">
+                                    <c:if test="${equipment.status=='1'}">
                                         投用
                                     </c:if>
-                                    <c:if test="${equipment.status==2}">
+                                    <c:if test="${equipment.status=='2'}">
                                         报废
                                     </c:if>
                                 </td>

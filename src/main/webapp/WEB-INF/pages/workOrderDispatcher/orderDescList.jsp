@@ -6,13 +6,15 @@
        class="table table-responsive table-condensed table-striped  table-hover">
     <thead>
     <tr id="trr2">
-        <th>序号</th>
-        <th>跟踪号</th>
-        <th>设备名称</th>
-        <th>设备位置</th>
-        <th>设备分类</th>
-        <th>故障描述</th>
-        <th>维修单位</th>
+        <th width="5%">序号</th>
+        <th width="5%">跟踪号</th>
+        <th width="15%">设备名称</th>
+        <th width="15%">设备位置</th>
+        <th width="10%">设备分类</th>
+        <th width="20%">故障描述</th>
+        <th width="20%">维修单位</th>
+        <th width="5%">关联单位</th>
+        <th width="5%">新增单位</th>
     </tr>
     </thead>
     <tbody id="tbody2">
@@ -26,14 +28,14 @@
             <td>${workOrder.equipmentsClassification.description}</td>
             <td>${workOrder.orderDesc}</td>
             <td>
-                <select class="form-control" id="selUnit${workOrder.id}"
-                        onchange="selectUnit('selUnit${workOrder.id}')">
+                <select class="form-control" id="selUnit${workOrder.id}" onchange="selectUnit('selUnit${workOrder.id}')" style="height:24px;padding: 2px 2px;font-size: 12px;line-height: 1;">
                     <c:forEach var="u" items="${workOrder.equipmentsClassification.unitSet}">
-                        <option value="${u.id}"
-                                <c:if test="${workOrder.unit.id==u.id}">selected</c:if>>${u.description}</option>
+                        <option value="${u.id}" <c:if test="${workOrder.unit.id==u.id}">selected</c:if>>${u.description}</option>
                     </c:forEach>
                 </select>
             </td>
+            <td><a class="btn btn-info btn-xs">关联单位</a></td>
+            <td><a class="btn btn-info btn-xs">新增单位</a></td>
         </tr>
     </c:forEach>
     </tbody>

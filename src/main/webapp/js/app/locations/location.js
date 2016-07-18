@@ -331,7 +331,6 @@ function continueLocReport() {
 
 var saveIndex = 0;
 function add2LocCart() {
-
     if (saveIndex > 0) {
         return;
     }
@@ -384,25 +383,4 @@ function firstLoad(data) {
         //$("#parent_id").val(null).attr("readonly", "readonly");
 
     }
-}
-
-
-/**
- *
- * @param pid
- *  根据pid获取上级位置名称
- * @param zNodes
- */
-function getNodeNameById(id) {
-    var locName = "";
-    var url = "/location/getLocDesc/" + id;
-    console.log("url----" + url);
-    $.ajaxSettings.async = false;
-    $.getJSON(url, function (data) {
-        console.log("data---" + JSON.stringify(data));
-        locName = data;
-        console.log("locName---" + locName);
-        $("#form #parentName").val(locName);
-    });
-    return locName;
 }

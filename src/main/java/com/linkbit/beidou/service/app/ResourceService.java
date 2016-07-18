@@ -136,4 +136,21 @@ public class ResourceService {
         }
         return result;
     }
+
+
+    /**
+     * 保存数据资源
+     */
+    public Resource addResource(String url) {
+        Resource resource = new Resource();
+        boolean exits = resourceRepository.findByResourceUrl(url).size() > 0;
+        if (!exits) {
+            resource.setDescription(url);
+            resource.setResourceUrl(url);
+            resource.setResourceName(url);
+            resource.setStaticFlag(true);
+            resource = resourceRepository.save(resource);
+        }
+        return resource;
+    }
 }

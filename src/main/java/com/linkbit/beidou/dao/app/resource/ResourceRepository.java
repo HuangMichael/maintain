@@ -23,6 +23,12 @@ public interface ResourceRepository extends CrudRepository<Resource, Long> {
      */
     List<Resource> findByStatus(String status);
 
+
+    /**
+     * 根据URL查询
+     */
+    List<Resource> findByResourceUrl(String status);
+
     /**
      * 根据id查询数据资源
      */
@@ -52,14 +58,10 @@ public interface ResourceRepository extends CrudRepository<Resource, Long> {
     List<Resource> findByResourceLevel(Long resourceLevel);
 
 
-
     /**
      * 根据资源级别查询
      */
     List<Resource> findBystaticFlag(boolean staticOrNot);
-
-
-
 
 
 }

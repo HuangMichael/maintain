@@ -31,31 +31,32 @@
                                         </ul>
                                         <div class="tab-content">
                                             <div class="tab-pane fade in active" id="tab_1_0">
-                                                <table id="fixListTable"
-                                                       class="table table-bordered table-hover table-responsive">
+                                                <table id="fixListTable" class="table able-bordered table-hover">
                                                     <thead>
                                                     <tr>
-                                                        <th data-column-id="index" width="5%">序号</th>
-                                                        <th data-column-id="orderLineNo" width="10%">跟踪号</th>
-                                                        <th data-column-id="location" width="30%">设备位置</th>
-                                                        <th data-column-id="eqName" width="10%">设备名称</th>
-                                                        <th data-column-id="eqDesc" width="15%">故障描述</th>
-                                                        <th data-column-id="eqClass" width="10%">设备分类</th>
-                                                        <th data-column-id="status" width="5%">设备状态</th>
-                                                        <th data-column-id="fixOrderDesc" width="20%">维修描述</th>
-                                                        <th data-column-id="opMenus" data-formatter="opMenus"
-                                                            data-sortable="false" width="5%">暂停&nbsp;取消&nbsp;完工
-                                                        </th>
+                                                        <th width="5%">序号</th>
+                                                        <th width="10%">跟踪号</th>
+                                                        <th width="10%">设备位置</th>
+                                                        <th width="10%">设备名称</th>
+                                                        <th width="15%">故障描述</th>
+                                                        <th width="10%">设备分类</th>
+                                                        <th width="5%">设备状态</th>
+                                                        <th width="20%">维修描述</th>
+                                                        <%-- <th width="5%">预览</th>--%>
+                                                        <th width="5%">暂停</th>
+                                                        <th width="5%">取消</th>
+                                                        <th width="5%">完工</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
                                                     <c:forEach items="${workOrderFixList}" var="w" varStatus="s">
-                                                        <tr>
+                                                        <tr class="treegrid treegrid-${s.index+1} treegrid-collapsed success">
                                                             <td>${s.index+1}</td>
-                                                            <td>${w.orderNo}</td>
-                                                            <td class="hidden-xs hidden-sm">
-                                                                <fmt:formatDate value="${w.reportTime}"
-                                                                                pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                                                            <td colspan="2">维修单:${w.orderNo}</td>
+                                                            <td colspan="2" class="hidden-xs hidden-sm">
+                                                                下单时间:<fmt:formatDate
+                                                                    value="${w.reportTime}"
+                                                                    pattern="yyyy-MM-dd HH:mm:ss"/></td>
                                                             <td>
                                                                 <c:if test="${w.status=='0'}">
                                                                     <span class="badge badge-info">已分配</span>
@@ -65,14 +66,15 @@
                                                                 </c:if>
                                                                 <c:if test="${w.status=='2'}">
                                                                     <span class="badge badge-important">已暂停</span>
-                                                                </c:if>
-                                                            </td>
+                                                                </c:if></td>
                                                             <td colspan="5"></td>
+                                                                <%-- <td>完工</td>--%>
                                                         </tr>
                                                         <c:forEach items="${w.workOrderFixDetailList}" var="d"
                                                                    varStatus="ds">
-                                                            <tr style="display: none;">
-                                                                <td>${s.index+1}-${ds.index+1}</td>
+                                                            <tr class="treegrid treegrid-${s.index+1}-${ds.index+1} treegrid-parent-${s.index+1}"
+                                                                style="display: none;">
+                                                                <td>${ds.index+1}</td>
                                                                 <td>${d.orderLineNo}</td>
                                                                 <td>${d.locations.description}</td>
                                                                 <td>${d.equipments.description}</td>
@@ -95,6 +97,22 @@
                                                                            id="fixDesc${d.id}"
                                                                            type="text"
                                                                            style="height:25px" value="${d.fixDesc}"/>
+                                                                </td>
+                                                                    <%-- <td>
+                                                                         <a class="btn btn-default btn-xs"
+                                                                            onclick="preview(${d.id})">预览</a>
+                                                                     </td>--%>
+                                                                <td>
+                                                                    <a class="btn btn-default btn-xs"
+                                                                       onclick="pause(${d.id})">暂停</a>
+                                                                </td>
+                                                                <td>
+                                                                    <a class="btn btn-default btn-xs"
+                                                                       onclick="abort(${d.id})">取消</a>
+                                                                </td>
+                                                                <td>
+                                                                    <a class="btn btn-default btn-xs"
+                                                                       onclick="finish(${d.id})">完工</a>
                                                                 </td>
                                                             </tr>
                                                         </c:forEach>
@@ -134,19 +152,13 @@
         </div>
     </div>
 </div>
+
+
 <script type="text/javascript" src="js/jquery-treegrid/js/jquery.treegrid.js"></script>
 <script type="text/javascript" src="js/jquery-treegrid/js/jquery.treegrid.bootstrap3.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#fixListTable').bootgrid({
-            formatters: {
-                "opMenus": function (column, row) {
-                    return  '<a class="btn btn-default btn-xs"  onclick="pause(' + row.id + ')" title="暂停" ><i class="glyphicon glyphicon-pause"></i></a>' +
-                            '<a class="btn btn-default btn-xs"  onclick="abort(' + row.id + ')" title="取消" ><i class="glyphicon glyphicon glyphicon-remove-circle"></i></a>' +
-                            '<a class="btn btn-default btn-xs"  onclick="finish(' + row.id + ')" title="完工" ><i class="glyphicon glyphicon glyphicon-ok"></i></a>'
-                }
-            }
-        });
+        $('#fixListTable').bootgrid();
         $("#myTab a").on("click", function (e) {
             e.preventDefault();
             preview(1);
@@ -156,6 +168,8 @@
 
     function finish(id) {
         var fixDesc = $("#fixDesc" + id).val();
+
+        console.log("fixDesc----------------" + fixDesc);
         if (!fixDesc) {
             showMessageBox("danger", "请输入维修描述!");
             $("#fixDesc" + id).focus();

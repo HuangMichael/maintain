@@ -9,6 +9,7 @@ import com.linkbit.beidou.domain.line.Station;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.domain.user.User;
+import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.equipmentsClassification.EquipmentsClassificationService;
 import com.linkbit.beidou.service.line.LineService;
 import com.linkbit.beidou.service.line.StationService;
@@ -22,6 +23,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -88,10 +90,7 @@ public class LoginController {
             List<Station> stationList = stationService.findByStatus("1");
             List<Vlocations> locationsList = locationsService.findByLocationStartingWithAndStatus(currentUser.getLocation());
             List<Locations> locList = locationsService.findByLocationStartingWithAndStatus(currentUser.getLocation(), "1");
-            //List<EquipmentsClassification> equipmentsClassificationList = equipmentsClassificationService.findAll();
             List<VeqClass> veqClassList = veqClassRepository.findAll();
-
-
             session.setAttribute("currentUser", currentUser);
             session.setAttribute("personName", currentUser.getPerson().getPersonName());
             Org org = orgRepository.findByStatus("1").get(0);
@@ -107,5 +106,36 @@ public class LoginController {
         }
     }
 
+
+    @RequestMapping(value = "/checkLogin", method = RequestMethod.POST)
+    @ResponseBody
+    public ReturnObject checkLogin(@RequestParam("userName") String userName, @RequestParam("password") String password,HttpSession session) {
+        String encryptPassword = MD5Util.md5(password);
+        ReturnObject returnObject = new ReturnObject();
+        List<User> userList = userService.findByUserNameAndPasswordAndStatus(userName, encryptPassword, "1");
+        if (userList.size() == 1) {
+            returnObject.setResult(true);
+            returnObject.setResultDesc("用户登录成功");
+            User currentUser = userList.get(0);
+            List<Line> lineList = lineService.findByStatus("1");
+            List<Station> stationList = stationService.findByStatus("1");
+            List<Vlocations> locationsList = locationsService.findByLocationStartingWithAndStatus(currentUser.getLocation());
+            List<Locations> locList = locationsService.findByLocationStartingWithAndStatus(currentUser.getLocation(), "1");
+            List<VeqClass> veqClassList = veqClassRepository.findAll();
+            session.setAttribute("currentUser", currentUser);
+            session.setAttribute("personName", currentUser.getPerson().getPersonName());
+            Org org = orgRepository.findByStatus("1").get(0);
+            session.setAttribute("org", org);
+            session.setAttribute("locationsList", locationsList);
+            session.setAttribute("locList", locList);
+            session.setAttribute("veqClassList", veqClassList);
+            session.setAttribute("lineList", lineList);
+            session.setAttribute("stationList", stationList);
+        }else{
+            returnObject.setResult(false);
+            returnObject.setResultDesc("用户登录失败");
+        }
+        return returnObject;
+    }
 
 }

@@ -26,7 +26,7 @@
     <!-- ANIMATE -->
     <link rel="stylesheet" type="text/css" href="css/animatecss/animate.min.css"/>
     <!-- FONTS -->
-   <%-- <link href='http://fonts.useso.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>--%>
+    <%-- <link href='http://fonts.useso.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>--%>
 </head>
 <body class="login">
 <!-- PAGE -->
@@ -59,21 +59,19 @@
                             <div class="form-group">
                                 <label for="userName">用户名</label>
                                 <i class="fa fa-envelope"></i>
-                                <input type="text" class="form-control" id="userName" name="userName" required
-                                       maxlength="12">
+                                <input type="text" class="form-control" id="userName" name="userName" required>
 
                                 <div id="msg0" class="divide-10"></div>
                             </div>
                             <div class="form-group">
                                 <label for="password">密码</label>
                                 <i class="fa fa-lock"></i>
-                                <input type="password" class="form-control" id="password" name="password" required
-                                       maxlength="50">
+                                <input type="password" class="form-control" id="password" name="password" required>
 
                                 <div id="msg1" class="divide-10"></div>
                             </div>
                             <div>
-                                <label class="checkbox"> <input type="checkbox" class="uniform" value=""> 记住密码</label>
+                                <label class="checkbox"> <input type="checkbox" class="uniform"> 记住密码</label>
                                 <button type="submit" class="btn btn-danger" id="loginBtn">登录</button>
                             </div>
                         </form>
@@ -97,13 +95,66 @@
         App.init(); //Initialise plugins and elements
 
 
-        $("#userName").on("change", function () {
-            $("#msg0").html("");
-        })
-        $("#password").on("change", function () {
-            $("#msg1").html("");
-        })
+        var validateOptions = {
+            message: '该值无效 ',
+            fields: {
+                "userName": {
+                    message: '用户名无效',
+                    validators: {
+                        notEmpty: {
+                            message: '用户名不能为空!'
+                        },
+                        stringLength: {
+                            min: 2,
+                            max: 10,
+                            message: '用户名长度为2到10个字符'
+                        }
+                    }
+                },
+                "password": {
+                    message: '密码无效',
+                    validators: {
+                        notEmpty: {
+                            message: '密码不能为空!'
+                        },
+                        stringLength: {
+                            min: 2,
+                            max: 20,
+                            message: '密码长度为2到20个字符'
+                        }
+                    }
+                }
+            }
+        };
+
+
+        $('#loginForm')
+                .bootstrapValidator(validateOptions).on('success.form.bv', function (e) {
+            e.preventDefault();
+            checkLogin();
+        });
     });
+    /**
+     * 检查用户登录
+     */
+    function checkLogin() {
+        var objStr = getFormJsonData("loginForm");
+        var user = JSON.parse(objStr);
+        var userData = {
+            userName: user.userName,
+            password: user.password
+        }
+        var url = "/checkLogin";
+        $.post(url, userData, function (data) {
+            if (data.result) {
+                showMessageBoxCenter("info", "center", "用户登录成功!")
+                window.location.href = "/portal/index";
+            } else {
+                showMessageBoxCenter("danger", "center", "用户登录失败,请重试");
+                $("#password").val("").focus();
+            }
+        });
+    }
     function swapScreen(id) {
         $('.visible').removeClass('visible animated fadeInUp');
         $('#' + id).addClass('visible animated fadeInUp');

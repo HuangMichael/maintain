@@ -13,7 +13,7 @@
         <th width="10%">设备分类</th>
         <th width="20%">故障描述</th>
         <th width="20%">维修单位</th>
-        <th width="5%">关联单位</th>
+       <th width="5%">关联单位</th>
         <th width="5%">新增单位</th>
     </tr>
     </thead>
@@ -34,7 +34,7 @@
                     </c:forEach>
                 </select>
             </td>
-            <td><a class="btn btn-info btn-xs">关联单位</a></td>
+          <td><a class="btn btn-info btn-xs">关联单位</a></td>
             <td><a class="btn btn-info btn-xs">新增单位</a></td>
         </tr>
     </c:forEach>

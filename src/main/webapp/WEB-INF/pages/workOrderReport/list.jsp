@@ -13,7 +13,7 @@
                     <!-- BOX -->
                     <div class="box border blue">
                         <div class="box-title">
-                            <h4><i class="fa fa-table"></i>报修单信息</h4>
+                            <h4><i class="fa fa-table"></i>报修单查询</h4>
                         </div>
                         <div class="box-body">
                             <div id="contentDiv">
@@ -21,7 +21,7 @@
                                     <div class="tabbable">
                                         <ul class="nav nav-tabs" id="myTab">
                                             <li class="active"><a href="#tab_1_0" data-toggle="tab">
-                                                <i class="fa fa-home" id="eq"></i>报修单信息</a>
+                                                <i class="fa fa-home" id="eq"></i>报修单查询</a>
                                             </li>
 
                                             <li><a href="#pdf_view" data-toggle="tab">

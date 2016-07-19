@@ -14,7 +14,7 @@
                     <!-- BOX -->
                     <div class="box border blue">
                         <div class="box-title">
-                            <h4><i class="fa fa-sitemap"></i>维修单信息</h4>
+                            <h4><i class="fa fa-sitemap"></i>维修单查询</h4>
                         </div>
                         <div class="box-body">
                             <div id="contentDiv">
@@ -22,7 +22,7 @@
                                     <div class="tabbable">
                                         <ul class="nav nav-tabs" id="myTab">
                                             <li class="active"><a href="#tab_1_0" data-toggle="tab">
-                                                <i class="fa fa-home" id="eq"></i>维修单信息</a>
+                                                <i class="fa fa-home" id="eq"></i>维修单查询</a>
                                             </li>
 
                                             <li><a href="#pdf_view" data-toggle="tab">
@@ -55,7 +55,7 @@
                                                             <tr style="display: none;">
                                                                 <td>${s.index+1}-${ds.index+1}</td>
                                                                 <td>${d.orderLineNo}</td>
-                                                                <td>${d.locations.description}</td>
+                                                                <td>${d.vlocations.line}${d.vlocations.station}${d.vlocations.locName}</td>
                                                                 <td>${d.equipments.description}</td>
                                                                 <td>${d.orderDesc}</td>
                                                                 <td>${d.equipmentsClassification.description}</td>

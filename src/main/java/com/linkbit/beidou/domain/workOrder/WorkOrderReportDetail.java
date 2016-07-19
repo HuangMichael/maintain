@@ -3,10 +3,14 @@ package com.linkbit.beidou.domain.workOrder;
 import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.locations.Locations;
+import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import lombok.*;
+import org.springframework.data.annotation.*;
 
 import javax.persistence.*;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.util.Date;
 
 @Entity
@@ -59,4 +63,9 @@ public class WorkOrderReportDetail {
 
     @Column(length = 1)
     String status;
+
+    @org.springframework.data.annotation.Transient
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "vlocations_id", referencedColumnName = "id")
+    private Vlocations vlocations;  //所属位置
 }

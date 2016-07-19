@@ -207,6 +207,16 @@ public class EquipmentsClassificationController {
     }
 
 
+    @RequestMapping(value = "/addU2c", method = RequestMethod.POST)
+    @ResponseBody
+    public List<OutsourcingUnit> addU2c(@RequestParam("cid") Long cid, @RequestParam("ids") String ids) {
+        List<OutsourcingUnit> outsourcingUnitList = null;
+        if (cid != null && ids != null) {
+            outsourcingUnitList = outsoucingUnitService.addU2c(cid, ids);
+        }
+        return outsourcingUnitList;
+    }
+
     @RequestMapping(value = "/removeUnits", method = RequestMethod.POST)
     @ResponseBody
     public EquipmentsClassification removeUnits(@RequestParam("cid") Long cid, @RequestParam("ids") String ids) {

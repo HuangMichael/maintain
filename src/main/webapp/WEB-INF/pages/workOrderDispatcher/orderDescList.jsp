@@ -37,9 +37,9 @@
                     </c:forEach>
                 </select>
             </td>
-            <td><a class="btn btn-info btn-xs" onclick="linkUnit(${workOrder.equipmentsClassification.id})">关联单位</a>
+            <td><a class="btn btn-info btn-xs" onclick="linkUnit(${workOrder.id},${workOrder.equipmentsClassification.id})">关联单位</a>
             </td>
-            <td><a class="btn btn-info btn-xs" onclick="addLinkUnit(${workOrder.equipmentsClassification.id})">新增单位</a>
+            <td><a class="btn btn-info btn-xs" onclick="addLinkUnit(${workOrder.id},${workOrder.equipmentsClassification.id})">新增单位</a>
             </td>
         </tr>
     </c:forEach>

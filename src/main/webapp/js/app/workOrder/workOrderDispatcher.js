@@ -178,16 +178,14 @@ function updateDetailUnit(detailId, unitId) {
  */
 
 var currentCid = null;
-function linkUnit(cid) {
-
-
-
+var workOrderId = null;
+function linkUnit(wid, cid) {
     //弹出模态框  选中一个单位 点击确定
     currentCid = cid;
     var url = "/equipmentsClassification/loadSelectUnitPage/" + cid;
     $("#unitBody").load(url);
     $("#link_unit_modal").modal("show");
-
+    workOrderId = wid;
     // alert("linkUnit---" + cid);
 
     //提示关联单位成功  并将加入到对应的列表中
@@ -200,15 +198,15 @@ function linkUnit(cid) {
  * @param cid  设备分类ID
  * 添加并且关联单位
  */
-function addLinkUnit(cid) {
 
-    //  alert("addLinkUnit---" + cid);
+var eqClassId = null;
+function addLinkUnit(wid, cid) {
     //弹出模态框  新增一个单位 点击确定
-    /*  var url = "/equipmentsClassification/loadSelectUnitPage/" + cid;
-     $("#addUnitBody").load(url);*/
+    eqClassId = cid;
+    workOrderId = wid;
+    console.log("eqClassId---------------" + eqClassId);
     $("#add_link_unit_modal").modal("show");
     //提示新增并且关联单位成功  并将加入到对应的列表中
-
 }
 
 
@@ -226,11 +224,17 @@ function confirmLinkUnit() {
     } else {
         //加入
         $("#link_unit_modal").modal("hide");
-        var url = "/equipmentsClassification/addUnits";
+        var url = "/equipmentsClassification/addU2c";
         // 提示操作成功或失败
         $.post(url, {cid: currentCid, ids: ids}, function (data) {
             if (data) {
-                //  $("#contentDiv").load("/equipmentsClassification/detail/" + cid);
+                $("#selUnit" + workOrderId).empty();
+                for (var x in data) {
+                    if (data[x]["id"] && data[x]["description"]) {
+                        $("#selUnit" + workOrderId).append("<option value='" + data[x]["id"] + "'>" + data[x]["description"] + "</option>");
+                    }
+                }
+                //清空select 重新载入外委单位放入
                 showMessageBox("info", "设备分类关联外委单位成功！")
             } else {
                 showMessageBox("danger", "设备分类关联外委单位失败！")
@@ -241,36 +245,34 @@ function confirmLinkUnit() {
 
 
 function createUnit() {
-    var outsourcingUnit = {
+    var object = {
         unitNo: $("#unitNo").val(),
         description: $("#description").val(),
         linkman: $("#linkman").val(),
-        telephone: $("#telephone").val()
+        telephone: $("#telephone").val(),
+        eqClassId: eqClassId
     }
 
-
-    console.log(JSON.stringify(outsourcingUnit));
-    var url = "/outsourcingUnit/save";
+    var url = "/outsourcingUnit/saveLink";
     $.ajax({
-        type: "post",
-        url: url,
-        data: outsourcingUnit,
-        dataType: "json",
-        success: function (data) {
-            $("#add_link_unit_modal").modal("hide");
-            if (data.id) {
-                showMessageBox("info", "外委单位信息更新成功");
-            } else {
+            type: "post",
+            url: url,
+            data: object,
+            dataType: "json",
+            success: function (data) {
+                $("#add_link_unit_modal").modal("hide");
                 showMessageBox("info", "外委单位信息添加成功");
-            }
-        }, error: function (data) {
-            if (data.id) {
-                showMessageBox("danger", "外委单位信息更新失败");
-            } else {
-                showMessageBox("info", "外委单位信息添加失败");
+                //保存完之后将当前添加的信息添加到下拉列表中
+                for (var x in data) {
+                    if (data[x].id && data[x].description) {
+                        $("#selUnit" + workOrderId).append("<option value='" + data[x].id + "'>" + data[x].description + "</option>");
+                    }
+                }
+            }, error: function (data) {
+                showMessageBox("danger", "外委单位信息添加失败");
             }
         }
-    });
+    );
 }
 
 

@@ -1,9 +1,7 @@
 package com.linkbit.beidou.controller.outsourcingUnit;
 
 
-import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
-import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnitContract;
@@ -14,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Set;
@@ -85,11 +80,26 @@ public class OutsourcingUnitController {
         outsourcingUnit.setStatus("1");
         outsourcingUnit = outsourcingUnitRepository.save(outsourcingUnit);
         return outsourcingUnit;
-
-
     }
 
 
+    @RequestMapping(value = "/saveLink", method = RequestMethod.POST)
+    @ResponseBody
+    public List<OutsourcingUnit> saveLink(@RequestParam("unitNo") String unitNo,
+                                             @RequestParam("description") String description,
+                                             @RequestParam("linkman") String linkman,
+                                             @RequestParam("telephone") String telephone,
+                                             @RequestParam("eqClassId") Long eqClassId
+    ) {
+        OutsourcingUnit outsourcingUnit = new OutsourcingUnit();
+        outsourcingUnit.setUnitNo(unitNo);
+        outsourcingUnit.setDescription(description);
+        outsourcingUnit.setLinkman(linkman);
+        outsourcingUnit.setTelephone(telephone);
+        outsourcingUnit.setStatus("1");
+        outsourcingUnit = outsourcingUnitRepository.save(outsourcingUnit);
+        return outsourcingUnitService.saveLink(outsourcingUnit, eqClassId);
+    }
 
 
     /**
@@ -136,7 +146,6 @@ public class OutsourcingUnitController {
         modelMap.put("unit", unit);
         return "/units/" + pageUrl;
     }
-
 
 
     /**

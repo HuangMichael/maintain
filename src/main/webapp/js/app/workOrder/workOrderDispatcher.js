@@ -226,9 +226,10 @@ function confirmLinkUnit() {
         $("#link_unit_modal").modal("hide");
         var url = "/equipmentsClassification/addU2c";
         // 提示操作成功或失败
-        $.post(url, {cid: currentCid, ids: ids}, function (data) {
+        $.post(url, {cid: currentCid, ids: ids, workOrderId: workOrderId}, function (data) {
             if (data) {
                 $("#selUnit" + workOrderId).empty();
+                $("#selUnit" + workOrderId).append("<option value=''>请选择外委单位</option>");
                 for (var x in data) {
                     if (data[x]["id"] && data[x]["description"]) {
                         $("#selUnit" + workOrderId).append("<option value='" + data[x]["id"] + "'>" + data[x]["description"] + "</option>");
@@ -263,6 +264,8 @@ function createUnit() {
                 $("#add_link_unit_modal").modal("hide");
                 showMessageBox("info", "外委单位信息添加成功");
                 //保存完之后将当前添加的信息添加到下拉列表中
+                $("#selUnit" + workOrderId).empty();
+                $("#selUnit" + workOrderId).append("<option value=''>请选择外委单位</option>");
                 for (var x in data) {
                     if (data[x].id && data[x].description) {
                         $("#selUnit" + workOrderId).append("<option value='" + data[x].id + "'>" + data[x].description + "</option>");

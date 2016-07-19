@@ -31,15 +31,18 @@
                 <select class="form-control" id="selUnit${workOrder.id}" onchange="selectUnit('selUnit${workOrder.id}')"
                         style="height:24px;padding: 2px 2px;font-size: 12px;line-height: 1;"
                         onclick="appendUnit(${workOrder.equipmentsClassification.id})">
+                    <option value="">请选择外委单位</option>
                     <c:forEach var="u" items="${workOrder.equipmentsClassification.unitSet}">
                         <option value="${u.id}"
                                 <c:if test="${workOrder.unit.id==u.id}">selected</c:if>>${u.description}</option>
                     </c:forEach>
                 </select>
             </td>
-            <td><a class="btn btn-info btn-xs" onclick="linkUnit(${workOrder.id},${workOrder.equipmentsClassification.id})">关联单位</a>
+            <td><a class="btn btn-info btn-xs"
+                   onclick="linkUnit(${workOrder.id},${workOrder.equipmentsClassification.id})">关联单位</a>
             </td>
-            <td><a class="btn btn-info btn-xs" onclick="addLinkUnit(${workOrder.id},${workOrder.equipmentsClassification.id})">新增单位</a>
+            <td><a class="btn btn-info btn-xs"
+                   onclick="addLinkUnit(${workOrder.id},${workOrder.equipmentsClassification.id})">新增单位</a>
             </td>
         </tr>
     </c:forEach>
@@ -84,6 +87,7 @@
                 <form class="form-horizontal" role="form" id="createForm">
                     <div class="form-group">
                         <label for="unitNo" class="col-md-2 control-label">单位编号</label>
+
                         <div class="col-md-10">
                             <input class="form-control" name="unit.unitNo" id="unitNo" required/>
                         </div>
@@ -97,12 +101,14 @@
                     </div>
                     <div class="form-group">
                         <label for="linkman" class="col-md-2 control-label">联系人</label>
+
                         <div class="col-md-10">
                             <input class="form-control" name="unit.linkman" id="linkman"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="telephone" class="col-md-2 control-label">联系电话</label>
+
                         <div class="col-md-10">
                             <input class="form-control" id="telephone" name="unit.telephone"/>
                         </div>

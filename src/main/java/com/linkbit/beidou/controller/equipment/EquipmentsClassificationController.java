@@ -198,10 +198,10 @@ public class EquipmentsClassificationController {
 
     @RequestMapping(value = "/addUnits", method = RequestMethod.POST)
     @ResponseBody
-    public EquipmentsClassification addUnits(@RequestParam("cid") Long cid, @RequestParam("ids") String ids) {
+    public EquipmentsClassification addUnits(@RequestParam("cid") Long cid, @RequestParam("ids") String ids,@RequestParam("workOrderId") Long workOrderId) {
         EquipmentsClassification equipmentsClassification = null;
         if (cid != null && ids != null) {
-            equipmentsClassification = outsoucingUnitService.addUnits(cid, ids);
+            equipmentsClassification = outsoucingUnitService.addUnits(cid, ids,workOrderId);
         }
         return equipmentsClassification;
     }
@@ -209,10 +209,10 @@ public class EquipmentsClassificationController {
 
     @RequestMapping(value = "/addU2c", method = RequestMethod.POST)
     @ResponseBody
-    public List<OutsourcingUnit> addU2c(@RequestParam("cid") Long cid, @RequestParam("ids") String ids) {
+    public List<OutsourcingUnit> addU2c(@RequestParam("cid") Long cid, @RequestParam("ids") String ids,@RequestParam("workOrderId") Long workOrderId) {
         List<OutsourcingUnit> outsourcingUnitList = null;
         if (cid != null && ids != null) {
-            outsourcingUnitList = outsoucingUnitService.addU2c(cid, ids);
+            outsourcingUnitList = outsoucingUnitService.addU2c(cid, ids,workOrderId);
         }
         return outsourcingUnitList;
     }

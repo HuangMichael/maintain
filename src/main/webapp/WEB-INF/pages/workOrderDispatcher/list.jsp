@@ -79,7 +79,7 @@
                                                             <td>${workOrder.locations.description}</td>
                                                             <td>${workOrder.equipmentsClassification.description}</td>
                                                             <td>${workOrder.orderDesc}</td>
-                                                            <td>${workOrder.reportTime}</td>
+                                                            <td><fmt:formatDate value="${workOrder.reportTime}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></td>
                                                         </tr>
                                                     </c:forEach>
                                                     </tbody>

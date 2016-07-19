@@ -7,8 +7,8 @@
     <thead>
     <tr id="trr2">
         <th width="5%">序号</th>
-        <th width="5%">跟踪号</th>
-        <th width="15%">设备名称</th>
+        <th width="10%">跟踪号</th>
+        <th width="10%">设备名称</th>
         <th width="15%">设备位置</th>
         <th width="10%">设备分类</th>
         <th width="20%">故障描述</th>
@@ -28,11 +28,9 @@
             <td>${workOrder.equipmentsClassification.description}</td>
             <td>${workOrder.orderDesc}</td>
             <td>
-                <select class="form-control" id="selUnit${workOrder.id}" onchange="selectUnit('selUnit${workOrder.id}')"
-                        style="height:24px;padding: 2px 2px;font-size: 12px;line-height: 1;">
+                <select class="form-control" id="selUnit${workOrder.id}" onchange="selectUnit('selUnit${workOrder.id}')" style="height:24px;padding: 2px 2px;font-size: 12px;line-height: 1;" onclick="appendUnit(${workOrder.equipmentsClassification.description})">
                     <c:forEach var="u" items="${workOrder.equipmentsClassification.unitSet}">
-                        <option value="${u.id}"
-                                <c:if test="${workOrder.unit.id==u.id}">selected</c:if>>${u.description}</option>
+                        <option value="${u.id}" <c:if test="${workOrder.unit.id==u.id}">selected</c:if>>${u.description}</option>
                     </c:forEach>
                 </select>
             </td>
@@ -57,6 +55,13 @@
             </div>
             <div class="modal-body" id="unitBody">
 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                </button>
+                <button type="button" id="confirmBtn" name="confirmBtn" class="btn btn-danger"
+                        onclick="confirmLinkUnit()">确定
+                </button>
             </div>
         </div>
     </div>

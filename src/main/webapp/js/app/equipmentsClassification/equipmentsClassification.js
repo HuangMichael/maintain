@@ -227,7 +227,7 @@ $("#confitmBtn").on("click", function () {
         }
     });
     ids = ids.replace(/\ +/g, "").replace(/[\r\n]/g, "");
-    var cid = getSelectedNodeId();
+    var cid = 60;
     if (!ids) {
         showMessageBox("danger", "请选择外委单位！");
         return;

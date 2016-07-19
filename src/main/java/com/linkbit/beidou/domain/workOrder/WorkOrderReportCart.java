@@ -3,9 +3,13 @@ package com.linkbit.beidou.domain.workOrder;
 import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.locations.Locations;
+import com.linkbit.beidou.domain.locations.Vlocations;
 import lombok.*;
+import org.springframework.data.annotation.*;
 
 import javax.persistence.*;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.util.Date;
 
 @Entity
@@ -46,4 +50,10 @@ public class WorkOrderReportCart {
     private String reportType; //报修方式 S为设备 W位置
     @Column(length = 1)
     private String status;
+
+
+    @Transient
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "vlocations_id", referencedColumnName = "id")
+    private Vlocations vlocations;  //所属位置
 }

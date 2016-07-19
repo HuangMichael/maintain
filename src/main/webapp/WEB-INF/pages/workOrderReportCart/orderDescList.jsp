@@ -20,7 +20,7 @@
             <td>${w.index+1}</td>
             <td>${workOrder.equipments.eqCode}</td>
             <td>${workOrder.equipments.description}</td>
-            <td>${workOrder.locations.description}</td>
+            <td>${workOrder.vlocations.line}${workOrder.vlocations.station}${workOrder.vlocations.locName}</td>
             <td>${workOrder.equipmentsClassification.description}</td>
             <td><input type="text" id="orderDesc${workOrder.id}" class="form-control" style="height:28px"
                        value="${workOrder.orderDesc}" onchange="changeContent(${workOrder.id})"/>
@@ -39,7 +39,7 @@
     function changeContent(id) {
 
         var orderDesc = $("#orderDesc" + id).val();
-        console.log("修改后orderDesc-------------"+orderDesc);
+        console.log("修改后orderDesc-------------" + orderDesc);
         if (!orderDesc) {
             showMessageBox("danger", "故障描述不能为空,请输入故障描述 !");
             return;

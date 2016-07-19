@@ -1,7 +1,58 @@
-jQuery(document).ready(function () {
+$(function () {
     DisPatchFormWizard.init();
 
     $('select').select2({theme: "bootstrap"});
+
+
+    /*
+     $('#addUnitForm')
+     .bootstrapValidator({
+     message: '该值无效 ',
+     fields: {
+     unitNo: {
+     message: '单位编号无效',
+     validators: {
+     notEmpty: {
+     message: '单位编号不能为空!'
+     },
+     stringLength: {
+     min: 3,
+     max: 20,
+     message: '单位编号长度为3到20个字符'
+     }
+     }
+     },
+     description: {
+     message: '单位名称无效',
+     validators: {
+     notEmpty: {
+     message: '单位名称不能为空!'
+     },
+     stringLength: {
+     min: 2,
+     max: 20,
+     message: '单位名称长度为2到20个字符'
+     }
+     }
+     },
+     "status": {
+     message: '单位状态无效',
+     validators: {
+     notEmpty: {
+     message: '单位状态不能为空!'
+     }
+     }
+     }
+     }
+     })
+     .on('success.form.bv', function (e) {
+     // Prevent form submission
+     e.preventDefault();
+     createUnit();
+     });
+     */
+
+
 });
 var selectedId = [];
 function generateReport() {
@@ -152,11 +203,10 @@ function linkUnit(cid) {
 function addLinkUnit(cid) {
 
     //  alert("addLinkUnit---" + cid);
-
-
     //弹出模态框  新增一个单位 点击确定
-
-
+    /*  var url = "/equipmentsClassification/loadSelectUnitPage/" + cid;
+     $("#addUnitBody").load(url);*/
+    $("#add_link_unit_modal").modal("show");
     //提示新增并且关联单位成功  并将加入到对应的列表中
 
 }
@@ -189,6 +239,92 @@ function confirmLinkUnit() {
     }
 }
 
+
+function createUnit() {
+    var outsourcingUnit = {
+        unitNo: $("#unitNo").val(),
+        description: $("#description").val(),
+        linkman: $("#linkman").val(),
+        telephone: $("#telephone").val()
+    }
+
+
+    console.log(JSON.stringify(outsourcingUnit));
+    var url = "/outsourcingUnit/save";
+    $.ajax({
+        type: "post",
+        url: url,
+        data: outsourcingUnit,
+        dataType: "json",
+        success: function (data) {
+            $("#add_link_unit_modal").modal("hide");
+            if (data.id) {
+                showMessageBox("info", "外委单位信息更新成功");
+            } else {
+                showMessageBox("info", "外委单位信息添加成功");
+            }
+        }, error: function (data) {
+            if (data.id) {
+                showMessageBox("danger", "外委单位信息更新失败");
+            } else {
+                showMessageBox("info", "外委单位信息添加失败");
+            }
+        }
+    });
+}
+
+
+function confirmAddLinkUnit() {
+
+
+    alert("this is the void of China");
+
+    /*    $('#createForm')
+     .bootstrapValidator({
+     message: '该值无效 ',
+     fields: {
+     unitNo: {
+     message: '单位编号无效',
+     validators: {
+     notEmpty: {
+     message: '单位编号不能为空!'
+     },
+     stringLength: {
+     min: 3,
+     max: 20,
+     message: '单位编号长度为3到20个字符'
+     }
+     }
+     },
+     description: {
+     message: '单位名称无效',
+     validators: {
+     notEmpty: {
+     message: '单位名称不能为空!'
+     },
+     stringLength: {
+     min: 2,
+     max: 20,
+     message: '单位名称长度为2到20个字符'
+     }
+     }
+     },
+     "status": {
+     message: '单位状态无效',
+     validators: {
+     notEmpty: {
+     message: '单位状态不能为空!'
+     }
+     }
+     }
+     }
+     })
+     .on('success.form.bv', function (e) {
+     // Prevent form submission
+     e.preventDefault();
+     createUnit();
+     });*/
+}
 
 function appendUnit(cid) {
 

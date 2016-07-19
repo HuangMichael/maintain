@@ -28,9 +28,12 @@
             <td>${workOrder.equipmentsClassification.description}</td>
             <td>${workOrder.orderDesc}</td>
             <td>
-                <select class="form-control" id="selUnit${workOrder.id}" onchange="selectUnit('selUnit${workOrder.id}')" style="height:24px;padding: 2px 2px;font-size: 12px;line-height: 1;" onclick="appendUnit(${workOrder.equipmentsClassification.description})">
+                <select class="form-control" id="selUnit${workOrder.id}" onchange="selectUnit('selUnit${workOrder.id}')"
+                        style="height:24px;padding: 2px 2px;font-size: 12px;line-height: 1;"
+                        onclick="appendUnit(${workOrder.equipmentsClassification.id})">
                     <c:forEach var="u" items="${workOrder.equipmentsClassification.unitSet}">
-                        <option value="${u.id}" <c:if test="${workOrder.unit.id==u.id}">selected</c:if>>${u.description}</option>
+                        <option value="${u.id}"
+                                <c:if test="${workOrder.unit.id==u.id}">selected</c:if>>${u.description}</option>
                     </c:forEach>
                 </select>
             </td>
@@ -77,8 +80,39 @@
                         aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="add_link_unit_modal_label">新增外委单位信息</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="addUnitBody">
+                <form class="form-horizontal" role="form" id="createForm">
+                    <div class="form-group">
+                        <label for="unitNo" class="col-md-2 control-label">单位编号</label>
+                        <div class="col-md-10">
+                            <input class="form-control" name="unit.unitNo" id="unitNo" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="col-md-2 control-label">单位名称</label>
 
+                        <div class="col-md-10">
+                            <input class="form-control" id="description" name="unit.description" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="linkman" class="col-md-2 control-label">联系人</label>
+                        <div class="col-md-10">
+                            <input class="form-control" name="unit.linkman" id="linkman"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="telephone" class="col-md-2 control-label">联系电话</label>
+                        <div class="col-md-10">
+                            <input class="form-control" id="telephone" name="unit.telephone"/>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="saveBtn" name="saveBtn" class="btn btn-primary btn-danger"
+                                onclick="createUnit()">保存记录
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

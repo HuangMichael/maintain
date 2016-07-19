@@ -116,3 +116,44 @@ function updateDetailUnit(detailId, unitId) {
 
 
 }
+
+
+/**
+ *
+ * @param cid  设备分类ID
+ * 关联单位
+ */
+function linkUnit(cid) {
+
+
+
+    //弹出模态框  选中一个单位 点击确定
+
+    var url = "/equipmentsClassification/loadSelectUnitPage/" + cid;
+    $("#unitBody").load(url);
+    $("#link_unit_modal").modal("show");
+
+   // alert("linkUnit---" + cid);
+
+    //提示关联单位成功  并将加入到对应的列表中
+
+}
+
+
+/**
+ *
+ * @param cid  设备分类ID
+ * 添加并且关联单位
+ */
+function addLinkUnit(cid) {
+
+  //  alert("addLinkUnit---" + cid);
+
+
+
+    //弹出模态框  新增一个单位 点击确定
+
+
+    //提示新增并且关联单位成功  并将加入到对应的列表中
+
+}

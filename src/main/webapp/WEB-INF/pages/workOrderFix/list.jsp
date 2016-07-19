@@ -50,25 +50,6 @@
                                                     </thead>
                                                     <tbody>
                                                     <c:forEach items="${workOrderFixList}" var="w" varStatus="s">
-                                                        <tr>
-                                                            <td>${s.index+1}</td>
-                                                            <td>${w.orderNo}</td>
-                                                            <td class="hidden-xs hidden-sm">
-                                                                <fmt:formatDate value="${w.reportTime}"
-                                                                                pattern="yyyy-MM-dd HH:mm:ss"/></td>
-                                                            <td>
-                                                                <c:if test="${w.status=='0'}">
-                                                                    <span class="badge badge-info">已分配</span>
-                                                                </c:if>
-                                                                <c:if test="${w.status=='1'}">
-                                                                    <span class="badge badge-success">已完工</span>
-                                                                </c:if>
-                                                                <c:if test="${w.status=='2'}">
-                                                                    <span class="badge badge-important">已暂停</span>
-                                                                </c:if>
-                                                            </td>
-                                                            <td colspan="5"></td>
-                                                        </tr>
                                                         <c:forEach items="${w.workOrderFixDetailList}" var="d"
                                                                    varStatus="ds">
                                                             <tr style="display: none;">

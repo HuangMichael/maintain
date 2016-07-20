@@ -201,7 +201,6 @@ function deleteObject() {
             zTree.selectNode(zTree.getNodeByParam("id", 1));
             showMessageBox("info", data.resultDesc);
         } else {
-            console.log("data.result---" + data.resultDesc);
             showMessageBox("danger", data.resultDesc);
         }
     })
@@ -253,11 +252,6 @@ function reportByLocation() {
                     validators: {
                         notEmpty: {
                             message: '故障描述不能为空!'
-                        },
-                        stringLength: {
-                            min: 10,
-                            max: 200,
-                            message: '故障描述长度为10到200个字符'
                         }
                     }
                 },

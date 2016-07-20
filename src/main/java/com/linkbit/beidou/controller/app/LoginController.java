@@ -3,6 +3,7 @@ package com.linkbit.beidou.controller.app;
 import com.linkbit.beidou.dao.app.org.OrgRepository;
 import com.linkbit.beidou.dao.equipments.VeqClassRepository;
 import com.linkbit.beidou.domain.app.org.Org;
+import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.VeqClass;
 import com.linkbit.beidou.domain.line.Line;
 import com.linkbit.beidou.domain.line.Station;
@@ -117,20 +118,20 @@ public class LoginController {
             returnObject.setResult(true);
             returnObject.setResultDesc("用户登录成功");
             User currentUser = userList.get(0);
-            List<Line> lineList = lineService.findByStatus("1");
-            List<Station> stationList = stationService.findByStatus("1");
+          /*  List<Line> lineList = lineService.findByStatus("1");
+            List<Station> stationList = stationService.findByStatus("1");*/
             List<Vlocations> locationsList = locationsService.findByLocationStartingWithAndStatus(currentUser.getLocation());
-            List<Locations> locList = locationsService.findByLocationStartingWithAndStatus(currentUser.getLocation(), "1");
+          /*  List<Locations> locList = locationsService.findByLocationStartingWithAndStatus(currentUser.getLocation(), "1");*/
             List<VeqClass> veqClassList = veqClassRepository.findAll();
             session.setAttribute("currentUser", currentUser);
             session.setAttribute("personName", currentUser.getPerson().getPersonName());
             Org org = orgRepository.findByStatus("1").get(0);
             session.setAttribute("org", org);
             session.setAttribute("locationsList", locationsList);
-            session.setAttribute("locList", locList);
+           // session.setAttribute("locList", locList);
             session.setAttribute("veqClassList", veqClassList);
-            session.setAttribute("lineList", lineList);
-            session.setAttribute("stationList", stationList);
+         /*   session.setAttribute("lineList", lineList);
+            session.setAttribute("stationList", stationList);*/
         }else{
             returnObject.setResult(false);
             returnObject.setResultDesc("用户登录失败");

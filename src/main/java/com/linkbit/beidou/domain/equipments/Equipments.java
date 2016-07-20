@@ -64,9 +64,11 @@ public class Equipments {
     private Double netValue; //净值
 
 
+
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "locations_id", referencedColumnName = "id")
     private Locations locations;  //所属位置
+
 
 
     @Transient

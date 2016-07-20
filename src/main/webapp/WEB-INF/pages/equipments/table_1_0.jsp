@@ -24,7 +24,7 @@
         <td>{{eq.vlocations.line+eq.vlocations.station+eq.vlocations.locName}}</td>
         <td>
             <div v-if="eq.status=='0'">
-                停用
+                <span class="badge badge-error">  停用</span>
             </div>
             <div v-if="eq.status=='1'">
                 投用

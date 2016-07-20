@@ -62,7 +62,6 @@ public class EquipmentController extends BaseController {
         return "/equipments/list";
     }
 
-
     /**
      * @param session 当前会话
      * @return 查询当前用户所在的位置下属的设备
@@ -81,15 +80,6 @@ public class EquipmentController extends BaseController {
         modelMap.put("object", equipments);
         return "/equipments/table_1_2";
     }
-
-/*    @RequestMapping(value = "/loadNumber/{objId}")
-    @ResponseBody
-    public Map<String, List> loadNumber(@PathVariable("objId") long objId) {
-        Equipments equipments = equipmentsRepository.findById(objId);
-        Map<String, List> map = equipmentAccountService.calculateDetail(equipments);
-        return map;
-    }*/
-
     /**
      * 查询根节点
      */
@@ -323,7 +313,6 @@ public class EquipmentController extends BaseController {
      */
     @RequestMapping(value = "/loadHistory/{eid}")
     public String loadHistoryByEid(@PathVariable("eid") Long eid, ModelMap modelMap) {
-        System.out.println("--------------------明镜高悬");
         List<Object> historyList = equipmentAccountService.findFixHistoryByEid(eid);
         modelMap.put("historyList", historyList);
         return "/equipments/table_1_3";
@@ -335,8 +324,6 @@ public class EquipmentController extends BaseController {
      */
     @RequestMapping(value = "/loadLastHistory/{eid}")
     public String loadLastHistory(@PathVariable("eid") Long eid, ModelMap modelMap) {
-
-        System.out.println("--------------------正大光明");
         List<Object> historyList = equipmentAccountService.findLastFixHistoryByEid(eid);
         modelMap.put("historyList", historyList);
         return "/equipments/table_1_3";
@@ -389,7 +376,6 @@ public class EquipmentController extends BaseController {
             equipments.setManager(manager);
             equipments.setMaintainer(maintainer);
             equipments.setProductFactory(productFactory);
-            System.out.println("locations_id-------------------" + locations_id);
             equipments.setLocations(locationsService.findById(locations_id));
             equipments.setEquipmentsClassification(equipmentsClassificationRepository.findById(equipmentsClassification_id));
             equipments.setStatus(status);

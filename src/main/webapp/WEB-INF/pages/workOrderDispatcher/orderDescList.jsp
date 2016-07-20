@@ -13,8 +13,7 @@
         <th width="10%">设备分类</th>
         <th width="20%">故障描述</th>
         <th width="20%">维修单位</th>
-        <th width="5%">关联单位</th>
-        <th width="5%">新增单位</th>
+        <th width="5%">操作菜单</th>
     </tr>
     </thead>
     <tbody id="tbody2">
@@ -38,11 +37,26 @@
                     </c:forEach>
                 </select>
             </td>
-            <td><a class="btn btn-info btn-xs"
-                   onclick="linkUnit(${workOrder.id},${workOrder.equipmentsClassification.id})">关联单位</a>
-            </td>
-            <td><a class="btn btn-info btn-xs"
-                   onclick="addLinkUnit(${workOrder.id},${workOrder.equipmentsClassification.id})">新增单位</a>
+            <td>
+
+                <div class="dropdown">
+                    <button type="button" class="btn btn-xs dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
+                        操作菜单
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1"
+                               onclick="linkUnit(${workOrder.id},${workOrder.equipmentsClassification.id})"
+                               style="font-size: 12px"><i class="glyphicon glyphicon-link"></i>关联单位</a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1"
+                               onclick="addLinkUnit(${workOrder.id},${workOrder.equipmentsClassification.id})"
+                               style="font-size: 12px"><i class="glyphicon glyphicon-plus"></i>新增单位</a>
+                        </li>
+                    </ul>
+                </div>
             </td>
         </tr>
     </c:forEach>

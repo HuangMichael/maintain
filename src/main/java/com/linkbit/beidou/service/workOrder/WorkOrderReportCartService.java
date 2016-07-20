@@ -2,6 +2,7 @@ package com.linkbit.beidou.service.workOrder;
 
 import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
+import com.linkbit.beidou.dao.locations.VlocationsRepository;
 import com.linkbit.beidou.dao.workOrder.VworkOrderStepRepository;
 import com.linkbit.beidou.dao.workOrder.WorkOrderReportCartRepository;
 import com.linkbit.beidou.domain.equipments.Equipments;
@@ -46,6 +47,9 @@ public class WorkOrderReportCartService extends BaseService {
     @Autowired
     VworkOrderStepRepository vworkOrderStepRepository;
 
+    @Autowired
+    VlocationsRepository vlocationsRepository;
+
     /**
      * @param equipmentId
      * @param userName
@@ -67,6 +71,8 @@ public class WorkOrderReportCartService extends BaseService {
         workOrderReportCart.setReportType(CommonStatusType.REPORT_BY_EQ);  //报修类型为设备报修
         workOrderReportCart.setStatus(CommonStatusType.CART_CREATED);
         workOrderReportCart = workOrderReportCartRepository.save(workOrderReportCart);
+        //加入关联位置信息
+        workOrderReportCart.setVlocations(vlocationsRepository.findById(equipments.getLocations().getId()));
         equipments.setStatus(CommonStatusType.EQ_ABNORMAL); //将设备状态修改为不正常
         equipmentAccountService.save(equipments);
         return workOrderReportCart;
@@ -100,6 +106,8 @@ public class WorkOrderReportCartService extends BaseService {
         workOrderReportCart.setOrderDesc(orderDesc);
         workOrderReportCart.setReportType(CommonStatusType.REPORT_BY_LOC); //根据位置报修
         workOrderReportCart.setStatus(CommonStatusType.CART_CREATED);
+        //加入关联位置信息
+        workOrderReportCart.setVlocations(vlocationsRepository.findById(locationId));
         workOrderReportCart = workOrderReportCartRepository.save(workOrderReportCart);
         if (!locations.getStatus().equals(CommonStatusType.LOC_ABNORMAL)) {
             locations.setStatus(CommonStatusType.LOC_ABNORMAL); //位置不正常
@@ -138,7 +146,7 @@ public class WorkOrderReportCartService extends BaseService {
     public List<Object> checkEqsBeforeAdd2Cart(Long equipmentId) {
         List<Object> workOrderReportCartList = workOrderReportCartRepository.findReportedEquipments(equipmentId, CommonStatusType.FIX_ACCOMPLISHED);
 
-        System.out.println("workOrderReportCartList----------------------"+workOrderReportCartList.size());
+        System.out.println("workOrderReportCartList----------------------" + workOrderReportCartList.size());
         return workOrderReportCartList;
 
 

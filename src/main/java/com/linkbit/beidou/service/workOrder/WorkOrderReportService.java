@@ -136,6 +136,8 @@ public class WorkOrderReportService extends BaseService {
             workOrderReportDetail.setStatus(CommonStatusType.REPORT_CREATED); //初始化为新建状态
             workOrderReportDetail.setLocation(location);
             workOrderReportDetail.setReportTime(new Date());
+            //关联位置信息
+            workOrderReportDetail.setVlocations(workOrderReportCart.getVlocations());
             workOrderReportDetail.setOrderDesc(workOrderReportCart.getOrderDesc());
             workOrderReportDetail.setWorkOrderReport(workOrderReport);
             workOrderReportDetail.setReportType(workOrderReportCart.getReportType());

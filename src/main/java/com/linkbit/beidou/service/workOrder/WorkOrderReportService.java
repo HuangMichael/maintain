@@ -1,10 +1,12 @@
 package com.linkbit.beidou.service.workOrder;
 
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
+import com.linkbit.beidou.dao.locations.VlocationsRepository;
 import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
 import com.linkbit.beidou.dao.workOrder.*;
 import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
+import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import com.linkbit.beidou.domain.workOrder.*;
 import com.linkbit.beidou.service.app.BaseService;
@@ -40,6 +42,8 @@ public class WorkOrderReportService extends BaseService {
 
     @Autowired
     OutsourcingUnitRepository outsourcingUnitRepository;
+    @Autowired
+    VlocationsRepository vlocationsRepository;
 
 
     /**
@@ -238,6 +242,7 @@ public class WorkOrderReportService extends BaseService {
                 workOrderFixDetail.setStatus(CommonStatusType.FIX_CREATED);
                 workOrderFixDetail.setFixDesc("");
                 workOrderFixDetail.setUnit(workOrderReportDetail.getUnit());
+                workOrderFixDetail.setVlocations(vlocationsRepository.findById(workOrderReportDetail.getLocations().getId()));
                 workOrderFixDetail.setOrderLineNo(workOrderReportDetail.getOrderLineNo());
                 workOrderFixDetail.setLocations(workOrderReportDetail.getLocations());
                 workOrderFixDetail.setWorkOrderFix(workOrderFix);

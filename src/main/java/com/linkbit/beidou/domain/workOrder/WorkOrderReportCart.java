@@ -50,9 +50,6 @@ public class WorkOrderReportCart {
     private String reportType; //报修方式 S为设备 W位置
     @Column(length = 1)
     private String status;
-
-
-    @Transient
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "vlocations_id", referencedColumnName = "id")
     private Vlocations vlocations;  //所属位置

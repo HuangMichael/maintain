@@ -8,17 +8,16 @@
                 <label for="fixDesc" class="col-md-2 control-label">维修描述</label>
                 <input id="operationType" type="hidden">
                 <input id="orderId" type="hidden">
+                <input id="operationDesc" type="hidden">
                 <div class="col-md-10">
-                    <textarea class="form-control" id="fixDesc" name="fixDesc" rows="5" placeholder="请输入维修描述"
-                              required/>
+                    <textarea class="form-control" id="fixDesc" name="fixDesc" rows="5" placeholder="请输入维修描述" required/>
                 </div>
             </div>
         </div>
 
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-default"
-                data-dismiss="modal">取消
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消
         </button>
         <button type="submit" id="saveFixDesc" name="saveFixDesc" class="btn btn-primary btn-danger">确认
         </button>

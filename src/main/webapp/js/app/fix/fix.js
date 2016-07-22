@@ -38,7 +38,11 @@ $(document).ready(function () {
         // Prevent form submission
         e.preventDefault();
         // Get the form instance
-        finishDetail();
+        var orderId = $("#orderId").val();
+        var operationType = $("#operationType").val();
+        var operationDesc = $("#operationDesc").val();
+        var fixDesc = $("#fixDesc").val();
+        dealResultDetail(orderId, operationType, operationDesc, fixDesc);
 
     });
 
@@ -50,33 +54,39 @@ $(document).ready(function () {
     })
 });
 
-function dealResult() {
+
+var orderId = null;
+var operationType = null;
+var operationDesc = null;
+function dealResult(orderId, operationType, operationDesc) {
+    $("#orderId").val(orderId);
+    $("#operationType").val(operationType);
+    $("#operationDesc").val(operationDesc);
     $("#fix_desc_modal").modal("show");
 }
+
+
+function dealResultDetail(orderId, operationType, operationDesc, fixDesc) {
+    updateOrderStatus(orderId, operationType, operationDesc, fixDesc);
+}
+
+
 /**
  *
  * @param id 完工
  */
 function finish(id) {
-    $("#fix_desc_modal").modal("show");
-    detailID = id;
-}
-
-
-var detailID = null;
-function finishDetail() {
+    var orderId = id;
     var operationType = "finishDetail";
     var operationDesc = "完工";
-    updateOrderStatus(detailID, operationType, operationDesc);
+    dealResult(orderId, operationType, operationDesc);
 }
 
 
-function updateOrderStatus(id, operationType, operationDesc,modalId) {
-    var fixDesc = $("#fixDesc").val();
+function updateOrderStatus(orderId, operationType, operationDesc, fixDesc) {
     var url = "/workOrderFix/" + operationType;
-    $.post(url, {fixId: id, fixDesc: fixDesc}, function (data) {
-        $("#statusFlag").html("已" + operationDesc);
-        $("#"+modalId).modal("show");
+    $.post(url, {fixId: orderId, fixDesc: fixDesc}, function (data) {
+        $("#fix_desc_modal").modal("hide");
         (data.result) ? showMessageBox("info", data.resultDesc) : showMessageBox("danger", data.resultDesc);
     });
 }
@@ -85,18 +95,20 @@ function updateOrderStatus(id, operationType, operationDesc,modalId) {
  * @param id 暂停
  */
 function pause(id) {
+    var orderId = id;
     var operationType = "pauseDetail";
     var operationDesc = "暂停";
-    updateOrderStatus(id, operationType, operationDesc);
+    dealResult(orderId, operationType, operationDesc);
 }
 /**
  *
  * @param id 取消
  */
 function abort(id) {
+    var orderId = id;
     var operationType = "abortDetail";
     var operationDesc = "取消";
-    updateOrderStatus(id, operationType, operationDesc);
+    dealResult(orderId, operationType, operationDesc);
 }
 
 /**

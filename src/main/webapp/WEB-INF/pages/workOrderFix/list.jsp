@@ -56,7 +56,7 @@
                                                     <c:forEach items="${workOrderFixList}" var="w" varStatus="s">
                                                         <c:forEach items="${w.workOrderFixDetailList}" var="d"
                                                                    varStatus="ds">
-                                                            <tr style="display: none;">
+                                                            <tr style="display: none;" id="tr-${d.id}">
                                                                 <td>${s.index+1}-${ds.index+1}</td>
                                                                 <td>${d.id}</td>
                                                                 <td>${d.orderLineNo}</td>

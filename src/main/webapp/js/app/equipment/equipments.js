@@ -601,7 +601,6 @@ function initLoadData(url, elementName) {
             });
         }
     })
-    ;
 }
 /**
  * 根据ID获取设备信息

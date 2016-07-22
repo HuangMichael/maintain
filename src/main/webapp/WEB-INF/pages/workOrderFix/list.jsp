@@ -36,15 +36,15 @@
                                                     <thead>
                                                     <tr>
                                                         <th data-column-id="index" width="5%">序号</th>
+                                                        <th data-column-id="id" data-visible="false" width="10%">跟踪号</th>
                                                         <th data-column-id="orderLineNo" width="10%">跟踪号</th>
                                                         <th data-column-id="location" width="30%">设备位置</th>
                                                         <th data-column-id="eqName" width="10%">设备名称</th>
                                                         <th data-column-id="eqDesc" width="15%">故障描述</th>
                                                         <th data-column-id="eqClass" width="10%">设备分类</th>
                                                         <th data-column-id="status" width="5%">设备状态</th>
-                                                        <th data-column-id="fixOrderDesc" width="20%">维修描述</th>
-                                                        <th data-column-id="opMenus" data-formatter="opMenus"
-                                                            data-sortable="false" width="5%">暂停&nbsp;取消&nbsp;完工
+                                                        <th data-column-id="fixDesc" style="height:20px" width="20%">维修描述</th>
+                                                        <th data-column-id="opMenus" data-formatter="opMenus" data-sortable="false" width="5%">暂停&nbsp;取消&nbsp;完工
                                                         </th>
                                                     </tr>
                                                     </thead>
@@ -54,6 +54,7 @@
                                                                    varStatus="ds">
                                                             <tr style="display: none;">
                                                                 <td>${s.index+1}-${ds.index+1}</td>
+                                                                <td>${d.id}</td>
                                                                 <td>${d.orderLineNo}</td>
                                                                 <td>${d.vlocations.locName}</td>
                                                                 <td>${d.equipments.description}</td>
@@ -72,11 +73,7 @@
                                                                               id="statusFlag">  已暂停</span>
                                                                     </c:if>
                                                                 </td>
-                                                                <td><input class="col-md-3 form-control"
-                                                                           id="fixDesc${d.id}"
-                                                                           type="text"
-                                                                           style="height:25px" value="${d.fixDesc}"/>
-                                                                </td>
+                                                                <td>${d.fixDesc}</td>
                                                             </tr>
                                                         </c:forEach>
                                                     </c:forEach>
@@ -121,8 +118,12 @@
     $(document).ready(function () {
         $('#fixListTable').bootgrid({
             formatters: {
+
+           /*     "fixDesc": function (column, row) {
+                    return '<input id="fixDesc' + row.id + '" type="text" style="height: 25px">'
+                },*/
                 "opMenus": function (column, row) {
-                    return  '<a class="btn btn-default btn-xs"  onclick="pause(' + row.id + ')" title="暂停" ><i class="glyphicon glyphicon-pause"></i></a>' +
+                    return '<a class="btn btn-default btn-xs"  onclick="pause(' + row.id + ')" title="暂停" ><i class="glyphicon glyphicon-pause"></i></a>' +
                             '<a class="btn btn-default btn-xs"  onclick="abort(' + row.id + ')" title="取消" ><i class="glyphicon glyphicon glyphicon-remove-circle"></i></a>' +
                             '<a class="btn btn-default btn-xs"  onclick="finish(' + row.id + ')" title="完工" ><i class="glyphicon glyphicon glyphicon-ok"></i></a>'
                 }

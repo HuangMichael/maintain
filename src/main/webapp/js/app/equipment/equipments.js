@@ -112,6 +112,9 @@ $(function () {
     $.getJSON(url, function (data) {
         runStatus = data;
     });
+
+
+
     vdm = new Vue({
         el: "#detailForm",
         data: {
@@ -574,21 +577,6 @@ function initLoadData(url, elementName) {
             });
             //ajax载入设备信息  并且监听选择事件
             $(dataTableName).bootgrid({
-                    ajaxSettings: {
-                        method: "GET",
-                        cache: false
-                    },
-
-                    labels: {
-                        all: "All",
-                        infos: "显示第{{ctx.start}}条到第{{ctx.end}} 条共{{ctx.total}}记录",
-                        loading: "加载中...",
-                        noResults: "没有查询到结果!",
-                        refresh: "刷新",
-                        search: "查询"
-                    },
-
-
                     selection: true,
                     multiSelect: true,
                     rowSelect: false,
@@ -889,7 +877,7 @@ function changeValue(data) {
     $("tr[data-row-id='" + trId + "'] td:eq(2)").html(data.eqCode);
     $("tr[data-row-id='" + trId + "'] td:eq(3)").html(data.description);
     $("tr[data-row-id='" + trId + "'] td:eq(4)").html(data.equipmentsClassification.description);
-    $("tr[data-row-id='" + trId + "'] td:eq(5)").html(data.vlocations.line + data.vlocations.station + data.vlocations.locName);
+    $("tr[data-row-id='" + trId + "'] td:eq(5)").html(data.vlocations.locName);
     $("tr[data-row-id='" + trId + "'] td:eq(6)").html(eqStatuses[data.status]["value"]);
     $("tr[data-row-id='" + trId + "'] td:eq(7)").html(runStatus[data.running]["value"]);
 

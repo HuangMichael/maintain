@@ -4,8 +4,10 @@ package com.linkbit.beidou.controller.equipment;
 import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
+import com.linkbit.beidou.dao.equipments.VequipmentsRepository;
 import com.linkbit.beidou.dao.locations.VlocationsRepository;
 import com.linkbit.beidou.domain.equipments.Equipments;
+import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.domain.workOrder.VworkOrderStep;
@@ -55,6 +57,8 @@ public class EquipmentController extends BaseController {
 
     @Autowired
     VlocationsRepository vlocationsRepository;
+    @Autowired
+    VequipmentsRepository vequipmentsRepository;
 
 
     @RequestMapping(value = "/list")
@@ -68,10 +72,10 @@ public class EquipmentController extends BaseController {
      */
     @RequestMapping(value = "/findMyEqs")
     @ResponseBody
-    public List<Equipments> findMyEqs(HttpSession session) {
+    public List<Vequipments> findMyEqs(HttpSession session) {
         User user = (User) session.getAttribute("currentUser");
         String userLocation = user.getLocation();
-        return equipmentsRepository.findByLocationStartingWithOrderByIdDesc(userLocation);
+        return vequipmentsRepository.findByLocationStartingWithOrderByIdDesc(userLocation);
     }
 
     @RequestMapping(value = "/reload/{objId}")

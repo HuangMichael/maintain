@@ -19,27 +19,14 @@
         <td>{{ $index+1 }}</td>
         <td>{{eq.id}}</td>
         <td>{{eq.eqCode}}</td>
-        <td>{{eq.description}}</td>
-        <td>{{eq.equipmentsClassification.description}}</td>
-        <td title="{{eq.vlocations.locName}}">{{eq.vlocations.locName}}</td>
+        <td>{{eq.eqName}}</td>
+        <td>{{eq.eqClass}}</td>
+        <td title="{{eq.locName}}">{{eq.locName}}</td>
         <td>
-            <div v-if="eq.status=='0'">
-                <span class="badge badge-error">  停用</span>
-            </div>
-            <div v-if="eq.status=='1'">
-                投用
-            </div>
-            <div v-if="eq.status=='2'">
-                报废
-            </div>
+            {{eq.status}}
         </td>
         <td>
-            <div v-if="eq.running=='0'">
-                停止
-            </div>
-            <div v-if="eq.running=='1'">
-                运行
-            </div>
+            {{eq.running}}
         </td>
     </tr>
     </tbody>

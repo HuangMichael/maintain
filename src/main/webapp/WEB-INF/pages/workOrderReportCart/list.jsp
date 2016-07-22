@@ -78,7 +78,7 @@
                                                             <td>${workOrder.orderLineNo}</td>
                                                             <td>${workOrder.equipments.eqCode}</td>
                                                             <td>${workOrder.equipments.description}</td>
-                                                            <td>${workOrder.vlocations.line}${workOrder.vlocations.station}${workOrder.vlocations.locName}</td>
+                                                            <td>${workOrder.vlocations.locName}</td>
                                                             <td>${workOrder.equipmentsClassification.description}</td>
                                                             <td>${workOrder.reporter}</td>
                                                             <td><fmt:formatDate value="${workOrder.reportTime}"

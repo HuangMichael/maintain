@@ -50,7 +50,7 @@
                                                                 <td>${d.orderLineNo}</td>
                                                                 <td>${d.equipments.description}</td>
                                                                 <td class="hidden-xs hidden-sm">${d.orderDesc}</td>
-                                                                <td>${d.vlocations.line}${d.vlocations.station}${d.vlocations.locName}</td>
+                                                                <td>${d.vlocations.locName}</td>
                                                                 <td>${d.equipmentsClassification.description}</td>
                                                             </tr>
                                                         </c:forEach>

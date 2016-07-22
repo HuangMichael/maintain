@@ -20,7 +20,7 @@
             <td>${w.index+1}</td>
             <td>${workOrder.equipments.eqCode}</td>
             <td>${workOrder.equipments.description}</td>
-            <td>${workOrder.vlocations.line}${workOrder.vlocations.station}${workOrder.vlocations.locName}</td>
+            <td>${workOrder.vlocations.locName}</td>
             <td>${workOrder.equipmentsClassification.description}</td>
             <td><input type="text" id="orderDesc${workOrder.id}" class="form-control" style="height:28px"
                        value="${workOrder.orderDesc}" onchange="changeContent(${workOrder.id})"/>

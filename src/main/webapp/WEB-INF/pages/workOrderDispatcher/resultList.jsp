@@ -18,7 +18,7 @@
             <td>${w.index+1}</td>
             <td class="hidden-xs hidden-sm">${workOrder.orderLineNo}</td>
             <td>${workOrder.equipments.description}</td>
-            <td>${workOrder.locations.description}</td>
+            <td>${workOrder.vlocations.locName}</td>
             <td>${workOrder.equipmentsClassification.description}</td>
         </tr>
     </c:forEach>

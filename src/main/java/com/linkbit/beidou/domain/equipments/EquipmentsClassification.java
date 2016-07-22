@@ -31,6 +31,7 @@ public class EquipmentsClassification {
     private String description;
     @Column(length = 1)
     private String hasChild;
+    @JsonBackReference
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id", referencedColumnName = "id")
     EquipmentsClassification parent;

@@ -55,7 +55,7 @@
                                                             <tr style="display: none;">
                                                                 <td>${s.index+1}-${ds.index+1}</td>
                                                                 <td>${d.orderLineNo}</td>
-                                                                <td>${d.vlocations.line}${d.vlocations.station}${d.vlocations.locName}</td>
+                                                                <td>${d.vlocations.locName}</td>
                                                                 <td>${d.equipments.description}</td>
                                                                 <td>${d.orderDesc}</td>
                                                                 <td>${d.equipmentsClassification.description}</td>

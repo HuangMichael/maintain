@@ -30,7 +30,7 @@
 
             <div class="col-md-2">
                 <p class="form-control-static"
-                   data-display="email">${workOrder.vlocations.line}${workOrder.vlocations.station}${workOrder.vlocations.locName}</p>
+                   data-display="email">${workOrder.vlocations.locName}</p>
             </div>
 
 

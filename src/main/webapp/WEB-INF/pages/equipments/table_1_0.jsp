@@ -21,7 +21,7 @@
         <td>{{eq.eqCode}}</td>
         <td>{{eq.description}}</td>
         <td>{{eq.equipmentsClassification.description}}</td>
-        <td>{{eq.vlocations.locName}}</td>
+        <td title="{{eq.vlocations.locName}}">{{eq.vlocations.locName}}</td>
         <td>
             <div v-if="eq.status=='0'">
                 <span class="badge badge-error">  停用</span>

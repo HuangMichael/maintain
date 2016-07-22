@@ -36,15 +36,19 @@
                                                     <thead>
                                                     <tr>
                                                         <th data-column-id="index" width="5%">序号</th>
-                                                        <th data-column-id="id" data-visible="false" width="10%">跟踪号</th>
+                                                        <th data-column-id="id" data-visible="false" width="10%">跟踪号
+                                                        </th>
                                                         <th data-column-id="orderLineNo" width="10%">跟踪号</th>
                                                         <th data-column-id="location" width="30%">设备位置</th>
                                                         <th data-column-id="eqName" width="10%">设备名称</th>
                                                         <th data-column-id="eqDesc" width="15%">故障描述</th>
                                                         <th data-column-id="eqClass" width="10%">设备分类</th>
                                                         <th data-column-id="status" width="5%">设备状态</th>
-                                                        <th data-column-id="fixDesc" style="height:20px" width="20%">维修描述</th>
-                                                        <th data-column-id="opMenus" data-formatter="opMenus" data-sortable="false" width="5%">暂停&nbsp;取消&nbsp;完工
+                                                        <th data-column-id="fixDesc" style="height:20px" width="20%">
+                                                            维修描述
+                                                        </th>
+                                                        <th data-column-id="opMenus" data-formatter="opMenus"
+                                                            data-sortable="false" width="5%">暂停&nbsp;取消&nbsp;完工
                                                         </th>
                                                     </tr>
                                                     </thead>
@@ -112,87 +116,26 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade " id="fix_desc_modal" tabindex="-1"
+     role="dialog" aria-labelledby="myModalLabel2">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="fix_desc_modal_label">请输入维修描述</h4>
+            </div>
+            <div class="modal-body" id="fix_desc_modal_div">
+                <%@include file="fixDescForm.jsp" %>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script type="text/javascript" src="js/jquery-treegrid/js/jquery.treegrid.js"></script>
 <script type="text/javascript" src="js/jquery-treegrid/js/jquery.treegrid.bootstrap3.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#fixListTable').bootgrid({
-            formatters: {
-
-           /*     "fixDesc": function (column, row) {
-                    return '<input id="fixDesc' + row.id + '" type="text" style="height: 25px">'
-                },*/
-                "opMenus": function (column, row) {
-                    return '<a class="btn btn-default btn-xs"  onclick="pause(' + row.id + ')" title="暂停" ><i class="glyphicon glyphicon-pause"></i></a>' +
-                            '<a class="btn btn-default btn-xs"  onclick="abort(' + row.id + ')" title="取消" ><i class="glyphicon glyphicon glyphicon-remove-circle"></i></a>' +
-                            '<a class="btn btn-default btn-xs"  onclick="finish(' + row.id + ')" title="完工" ><i class="glyphicon glyphicon glyphicon-ok"></i></a>'
-                }
-            }
-        });
-        $("#myTab a").on("click", function (e) {
-            e.preventDefault();
-            preview(1);
-            $(this).tab('show');
-        })
-    });
-
-    function finish(id) {
-        var fixDesc = $("#fixDesc" + id).val();
-        if (!fixDesc) {
-            showMessageBox("danger", "请输入维修描述!");
-            $("#fixDesc" + id).focus();
-            return;
-        }
-        var url = "/workOrderFix/finishDetail";
-        $.post(url, {fixId: id, fixDesc: fixDesc}, function (data) {
-            $("#statusFlag").html("已完工");
-            (data.result) ? showMessageBox("info", data.resultDesc) : showMessageBox("danger", data.resultDesc);
-        });
-
-    }
-    function pause(id) {
-        var fixDesc = $("#fixDesc" + id).val();
-        if (!fixDesc) {
-            showMessageBox("danger", "请输入维修描述!");
-            $("#fixDesc" + id).focus();
-            return;
-        }
-        var url = "/workOrderFix/pauseDetail";
-        $.post(url, {fixId: id, fixDesc: fixDesc}, function (data) {
-
-            if (data.result) {
-                $("#statusFlag").html("已暂停");
-            }
-            (data.result) ? showMessageBox("info", data.resultDesc) : showMessageBox("danger", data.resultDesc);
-        });
-    }
-    function abort(id) {
-        var fixDesc = $("#fixDesc" + id).val();
-        if (!fixDesc) {
-            showMessageBox("danger", "请输入维修描述!");
-            $("#fixDesc" + id).focus();
-            return;
-        }
-        var url = "/workOrderFix/abortDetail";
-        $.post(url, {fixId: id, fixDesc: fixDesc}, function (data) {
-            if (data.result) {
-                $("#statusFlag").html("已取消");
-            }
-            (data.result) ? showMessageBox("info", data.resultDesc) : showMessageBox("danger", data.resultDesc);
-        });
-
-    }
-
-    /**
-     *
-     * @param id 预览
-     */
-    function preview(id) {
-        PDFObject.embed("/report/fixReport.pdf", "#pdf_view",
-                {
-                    width: "100%",
-                    height: "750px"
-                }
-        );
-    }
-</script>
+<script type="text/javascript" src="js/app/fix/fix.js"></script>

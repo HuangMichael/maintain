@@ -114,12 +114,12 @@ $(function () {
     });
 
 
-
+    var eq = getEquipmentByIdInEqs(eqs[0]["id"]);
     vdm = new Vue({
         el: "#detailForm",
         data: {
             formLocked: formLocked,
-            equipments: eqs[0],
+            equipments: eq,
             locs: locs,
             eqClasses: eqClasses,
             eqStatuses: eqStatuses,
@@ -193,13 +193,10 @@ $(function () {
         var eq = null;
         if (selectedIds.length > 0) {
             //切换tab时默认给detail中第一个数据
-            eq = findEquipmentByIdInEqs(selectedIds[0]);
-            if (!eq) {
-                eq = getEquipmentByIdInEqs(selectedIds);
-            }
+            eq = getEquipmentByIdInEqs(selectedIds[0]);
         } else {
             //没有选中的 默认显示整个列表的第一条
-            eq = eqs[0];
+            eq = getEquipmentByIdInEqs(eqs[0]["id"])
             //所有的都在选中列表中
             selectedIds = setAllInSelectedList(eqs);
         }

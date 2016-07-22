@@ -233,29 +233,4 @@ public class LocationController {
         return locationsList;
     }
 
-
-    /**
-     * @param id 位置ID
-     * @return 根据位置ID获取长描述的位置信息
-     */
-    @RequestMapping(value = "/getLocDesc/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public String getLocDescById(@PathVariable("id") Long id) {
-        String locDesc = "";
-        if (id != null) {
-            Vlocations vlocations = vlocationsRepository.findById(id);
-            if (vlocations != null) {
-                if (vlocations.getLine() != null) {
-                    locDesc += vlocations.getLine();
-                }
-                if (vlocations.getStation() != null) {
-                    locDesc += vlocations.getStation();
-                }
-                if (vlocations.getLocName() != null) {
-                    locDesc += vlocations.getLocName();
-                }
-            }
-        }
-        return locDesc;
-    }
 }

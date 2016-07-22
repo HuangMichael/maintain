@@ -10,13 +10,6 @@ import java.util.List;
  * 位置视图信息查询接口
  */
 public interface VlocationsRepository extends CrudRepository<Vlocations, Long> {
-
-    /**
-     * @param status
-     * @return 根据状态查询位置视图信息
-     */
-    List<Vlocations> findByStatus(String status);
-
     /**
      * @param location
      * @return 根据位置编码模糊查询位置视图信息

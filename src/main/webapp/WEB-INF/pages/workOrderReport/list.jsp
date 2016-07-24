@@ -51,7 +51,11 @@
                                                                 <td class="hidden-xs hidden-sm">${d.orderDesc}</td>
                                                                 <td>${d.vlocations.locName}</td>
                                                                 <td>${d.equipmentsClassification.description}</td>
-                                                                <td>${d.reportTime}</td>
+                                                                <td>
+
+                                                                <fmt:formatDate value="${d.reportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+
+                                                                </td>
                                                             </tr>
                                                         </c:forEach>
                                                     </tbody>

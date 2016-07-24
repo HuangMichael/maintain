@@ -53,7 +53,7 @@ public class WorkOrderReportController {
         User user = SessionUtil.getCurrentUserBySession(session);
         String location = user.getLocation();
         //查询未提交的报修单
-        List<WorkOrderReportDetail> workOrderReportDetailList = workOrderReportService.findDetailByLocationStartingWithAndStatus(location, CommonStatusType.REPORT_COMMITED);
+        List<WorkOrderReportDetail> workOrderReportDetailList = workOrderReportService.findByLocationStartingWithAndStatusOrderByReportTimeDesc(location, CommonStatusType.REPORT_COMMITED);
         modelMap.put("workOrderReportDetailList", workOrderReportDetailList);
         return "/workOrderReport/list";
     }
@@ -140,8 +140,6 @@ public class WorkOrderReportController {
     @ResponseBody
     public List<WorkOrderReport> findNewReportedOrders(HttpSession httpSession) {
         String location = SessionUtil.getCurrentUserLocationBySession(httpSession);
-
-        System.out.println("location----------------0----------" + location);
         return workOrderReportService.findByLocationStartingWithAndStatus(location, "0");
     }
 
@@ -154,7 +152,7 @@ public class WorkOrderReportController {
     @ResponseBody
     public List<WorkOrderReportDetail> findNewReportedOrdersDetail(HttpSession httpSession) {
         String location = SessionUtil.getCurrentUserLocationBySession(httpSession);
-        return workOrderReportService.findDetailByLocationStartingWithAndStatus(location, "0");
+        return workOrderReportService.findByLocationStartingWithAndStatusOrderByReportTimeDesc(location, "0");
     }
 
     /**

@@ -333,10 +333,10 @@ public class WorkOrderReportService extends BaseService {
      * @param status   状态
      * @return 模糊查询位置编码下对应的报修单信息
      */
-    public List<WorkOrderReportDetail> findDetailByLocationStartingWithAndStatus(String location, String status) {
+    public List<WorkOrderReportDetail> findByLocationStartingWithAndStatusOrderByReportTimeDesc(String location, String status) {
         List<WorkOrderReportDetail> workOrderReportList = null;
         if (location != null && !location.equals("") && status != null && !status.equals("")) {
-            workOrderReportList = workOrderReportDetailRepository.findByLocationStartingWithAndStatus(location, status);
+            workOrderReportList = workOrderReportDetailRepository.findByLocationStartingWithAndStatusOrderByReportTimeDesc(location, status);
         }
         return workOrderReportList;
     }

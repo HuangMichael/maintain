@@ -13,6 +13,6 @@ import java.util.Date;
 public class AppilicationStopped implements ApplicationListener<ContextStoppedEvent> {
 
     public void onApplicationEvent(ContextStoppedEvent event) {
-        System.out.println(DateUtils.convertDate2Str(new Date(), "yyyy-MM-dd HH:mm:ss") + "----------------------------- ContextStoppedEvent");
+        System.out.println(DateUtils.convertDate2Str(new Date(), "yyyy-MM-dd HH:mm:ss") + "----------------------------- " + event.getClass().getSimpleName());
     }
 }

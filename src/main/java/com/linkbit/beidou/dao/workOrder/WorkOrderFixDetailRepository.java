@@ -28,8 +28,14 @@ public interface WorkOrderFixDetailRepository extends CrudRepository<WorkOrderFi
     List<EquipmentsClassification> findEqClassByIds(@Param("idList") List<Long> idList);
 
 
-
     @Query("select  w   from  WorkOrderFixDetail w where w.id in (:idList) ")
     List<EquipmentsClassification> findDetailByIdIn(@Param("idList") List<Long> idList);
+
+
+    /**
+     * @param location 位置编号
+     * @return 根据位置编码开头模糊查询和状态查询的维修单集合
+     */
+    List<WorkOrderFixDetail> findByLocationStartingWithOrderByReportTimeDesc(String location);
 
 }

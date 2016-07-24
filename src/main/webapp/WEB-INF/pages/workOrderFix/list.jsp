@@ -47,39 +47,41 @@
                                                         <th data-column-id="fixDesc" style="height:20px" width="20%">
                                                             维修描述
                                                         </th>
+                                                        <th data-column-id="reportTime" width="5%">处理时间</th>
                                                         <th data-column-id="opMenus" data-formatter="opMenus"
                                                             data-sortable="false" width="5%">暂停&nbsp;取消&nbsp;完工
                                                         </th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <c:forEach items="${workOrderFixList}" var="w" varStatus="s">
-                                                        <c:forEach items="${w.workOrderFixDetailList}" var="d"
-                                                                   varStatus="ds">
-                                                            <tr style="display: none;" id="tr-${d.id}">
-                                                                <td>${s.index+1}-${ds.index+1}</td>
-                                                                <td>${d.id}</td>
-                                                                <td>${d.orderLineNo}</td>
-                                                                <td>${d.vlocations.locName}</td>
-                                                                <td>${d.equipments.description}</td>
-                                                                <td>${d.orderDesc}</td>
-                                                                <td>${d.equipmentsClassification.description}</td>
-                                                                <td>
-                                                                    <c:if test="${d.status=='0'}">
-                                                                        <span class="badge badge-info" id="statusFlag">已分配</span>
-                                                                    </c:if>
-                                                                    <c:if test="${d.status=='1'}">
+
+                                                    <c:forEach items="${workOrderFixDetailListList}" var="d"
+                                                               varStatus="ds">
+                                                        <tr style="display: none;" id="tr-${d.id}">
+                                                            <td>${ds.index+1}</td>
+                                                            <td>${d.id}</td>
+                                                            <td>${d.orderLineNo}</td>
+                                                            <td>${d.vlocations.locName}</td>
+                                                            <td>${d.equipments.description}</td>
+                                                            <td>${d.orderDesc}</td>
+                                                            <td>${d.equipmentsClassification.description}</td>
+                                                            <td>
+                                                                <c:if test="${d.status=='0'}">
+                                                                    <span class="badge badge-info"
+                                                                          id="statusFlag">已分配</span>
+                                                                </c:if>
+                                                                <c:if test="${d.status=='1'}">
                                                                         <span class="badge badge-success"
                                                                               id="statusFlag">已完工</span>
-                                                                    </c:if>
-                                                                    <c:if test="${d.status=='2'}">
+                                                                </c:if>
+                                                                <c:if test="${d.status=='2'}">
                                                                         <span class="badge badge-important"
                                                                               id="statusFlag">  已暂停</span>
-                                                                    </c:if>
-                                                                </td>
-                                                                <td>${d.fixDesc}</td>
-                                                            </tr>
-                                                        </c:forEach>
+                                                                </c:if>
+                                                            </td>
+                                                            <td>${d.fixDesc}</td>
+                                                            <td><fmt:formatDate value="${d.reportTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                                                        </tr>
                                                     </c:forEach>
                                                     </tbody>
                                                 </table>

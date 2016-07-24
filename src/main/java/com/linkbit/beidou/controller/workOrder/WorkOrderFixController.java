@@ -46,6 +46,21 @@ public class WorkOrderFixController {
 
     WorkOrderFixService workOrderFixService;
 
+   /* *//**
+     * @param modelMap
+     * @return 显示维修工单列表
+     *//*
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String list(ModelMap modelMap, HttpSession session) {
+        User user = SessionUtil.getCurrentUserBySession(session);
+        String location = user.getLocation();
+        //过滤显示当前用户location数据 找出不完工的单子
+        List<WorkOrderFix> workOrderFixList = workOrderFixRepository.findByLocationStartWithAndStatusLessThan(location + "%", CommonStatusType.ORDER_FIXED);
+        modelMap.put("workOrderFixList", workOrderFixList);
+        return "/workOrderFix/list";
+    }*/
+
+
     /**
      * @param modelMap
      * @return 显示维修工单列表
@@ -55,11 +70,10 @@ public class WorkOrderFixController {
         User user = SessionUtil.getCurrentUserBySession(session);
         String location = user.getLocation();
         //过滤显示当前用户location数据 找出不完工的单子
-        List<WorkOrderFix> workOrderFixList = workOrderFixRepository.findByLocationStartWithAndStatusLessThan(location + "%", CommonStatusType.ORDER_FIXED);
-        modelMap.put("workOrderFixList", workOrderFixList);
+        List<WorkOrderFixDetail> workOrderFixDetailListList = workOrderFixDetailRepository.findByLocationStartingWithOrderByReportTimeDesc(location) ;
+        modelMap.put("workOrderFixDetailListList", workOrderFixDetailListList);
         return "/workOrderFix/list";
     }
-
 
     /**
      * @param parentId

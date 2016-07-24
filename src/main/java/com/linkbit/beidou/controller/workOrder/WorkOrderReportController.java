@@ -6,7 +6,6 @@ import com.linkbit.beidou.domain.workOrder.WorkOrderReport;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportDetail;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportService;
 import com.linkbit.beidou.utils.CommonStatusType;
-import com.linkbit.beidou.utils.CommonWorkOrderType;
 import com.linkbit.beidou.utils.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -29,21 +28,6 @@ public class WorkOrderReportController {
 
     @Autowired
     WorkOrderReportService workOrderReportService;
-
-  /*  *//**
-     * 保存工单信息
-     *//*
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(ModelMap modelMap, HttpSession session) {
-
-        User user = SessionUtil.getCurrentUserBySession(session);
-
-        String location = user.getLocation();
-        List<WorkOrderReport> workOrderReportList = workOrderReportService.findByLocationStartingWithAndStatus(location, "0");
-        modelMap.put("workOrderReportList", workOrderReportList);
-        return "/workOrderReport/list";
-    }*/
-
 
     /**
      * 保存工单信息
@@ -89,7 +73,6 @@ public class WorkOrderReportController {
         return list;
     }
 
-
     /**
      * @return 按照设备分类进行规约
      */
@@ -102,8 +85,6 @@ public class WorkOrderReportController {
             workOrderReportService.createReport(list, user.getPerson().getPersonName(), user.getLocation());
         return list;
     }
-
-
     @RequestMapping(value = "/findReportHistory/{equipmentId}", method = RequestMethod.GET)
     @ResponseBody
     public List<WorkOrderReportDetail> findReportHistory(@PathVariable("equipmentId") Long equipmentId) {
@@ -113,11 +94,7 @@ public class WorkOrderReportController {
         }
         return workOrderReportDetailList;
     }
-
-
     //查询已经提交的报修单
-
-
     /**
      * @param httpSession
      * @return 查询没有提交的维修单
@@ -127,11 +104,8 @@ public class WorkOrderReportController {
     public List<WorkOrderReport> findCommittedReportedOrders(HttpSession httpSession) {
 
         String location = SessionUtil.getCurrentUserLocationBySession(httpSession);
-        System.out.println("location---------------1-----------" + location);
         return workOrderReportService.findByLocationStartingWithAndStatus(location, "1");
     }
-
-
     /**
      * @param httpSession
      * @return 查询没有被完全提交的维修单

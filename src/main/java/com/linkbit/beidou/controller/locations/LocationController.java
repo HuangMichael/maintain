@@ -1,13 +1,14 @@
 package com.linkbit.beidou.controller.locations;
 
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
+import com.linkbit.beidou.dao.equipments.VequipmentsRepository;
 import com.linkbit.beidou.dao.locations.LocationsRepository;
 import com.linkbit.beidou.dao.locations.VlocationsRepository;
 import com.linkbit.beidou.domain.equipments.Equipments;
+import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.line.Line;
 import com.linkbit.beidou.domain.line.Station;
 import com.linkbit.beidou.domain.locations.Locations;
-import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.equipments.EquipmentAccountService;
@@ -64,6 +65,8 @@ public class LocationController {
     LocationsRepository locationsRepository;
     @Autowired
     VlocationsRepository vlocationsRepository;
+    @Autowired
+    VequipmentsRepository vequipmentsRepository;
 
 
     /**
@@ -78,7 +81,12 @@ public class LocationController {
         List<Locations> locationsList = (ArrayList<Locations>) session.getAttribute("locList");
         List<Line> lineList = (List<Line>) session.getAttribute("lineList");
         List<Station> stationList = (List<Station>) session.getAttribute("stationList");
-        modelMap.put("locationsList", locationsList);
+
+        List<Vequipments> equipmentsList = vequipmentsRepository.findByLocationStartingWithOrderByIdDesc(user.getLocation());
+
+
+        //  modelMap.put("locationsList", locationsList);
+        modelMap.put("equipmentsList", equipmentsList);
         modelMap.put("lineList", lineList);
         modelMap.put("stationList", stationList);
         return "/location/list";
@@ -107,7 +115,7 @@ public class LocationController {
         modelMap.put("lineList", lineList);
         modelMap.put("stationList", stationList);
 
-        List<Equipments> equipmentsList = equipmentsRepository.findByLocationStartingWith(object.getLocation());
+        List<Vequipments> equipmentsList = vequipmentsRepository.findByLocationStartingWith(object.getLocation());
         List<Equipments> fixingEqsList = equipmentsRepository.findByLocationStartingWithAndStatus(object.getLocation(), "2");
 
 

@@ -12,7 +12,7 @@
             <ul class="nav nav-tabs" id="myTab">
                 <li class="active"><a data-toggle="tab" href="#tab_1_1">设备信息
                     <span class="badge badge-green" title="所有设备数量">${equipmentsList.size()}</span>
-                   <%-- <span class="badge badge-red" title="维修设备数量">${fixingEqsList.size()}</span>--%>
+                    <%-- <span class="badge badge-red" title="维修设备数量">${fixingEqsList.size()}</span>--%>
                 </a></li>
             </ul>
             <div class="tab-content">
@@ -24,9 +24,10 @@
                             <th data-column-id="index">序号</th>
                             <th data-column-id="id" data-visible="false">序号</th>
                             <th data-column-id="eqCode">设备编号</th>
-                            <th data-column-id="description">设备名称</th>
-                            <th data-column-id="vlocation">设备位置</th>
+                            <th data-column-id="eqName">设备名称</th>
+                            <th data-column-id="locName">设备位置</th>
                             <th data-column-id="status">设备状态</th>
+                            <th data-column-id="running">运行状态</th>
                             <th data-column-id="report" data-formatter="report">设备报修</th>
                         </tr>
                         </thead>
@@ -39,21 +40,16 @@
                                         ${equipment.eqCode}
                                 </td>
                                 <td>
-                                        ${equipment.description}
+                                        ${equipment.eqName}
                                 </td>
                                 <td>
-                                        ${equipment.vlocations.line}${equipment.vlocations.station}${equipment.vlocations.locName}
+                                        ${equipment.locName}
                                 </td>
                                 <td>
-                                    <c:if test="${equipment.status=='0'}">
-                                        停用
-                                    </c:if>
-                                    <c:if test="${equipment.status=='1'}">
-                                        投用
-                                    </c:if>
-                                    <c:if test="${equipment.status=='2'}">
-                                        报废
-                                    </c:if>
+                                        ${equipment.status}
+                                </td>
+                                <td>
+                                        ${equipment.running}
                                 </td>
                             </tr>
                         </c:forEach>

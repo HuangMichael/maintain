@@ -124,7 +124,7 @@ public class WorkOrderFixController {
     public ReturnObject finishDetail(@RequestParam Long fixId, @RequestParam String fixDesc, HttpSession httpSession) {
         WorkOrderFixDetail workOrderFixDetail = workOrderFixDetailRepository.findById(fixId);
         ReturnObject returnObject = new ReturnObject();
-        if (workOrderFixDetail.getStatus().equals("0")) {
+        if (!workOrderFixDetail.getStatus().equals("1")) {
             workOrderFixDetail.setStatus("1");
             workOrderFixDetail.setFixDesc(fixDesc);
             workOrderFixDetail = workOrderFixDetailRepository.save(workOrderFixDetail);
@@ -150,9 +150,8 @@ public class WorkOrderFixController {
         WorkOrderFixDetail workOrderFixDetail = workOrderFixDetailRepository.findById(fixId);
         ReturnObject returnObject = new ReturnObject();
         if (workOrderFixDetail.getStatus().equals("0")) {
-            workOrderFixDetail.setStatus("2");
-            workOrderFixDetail.setFixDesc(fixDesc);
-            workOrderFixDetail = workOrderFixDetailRepository.save(workOrderFixDetail);
+
+            List<WorkOrderFixDetail>  workOrderFixDetailList =  workOrderFixService.pauseDetailBatch(fixId+"",fixDesc);
             returnObject.setResult(true);
             returnObject.setResultDesc("维修单" + workOrderFixDetail.getOrderLineNo() + "暂停成功！");
         } else {
@@ -195,13 +194,21 @@ public class WorkOrderFixController {
      * @param fixId
      * @return
      */
-    @RequestMapping(value = "/pause", method = RequestMethod.POST)
+   /* @RequestMapping(value = "/pause", method = RequestMethod.POST)
     @ResponseBody
     public WorkOrderFix pause(@RequestParam Long fixId) {
         WorkOrderFix workOrderFix = workOrderFixRepository.findById(fixId);
         workOrderFix.setStatus("2");
         workOrderFix = workOrderFixRepository.save(workOrderFix);
         return workOrderFix;
+    }*/
+
+
+    @RequestMapping(value = "/pause", method = RequestMethod.POST)
+    @ResponseBody
+    public  List<WorkOrderFixDetail> pause(@RequestParam Long fixId) {
+      List<WorkOrderFixDetail>  workOrderFixDetailList =  workOrderFixService.pauseDetailBatch(fixId+"","");
+        return workOrderFixDetailList;
     }
 
 

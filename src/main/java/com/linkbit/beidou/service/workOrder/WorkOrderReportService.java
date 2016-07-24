@@ -117,13 +117,14 @@ public class WorkOrderReportService extends BaseService {
      * @param reporter 当前登录用户 报修人
      * @return
      */
-    public WorkOrderReport generateReport(String ids, String reporter, String location) {
+    public List<WorkOrderReportDetail> generateReport(String ids, String reporter, String location) {
         List<Long> idList = new ArrayList<Long>();
         if (ids != null && !ids.equals("")) {
             idList = StringUtils.str2List(ids, ",");
         }
-        WorkOrderReport workOrderReport = null;
-        if (!idList.isEmpty()) {
+        List<WorkOrderReportDetail> workOrderReportDetailList = new ArrayList<WorkOrderReportDetail>();
+        // WorkOrderReport workOrderReport = null;
+/*        if (!idList.isEmpty()) {
             workOrderReport = new WorkOrderReport();
             workOrderReport.setReporter(reporter);
             workOrderReport.setOrderNo("WF" + new Date().getTime());
@@ -131,7 +132,7 @@ public class WorkOrderReportService extends BaseService {
             workOrderReport.setReportTime(new Date());
             workOrderReport.setLocation(location);
             workOrderReport = workOrderReportRepository.save(workOrderReport);
-        }
+        }*/
         WorkOrderReportCart workOrderReportCart;
         WorkOrderReportDetail workOrderReportDetail;
         for (Long id : idList) {
@@ -142,20 +143,21 @@ public class WorkOrderReportService extends BaseService {
             workOrderReportDetail.setEquipmentsClassification(workOrderReportCart.getEquipmentsClassification());
             workOrderReportDetail.setLocations(workOrderReportCart.getLocations());
             workOrderReportDetail.setStatus(CommonStatusType.REPORT_CREATED); //初始化为新建状态
-            workOrderReportDetail.setLocation(location);
+            workOrderReportDetail.setLocation(workOrderReportCart.getLocation());
             workOrderReportDetail.setReportTime(new Date());
             //关联位置信息
             workOrderReportDetail.setVlocations(workOrderReportCart.getVlocations());
             workOrderReportDetail.setOrderDesc(workOrderReportCart.getOrderDesc());
-            workOrderReportDetail.setWorkOrderReport(workOrderReport);
+            //workOrderReportDetail.setWorkOrderReport(workOrderReport);
             workOrderReportDetail.setReportType(workOrderReportCart.getReportType());
             workOrderReportDetailRepository.save(workOrderReportDetail);
             workOrderReportDetail.setUnit(getDefaultUnitByEqClass(workOrderReportCart.getEquipmentsClassification()));
             workOrderReportCart.setStatus(CommonStatusType.CART_COMMITED);//将报修车明细修改为已提交
             workOrderReportCartRepository.save(workOrderReportCart);
+            workOrderReportDetailList.add(workOrderReportDetail);
 
         }
-        return workOrderReport;
+        return workOrderReportDetailList;
     }
 
 

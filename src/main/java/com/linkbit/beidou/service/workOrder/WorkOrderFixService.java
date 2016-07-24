@@ -1,6 +1,7 @@
 package com.linkbit.beidou.service.workOrder;
 
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
+import com.linkbit.beidou.dao.locations.VlocationsRepository;
 import com.linkbit.beidou.dao.workOrder.*;
 import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
@@ -42,10 +43,16 @@ public class WorkOrderFixService extends BaseService {
     WorkOrderFixFinishRepository workOrderFixFinishRepository;
 
     @Autowired
+    WorkOrderFixSuspendRepository workOrderFixSuspendRepository;
+
+    @Autowired
     LocationsService locationsService;
 
     @Autowired
     EquipmentAccountService equipmentAccountService;
+
+    @Autowired
+    VlocationsRepository vlocationsRepository;
 
 
     /**
@@ -144,6 +151,41 @@ public class WorkOrderFixService extends BaseService {
             if (reportType != null) {
                 updateReportSourceStatusAfterFinishing(workOrderFixDetail);
             }
+        }
+        return workOrderFixDetailList;
+    }
+
+
+    /**
+     * @param arrayStr
+     * @param
+     * @return 批量完成维修单
+     */
+    @Transactional
+    public List<WorkOrderFixDetail> pauseDetailBatch(String arrayStr, String fixDesc) {
+        List<Long> idList = StringUtils.str2List(arrayStr, fixDesc);
+        List<WorkOrderFixDetail> workOrderFixDetailList = new ArrayList<WorkOrderFixDetail>();
+        for (Long id : idList) {
+
+            System.out.println("id---------------"+id);
+            WorkOrderFixDetail workOrderFixDetail = workOrderFixDetailRepository.findById(id);
+            workOrderFixDetail.setStatus("2");
+            workOrderFixDetail = workOrderFixDetailRepository.save(workOrderFixDetail);
+            WorkOrderFixSuspend workOrderFixSuspend = new WorkOrderFixSuspend();
+            workOrderFixSuspend.setOrderDesc(workOrderFixDetail.getOrderDesc());
+            workOrderFixSuspend.setLocation(workOrderFixDetail.getLocation());
+            workOrderFixSuspend.setStatus("1");
+            workOrderFixSuspend.setUnit(workOrderFixDetail.getUnit());
+            workOrderFixSuspend.setEquipments(workOrderFixDetail.getEquipments());
+            workOrderFixSuspend.setEquipmentsClassification(workOrderFixDetail.getEquipmentsClassification());
+            workOrderFixSuspend.setLocations(workOrderFixDetail.getLocations());
+            workOrderFixSuspend.setOrderLineNo(workOrderFixDetail.getOrderLineNo());
+            workOrderFixSuspend.setReportTime(new Date());
+            workOrderFixSuspend.setFixDesc(fixDesc);
+            workOrderFixSuspend.setVlocations(vlocationsRepository.findById(workOrderFixDetail.getLocations().getId()));
+            workOrderFixSuspend.setReportType(workOrderFixDetail.getReportType());
+            workOrderFixSuspendRepository.save(workOrderFixSuspend);
+            workOrderFixDetailList.add(workOrderFixDetail);
         }
         return workOrderFixDetailList;
     }

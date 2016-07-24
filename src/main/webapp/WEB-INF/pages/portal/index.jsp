@@ -205,13 +205,14 @@
 
     });
 
-
     function get3MonthTitle() {
         $.ajaxSettings.async = false;
         var url = "/portal/getLastNMonth/3";
-        var title = "";
+        var title = [];
         $.getJSON(url, function (data) {
-            title = data;
+            for (var x in data) {
+                title[2 - x] = data[x];
+            }
         });
         return title;
     }

@@ -18,7 +18,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by huangbin on 2016/3/24.
@@ -266,13 +269,12 @@ public class WorkOrderReportCartService extends BaseService {
      */
     public List<String> getLastNMonthName(int n) {
         Calendar today = Calendar.getInstance();
+        int thisMonth = today.get(Calendar.MONTH);
         List<String> monthsNameList = new ArrayList<String>();
-        today.add(Calendar.MONTH, 1);
-        for (int i = 0; i < n; i++) {
-            monthsNameList.add(today.get(Calendar.MONTH) + "月");
-            today.add(Calendar.MONTH, -1);
+
+        for (int i = -1; i <= 1; i++) {
+            monthsNameList.add((thisMonth - i) + "月");
         }
-        Collections.reverse(monthsNameList);
         return monthsNameList;
     }
 

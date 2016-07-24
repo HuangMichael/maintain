@@ -1,7 +1,10 @@
 package com.linkbit.beidou.liseners;
 
+import com.linkbit.beidou.utils.DateUtils;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+
+import java.util.Date;
 
 /**
  * Created by huangbin on 2016/7/18.
@@ -9,7 +12,6 @@ import org.springframework.context.event.ContextRefreshedEvent;
 public class AppilicationStartUp implements ApplicationListener<ContextRefreshedEvent> {
 
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        System.out.println("AppilicationStartUp onApplicationEvent-----------------");
-
+        System.out.println(DateUtils.convertDate2Str(new Date(), "yyyy-MM-dd HH:mm:ss") + "----------------------------- onApplicationEvent");
     }
 }

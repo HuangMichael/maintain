@@ -1,9 +1,7 @@
 package com.linkbit.beidou.utils;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by Administrator on 2016/5/24.
@@ -25,5 +23,23 @@ public class DateUtils {
             e.printStackTrace();
         }
         return date;
+    }
+
+
+    /**
+     * @param date
+     * @param format
+     * @return 字符串转集合 Long
+     * @throws Exception
+     */
+    public static String convertDate2Str(Date date, String format) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
+        String dateStr = "";
+        try {
+            dateStr = simpleDateFormat.format(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dateStr;
     }
 }

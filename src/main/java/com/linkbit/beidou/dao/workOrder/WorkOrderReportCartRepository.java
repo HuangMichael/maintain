@@ -110,7 +110,4 @@ public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderR
     @Query(nativeQuery = true, value = "select v.eqclass as name,v.ccount as y from v_top5_reportcart_eqclass v limit :n")
     List<Object> findTopNReportCartByEqClass(@Param("n") Long n);
 
-    @Query("SELECT v.report_month, v.report_num FROM v_work_order_num_report v")
-    List<Object> selectReportNumIn3Months();
-
 }

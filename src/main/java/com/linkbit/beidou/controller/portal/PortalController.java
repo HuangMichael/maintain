@@ -47,5 +47,12 @@ public class PortalController {
         return workOrderReportCartService.findTopNReportCartByEqClass(n);
     }
 
+
+    @RequestMapping(value = "/getLastNMonth/{n}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<String> getLastNMonth(@PathVariable("n") int n) {
+        return workOrderReportCartService.getLastNMonthName(n);
+    }
+
 }
 

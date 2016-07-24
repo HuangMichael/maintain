@@ -2,6 +2,8 @@ package com.linkbit.beidou.controller.workOrder;
 
 
 import com.linkbit.beidou.domain.user.User;
+import com.linkbit.beidou.domain.workOrder.VworkOrderNumFinish;
+import com.linkbit.beidou.domain.workOrder.VworkOrderNumReport;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReport;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportDetail;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportService;
@@ -143,12 +145,22 @@ public class WorkOrderReportController {
 
         return workOrderReportService.getRecortsByPage(perPageCount * currentPageIndex, perPageCount);
     }
+
     /**
      * @return 查询近期三个月的报修单
      */
-    @RequestMapping(value = "/sel3mRptNum}", method = RequestMethod.GET)
+    @RequestMapping(value = "/sel3mRptNum", method = RequestMethod.GET)
     @ResponseBody
-    public List<Object> selectReportNumIn3Months() {
+    public List<VworkOrderNumReport> selectReportNumIn3Months() {
         return workOrderReportService.selectReportNumIn3Months();
+    }
+
+    /**
+     * @return 查询近期三个月的报修单
+     */
+    @RequestMapping(value = "/sel3mFinishNum", method = RequestMethod.GET)
+    @ResponseBody
+    public List<VworkOrderNumFinish> selectFinishNumIn3Months() {
+        return workOrderReportService.selectFinishNumIn3Months();
     }
 }

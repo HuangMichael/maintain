@@ -18,9 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by huangbin on 2016/3/24.
@@ -261,5 +259,23 @@ public class WorkOrderReportCartService extends BaseService {
     public List<Object> findTopNReportCartByEqClass(Long n) {
         return workOrderReportCartRepository.findTopNReportCartByEqClass(n);
     }
+
+
+    /**
+     * @return 查询过去N个月的名称
+     */
+    public List<String> getLastNMonthName(int n) {
+        Calendar today = Calendar.getInstance();
+        List<String> monthsNameList = new ArrayList<String>();
+        today.add(Calendar.MONTH, 1);
+        for (int i = 0; i < n; i++) {
+            monthsNameList.add(today.get(Calendar.MONTH) + "月");
+            today.add(Calendar.MONTH, -1);
+        }
+        Collections.reverse(monthsNameList);
+        return monthsNameList;
+    }
+
+
 }
 

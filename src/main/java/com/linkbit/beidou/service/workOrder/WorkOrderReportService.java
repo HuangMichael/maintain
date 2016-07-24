@@ -43,6 +43,11 @@ public class WorkOrderReportService extends BaseService {
     OutsourcingUnitRepository outsourcingUnitRepository;
     @Autowired
     VlocationsRepository vlocationsRepository;
+    @Autowired
+    VworkOrderNumReportRepository vworkOrderNumReportRepository;
+
+    @Autowired
+    VworkOrderNumFinishRepository vworkOrderNumFinishRepository;
 
 
     /**
@@ -388,8 +393,16 @@ public class WorkOrderReportService extends BaseService {
      * @return 查询近期三个月的报修单数量
      */
     //  * @param location 查询当前用户的位置下的报修数量统计
-    public List<Object> selectReportNumIn3Months() {
-        return workOrderReportCartRepository.selectReportNumIn3Months();
+    public List<VworkOrderNumReport> selectReportNumIn3Months() {
+        return vworkOrderNumReportRepository.findAll();
+    }
+
+    /**
+     * @return 查询近期三个月的报修单数量
+     */
+    //  * @param location 查询当前用户的位置下的报修数量统计
+    public List<VworkOrderNumFinish> selectFinishNumIn3Months() {
+        return vworkOrderNumFinishRepository.findAll();
     }
 
 }

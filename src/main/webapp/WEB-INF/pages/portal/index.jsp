@@ -50,7 +50,7 @@
 <script type="text/javascript">
     $(function () {
         Highcharts.setOptions({
-            colors: ['#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4']
+            colors: ['#50B432', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4', '#058DC7']
         });
         var url = "/line/findByStatus";
         var lines = [];
@@ -114,14 +114,12 @@
 
             }
             ]
-        })
-        ;
+        });
 
 
         //ajax 请求当月设备分类前5
         var chart2Data = [];
         $.getJSON("/portal/findTopEqClass/5", function (data) {
-
             chart2Data = data;
         });
 
@@ -161,23 +159,19 @@
         });
 
 
-        var workOrderStatus = [
-            {'name': '0', description: '报修数量'},
-            {'name': '1', description: '完工数量'}
-        ];
         var seriesOptions = [];
-        var option;
-        for (var x in workOrderStatus) {
-            if (workOrderStatus[x].description) {
-                option = {
-                    "name": workOrderStatus[x].description,
-                    "data": [Math.floor(Math.random() * 100), Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)]
-                }
-                seriesOptions.push(option);
-            }
+        var option0, option1, months;
+
+        option0 = {
+            "name": "报修数量",
+            "data": get3MonthReportNum()
         }
-
-
+        option1 = {
+            "name": "完工数量",
+            "data": get3MonthFinishNum()
+        }
+        seriesOptions.push(option0);
+        seriesOptions.push(option1);
         $('#highcharts0').highcharts({
             chart: {
                 type: 'column'
@@ -190,7 +184,7 @@
                 text: '最近3个月报修完成率统计'
             },
             subtitle: {
-                text: '5,6,7 月'
+                text: get3MonthTitle()
             },
             plotOptions: {
                 column: {
@@ -198,7 +192,7 @@
                 }
             },
             xAxis: {
-                categories: ['5月', '6月', '7月']
+                categories: get3MonthTitle()
             },
             yAxis: {
                 min: 0,
@@ -208,7 +202,49 @@
             },
             series: seriesOptions
         });
+
     });
+
+
+    function get3MonthTitle() {
+        $.ajaxSettings.async = false;
+        var url = "/portal/getLastNMonth/3";
+        var title = "";
+        $.getJSON(url, function (data) {
+            title = data;
+        });
+        return title;
+    }
+
+
+    function get3MonthReportNum() {
+        $.ajaxSettings.async = false;
+        var url = "/workOrderReport/sel3mRptNum";
+        var reportNums = [];
+        $.getJSON(url, function (data) {
+            for (var x in data) {
+                if (data[x]["reportNum"]) {
+                    reportNums[x] = data[x]["reportNum"];
+                }
+            }
+        });
+        return reportNums;
+    }
+
+    function get3MonthFinishNum() {
+        $.ajaxSettings.async = false;
+        var url = "/workOrderReport/sel3mFinishNum";
+        var finishNums = [];
+        $.getJSON(url, function (data) {
+            for (var x in data) {
+                if (data[x]["finishNum"]) {
+                    finishNums[x] = data[x]["finishNum"];
+                }
+            }
+        });
+        console.log("完工从头再来-------------" + JSON.stringify(finishNums));
+        return finishNums;
+    }
 </script>
 </body>
 </html>

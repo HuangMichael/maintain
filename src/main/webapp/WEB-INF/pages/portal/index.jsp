@@ -98,19 +98,19 @@
             },
             series: [{
                 name: '报修',
-                data: [1356, 1485, 2164, 1941]
+                data: getReportNumByLine()
 
             }, {
                 name: '完工',
-                data: [836, 1043, 912, 835]
+                data: getFixedNumByLine()
 
             }, {
                 name: '维修中',
-                data: [483, 590, 596, 524]
+                data: getFixingNumByLine()
 
             }, {
                 name: '暂停',
-                data: [424, 332, 345, 397]
+                data: getSuspendNumByLine()
 
             }
             ]
@@ -245,6 +245,53 @@
         });
         console.log("完工从头再来-------------" + JSON.stringify(finishNums));
         return finishNums;
+    }
+
+
+    function getReportNumByLine() {
+        var reportLineNum = [];
+        var url = "/portal/getLineReportNum";
+        $.getJSON(url, function (data) {
+            for (var x in data) {
+                reportLineNum[x] = data[x]["reportNum"];
+            }
+        });
+        return reportLineNum;
+    }
+
+
+    function getFixedNumByLine() {
+        var fixedLineNum = [];
+        var url = "/portal/getLineFixedNum";
+        $.getJSON(url, function (data) {
+            for (var x in data) {
+                fixedLineNum[x] = data[x]["fixedNum"];
+            }
+        });
+        return fixedLineNum;
+    }
+
+
+    function getFixingNumByLine() {
+        var fixingLineNum = [];
+        var url = "/portal/getLineFixingNum";
+        $.getJSON(url, function (data) {
+            for (var x in data) {
+                fixingLineNum[x] = data[x]["fixingNum"];
+            }
+        });
+        return fixingLineNum;
+    }
+
+    function getSuspendNumByLine() {
+        var suspendLineNum = [];
+        var url = "/portal/getLineSuspendNum";
+        $.getJSON(url, function (data) {
+            for (var x in data) {
+                suspendLineNum[x] = data[x]["suspendNum"];
+            }
+        });
+        return suspendLineNum;
     }
 </script>
 </body>

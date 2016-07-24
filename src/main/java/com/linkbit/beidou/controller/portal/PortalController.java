@@ -1,6 +1,11 @@
 package com.linkbit.beidou.controller.portal;
 
 
+import com.linkbit.beidou.domain.workOrder.VworkOrderLineNumFixed;
+import com.linkbit.beidou.domain.workOrder.VworkOrderLineNumFixing;
+import com.linkbit.beidou.domain.workOrder.VworkOrderLineNumReport;
+import com.linkbit.beidou.domain.workOrder.VworkOrderLineNumSuspend;
+import com.linkbit.beidou.service.portal.PortalService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -8,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,11 +25,12 @@ import java.util.List;
 public class PortalController {
 
 
-
-
     @Autowired
     WorkOrderReportCartService workOrderReportCartService;
 
+
+    @Autowired
+    PortalService portalService;
 
 
     @RequestMapping(value = "/index")
@@ -53,6 +58,34 @@ public class PortalController {
     public List<String> getLastNMonth(@PathVariable("n") int n) {
         return workOrderReportCartService.getLastNMonthName(n);
     }
+
+
+    @RequestMapping(value = "/getLineReportNum", method = RequestMethod.GET)
+    @ResponseBody
+    public List<VworkOrderLineNumReport> getLineReportNum() {
+        return portalService.getLineReportNum();
+    }
+
+
+    @RequestMapping(value = "/getLineFixedNum", method = RequestMethod.GET)
+    @ResponseBody
+    public List<VworkOrderLineNumFixed> getLineFixedNum() {
+        return portalService.getLineFixedNum();
+    }
+
+
+    @RequestMapping(value = "/getLineFixingNum", method = RequestMethod.GET)
+    @ResponseBody
+    public List<VworkOrderLineNumFixing> getLineFixingNum() {
+        return portalService.getLineFixingNum();
+    }
+
+    @RequestMapping(value = "/getLineSuspendNum", method = RequestMethod.GET)
+    @ResponseBody
+    public List<VworkOrderLineNumSuspend> getLineSuspendNum() {
+        return portalService.getLineSuspendNum();
+    }
+
 
 }
 

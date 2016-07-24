@@ -5,6 +5,8 @@ import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReport;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportDetail;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportService;
+import com.linkbit.beidou.utils.CommonStatusType;
+import com.linkbit.beidou.utils.CommonWorkOrderType;
 import com.linkbit.beidou.utils.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -28,9 +30,9 @@ public class WorkOrderReportController {
     @Autowired
     WorkOrderReportService workOrderReportService;
 
-    /**
+  /*  *//**
      * 保存工单信息
-     */
+     *//*
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(ModelMap modelMap, HttpSession session) {
 
@@ -39,6 +41,20 @@ public class WorkOrderReportController {
         String location = user.getLocation();
         List<WorkOrderReport> workOrderReportList = workOrderReportService.findByLocationStartingWithAndStatus(location, "0");
         modelMap.put("workOrderReportList", workOrderReportList);
+        return "/workOrderReport/list";
+    }*/
+
+
+    /**
+     * 保存工单信息
+     */
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String list(ModelMap modelMap, HttpSession session) {
+        User user = SessionUtil.getCurrentUserBySession(session);
+        String location = user.getLocation();
+        //查询未提交的报修单
+        List<WorkOrderReportDetail> workOrderReportDetailList = workOrderReportService.findDetailByLocationStartingWithAndStatus(location, CommonStatusType.REPORT_COMMITED);
+        modelMap.put("workOrderReportDetailList", workOrderReportDetailList);
         return "/workOrderReport/list";
     }
 

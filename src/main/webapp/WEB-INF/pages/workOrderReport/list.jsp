@@ -39,12 +39,11 @@
                                                         <th data-column-id="orderDesc" width="20%">故障描述</th>
                                                         <th data-column-id="location" width="10%">设备位置</th>
                                                         <th data-column-id="eqClass" width="10%">设备分类</th>
+                                                        <th data-column-id="reportTime" width="10%">生成时间</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <c:forEach items="${workOrderReportList}" var="w" varStatus="s">
-                                                        <c:forEach items="${w.workOrderReportDetailList}" var="d"
-                                                                   varStatus="ds">
+                                                        <c:forEach items="${workOrderReportDetailList}" var="d" varStatus="ds">
                                                             <tr >
                                                                 <td>${ds.index+1} </td>
                                                                 <td>${d.orderLineNo}</td>
@@ -52,9 +51,9 @@
                                                                 <td class="hidden-xs hidden-sm">${d.orderDesc}</td>
                                                                 <td>${d.vlocations.locName}</td>
                                                                 <td>${d.equipmentsClassification.description}</td>
+                                                                <td>${d.reportTime}</td>
                                                             </tr>
                                                         </c:forEach>
-                                                    </c:forEach>
                                                     </tbody>
                                                 </table>
                                             </div>

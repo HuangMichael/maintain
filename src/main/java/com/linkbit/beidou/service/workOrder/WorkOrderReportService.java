@@ -6,7 +6,6 @@ import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
 import com.linkbit.beidou.dao.workOrder.*;
 import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
-import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import com.linkbit.beidou.domain.workOrder.*;
 import com.linkbit.beidou.service.app.BaseService;
@@ -384,5 +383,13 @@ public class WorkOrderReportService extends BaseService {
         return workOrderReportDetailRepository.getRecortsByPage(fromIndex, pageCount);
     }
 
+
+    /**
+     * @return 查询近期三个月的报修单数量
+     */
+    //  * @param location 查询当前用户的位置下的报修数量统计
+    public List<Object> selectReportNumIn3Months() {
+        return workOrderReportCartRepository.selectReportNumIn3Months();
+    }
 
 }

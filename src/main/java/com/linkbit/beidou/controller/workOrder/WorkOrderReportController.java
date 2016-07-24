@@ -85,6 +85,7 @@ public class WorkOrderReportController {
             workOrderReportService.createReport(list, user.getPerson().getPersonName(), user.getLocation());
         return list;
     }
+
     @RequestMapping(value = "/findReportHistory/{equipmentId}", method = RequestMethod.GET)
     @ResponseBody
     public List<WorkOrderReportDetail> findReportHistory(@PathVariable("equipmentId") Long equipmentId) {
@@ -95,6 +96,7 @@ public class WorkOrderReportController {
         return workOrderReportDetailList;
     }
     //查询已经提交的报修单
+
     /**
      * @param httpSession
      * @return 查询没有提交的维修单
@@ -106,6 +108,7 @@ public class WorkOrderReportController {
         String location = SessionUtil.getCurrentUserLocationBySession(httpSession);
         return workOrderReportService.findByLocationStartingWithAndStatus(location, "1");
     }
+
     /**
      * @param httpSession
      * @return 查询没有被完全提交的维修单
@@ -140,6 +143,12 @@ public class WorkOrderReportController {
 
         return workOrderReportService.getRecortsByPage(perPageCount * currentPageIndex, perPageCount);
     }
-
-
+    /**
+     * @return 查询近期三个月的报修单
+     */
+    @RequestMapping(value = "/sel3mRptNum}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Object> selectReportNumIn3Months() {
+        return workOrderReportService.selectReportNumIn3Months();
+    }
 }

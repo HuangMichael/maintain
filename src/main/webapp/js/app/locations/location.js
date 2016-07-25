@@ -181,6 +181,41 @@ function save() {
         }
     })
 }
+
+
+
+var reportId;
+function report(id) {
+    var status = "0";
+    var path = "/equipment/findById/" + id;
+    $.getJSON(path, function (data) {
+        status = data["status"]
+    });
+    var curl = "/workOrderReportCart/loadReportedEqPage/" + id;
+    if (status == "0") {
+        $("#eqList").load(curl, function (data) {
+            $("#show_eq_modal").modal("show");
+            eqId = id
+            reportId = id;
+        })
+    } else {
+        equipReport(id)
+    }
+}
+
+function equipReport(id) {
+    var url = "/workOrderReportCart/add2Cart";
+    $.post(url, {equipmentId: id}, function (data) {
+        var size = $("#reportOrderSize").html();
+        if (!size) {
+            size = 0
+        }
+        $("#reportOrderSize").html(parseInt(size) + 1);
+        showMessageBox("info", "已将设备报修加入到维修车!")
+    })
+}
+
+
 /**
  *  删除位置信息
  */

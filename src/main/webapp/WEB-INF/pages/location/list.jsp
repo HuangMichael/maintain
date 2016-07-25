@@ -75,4 +75,4 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="js/app/locations/location.js"></script>
+<script type="text/javascript" src="/js/app/locations/location.js"></script>

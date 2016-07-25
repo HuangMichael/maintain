@@ -17,12 +17,12 @@ public class MyHttpSessionListener implements HttpSessionListener {
 
     @Override
     public void sessionCreated(HttpSessionEvent event) {
-        System.out.println(DateUtils.convertDate2Str(new Date(), "yyyy-MM-dd HH:mm:ss") + "----------------------------- " + event.getClass().getSimpleName());
+        System.out.println(DateUtils.convertDate2Str(new Date(), "yyyy-MM-dd HH:mm:ss") + "------------sessionCreated----------------- " );
     }
 
     @Override
     public void sessionDestroyed(HttpSessionEvent event) {
-        System.out.println(DateUtils.convertDate2Str(new Date(), "yyyy-MM-dd HH:mm:ss") + "----------------------------- " + event.getClass().getSimpleName());
+        System.out.println(DateUtils.convertDate2Str(new Date(), "yyyy-MM-dd HH:mm:ss") + "-------------sessionDestroyed----------------");
 
     }
 

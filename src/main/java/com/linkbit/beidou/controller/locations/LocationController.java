@@ -97,23 +97,9 @@ public class LocationController {
             url += "/detail";
             object = locationsService.findById(id);
         }
-
-        User user = (User) session.getAttribute("currentUser");
-        //List<Locations> locationsList = locationsRepository.findByLocationStartingWith(user.getLocation());
-        List<Locations> locationsList = (ArrayList<Locations>) session.getAttribute("locList");
         modelMap.put("locations", object);
-        modelMap.put("lineList", lineList);
-        modelMap.put("stationList", stationList);
-
         List<Vequipments> equipmentsList = vequipmentsRepository.findByLocationStartingWith(object.getLocation());
-        List<Equipments> fixingEqsList = equipmentsRepository.findByLocationStartingWithAndStatus(object.getLocation(), "2");
-
-
         modelMap.put("equipmentsList", equipmentsList);
-        modelMap.put("fixingEqsList", fixingEqsList);
-        modelMap.put("locationsList", locationsList);
-        List<Equipments> equipmentList = equipmentAccountService.findByLocation(object);
-        modelMap.put("equipmentList", equipmentList);
         return url;
     }
 

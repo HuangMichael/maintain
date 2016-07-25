@@ -12,7 +12,7 @@ import java.util.Date;
 public class AppilicationStartUp implements ApplicationListener<ContextRefreshedEvent> {
 
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        System.out.println(DateUtils.convertDate2Str(new Date(), "yyyy-MM-dd HH:mm:ss") + "----------------------------- " + event.getClass().getSimpleName());
+        System.out.println(DateUtils.convertDate2Str(new Date(), "yyyy-MM-dd HH:mm:ss") + "--------------session start---------------");
 
 
     }

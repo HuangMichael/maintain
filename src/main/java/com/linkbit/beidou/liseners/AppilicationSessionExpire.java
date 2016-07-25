@@ -14,6 +14,6 @@ import java.util.Date;
 public class AppilicationSessionExpire implements ApplicationListener<ContextClosedEvent> {
 
     public void onApplicationEvent(ContextClosedEvent event) {
-        System.out.println(DateUtils.convertDate2Str(new Date(), "yyyy-MM-dd HH:mm:ss") + "----------------------------- " + event.getClass().getSimpleName());
+        System.out.println(DateUtils.convertDate2Str(new Date(), "yyyy-MM-dd HH:mm:ss") + "-------------ContextClosedEvent---------------- ");
     }
 }

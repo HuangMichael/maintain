@@ -80,8 +80,6 @@
         </div>
     </div>
 </div>
-
-
 <div class="modal fade " id="show_loc_modal" tabindex="-1" back-drop="false"
      role="dialog" aria-labelledby="fix_work_order">
     <div class="modal-dialog" role="document">
@@ -98,56 +96,4 @@
         </div>
     </div>
 </div>
-
-
-<div class="modal fade " id="pic_modal" tabindex="-1" back-drop="false"
-     role="dialog" aria-labelledby="fix_work_order">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="pic_modal_location">位置图片</h4>
-            </div>
-            <div class="modal-body">
-                <img src="${locations.imgUrl}" height="100%" width="100%"/>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="modal fade " id="pic_upload_modal" tabindex="-1" back-drop="false"
-     role="dialog" aria-labelledby="fix_work_order">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="pic_upload_modal-1">上传图片</h4>
-            </div>
-            <div class="modal-body">
-                <form id="uploadForm" enctype="multipart/form-data" method="post" action="/upload/upload">
-                    <div class="form-group">
-                        <input type="file" class="form-control" name="file" id="file"/>
-                        <input type="hidden" class="form-control" name="name" id="name"/>
-                        <input type="hidden" class="form-control" name="llid" id="llid" value="${locations.id}"/>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">取消
-                        </button>
-                        <button type="submit" id="uploadBtn" name="uploadBtn"
-                                class="btn btn-primary">上传
-                        </button>
-                    </div>
-                </form>
-
-
-            </div>
-        </div>
-    </div>
-</div>
-
 <script type="text/javascript" src="/js/app/locations/location.detail.min.js"></script>

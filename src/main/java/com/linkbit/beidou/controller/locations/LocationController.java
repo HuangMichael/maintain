@@ -76,19 +76,9 @@ public class LocationController {
      */
     @RequestMapping(value = "/list")
     public String list(ModelMap modelMap, HttpSession session) {
-
         User user = (User) session.getAttribute("currentUser");
-        List<Locations> locationsList = (ArrayList<Locations>) session.getAttribute("locList");
-        List<Line> lineList = (List<Line>) session.getAttribute("lineList");
-        List<Station> stationList = (List<Station>) session.getAttribute("stationList");
-
         List<Vequipments> equipmentsList = vequipmentsRepository.findByLocationStartingWithOrderByIdDesc(user.getLocation());
-
-
-        //  modelMap.put("locationsList", locationsList);
         modelMap.put("equipmentsList", equipmentsList);
-        modelMap.put("lineList", lineList);
-        modelMap.put("stationList", stationList);
         return "/location/list";
 
     }

@@ -69,9 +69,6 @@
             title: {
                 text: '报修单按线别统计'
             },
-            subtitle: {
-                text: '2016年6月'
-            },
             xAxis: {
                 categories: lines,
                 crosshair: true
@@ -80,6 +77,16 @@
                 min: 0,
                 title: {
                     text: '工单数量(单位:个)'
+                }
+            },
+            lang: {
+                noData: "当前无显示数据"
+            },
+            noData: {
+                style: {
+                    fontWeight: 'bold',
+                    fontSize: '15px',
+                    color: '#303030'
                 }
             },
             tooltip: {
@@ -130,9 +137,6 @@
             },
             title: {
                 text: '报修单按报修前5设备种类统计'
-            },
-            subtitle: {
-                text: '2016年6月'
             },
             plotOptions: {
                 series: {
@@ -243,7 +247,6 @@
                 }
             }
         });
-        console.log("完工从头再来-------------" + JSON.stringify(finishNums));
         return finishNums;
     }
 

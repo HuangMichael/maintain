@@ -31,7 +31,6 @@ public class EquipmentsClassification {
     private String description;
     @Column(length = 1)
     private String hasChild;
-    @JsonBackReference
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id", referencedColumnName = "id")
     EquipmentsClassification parent;
@@ -41,10 +40,6 @@ public class EquipmentsClassification {
     @OneToMany(targetEntity = EquipmentsClassification.class, cascade = CascadeType.ALL, mappedBy = "parent")
     List<EquipmentsClassification> classificationList = new ArrayList<EquipmentsClassification>();
 
-    //一个设备分类有多种属性
-    @JsonBackReference("equipmentsSpecificationsList")
-    @OneToMany(targetEntity = EquipmentsSpecifications.class, cascade = CascadeType.ALL, mappedBy = "equipmentsClassification")
-    List<EquipmentsSpecifications> equipmentsSpecificationsList = new ArrayList<EquipmentsSpecifications>();
     @Column(length = 1)
     private Long level;
     @Column(length = 20)

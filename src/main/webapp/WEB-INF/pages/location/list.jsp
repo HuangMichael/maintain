@@ -27,16 +27,22 @@
                 <div class="col-md-9">
                     <div class="box border blue">
                         <div class="box-body">
-                            <a type="button" class="btn  btn-default  btn-xs" id="loadCreateBtn"
-                               onclick="loadCreateForm()"><i
-                                    class="glyphicon glyphicon-plus">新建记录</i></a>
-                            <a type="button" class="btn  btn-default  btn-xs" id="saveBtn" onclick="save()"><i
-                                    class="glyphicon glyphicon-floppy-disk">保存记录</i></a>
-                            <a type="button" class="btn  btn-default  btn-xs" id="deleteBtn" onclick="deleteObject()">
-                                <i class="glyphicon glyphicon-trash">删除记录</i></a>
-
-                            <a type="button" class="btn  btn-default btn-xs" id="report"
-                               onclick="reportByLocation()"> <i class="glyphicon glyphicon-warning-sign">位置报修</i></a>
+                            <button type="button" class="btn btn-sm myNavBtn active"
+                                    onclick="loadCreateForm()"><i
+                                    class="glyphicon glyphicon-glyphicon glyphicon-plus"></i>新建记录
+                            </button>
+                            <button type="button" class="btn btn-sm myNavBtn active"
+                                    onclick="save()"><i
+                                    class="glyphicon glyphicon-glyphicon glyphicon-floppy-disk"></i>保存记录
+                            </button>
+                            <button type="button" class="btn btn-sm myNavBtn active"
+                                    onclick="deleteObject()"><i
+                                    class="glyphicon glyphicon-glyphicon glyphicon-trash"></i>删除记录
+                            </button>
+                            <button type="button" class="btn btn-sm myNavBtn active"
+                                    onclick="reportByLocation()"><i
+                                    class="glyphicon glyphicon-glyphicon glyphicon-warning-sign"></i>位置报修
+                            </button>
                         </div>
                     </div>
                     <div class="divide-2"></div>

@@ -66,12 +66,7 @@
         </div>
     </div>
 </div>
-
-
 <script>
-    /**
-     * 显示当前用户个人信息
-     */
     function showUser() {
         var url = "/user/profile";
         $("#profileView").load(url, function () {

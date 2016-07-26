@@ -49,8 +49,10 @@ public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderR
     /**
      * @param personName
      * @return 查询我的报修车
+     * @Version 0.2 将原来状态1修改为0 查询未提交的
      */
-    @Query("select c from  WorkOrderReportCart c where c.status =1 and c.reporter =:personName")
+
+    @Query("select c from  WorkOrderReportCart c where c.status =0 and c.reporter =:personName")
     List<WorkOrderReportCart> findMyCart(@Param("personName") String personName);
 
 

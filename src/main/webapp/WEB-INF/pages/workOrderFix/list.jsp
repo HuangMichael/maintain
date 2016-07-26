@@ -32,7 +32,7 @@
                                         <div class="tab-content">
                                             <div class="tab-pane fade in active" id="tab_1_0">
                                                 <table id="fixListTable"
-                                                       class="table table-bordered table-hover table-responsive">
+                                                       class="table table-striped table-bordered table-hover  table-responsive">
                                                     <thead>
                                                     <tr>
                                                         <th data-column-id="index" width="5%">序号</th>

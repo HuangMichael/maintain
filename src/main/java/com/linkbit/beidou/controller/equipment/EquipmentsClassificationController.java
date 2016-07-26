@@ -78,9 +78,6 @@ public class EquipmentsClassificationController {
             url += "/detail";
             object = equipmentsClassificationRepository.findById(id);
             unitList = object.getUnitSet();
-        } else {
-            url += "/list/";
-            object = equipmentsClassificationRepository.findById(1);
         }
         modelMap.put("equipmentsClassification", object);
         modelMap.put("unitList", unitList);
@@ -198,12 +195,13 @@ public class EquipmentsClassificationController {
 
     @RequestMapping(value = "/addUnits", method = RequestMethod.POST)
     @ResponseBody
-    public EquipmentsClassification addUnits(@RequestParam("cid") Long cid, @RequestParam("ids") String ids,@RequestParam("workOrderId") Long workOrderId) {
+    public List<OutsourcingUnit> addUnits(@RequestParam("cid") Long cid, @RequestParam("ids") String ids) {
         EquipmentsClassification equipmentsClassification = null;
+        List<OutsourcingUnit> outsourcingUnitList=null;
         if (cid != null && ids != null) {
-            equipmentsClassification = outsoucingUnitService.addUnits(cid, ids,workOrderId);
+             outsourcingUnitList = outsoucingUnitService.addUnits(cid, ids);
         }
-        return equipmentsClassification;
+        return outsourcingUnitList;
     }
 
 

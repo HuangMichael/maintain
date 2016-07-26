@@ -92,11 +92,8 @@ public class OutsoucingUnitService extends BaseService {
      * @param ids 外委单位id集合字符串
      * @return 加入外委单位 返回种类本身
      */
-    public EquipmentsClassification addUnits(Long cid, String ids, Long workOrderId) {
+    public List<OutsourcingUnit> addUnits(Long cid, String ids) {
         EquipmentsClassification equipmentsClassification = equipmentsClassificationRepository.findById(cid);
-        WorkOrderReportDetail workOrderReportDetail = workOrderReportDetailRepository.findById(workOrderId);
-        workOrderReportDetail.setEquipmentsClassification(equipmentsClassification);
-        workOrderReportDetailRepository.save(workOrderReportDetail);
         List<OutsourcingUnit> originalUnits = equipmentsClassification.getUnitSet();
         List<OutsourcingUnit> outsourcingUnitSet = new ArrayList<OutsourcingUnit>();
         if (equipmentsClassification != null && ids != null) {
@@ -106,9 +103,9 @@ public class OutsoucingUnitService extends BaseService {
             }
             outsourcingUnitSet.addAll(originalUnits);
             equipmentsClassification.setUnitSet(outsourcingUnitSet);
-            equipmentsClassification = equipmentsClassificationRepository.save(equipmentsClassification);
+            equipmentsClassificationRepository.save(equipmentsClassification);
         }
-        return equipmentsClassification;
+        return outsourcingUnitSet;
     }
 
     /**

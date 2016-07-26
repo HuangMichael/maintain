@@ -18,7 +18,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -164,9 +163,9 @@ public class WorkOrderReportCartController {
     /**
      * 显示所有的报修车列表信息
      */
-    @RequestMapping(value = "/findMyCart", method = RequestMethod.GET)
+    @RequestMapping(value = "/findMyCart/{n}", method = RequestMethod.GET)
     @ResponseBody
-    public List<WorkOrderReportCart> findMyCart(HttpSession httpSession) {
+    public List<WorkOrderReportCart> findMyCart(@PathVariable("n") Long n, HttpSession httpSession) {
         String personName = (String) httpSession.getAttribute("personName");
         List<WorkOrderReportCart> workOrderReportCartList = workOrderReportCartService.findMyCart(personName);
         return workOrderReportCartList;

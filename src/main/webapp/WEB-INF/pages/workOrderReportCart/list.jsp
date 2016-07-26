@@ -49,7 +49,7 @@
                                         <div class="tab-content">
                                             <div class="tab-pane active" id="account">
                                                 <table id="cartTable"
-                                                       class="table table-responsive table-condensed table-hover">
+                                                       class="table table-striped table-bordered table-hover">
                                                     <thead>
                                                     <tr id="trr">
                                                         <td><input type="checkbox" name="cartCheck" id="cartCheck"

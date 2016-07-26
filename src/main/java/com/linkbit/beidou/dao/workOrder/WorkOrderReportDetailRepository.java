@@ -115,4 +115,10 @@ public interface WorkOrderReportDetailRepository extends CrudRepository<WorkOrde
      */
     List<WorkOrderReportDetail> findByLocationStartingWithAndStatusOrderByReportTimeDesc(String location, String status);
 
+    /**
+     * @param location 位置编码
+     * @return
+     */
+    List<WorkOrderReportDetail> findByLocationStartingWithOrderByReportTimeDesc(String location);
+
 }

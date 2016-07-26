@@ -166,10 +166,9 @@ public class WorkOrderFixService extends BaseService {
         List<Long> idList = StringUtils.str2List(arrayStr, fixDesc);
         List<WorkOrderFixDetail> workOrderFixDetailList = new ArrayList<WorkOrderFixDetail>();
         for (Long id : idList) {
-
-            System.out.println("id---------------"+id);
             WorkOrderFixDetail workOrderFixDetail = workOrderFixDetailRepository.findById(id);
             workOrderFixDetail.setStatus("2");
+            workOrderFixDetail.setFixDesc(fixDesc);
             workOrderFixDetail = workOrderFixDetailRepository.save(workOrderFixDetail);
             WorkOrderFixSuspend workOrderFixSuspend = new WorkOrderFixSuspend();
             workOrderFixSuspend.setOrderDesc(workOrderFixDetail.getOrderDesc());

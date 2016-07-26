@@ -150,8 +150,7 @@ public class WorkOrderFixController {
         WorkOrderFixDetail workOrderFixDetail = workOrderFixDetailRepository.findById(fixId);
         ReturnObject returnObject = new ReturnObject();
         if (workOrderFixDetail.getStatus().equals("0")) {
-
-            List<WorkOrderFixDetail>  workOrderFixDetailList =  workOrderFixService.pauseDetailBatch(fixId+"",fixDesc);
+            workOrderFixService.pauseDetailBatch(fixId+"",fixDesc);
             returnObject.setResult(true);
             returnObject.setResultDesc("维修单" + workOrderFixDetail.getOrderLineNo() + "暂停成功！");
         } else {

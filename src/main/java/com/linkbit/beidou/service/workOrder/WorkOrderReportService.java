@@ -336,12 +336,24 @@ public class WorkOrderReportService extends BaseService {
 
     /**
      * @param location 位置编码
-     * @param status   状态
+     * @return 模糊查询位置编码下对应的报修单信息
+     */
+    public List<WorkOrderReportDetail> findByLocationStartingWithOrderByReportTimeDesc(String location) {
+        List<WorkOrderReportDetail> workOrderReportList = null;
+        if (location != null && !location.equals("")) {
+            workOrderReportList = workOrderReportDetailRepository.findByLocationStartingWithOrderByReportTimeDesc(location);
+        }
+        return workOrderReportList;
+    }
+
+
+    /**
+     * @param location 位置编码
      * @return 模糊查询位置编码下对应的报修单信息
      */
     public List<WorkOrderReportDetail> findByLocationStartingWithAndStatusOrderByReportTimeDesc(String location, String status) {
         List<WorkOrderReportDetail> workOrderReportList = null;
-        if (location != null && !location.equals("") && status != null && !status.equals("")) {
+        if (location != null && !location.equals("")) {
             workOrderReportList = workOrderReportDetailRepository.findByLocationStartingWithAndStatusOrderByReportTimeDesc(location, status);
         }
         return workOrderReportList;

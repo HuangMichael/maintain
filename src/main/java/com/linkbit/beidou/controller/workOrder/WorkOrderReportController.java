@@ -39,7 +39,9 @@ public class WorkOrderReportController {
         User user = SessionUtil.getCurrentUserBySession(session);
         String location = user.getLocation();
         //查询未提交的报修单
-        List<WorkOrderReportDetail> workOrderReportDetailList = workOrderReportService.findByLocationStartingWithAndStatusOrderByReportTimeDesc(location, CommonStatusType.REPORT_COMMITED);
+
+        //fix  取消对状态的过滤
+        List<WorkOrderReportDetail> workOrderReportDetailList = workOrderReportService.findByLocationStartingWithOrderByReportTimeDesc(location);
         modelMap.put("workOrderReportDetailList", workOrderReportDetailList);
         return "/workOrderReport/list";
     }

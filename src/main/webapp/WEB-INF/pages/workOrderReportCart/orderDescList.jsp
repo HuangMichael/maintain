@@ -16,7 +16,7 @@
     </thead>
     <tbody id="tbody2">
     <c:forEach items="${workOrderReportCartList}" var="workOrder" varStatus="w">
-        <tr id="tr-${w.index+1}">
+        <tr id="tr-${w.index+1}" class="gradeX">
             <td>${w.index+1}</td>
             <td>${workOrder.equipments.eqCode}</td>
             <td>${workOrder.equipments.description}</td>

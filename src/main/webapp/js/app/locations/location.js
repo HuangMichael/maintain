@@ -12,6 +12,7 @@ var setting = {
             var url = "/location/detail/" + treeNode.id;
             $("#contentDiv").load(url, function (data) {
                 //fillForm1(treeNode, data);
+                saveIndex = 0;
             });
             return true
         }
@@ -183,7 +184,6 @@ function save() {
 }
 
 
-
 var reportId;
 function report(id) {
     var status = "0";
@@ -270,48 +270,6 @@ function changeLine(stationId) {
  * 位置保修
  */
 function reportByLocation() {
-    $('#locReportForm')
-        .bootstrapValidator({
-            message: '该值无效 ',
-            fields: {
-                "equipmentsClassification.id": {
-                    message: '设备分类无效',
-                    validators: {
-                        notEmpty: {
-                            message: '设备分类不能为空!'
-                        }
-                    }
-                },
-                "orderDesc": {
-                    message: '故障描述无效',
-                    validators: {
-                        notEmpty: {
-                            message: '故障描述不能为空!'
-                        }
-                    }
-                },
-                "reporter": {
-                    message: '报修人无效',
-                    validators: {
-                        notEmpty: {
-                            message: '报修人不能为空!'
-                        },
-                        stringLength: {
-                            min: 2,
-                            max: 20,
-                            message: '报修人为2到20个字符'
-                        }
-                    }
-                }
-            }
-        }).on('success.form.bv', function (e) {
-        // Prevent form submission
-        e.preventDefault();
-        // Get the form instance
-        add2LocCart();
-    });
-
-
     var location = getSelectedNode().location;
     var locationId = getSelectedNode().id;
     var status = "0";
@@ -358,11 +316,7 @@ function continueLocReport() {
     $("#loc_modal").modal("show");
 }
 
-var saveIndex = 0;
 function add2LocCart() {
-    if (saveIndex > 0) {
-        return;
-    }
     var nodeId = getSelectedNodeId();
     var url = "/workOrderReportCart/add2LocCart";
     var orderDesc = $("#orderDesc").val();
@@ -371,13 +325,15 @@ function add2LocCart() {
     var eqClassId = $("#equipmentsClassification_id").val();
 
     if (!orderDesc) {
-        showMessageBox("danger", "位置报修描述不能为空!");
+        showMessageBox("danger", "请输入报修故障描述!");
         $("#orderDesc").focus();
+        $("#orderDesc").css("border", "dashed 1px red");
         return
     }
     if (!reporter) {
         showMessageBox("danger", "报修人不能为空!");
         $("#reporter").focus();
+        $("#reporter").css("border", "dashed 1px red");
         return
     }
 
@@ -390,11 +346,9 @@ function add2LocCart() {
             size = 0
         }
         $("#reportOrderSize").html(parseInt(size) + 1);
-
         showMessageBox("info", "已将位置报修加入到维修车!")
-    })
-    ;
-    saveIndex = saveIndex + 1;
+    });
+
 };
 
 

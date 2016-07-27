@@ -217,4 +217,13 @@ public class LocationController {
         return locationsList;
     }
 
+
+    /**
+     * @return 根据上级节点id查询
+     */
+    @RequestMapping(value = "/loadReportForm")
+    public String loadReportForm() {
+        return "/location/locationReport2";
+    }
+
 }

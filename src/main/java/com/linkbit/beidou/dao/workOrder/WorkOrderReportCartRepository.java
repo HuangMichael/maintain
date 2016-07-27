@@ -85,9 +85,17 @@ public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderR
      * @param equipmentId 设备id
      * @param status      完工状态
      * @return 查询已报修未完工的设备信息
-     */
+     *//*
     @Query(nativeQuery = true, value = SQL0 + SQL0WHERE + SQL1 + SQL1WHERE + SQL2 + SQL2WHERE)
-    List<Object> findReportedEquipments(@Param("equipmentId") Long equipmentId, @Param("status") String status);
+    List<Object> findReportedEquipments(@Param("equipmentId") Long equipmentId, @Param("status") String status);*/
+
+
+    /**
+     * @param equipmentId 设备id
+     * @return 查询已报修未完工的设备信息
+     */
+    @Query(nativeQuery = true, value = "select v.equipments_id,v.order_desc, DATE_FORMAT(v.report_time,'%Y-%m-%d %H:%m:%s '),v.status,v.flow_desc from v_work_order_step v where v.equipments_id=:equipmentId and v.status=:status")
+    List<Object> findReportedEquipments(@Param("equipmentId") Long equipmentId,@Param("status") String status);
 
 
     /**

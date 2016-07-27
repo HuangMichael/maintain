@@ -147,8 +147,6 @@ public class WorkOrderReportCartService extends BaseService {
      */
     public List<Object> checkEqsBeforeAdd2Cart(Long equipmentId) {
         List<Object> workOrderReportCartList = workOrderReportCartRepository.findReportedEquipments(equipmentId, CommonStatusType.FIX_ACCOMPLISHED);
-
-        System.out.println("workOrderReportCartList----------------------" + workOrderReportCartList.size());
         return workOrderReportCartList;
 
 
@@ -161,8 +159,6 @@ public class WorkOrderReportCartService extends BaseService {
      */
     public List<Object> checkLocsBeforeAdd2Cart(String locations) {
         List<Object> workOrderReportCartList = workOrderReportCartRepository.findReportedLocations(locations + "%", CommonStatusType.FIX_ACCOMPLISHED);
-
-        System.out.println("workOrderReportCartList---------------" + workOrderReportCartList.size());
         return workOrderReportCartList;
 
 

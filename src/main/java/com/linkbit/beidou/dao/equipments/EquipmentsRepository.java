@@ -100,7 +100,7 @@ public interface EquipmentsRepository extends CrudRepository<Equipments, Long> {
     @Query(nativeQuery = true, value = "SELECT   date_format(v0.report_Time,'%Y-%m-%d %H:%i:%s'), v0.flow_desc,v0.order_Desc,v0.fix_Desc FROM v_work_order_step v0 WHERE v0.equipments_id = :eid ORDER BY v0.report_time")
     List<Object> findFixHistoryByEid(@Param("eid") Long eid);
 
-    @Query(nativeQuery = true, value = "select v.order_line_no,v.equipments_id,v.order_desc,date_format(v.report_time, '%Y-%m-%d %H:%I:%s'),v.status,v.s from  v_work_order_step v where v.equipments_id = :eid order by v.report_time desc limit 1 ")
+    @Query(nativeQuery = true, value = "select v.order_line_no,v.equipments_id,v.order_desc,date_format(v.report_time, '%Y-%m-%d %H:%I:%s'),v.status,v.flow_desc from  v_work_order_step v where v.equipments_id = :eid order by v.report_time desc limit 1 ")
     List<Object> findLastFixHistoryByEid(@Param("eid") Long eid);
 
 
@@ -114,4 +114,8 @@ public interface EquipmentsRepository extends CrudRepository<Equipments, Long> {
 
     @Query(nativeQuery = true, value = "SELECT  v0.order_line_no, v0.flow_desc, v0.status,date_format(v0.report_Time,'%Y-%m-%d %H:%i:%s') ,v0.order_Desc,max(v0.fix_Desc) as fix_Desc FROM v_work_order_step v0 WHERE v0.equipments_id = :eid GROUP BY v0.order_line_no ORDER BY v0.report_time desc")
     List<Object> findAllFixStepsByEid(@Param("eid") Long eid);
+
+
+    @Query(nativeQuery = true, value = "select v.order_line_no,v.order_desc,v.report_time ,v.fix_desc,v.flow_desc  from v_work_order_last_status v where v.equipments_id =:eid")
+    List<Object> findEndFixStepsByEid(@Param("eid") Long eid);
 }

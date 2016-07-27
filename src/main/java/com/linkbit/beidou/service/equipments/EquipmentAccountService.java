@@ -166,7 +166,7 @@ public class EquipmentAccountService extends BaseService {
 
 
     public List<Object> findAllFixStepsByEid(Long eid) {
-        return equipmentsRepository.findAllFixStepsByEid(eid);
+        return equipmentsRepository.findEndFixStepsByEid(eid);
     }
 
     /**

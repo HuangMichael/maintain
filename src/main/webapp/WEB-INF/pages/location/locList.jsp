@@ -22,8 +22,11 @@
                     ${e.reportTime}
             </td>
             <td>
-                <c:if test="${e.status=='0'}">${e.flowDesc}</c:if>
-                <c:if test="${e.status=='1'}">${e.flowDesc}</c:if>
+                <c:if test="${e.flowDesc==0}">报修车</c:if>
+                <c:if test="${e.flowDesc==1}">已报修</c:if>
+                <c:if test="${e.flowDesc==2}">已分配</c:if>
+                <c:if test="${e.flowDesc==3}">已暂停</c:if>
+                <c:if test="${e.flowDesc==4}">已完工</c:if>
             </td>
         </tr>
     </c:forEach>

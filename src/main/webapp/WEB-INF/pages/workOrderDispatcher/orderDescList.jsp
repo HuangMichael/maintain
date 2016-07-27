@@ -29,7 +29,6 @@
             <td>
                 <select class="form-control" id="selUnit${workOrder.id}" onchange="selectUnit('selUnit${workOrder.id}')"
                         style="height:24px;padding: 2px 2px;font-size: 12px;line-height: 1;"
-                        onclick="appendUnit(${workOrder.equipmentsClassification.id})">
                     <option value="">请选择外委单位</option>
                     <c:forEach var="u" items="${workOrder.equipmentsClassification.unitSet}">
                         <option value="${u.id}"

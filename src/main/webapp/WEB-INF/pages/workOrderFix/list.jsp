@@ -55,8 +55,7 @@
                                                     </thead>
                                                     <tbody>
 
-                                                    <c:forEach items="${workOrderFixDetailListList}" var="d"
-                                                               varStatus="ds">
+                                                    <c:forEach items="${workOrderFixDetailListList}" var="d" varStatus="ds">
                                                         <tr style="display: none;" id="tr-${d.id}">
                                                             <td>${ds.index+1}</td>
                                                             <td>${d.id}</td>
@@ -67,16 +66,16 @@
                                                             <td>${d.equipmentsClassification.description}</td>
                                                             <td>
                                                                 <c:if test="${d.status=='0'}">
-                                                                    <span class="badge badge-info"
-                                                                          id="statusFlag">已分配</span>
+                                                                    <span class="badge badge-info">已分配</span>
                                                                 </c:if>
                                                                 <c:if test="${d.status=='1'}">
-                                                                        <span class="badge badge-success"
-                                                                              id="statusFlag">已完工</span>
+                                                                    <span class="badge badge-success" >已完工</span>
                                                                 </c:if>
                                                                 <c:if test="${d.status=='2'}">
-                                                                        <span class="badge badge-important"
-                                                                              id="statusFlag">  已暂停</span>
+                                                                        <span class="badge badge-important">已暂停</span>
+                                                                </c:if>
+                                                                <c:if test="${d.status=='3'}">
+                                                                        <span class="badge badge-important"> 已取消</span>
                                                                 </c:if>
                                                             </td>
                                                             <td>${d.fixDesc}</td>

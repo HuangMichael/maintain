@@ -87,6 +87,8 @@ function updateOrderStatus(orderId, operationType, operationDesc, fixDesc) {
     var url = "/workOrderFix/" + operationType;
     $.post(url, {fixId: orderId, fixDesc: fixDesc}, function (data) {
         $("#fix_desc_modal").modal("hide");
+        $("#tr-" + orderId).html(operationDesc);
+        $("#tr-" + orderId).html(fixDesc);
         (data.result) ? showMessageBox("info", data.resultDesc) : showMessageBox("danger", data.resultDesc);
     });
 }

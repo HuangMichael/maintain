@@ -131,7 +131,6 @@
     function pause(id) {
         var fixDesc = $("#fixDesc" + id).val();
         if (!fixDesc) {
-            showMessageBox("danger", "请输入维修描述!");
             $("#fixDesc" + id).focus();
             return;
         }
@@ -169,8 +168,6 @@
         });
         var ids = orderReportList.join(",");
         var url = "/workOrderReport/mapByType";
-
-        console.log("ids------------------" + ids);
         $.post(url, {ids: ids}, function (data) {
             if (data) {
                 showMessageBox("info", "维修报告单已生成!");

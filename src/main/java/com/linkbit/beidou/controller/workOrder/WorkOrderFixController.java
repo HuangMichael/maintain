@@ -146,6 +146,8 @@ public class WorkOrderFixController {
     @RequestMapping(value = "/pauseDetail", method = RequestMethod.POST)
     @ResponseBody
     public ReturnObject pauseDetail(@RequestParam Long fixId, @RequestParam String fixDesc) {
+
+        System.out.println("fixDesc--------------------"+fixDesc);
         WorkOrderFixDetail workOrderFixDetail = workOrderFixDetailRepository.findById(fixId);
         ReturnObject returnObject = new ReturnObject();
         if (workOrderFixDetail.getStatus().equals("0")) {

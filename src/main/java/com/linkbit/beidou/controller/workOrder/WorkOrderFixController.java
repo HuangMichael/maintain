@@ -10,7 +10,6 @@ import com.linkbit.beidou.domain.workOrder.WorkOrderFixDetail;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.workOrder.WorkOrderFixService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportService;
-import com.linkbit.beidou.utils.CommonStatusType;
 import com.linkbit.beidou.utils.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -70,7 +69,7 @@ public class WorkOrderFixController {
         User user = SessionUtil.getCurrentUserBySession(session);
         String location = user.getLocation();
         //过滤显示当前用户location数据 找出不完工的单子
-        List<WorkOrderFixDetail> workOrderFixDetailListList = workOrderFixDetailRepository.findByLocationStartingWithOrderByReportTimeDesc(location) ;
+        List<WorkOrderFixDetail> workOrderFixDetailListList = workOrderFixDetailRepository.findByLocationStartingWithOrderByReportTimeDesc(location);
         modelMap.put("workOrderFixDetailListList", workOrderFixDetailListList);
         return "/workOrderFix/list";
     }
@@ -131,10 +130,10 @@ public class WorkOrderFixController {
             String personName = (String) httpSession.getAttribute("personName");
             workOrderFixService.finishDetailBatch(fixId + "", personName);
             returnObject.setResult(true);
-            returnObject.setResultDesc("维修单" + workOrderFixDetail.getOrderLineNo() + "完工成功！");
+            returnObject.setResultDesc("维修单已完工！");
         } else {
             returnObject.setResult(false);
-            returnObject.setResultDesc("维修单" + workOrderFixDetail.getOrderLineNo() + "完工失败！");
+            returnObject.setResultDesc("维修单完工失败！");
         }
         return returnObject;
     }
@@ -150,7 +149,7 @@ public class WorkOrderFixController {
         WorkOrderFixDetail workOrderFixDetail = workOrderFixDetailRepository.findById(fixId);
         ReturnObject returnObject = new ReturnObject();
         if (workOrderFixDetail.getStatus().equals("0")) {
-            workOrderFixService.pauseDetailBatch(fixId+"",fixDesc);
+            workOrderFixService.pauseDetailBatch(fixId + "", fixDesc);
             returnObject.setResult(true);
             returnObject.setResultDesc("维修单" + workOrderFixDetail.getOrderLineNo() + "暂停成功！");
         } else {
@@ -201,12 +200,10 @@ public class WorkOrderFixController {
         workOrderFix = workOrderFixRepository.save(workOrderFix);
         return workOrderFix;
     }*/
-
-
     @RequestMapping(value = "/pause", method = RequestMethod.POST)
     @ResponseBody
-    public  List<WorkOrderFixDetail> pause(@RequestParam Long fixId) {
-      List<WorkOrderFixDetail>  workOrderFixDetailList =  workOrderFixService.pauseDetailBatch(fixId+"","");
+    public List<WorkOrderFixDetail> pause(@RequestParam Long fixId) {
+        List<WorkOrderFixDetail> workOrderFixDetailList = workOrderFixService.pauseDetailBatch(fixId + "", "");
         return workOrderFixDetailList;
     }
 
@@ -259,7 +256,6 @@ public class WorkOrderFixController {
         List<WorkOrderFix> workOrderFixList = workOrderFixService.findFinishedOrders(location);
         return workOrderFixList;
     }
-
 
 
 }

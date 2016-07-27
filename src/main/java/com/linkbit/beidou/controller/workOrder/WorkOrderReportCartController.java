@@ -173,6 +173,18 @@ public class WorkOrderReportCartController {
 
 
     /**
+     * 显示所有的报修车列表信息
+     */
+    @RequestMapping(value = "/findMyCartSize", method = RequestMethod.GET)
+    @ResponseBody
+    public Long findMyCartSize(HttpSession httpSession) {
+        String personName = (String) httpSession.getAttribute("personName");
+        Long myCartSize = workOrderReportCartService.findMyCartSize(personName);
+        return myCartSize;
+    }
+
+
+    /**
      * 加载将要提交的报修车信息
      */
     @RequestMapping(value = "/loadDetailList", method = RequestMethod.GET)

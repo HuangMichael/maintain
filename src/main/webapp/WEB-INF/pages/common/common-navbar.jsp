@@ -66,6 +66,7 @@
         </div>
     </div>
 </div>
+<script src="js/jquery/jquery-2.0.3.min.js"></script>
 <script>
     function showUser() {
         var url = "/user/profile";
@@ -73,4 +74,37 @@
             $("#user_modal").modal("show");
         });
     }
+
+
+    $(function () {
+        $("#reportOrder").on("click", function () {
+            var num = $("#reportOrderSize").html();
+            var url = "/workOrderReportCart/findMyCart";
+            if (!isNaN(num)) {
+                url += "/" + num; //查询最近N条
+            } else {
+                return;
+            }
+            $.getJSON(url, function (data) {
+                var html = "";
+                for (var x = 0; x < data.length; x++) {
+                    html += "<li>";
+                    html += "<a javascript:void(0)>";
+                    html += '<span class="label label-success">' + (x + 1) + "</span>";
+                    html += '<span class="body">';
+                    html += '<span class="message">' + data[x]["vlocations"]["locName"] + "--" + data[x]["orderDesc"] + "</span>";
+                    html += '<span class="time">';
+                    html += "<span></span>";
+                    html += "</span>";
+                    html += "</span>";
+                    html += "</a>";
+                    html += " </li>"
+                }
+                $("#orderMsgCnt").html(data.length + "个报修信息");
+                $("#orderBox").html(html)
+            })
+        });
+    });
+
+
 </script>

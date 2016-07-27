@@ -206,8 +206,17 @@
             },
             series: seriesOptions
         });
-
+        loadReportCartNum();
     });
+
+
+    function loadReportCartNum() {
+        var url = "/workOrderReportCart/findMyCartSize";
+        $.getJSON(url, function (data) {
+            console.log(data);
+            $("#reportOrderSize").html(data);
+        })
+    }
 
     function get3MonthTitle() {
         $.ajaxSettings.async = false;

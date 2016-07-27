@@ -197,6 +197,14 @@ public class WorkOrderReportCartService extends BaseService {
         return workOrderReportCartRepository.findMyCart(personName);
     }
 
+    /**
+     * @param personName
+     * @return 查询我的购物车
+     */
+    public Long findMyCartSize(String personName) {
+        return workOrderReportCartRepository.findMyCartSize(personName);
+    }
+
 
     /**
      * @param id

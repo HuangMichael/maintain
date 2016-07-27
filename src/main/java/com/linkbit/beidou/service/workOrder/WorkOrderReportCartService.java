@@ -66,8 +66,9 @@ public class WorkOrderReportCartService extends BaseService {
         workOrderReportCart.setLocations(equipments.getLocations());
         workOrderReportCart.setLocation(equipments.getLocations().getLocation());
         workOrderReportCart.setEquipmentsClassification(equipments.getEquipmentsClassification());
-        workOrderReportCart.setOrderDesc("");
+        workOrderReportCart.setOrderDesc(equipments.getEquipmentsClassification().getDescription()+"报修");
         workOrderReportCart.setReporter(userName);
+        workOrderReportCart.setCreator(userName);
         workOrderReportCart.setReportTime(new Date());
         workOrderReportCart.setReportType(CommonStatusType.REPORT_BY_EQ);  //报修类型为设备报修
         workOrderReportCart.setStatus(CommonStatusType.CART_CREATED);

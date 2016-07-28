@@ -176,39 +176,85 @@
         }
         seriesOptions.push(option0);
         seriesOptions.push(option1);
+        /*$('#highcharts0').highcharts({
+         chart: {
+         type: 'column'
+         },
+
+         exporting: {
+         enabled: false
+         },
+         title: {
+         text: '最近3个月报修完成率统计'
+         },
+         subtitle: {
+         text: get3MonthTitle()
+         },
+         plotOptions: {
+         column: {
+         depth: 25
+         }
+         },
+         xAxis: {
+         categories: get3MonthTitle()
+         },
+         yAxis: {
+         min: 0,
+         title: {
+         text: '工单数量(单位:个)'
+         }
+         },
+         series: seriesOptions
+         });*/
+        //loadReportCartNum();
+
+
         $('#highcharts0').highcharts({
             chart: {
                 type: 'column'
             },
-
-            exporting: {
-                enabled: false
-            },
             title: {
-                text: '最近3个月报修完成率统计'
-            },
-            subtitle: {
-                text: get3MonthTitle()
-            },
-            plotOptions: {
-                column: {
-                    depth: 25
-                }
+                text: '近期三月报修完工率统计分析'
             },
             xAxis: {
-                categories: get3MonthTitle()
+                categories: [
+                    '5月',
+                    '6月',
+                    '7月'
+                ],
+                crosshair: true
             },
             yAxis: {
                 min: 0,
                 title: {
-                    text: '工单数量(单位:个)'
+                    text: '(单位:单)'
                 }
             },
-            series: seriesOptions
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y}单</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: '报修',
+                data: [49, 71, 106]
+            }, {
+                name: '完工',
+                data: [83, 78, 98]
+            }]
         });
-        loadReportCartNum();
-    });
 
+
+    });
 
     function loadReportCartNum() {
         var url = "/workOrderReportCart/findMyCartSize";

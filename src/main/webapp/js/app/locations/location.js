@@ -228,8 +228,6 @@ function deleteObject() {
     var id = selectedNode.id;
     var url = "/location/delete/" + id;
     $.getJSON(url, function (data) {
-
-        console.log("data.result---" + data.result);
         if (data.result) {
             var zTree = $.fn.zTree.getZTreeObj("tree");
             zTree.removeNode(zTree.getSelectedNodes()[0]);
@@ -323,6 +321,11 @@ function add2LocCart() {
     var reporter = $("#reporter").val();
     var creator = $("#creator").val();
     var eqClassId = $("#equipmentsClassification_id").val();
+
+    if (!nodeId) {
+        showMessageBox("danger", "请选中报修位置!");
+        return;
+    }
 
     if (!orderDesc) {
         showMessageBox("danger", "请输入报修故障描述!");

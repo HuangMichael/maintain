@@ -46,10 +46,10 @@ public class PortalController {
     }
 
 
-    @RequestMapping(value = "/findTopEqClass/{n}", method = RequestMethod.GET)
+    @RequestMapping(value = "/findTopEqClass", method = RequestMethod.GET)
     @ResponseBody
-    public List<Object> findTopNReportCartByEqClass(@PathVariable("n") Long n) {
-        return workOrderReportCartService.findTopNReportCartByEqClass(n);
+    public List<Object> findTopNReportCartByEqClass() {
+        return workOrderReportCartService.findTopNReportCartByEqClass();
     }
 
 

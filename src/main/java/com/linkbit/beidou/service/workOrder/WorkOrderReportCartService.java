@@ -264,8 +264,8 @@ public class WorkOrderReportCartService extends BaseService {
     /**
      * @return 查询当月报修的设备分类的前5
      */
-    public List<Object> findTopNReportCartByEqClass(Long n) {
-        return workOrderReportCartRepository.findTopNReportCartByEqClass(n);
+    public List<Object> findTopNReportCartByEqClass() {
+        return workOrderReportCartRepository.findTopNReportCartByEqClass();
     }
 
 

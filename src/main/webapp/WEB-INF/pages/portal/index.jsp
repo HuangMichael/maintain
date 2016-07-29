@@ -126,7 +126,7 @@
 
         //ajax 请求当月设备分类前5
         var chart2Data = [];
-        $.getJSON("/portal/findTopEqClass/5", function (data) {
+        $.getJSON("/portal/findTopEqClass", function (data) {
             chart2Data = data;
         });
 
@@ -176,7 +176,7 @@
         }
         seriesOptions.push(option0);
         seriesOptions.push(option1);
-        /*$('#highcharts0').highcharts({
+        $('#highcharts0').highcharts({
          chart: {
          type: 'column'
          },
@@ -205,53 +205,10 @@
          }
          },
          series: seriesOptions
-         });*/
-        //loadReportCartNum();
+         });
+        loadReportCartNum();
 
 
-        $('#highcharts0').highcharts({
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: '近期三月报修完工率统计分析'
-            },
-            xAxis: {
-                categories: [
-                    '5月',
-                    '6月',
-                    '7月'
-                ],
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: '(单位:单)'
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y}单</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            series: [{
-                name: '报修',
-                data: [49, 71, 106]
-            }, {
-                name: '完工',
-                data: [83, 78, 98]
-            }]
-        });
 
 
     });
@@ -267,12 +224,14 @@
     function get3MonthTitle() {
         $.ajaxSettings.async = false;
         var url = "/portal/getLastNMonth/3";
-        var title = [];
-        $.getJSON(url, function (data) {
+        var title = ['5','6','7'];
+        /*$.getJSON(url, function (data) {
             for (var x in data) {
                 title[2 - x] = data[x];
             }
-        });
+
+            title = data[x];
+        });*/
         return title;
     }
 

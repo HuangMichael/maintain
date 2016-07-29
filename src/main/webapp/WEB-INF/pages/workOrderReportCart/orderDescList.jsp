@@ -37,9 +37,7 @@
      * @param orderDesc 故障描述内容
      */
     function changeContent(id) {
-
         var orderDesc = $("#orderDesc" + id).val();
-        console.log("修改后orderDesc-------------" + orderDesc);
         if (!orderDesc) {
             showMessageBox("danger", "故障描述不能为空,请输入故障描述 !");
             return;

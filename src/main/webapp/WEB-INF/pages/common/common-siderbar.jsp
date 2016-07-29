@@ -3,15 +3,15 @@
     <div class="sidebar-menu nav-collapse">
         <div class="divide-20"></div>
         <ul>
-            <%--  <li class="has-sub">
-                  <a data-url="javascript:;" class="">
-                      <i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">主页信息</span>
-                      <span class="arrow"></span>
-                  </a>
-                  <ul class="sub">
-                      <li><a class="" data-url="/portal/list"><span class="sub-menu-text">我的门户</span></a></li>
-                  </ul>
-              </li>--%>
+            <li class="has-sub">
+                <a data-url="javascript:;" class="">
+                    <i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">统计分析</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub">
+                    <li><a class="" href="/portal/index"><span class="sub-menu-text">我的门户</span></a></li>
+                </ul>
+            </li>
             <li class="has-sub">
                 <a data-url="javascript:;" class="">
                     <i class="fa fa-bookmark-o fa-fw"></i> <span class="menu-text">用户管理</span>
@@ -46,7 +46,8 @@
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub">
-                    <li><a class="" data-url="/workOrderReportCart/list"><span class="sub-menu-text">报修车信息</span></a></li>
+                    <li><a class="" data-url="/workOrderReportCart/list"><span class="sub-menu-text">报修车信息</span></a>
+                    </li>
                     <li><a class="" data-url="/workOrderReport/list"><span class="sub-menu-text">报修单查询</span></a></li>
                     <li><a class="" data-url="/workOrderDispatch/list"><span class="sub-menu-text">调度台信息</span></a></li>
                     <li><a class="" data-url="/workOrderFix/list"><span class="sub-menu-text">维修单查询</span></a></li>

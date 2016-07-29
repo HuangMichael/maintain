@@ -224,7 +224,11 @@
     function get3MonthTitle() {
         /*        $.ajaxSettings.async = false;
          var url = "/portal/getLastNMonth/3";*/
-        var title = ["7月", "6月", "5月"];
+        var title = [];
+        var date = new Date();
+        title.push((date.getMonth() + 1) + "月");
+        title.push(date.getMonth() + "月");
+        title.push((date.getMonth() - 1) + "月");
         return title;
     }
 

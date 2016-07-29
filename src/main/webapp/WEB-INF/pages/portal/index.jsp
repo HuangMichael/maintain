@@ -136,7 +136,7 @@
                 type: 'pie'
             },
             title: {
-                text: '7月报修单统计'
+                text: (new Date().getMonth() + 1) + '月报修单统计'
             },
             plotOptions: {
                 series: {
@@ -176,39 +176,39 @@
         }
         seriesOptions.push(option0);
         seriesOptions.push(option1);
+
+
         $('#highcharts0').highcharts({
-         chart: {
-         type: 'column'
-         },
+            chart: {
+                type: 'column'
+            },
 
-         exporting: {
-         enabled: false
-         },
-         title: {
-         text: '最近3个月报修完成率统计'
-         },
-         subtitle: {
-         text: get3MonthTitle()
-         },
-         plotOptions: {
-         column: {
-         depth: 25
-         }
-         },
-         xAxis: {
-         categories: get3MonthTitle()
-         },
-         yAxis: {
-         min: 0,
-         title: {
-         text: '工单数量(单位:个)'
-         }
-         },
-         series: seriesOptions
-         });
+            exporting: {
+                enabled: false
+            },
+            title: {
+                text: '最近3个月报修完成率统计'
+            },
+            subtitle: {
+                text: get3MonthTitle()
+            },
+            plotOptions: {
+                column: {
+                    depth: 25
+                }
+            },
+            xAxis: {
+                categories: get3MonthTitle()
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: '工单数量(单位:个)'
+                }
+            },
+            series: seriesOptions
+        });
         loadReportCartNum();
-
-
 
 
     });
@@ -222,16 +222,9 @@
     }
 
     function get3MonthTitle() {
-        $.ajaxSettings.async = false;
-        var url = "/portal/getLastNMonth/3";
-        var title = ['5','6','7'];
-        /*$.getJSON(url, function (data) {
-            for (var x in data) {
-                title[2 - x] = data[x];
-            }
-
-            title = data[x];
-        });*/
+        /*        $.ajaxSettings.async = false;
+         var url = "/portal/getLastNMonth/3";*/
+        var title = ["7月", "6月", "5月"];
         return title;
     }
 
@@ -241,9 +234,11 @@
         var url = "/workOrderReport/sel3mRptNum";
         var reportNums = [];
         $.getJSON(url, function (data) {
-            for (var x in data) {
-                if (data[x]["reportNum"]) {
-                    reportNums[x] = data[x]["reportNum"];
+            for (var x = 0; x < 3; x++) {
+                if (!isNaN(data[x]["reportNum"]) && data[x]["reportNum"]) {
+                    reportNums.push(data[x]["reportNum"]);
+                } else {
+                    reportNums.push(0);
                 }
             }
         });
@@ -255,9 +250,12 @@
         var url = "/workOrderReport/sel3mFinishNum";
         var finishNums = [];
         $.getJSON(url, function (data) {
-            for (var x in data) {
-                if (data[x]["finishNum"]) {
-                    finishNums[x] = data[x]["finishNum"];
+            for (var x = 0; x < 3; x++) {
+                console.log("get3MonthFinishNum----------------" + x);
+                if (!isNaN(data[x]["finishNum"]) && data[x]["finishNum"]) {
+                    finishNums.push(data[x]["finishNum"]);
+                } else {
+                    finishNums.push(0);
                 }
             }
         });

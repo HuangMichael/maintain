@@ -136,7 +136,7 @@
                 type: 'pie'
             },
             title: {
-                text: '报修单按报修前5设备种类统计'
+                text: '7月报修单统计'
             },
             plotOptions: {
                 series: {

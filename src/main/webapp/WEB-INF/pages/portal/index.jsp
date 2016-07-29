@@ -149,11 +149,9 @@
             exporting: {
                 enabled: false
             },
-
-
             tooltip: {
                 headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b>'
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>报修: <b>{point.y}</b>单/共<b>{point.total}</b>单<b>/占比:{point.percentage:.1f}%</b>'
             },
             series: [{
                 name: '报修数量',
@@ -189,9 +187,9 @@
             title: {
                 text: '最近3个月报修完成率统计'
             },
-            subtitle: {
+        /*    subtitle: {
                 text: get3MonthTitle()
-            },
+            },*/
             plotOptions: {
                 column: {
                     depth: 25
@@ -222,8 +220,6 @@
     }
 
     function get3MonthTitle() {
-        /*        $.ajaxSettings.async = false;
-         var url = "/portal/getLastNMonth/3";*/
         var title = [];
         var date = new Date();
         title.push((date.getMonth() + 1) + "月");
@@ -255,7 +251,6 @@
         var finishNums = [];
         $.getJSON(url, function (data) {
             for (var x = 0; x < 3; x++) {
-                console.log("get3MonthFinishNum----------------" + x);
                 if (!isNaN(data[x]["finishNum"]) && data[x]["finishNum"]) {
                     finishNums.push(data[x]["finishNum"]);
                 } else {

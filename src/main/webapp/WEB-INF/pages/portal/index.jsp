@@ -222,9 +222,11 @@
     function get3MonthTitle() {
         var title = [];
         var date = new Date();
-        title.push((date.getMonth() + 1) + "月");
-        title.push(date.getMonth() + "月");
         title.push((date.getMonth() - 1) + "月");
+        title.push(date.getMonth() + "月");
+        title.push((date.getMonth() + 1) + "月");
+
+        console.log("title------"+JSON.stringify(title));
         return title;
     }
 

@@ -19,7 +19,7 @@
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">取消
         </button>
-        <button type="submit" id="saveFixDesc" name="saveFixDesc" class="btn btn-primary btn-danger">确认
+        <button type="button" id="saveFixDesc" name="saveFixDesc" class="btn btn-primary btn-danger">确认
         </button>
     </div>
 </form>

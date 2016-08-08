@@ -16,6 +16,7 @@ $(document).ready(function () {
         }
     });
 
+/*
     $('#fixDescForm')
         .bootstrapValidator({
             message: '该值无效 ',
@@ -38,15 +39,26 @@ $(document).ready(function () {
         // Prevent form submission
         e.preventDefault();
         // Get the form instance
+
+
+    });
+*/
+
+
+    $("#saveFixDesc").on("click", function () {
         var orderId = $("#orderId").val();
         var operationType = $("#operationType").val();
         var operationDesc = $("#operationDesc").val();
         var fixDesc = $("#fixDesc").val();
+
+        if (!fixDesc) {
+            $("#fixDesc").css("border", "red dashed 1px");
+            showMessageBox("danger", " 请输入维修描述");
+            return;
+        }
         dealResultDetail(orderId, operationType, operationDesc, fixDesc);
 
     });
-
-
     $("#myTab a").on("click", function (e) {
         e.preventDefault();
         preview(1);

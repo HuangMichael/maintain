@@ -58,7 +58,7 @@
                         <form role="form" id="loginForm" name="loginForm" method="post" action="/login">
                             <div class="form-group">
                                 <label for="userName">用户名</label>
-                                <i class="fa fa-envelope"></i>
+                                <i class="fa fa-user"></i>
                                 <input type="text" class="form-control" id="userName" name="userName" required>
 
                                 <div id="msg0" class="divide-10"></div>

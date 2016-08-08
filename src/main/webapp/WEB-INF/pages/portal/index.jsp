@@ -225,8 +225,6 @@
         title.push((date.getMonth() - 1) + "月");
         title.push(date.getMonth() + "月");
         title.push((date.getMonth() + 1) + "月");
-
-        console.log("title------"+JSON.stringify(title));
         return title;
     }
 

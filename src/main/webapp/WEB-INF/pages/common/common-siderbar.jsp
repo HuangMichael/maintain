@@ -14,7 +14,7 @@
             </li>
             <li class="has-sub">
                 <a data-url="javascript:;">
-                    <i class="fa fa-bookmark-o fa-fw"></i> <span class="menu-text">用户管理</span>
+                    <i class="fa fa-group fa-fw"></i> <span class="menu-text">用户管理</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub">

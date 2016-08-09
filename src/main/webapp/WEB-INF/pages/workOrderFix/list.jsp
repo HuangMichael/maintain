@@ -22,11 +22,16 @@
                                     <div class="tabbable">
                                         <ul class="nav nav-tabs" id="myTab">
                                             <li class="active"><a href="#tab_1_0" data-toggle="tab">
-                                                <i class="fa fa-home" id="eq"></i>维修单查询</a>
+                                                <i class="fa fa-user" id="eq"></i>已派工</a>
                                             </li>
-
-                                            <li><a href="#pdf_view" data-toggle="tab">
-                                                <i class="fa fa-flag" id="pdf-preview"></i>维修单预览</a>
+                                            <li><a href="#tab_1_1" data-toggle="tab">
+                                                <i class="fa fa-home" id="eq1"></i>已完工</a>
+                                            </li>
+                                            <li><a href="#tab_1_2" data-toggle="tab">
+                                                <i class="fa  fa-caret-square-o-right" id="eq2"></i>已暂停</a>
+                                            </li>
+                                            <li><a href="#tab_1_3" data-toggle="tab">
+                                                <i class="fa  fa-remove" id="eq3"></i>已取消</a>
                                             </li>
                                         </ul>
                                         <div class="tab-content">
@@ -55,7 +60,62 @@
                                                     </thead>
                                                     <tbody>
 
-                                                    <c:forEach items="${workOrderFixDetailListList}" var="d" varStatus="ds">
+                                                    <c:forEach items="${workOrderFixDetailListList0}" var="d"
+                                                               varStatus="ds">
+                                                        <tr style="display: none;" id="tr-${d.id}">
+                                                            <td>${ds.index+1}</td>
+                                                            <td>${d.id}</td>
+                                                            <td>${d.orderLineNo}</td>
+                                                            <td>${d.vlocations.locName}</td>
+                                                            <td>${d.equipments.description}</td>
+                                                            <td>${d.orderDesc}</td>
+                                                            <td>${d.equipmentsClassification.description}</td>
+                                                            <td>
+                                                                <c:if test="${d.status=='0'}">
+                                                                    <span class="badge badge-info">已派工</span>
+                                                                </c:if>
+                                                                <c:if test="${d.status=='1'}">
+                                                                    <span class="badge badge-success">已完工</span>
+                                                                </c:if>
+                                                                <c:if test="${d.status=='2'}">
+                                                                    <span class="badge badge-important">已暂停</span>
+                                                                </c:if>
+                                                                <c:if test="${d.status=='3'}">
+                                                                    <span class="badge badge-important"> 已取消</span>
+                                                                </c:if>
+                                                            </td>
+                                                            <td>${d.fixDesc}</td>
+                                                            <td><fmt:formatDate value="${d.reportTime}"
+                                                                                pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                                                        </tr>
+                                                    </c:forEach>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="tab-pane fade in " id="tab_1_1">
+                                                <table id="fixListTable1"
+                                                       class="table table-striped table-bordered table-hover  table-responsive">
+                                                    <thead>
+                                                    <tr>
+                                                        <th data-column-id="index" width="5%">序号</th>
+                                                        <th data-column-id="id" data-visible="false" width="10%">跟踪号
+                                                        </th>
+                                                        <th data-column-id="orderLineNo" width="10%">跟踪号</th>
+                                                        <th data-column-id="location" width="30%">设备位置</th>
+                                                        <th data-column-id="eqName" width="10%">设备名称</th>
+                                                        <th data-column-id="eqDesc" width="15%">故障描述</th>
+                                                        <th data-column-id="eqClass" width="10%">设备分类</th>
+                                                        <th data-column-id="status" width="5%">设备状态</th>
+                                                        <th data-column-id="fixDesc" style="height:20px" width="20%">
+                                                            维修描述
+                                                        </th>
+                                                        <th data-column-id="reportTime" width="5%">处理时间</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    <c:forEach items="${workOrderFixDetailListList1}" var="d"
+                                                               varStatus="ds">
                                                         <tr style="display: none;" id="tr-${d.id}">
                                                             <td>${ds.index+1}</td>
                                                             <td>${d.id}</td>
@@ -69,24 +129,137 @@
                                                                     <span class="badge badge-info">已分配</span>
                                                                 </c:if>
                                                                 <c:if test="${d.status=='1'}">
-                                                                    <span class="badge badge-success" >已完工</span>
+                                                                    <span class="badge badge-success">已完工</span>
                                                                 </c:if>
                                                                 <c:if test="${d.status=='2'}">
-                                                                        <span class="badge badge-important">已暂停</span>
+                                                                    <span class="badge badge-important">已暂停</span>
                                                                 </c:if>
                                                                 <c:if test="${d.status=='3'}">
-                                                                        <span class="badge badge-important"> 已取消</span>
+                                                                    <span class="badge badge-important"> 已取消</span>
                                                                 </c:if>
                                                             </td>
                                                             <td>${d.fixDesc}</td>
-                                                            <td><fmt:formatDate value="${d.reportTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                                                            <td><fmt:formatDate value="${d.reportTime}"
+                                                                                pattern="yyyy-MM-dd HH:mm:ss"/></td>
                                                         </tr>
                                                     </c:forEach>
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <div class="tab-pane fade" id="pdf_view">
+                                            <div class="tab-pane fade in" id="tab_1_2">
+                                                <table id="fixListTable2"
+                                                       class="table table-striped table-bordered table-hover  table-responsive">
+                                                    <thead>
+                                                    <tr>
+                                                        <th data-column-id="index" width="5%">序号</th>
+                                                        <th data-column-id="id" data-visible="false" width="10%">跟踪号
+                                                        </th>
+                                                        <th data-column-id="orderLineNo" width="10%">跟踪号</th>
+                                                        <th data-column-id="location" width="30%">设备位置</th>
+                                                        <th data-column-id="eqName" width="10%">设备名称</th>
+                                                        <th data-column-id="eqDesc" width="15%">故障描述</th>
+                                                        <th data-column-id="eqClass" width="10%">设备分类</th>
+                                                        <th data-column-id="status" width="5%">设备状态</th>
+                                                        <th data-column-id="fixDesc" style="height:20px" width="20%">
+                                                            维修描述
+                                                        </th>
+                                                        <th data-column-id="reportTime" width="5%">处理时间</th>
+                                                        <th data-column-id="opMenus" data-formatter="opMenus"
+                                                            data-sortable="false" width="5%">恢复&nbsp;取消&nbsp;完工
+                                                        </th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    <c:forEach items="${workOrderFixDetailListList2}" var="d"
+                                                               varStatus="ds">
+                                                        <tr style="display: none;" id="tr-${d.id}">
+                                                            <td>${ds.index+1}</td>
+                                                            <td>${d.id}</td>
+                                                            <td>${d.orderLineNo}</td>
+                                                            <td>${d.vlocations.locName}</td>
+                                                            <td>${d.equipments.description}</td>
+                                                            <td>${d.orderDesc}</td>
+                                                            <td>${d.equipmentsClassification.description}</td>
+                                                            <td>
+                                                                <c:if test="${d.status=='0'}">
+                                                                    <span class="badge badge-info">已分配</span>
+                                                                </c:if>
+                                                                <c:if test="${d.status=='1'}">
+                                                                    <span class="badge badge-success">已完工</span>
+                                                                </c:if>
+                                                                <c:if test="${d.status=='2'}">
+                                                                    <span class="badge badge-important">已暂停</span>
+                                                                </c:if>
+                                                                <c:if test="${d.status=='3'}">
+                                                                    <span class="badge badge-important"> 已取消</span>
+                                                                </c:if>
+                                                            </td>
+                                                            <td>${d.fixDesc}</td>
+                                                            <td><fmt:formatDate value="${d.reportTime}"
+                                                                                pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                                                        </tr>
+                                                    </c:forEach>
+                                                    </tbody>
+                                                </table>
                                             </div>
+                                            <div class="tab-pane fade in " id="tab_1_3">
+                                                <table id="fixListTable3"
+                                                       class="table table-striped table-bordered table-hover  table-responsive">
+                                                    <thead>
+                                                    <tr>
+                                                        <th data-column-id="index" width="5%">序号</th>
+                                                        <th data-column-id="id" data-visible="false" width="10%">跟踪号
+                                                        </th>
+                                                        <th data-column-id="orderLineNo" width="10%">跟踪号</th>
+                                                        <th data-column-id="location" width="30%">设备位置</th>
+                                                        <th data-column-id="eqName" width="10%">设备名称</th>
+                                                        <th data-column-id="eqDesc" width="15%">故障描述</th>
+                                                        <th data-column-id="eqClass" width="10%">设备分类</th>
+                                                        <th data-column-id="status" width="5%">设备状态</th>
+                                                        <th data-column-id="fixDesc" style="height:20px" width="20%">
+                                                            维修描述
+                                                        </th>
+                                                        <th data-column-id="reportTime" width="5%">处理时间</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    <c:forEach items="${workOrderFixDetailListList3}" var="d"
+                                                               varStatus="ds">
+                                                        <tr style="display: none;" id="tr-${d.id}">
+                                                            <td>${ds.index+1}</td>
+                                                            <td>${d.id}</td>
+                                                            <td>${d.orderLineNo}</td>
+                                                            <td>${d.vlocations.locName}</td>
+                                                            <td>${d.equipments.description}</td>
+                                                            <td>${d.orderDesc}</td>
+                                                            <td>${d.equipmentsClassification.description}</td>
+                                                            <td>
+                                                                <c:if test="${d.status=='0'}">
+                                                                    <span class="badge badge-info">已分配</span>
+                                                                </c:if>
+                                                                <c:if test="${d.status=='1'}">
+                                                                    <span class="badge badge-success">已完工</span>
+                                                                </c:if>
+                                                                <c:if test="${d.status=='2'}">
+                                                                    <span class="badge badge-important">已暂停</span>
+                                                                </c:if>
+                                                                <c:if test="${d.status=='3'}">
+                                                                    <span class="badge badge-important"> 已取消</span>
+                                                                </c:if>
+                                                            </td>
+                                                            <td>${d.fixDesc}</td>
+                                                            <td><fmt:formatDate value="${d.reportTime}"
+                                                                                pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                                                        </tr>
+                                                    </c:forEach>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <%-- <div class="tab-pane fade" id="pdf_view">
+                                             </div>--%>
                                         </div>
                                     </div>
                                 </div>

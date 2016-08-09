@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import javax.persistence.OrderBy;
 import java.util.List;
 
 /**
@@ -17,7 +18,12 @@ public interface WorkOrderFixDetailRepository extends CrudRepository<WorkOrderFi
 
     WorkOrderFixDetail save(WorkOrderFixDetail workOrderFixDetail);
 
+    @OrderBy("reportTime desc")
     List<WorkOrderFixDetail> findByStatus(String status);
+
+
+    @OrderBy("reportTime desc")
+    List<WorkOrderFixDetail> findByStatusAndLocationStartingWith(String status, String location);
 
     WorkOrderFixDetail findById(Long id);
 

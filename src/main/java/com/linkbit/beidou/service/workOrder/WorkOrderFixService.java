@@ -288,4 +288,33 @@ public class WorkOrderFixService extends BaseService {
             }
         }
     }
+
+
+    /**
+     * @return 查询已派工的维修单
+     */
+    public List<WorkOrderFixDetail> findDistributedOrders(String location) {
+        return workOrderFixDetailRepository.findByStatusAndLocationStartingWith("0",location);
+    }
+
+    /**
+     * @return 查询已完工的维修单
+     */
+    public List<WorkOrderFixDetail> findFinishOrders(String location) {
+        return workOrderFixDetailRepository.findByStatusAndLocationStartingWith("1",location);
+    }
+
+    /**
+     * @return 查询已暂停的维修单
+     */
+    public List<WorkOrderFixDetail> findPausedOrders(String location) {
+        return workOrderFixDetailRepository.findByStatusAndLocationStartingWith("2",location);
+    }
+
+    /**
+     * @return 查询已取消的维修单
+     */
+    public List<WorkOrderFixDetail> findRemovedOrders(String location) {
+        return workOrderFixDetailRepository.findByStatusAndLocationStartingWith("3",location);
+    }
 }

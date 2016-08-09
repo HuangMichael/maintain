@@ -16,33 +16,51 @@ $(document).ready(function () {
         }
     });
 
-/*
-    $('#fixDescForm')
-        .bootstrapValidator({
-            message: '该值无效 ',
-            fields: {
-                "fixDesc": {
-                    message: '维修描述无效',
-                    validators: {
-                        notEmpty: {
-                            message: '维修描述不能为空!'
-                        },
-                        stringLength: {
-                            min: 1,
-                            max: 200,
-                            message: '维修描述为1到200个字符'
-                        }
-                    }
-                }
+    $('#fixListTable1').bootgrid();
+
+    $('#fixListTable2').bootgrid({
+        formatters: {
+
+            /*     "fixDesc": function (column, row) {
+             return '<input id="fixDesc' + row.id + '" type="text" style="height: 25px">'
+             },*/
+            "opMenus": function (column, row) {
+                return '<a class="btn btn-default btn-xs"  onclick="pause(' + row.id + ')" title="恢复" ><i class="glyphicon glyphicon-pause"></i></a>' +
+                    '<a class="btn btn-default btn-xs"  onclick="abort(' + row.id + ')" title="取消" ><i class="glyphicon glyphicon glyphicon-remove-circle"></i></a>' +
+                    '<a class="btn btn-default btn-xs"  onclick="finish(' + row.id + ')" title="完工" ><i class="glyphicon glyphicon glyphicon-ok"></i></a>'
             }
-        }).on('success.form.bv', function (e) {
-        // Prevent form submission
-        e.preventDefault();
-        // Get the form instance
-
-
+        }
     });
-*/
+
+    $('#fixListTable3').bootgrid();
+
+    /*
+     $('#fixDescForm')
+     .bootstrapValidator({
+     message: '该值无效 ',
+     fields: {
+     "fixDesc": {
+     message: '维修描述无效',
+     validators: {
+     notEmpty: {
+     message: '维修描述不能为空!'
+     },
+     stringLength: {
+     min: 1,
+     max: 200,
+     message: '维修描述为1到200个字符'
+     }
+     }
+     }
+     }
+     }).on('success.form.bv', function (e) {
+     // Prevent form submission
+     e.preventDefault();
+     // Get the form instance
+
+
+     });
+     */
 
 
     $("#saveFixDesc").on("click", function () {

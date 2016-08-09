@@ -69,8 +69,16 @@ public class WorkOrderFixController {
         User user = SessionUtil.getCurrentUserBySession(session);
         String location = user.getLocation();
         //过滤显示当前用户location数据 找出不完工的单子
-        List<WorkOrderFixDetail> workOrderFixDetailListList = workOrderFixDetailRepository.findByLocationStartingWithOrderByReportTimeDesc(location);
-        modelMap.put("workOrderFixDetailListList", workOrderFixDetailListList);
+
+        List<WorkOrderFixDetail> workOrderFixDetailListList0 = workOrderFixService.findDistributedOrders(location);
+        List<WorkOrderFixDetail> workOrderFixDetailListList1 = workOrderFixService.findFinishOrders(location);
+        List<WorkOrderFixDetail> workOrderFixDetailListList2 = workOrderFixService.findPausedOrders(location);
+        List<WorkOrderFixDetail> workOrderFixDetailListList3 = workOrderFixService.findRemovedOrders(location);
+        modelMap.put("workOrderFixDetailListList0", workOrderFixDetailListList0);
+        modelMap.put("workOrderFixDetailListList1", workOrderFixDetailListList1);
+        modelMap.put("workOrderFixDetailListList2", workOrderFixDetailListList2);
+        modelMap.put("workOrderFixDetailListList3", workOrderFixDetailListList3);
+        //查询出已派工的维修单
         return "/workOrderFix/list";
     }
 
@@ -147,7 +155,7 @@ public class WorkOrderFixController {
     @ResponseBody
     public ReturnObject pauseDetail(@RequestParam Long fixId, @RequestParam String fixDesc) {
 
-        System.out.println("fixDesc--------------------"+fixDesc);
+        System.out.println("fixDesc--------------------" + fixDesc);
         WorkOrderFixDetail workOrderFixDetail = workOrderFixDetailRepository.findById(fixId);
         ReturnObject returnObject = new ReturnObject();
         if (workOrderFixDetail.getStatus().equals("0")) {
